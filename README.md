@@ -18,5 +18,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 
+/*
+## EMI Website introduction
 
-# EMI
+Click E-learning Logo go to the Home page.
+*/
