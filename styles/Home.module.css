@@ -1,0 +1,1278 @@
+
+.main {
+  display:inline-block;
+  width: 100%;
+  height: 100%;
+  background-color:#ffffff; 
+}
+
+.Features_button{
+  width: 2em;
+  height: 30px;
+  display: inline-block;
+  cursor: pointer;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+
+  color: rgba(255,255,255,1);
+  border: none;
+  background-color: rgba(87, 196, 157, 1);
+
+  margin-top: 0.4em;
+}
+
+.layerbutton{
+  width: 2em;
+  height: 30px;
+  display: inline-block;
+  cursor: pointer;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+
+  color: rgba(255,255,255,1);
+  border: none;
+  background-color: rgba(87, 196, 157, 1);
+
+  margin-top: 0.6em;
+}
+
+.ul {
+  /* 取消ul預設的內縮及樣式 */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.Layerout {
+  width: 100%;
+  height: 80px;
+  display: inline-block;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 13px;
+  background-color: rgba(87, 196, 157, 1);
+}
+
+ul.Layerout li {
+   /* display: inline-block;*/
+  position: relative;
+  white-space: nowrap;
+  list-style: none;
+}
+
+ul.Layerout>li {
+  float: left;  /* 只有第一層是靠左對齊*/
+  margin-right: 7%;
+  margin-top: 20px;
+}
+
+ul.Layerout ul {
+  display: none;  /*隱藏次選單*/
+  
+  font-size: 20px;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+
+  color: rgba(255,255,255,1);
+  background-color: rgba(87, 196, 157, 1);
+  border: 2.5px solid #a9c4df;
+  border-radius: 10px;
+
+  position: absolute;
+  z-index: 99;
+  left: -1px;
+  top: 100%;
+  min-width: 180px;
+  width: 300px;
+
+  margin-top: 1.2em;
+}
+
+ul.Layerout ul li {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  line-height: 1.5em;
+}
+
+ul.Layerout ul li:hover {
+  /* 滑鼠滑入字體變黑*/
+  color: rgba(0, 0, 0, 1);
+  text-decoration: underline;
+}
+
+.login_button{
+  width: 183px;
+  height: 60px;
+  cursor: pointer;
+
+  text-align: center;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+
+  color: rgba(0,0,0,1);
+  border: none;
+  border-radius: 30px;
+  background-color: rgba(255, 193, 7, 1);
+
+  padding-top: 1px;
+  margin-top: -8px;
+}
+
+.login_button:hover{
+  transform: scale(1.05); /*將元素放大1.05倍*/
+}
+
+.introduction
+{
+  font-size: 23px;
+  font-weight: 600;
+  font-family: '微軟正黑體', Arial;
+  line-height: 2em;
+  color: rgba(0, 0, 0, 0.5);
+
+}
+
+.Elearning{
+  font-size: 3em;
+  font-weight: 900;
+  font-family: '微軟正黑體', Arial;
+}
+
+.introduction_content{
+  font-size: 16px;
+  font-weight: 600;
+  font-family: '微軟正黑體', Arial;
+  line-height: 2em;
+  color: rgba(0, 0, 0, 1);
+}
+
+.View_more{
+  width: 300px;
+  height: 50px;
+  cursor: pointer;
+
+  padding-top: 1px;
+  text-align: center;
+  font-size: 18px;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  color: rgba(255,255,255,1);
+
+  border: none;
+  border-radius: 30px;
+  background-color: rgba(87, 196, 157, 1);
+
+  margin-top: 0.6em;
+}
+
+.View_more:hover{
+  transform: scale(1.05); /*將元素放大1.05倍*/
+
+}
+
+.Bpartword{
+  text-align: center;
+  font-family: 'Poppins', Arial,'微軟正黑體';
+}
+
+.Bpartword_title{
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 3em;
+}
+
+.fivefeatures_introduce{
+  font-size: 17px;
+  color: rgba(128,128,128,1);
+  margin-bottom: 1em;
+}
+
+.grid{
+  display: flex;
+  justify-content: center;  
+  width: 100%;
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 28%);
+  width: var(--max-width);
+  max-width: 100%;
+  gap: 3em;
+  margin-left: 3%;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 33%);
+  width: var(--max-width);
+  max-width: 100%;
+  gap: 3em;
+  margin-left: 20em;
+}
+
+.Information{
+  display:inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+/*  margin-left: 7%;*/
+  font-family: Arial;
+  text-align: center;
+  line-height: 1.5em;
+  background-color:rgba(255,251,240,1);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+.Information:hover{
+  transform: scale(1.01);
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.8);
+}
+
+
+.AboutUs{
+  height: 600px;
+  background-color:rgba(255,251,240,1);
+  text-align: center;
+  font-family: Arial;
+  margin-top: 3em;
+}
+
+.AboutUsTitle{
+  font-size: 30px;
+  font-weight:bold;
+  line-height: 3em;
+  padding-top: 1em;
+}
+
+.AboutUsContent{
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 2.6em;
+}
+
+.Cpart{
+  display: flex;
+  justify-content: center;  
+  width: 100%;
+}
+
+.Cpart_word{
+  width: 65%;
+  height: 10em; 
+  font-size: 20px;
+  font-weight: 600;
+  font-family: Arial, 微軟正黑體;
+  text-align: center;
+  line-height: 2em;
+
+  color: rgb(255,255,255);
+  background-color: rgba(87,196,157,1);
+  border-radius: 20px;
+
+  margin-top: 4em;
+  margin-bottom: 2.5em;
+  padding-top: 1.5em;
+}
+
+.Subscribe_button{
+  width: 10em;
+  height: 2.5em; 
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Arial, 微軟正黑體;
+  text-align: center;
+  line-height: 1em;
+
+  color: rgba(87,196,157,1);
+  background-color: rgb(255,255,255);
+  border: none;
+  border-radius: 13px;
+  margin-top: 2em;
+}
+.Subscribe_button:hover { /*:hover代表滑鼠移到元素上時的狀態*/ 
+  transform: scale(1.05); /*將元素放大1.05倍*/
+}
+
+.Contact_us_button{
+  width: 10em;
+  height: 2.5em; 
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Arial, 微軟正黑體;
+  text-align: center;
+  line-height: 1em;
+
+  color: rgb(255,255,255);
+  background-color: rgba(87,196,157,1);
+  border-width: 3px;
+  border-style: solid;
+  border-color: rgb(255,255,255);
+  border-radius: 13px;
+
+  margin-top: 2em;
+  margin-left: 1em;
+}
+.Contact_us_button:hover { /*:hover代表滑鼠移到元素上時的狀態*/ 
+  transform: scale(1.05); /*將元素放大1.05倍*/
+}
+
+.editor{
+  width: 100%;
+  height: 3em; 
+
+  font-family: Arial, 微軟正黑體;
+  line-height: 2em;
+  text-align: center;
+
+  color: rgb(255,255,255);  
+  background-color:#57c49d;
+
+  padding-top: 0.4em;
+  
+/*  margin-bottom: 1em;*/
+}
+
+/*     Tutorials        */
+.sun{
+  position: absolute;
+  z-index: 0;
+
+  margin-left: 900px;
+  margin-top: 23em;
+}
+
+.Video_Editor_Tutor{
+  display: flex;
+  justify-content: center;  
+  width: 100%;
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+.Tutorials_R_grid2 {
+  display: grid;
+  grid-template-columns: 30% 50%;
+  width: var(--max-width);
+  max-width: 100%;
+  gap: 15em;
+}
+
+.Tutorials_L_grid2 {
+  display: grid;
+  grid-template-columns: 50% 30%;
+  width: var(--max-width);
+  max-width: 100%;
+  gap: 3em;
+}
+
+.tutor_introduction_title{
+  font-size: 40px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  text-align: left;
+  line-height: 2em;
+}
+
+.tutor_introduction_content{
+  font-size: 20px;
+  font-weight: 500;
+  font-style: normal;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 1.6em;
+  color: rgba(0, 0, 0, 1);
+
+  margin-top: 0.3em;
+}
+
+.Tutor_button{
+  width: 300px;
+  height: 75px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 24px;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(87, 196, 157, 1);
+
+  border: none;
+  border-radius: 40px;
+  border-color: rgba(87, 196, 157, 1);
+}
+.Tutor_button:hover{
+  transform: scale(1.05); /*將元素放大1.05倍*/
+}
+
+.Tutor_acapela_Logo{
+  width: 144px;
+  height: 43px;
+  margin-left: 3em;
+  margin-top: 2.5em;
+  display: inline-block;
+}
+
+/*   Contact us   */
+.Contact_us_grid{
+  display: flex;
+  justify-content: center;  
+  width: 100%;
+  margin-bottom: 3em;
+}
+
+.Contact_us_title{
+/*  width: 200px;
+  height: 50px;
+*/
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-color: rgba(87, 196, 157, 1);
+  line-height: 2.3em;
+/*  border-bottom:3px rgba(87, 196, 157, 1) solid;
+  padding-bottom:5px;
+*/
+}
+
+.Contact_us_grid3{
+  display: grid;
+  grid-template-columns: repeat(3, 28%);
+  width: var(--max-width);
+  max-width: 100%;
+  gap: 3em;
+  margin-left: 3%;
+}
+
+.Contact_us_information{
+  width: 300px;
+  height: 393px;
+  background-color: rgba(243, 241, 241, 1);
+
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+
+  padding-top: 2em;
+}
+
+.Contact_us_introduction_title{
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  text-align: center;
+
+  line-height: 30px;
+
+  margin-top: 1em;
+}
+
+.Contact_us_introduction_content{
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 24px;
+
+  margin-top: 0.8em;
+  padding-left: 2.4em;
+  padding-right: 2.2em;
+  white-space: pre-wrap;
+}
+
+
+/* Email us   */    
+.Email_us_image{
+  position: absolute;
+  z-index: 0;
+}
+
+.Email_us_information{
+  width: 450px;
+  height: 550px;
+  
+  display: flex;
+  position:relative;
+  justify-content: center;  
+
+  border-style: solid;
+  border-width: 5px;
+  border-color: rgba(217, 217, 217, 1);
+
+  color: rgba(128, 128, 128, 1);
+  background-color: rgba(255, 255, 255, 1);
+
+  margin-left: 60%;
+}
+
+.Email_us_Name{
+  width: 160px;
+  height: 40px;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 24px;
+
+  border-style: solid;
+  border-color:  rgba(217, 217, 217, 1);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom-width: 3px;
+  
+  margin-top: 1em;
+  padding-left: 5px;
+}
+
+.Male_button{
+  width: 60px;
+  height: 40px;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 24px;
+
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(87, 196, 157, 1);
+
+  color: rgba(128, 128, 128, 1);
+  background-color: rgba(255, 255, 255, 1);
+
+  margin-left: 35px;
+}
+
+.Female_button{
+  width: 60px;
+  height: 40px;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 24px;
+
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(217, 217, 217, 1);
+
+  color: rgba(128, 128, 128, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.Email_us_Email{
+  width: 320px;
+  height: 40px;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 24px;
+
+  display: block;
+
+  border-style: solid;
+  border-color:  rgba(217, 217, 217, 1);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom-width: 3px;
+  
+  margin-top: 1em;
+  padding-left: 5px;
+}
+
+.Email_us_SendCode{
+  width: 120px;
+  height: 40px;
+  cursor: pointer;
+  display: inline;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 24px;
+
+  border: none;
+  background-color: rgba(217, 217, 217, 1);
+
+  margin-left: 40px;
+}
+.Email_us_SendCode:hover{
+  transform: scale(1.02); /*將元素放大1.02倍*/
+}
+
+.Feedback{
+  width: 320px;
+  height: 120px;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 24px;
+
+  color: rgba(128, 128, 128, 1);
+
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.Feedback_content{
+  width: 320px;
+  height: 70px;
+
+  border-width: 1.3px;
+  border-style: solid;
+  border-color: rgba(128, 128, 128, 1);
+  background-color: rgba(243, 241, 241, 1);
+
+  resize: none;
+  padding-top: 4px;
+  padding-left: 5px;
+}
+
+.clear_button{
+  width: 120px;
+  height: 40px;
+  cursor: pointer;
+  display: inline;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 24px;
+
+  border: none;
+  background-color: rgba(217, 217, 217, 1);
+
+  margin-left: 1em;
+}
+.clear_button:hover{
+  transform: scale(1.03); /*將元素放大1.03倍*/
+}
+
+.send_button{
+  width: 120px;
+  height: 40px;
+  cursor: pointer;
+  display: inline;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 24px;
+
+  border: none;
+  background-color: rgba(87, 196, 157, 1);
+
+  margin-left: 1em;
+}
+.send_button:hover{
+  transform: scale(1.03); /*將元素放大1.03倍*/
+}
+
+
+/* Login/Create account */
+.Name{
+  display: block;
+  width: 411px;
+  height: 60px;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+  line-height: 28px;
+  border-radius: 30px;
+  border: none;
+  background-color: rgba(243, 241, 241, 1);
+  margin-bottom: 1em;
+}
+
+.password{
+  display: block;
+  width: 411px;
+  height: 60px;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+  line-height: 28px;
+  border-radius: 30px;
+  border-color: rgba(243, 241, 241, 0);
+  background-color: rgba(243, 241, 241, 1);
+  margin-top: 1em;
+}
+
+.ForgotPassword_link{
+  font-size: 15px;
+  font-family: 'Poppins',Arial;
+  color: rgba(0, 0, 0, 0.5);
+  margin-left: 20em;
+  margin-top: 0.5em;
+}
+
+.rigister_button{
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(87, 196, 157, 1);
+
+  border: none;
+  border-radius: 40px;
+  border-color: rgba(87, 196, 157, 1);
+
+  margin-left: 4.4em;
+  margin-top: 0.8em;
+  margin-bottom: 0.2em;
+}
+.rigister_button:hover { /*:hover代表滑鼠移到元素上時的狀態*/ 
+  transform: scale(1.05); /*將元素放大1.05倍*/
+}
+
+.CreateAccountLink{
+  display: block;
+  font-size: 15px;
+  font-family: 'Poppins',Arial;
+  text-decoration: underline;
+  color: rgba(0, 0, 0, 0.5);
+  margin-left: 12.5em;
+  margin-top: 0.5em;
+}
+
+.CreateAccount_button{
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(87, 196, 157, 1);
+
+  border-radius: 40px;
+  border: none;
+
+  margin-left: 4.6em;
+  margin-top: 0.8em;
+  margin-bottom: 0.3em;
+}
+
+.CreateAccount:hover { /*:hover代表滑鼠移到元素上時的狀態*/ 
+  transform: scale(1.05); /*將元素放大1.05倍*/
+}
+
+.LoginLink{
+  font-size: 15px;
+  font-family: 'Poppins',Arial;
+  text-decoration: underline;
+  color: rgba(0, 0, 0, 0.5);
+  margin-left: 18.3em;
+}
+
+.Reset_password{
+  display: inline-block;
+  font-size: 24px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.5);;
+}
+
+.Reset_content{
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+
+  color: rgba(0, 0, 0, 0.5);;
+  margin-left: 3em;
+  margin-top: 1em;
+}
+
+
+.Forgot_Email{
+  display: inline-block;
+  width: 600px;
+  height: 60px;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+  font-style: normal;
+  font-weight: 600;
+  text-align: left;
+  line-height: 28px;
+
+  border-color: rgba(243, 241, 241, 0);  
+  background-color: rgba(243, 241, 241, 1);
+  border-radius: 30px;
+
+  margin-top: 0.9em;
+  margin-left: 5em;
+  padding-left: 1.3em;
+}
+
+.Forgot_Send_button{
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(87, 196, 157, 1);
+
+  border-radius: 40px;
+  border-color: rgba(87, 196, 157, 0);
+  
+  margin-left: 14em;
+  margin-top: 0.8em;
+}
+.Forgot_Send_button:hover { /*:hover代表滑鼠移到元素上時的狀態*/ 
+  transform: scale(1.05); /*將元素放大1.05倍*/
+}
+
+.Forgot_image{
+  margin-top: 10em;
+}
+
+/*Video Editor*/
+
+.VideoEditor_center{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 3%;
+}
+
+.Video_Editor_title{
+  text-align: left;
+  font-size: 40px;
+  font-weight: 600;
+  font-family: 'Poppins',Arial;
+
+  margin-left: 40%;
+  padding-top: 1%;
+}
+
+.Video_Editor_content{
+  text-align: left;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+  line-height: 1.8em;
+
+  margin-left: 40%;
+  margin-top: 1em;
+}
+
+.VideoEditor_image{
+  display: block;
+  width: 300px;
+  height: 100px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  position: relative;
+  padding: 4rem 0;
+  margin-top: 12%;
+  margin-bottom: 1em;
+}
+
+.VideoEditor_button{
+  display: inline-block;
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(87, 196, 157, 1);
+
+  border-radius: 40px;
+  border: none;
+
+  margin-left: 4.6em;
+  margin-top: 0.8em;
+  margin-bottom: 0.3em;
+}
+
+
+/* How_make_Video */
+.How_make_Video_title{
+  display: inline-block;
+  font-size: 24px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-left: 3%;
+}
+
+.How_make_Video_content{
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+
+  color: rgba(0, 0, 0, 0.5);
+  margin-left: 6%;
+  margin-top: 1em;
+}
+
+.steps{
+  width: 100%;
+  display: inline-block;
+  margin-top: 100px;
+}
+
+.make_video_step{
+  width: 250px;
+  height: 150px;
+  display: inline-block;
+}
+
+.make_video_step_center{
+  display: flex;
+  justify-content: center;
+}
+
+.make_video_step_title{
+  font-size: 16px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+
+  text-align: center;
+}
+
+.make_video_step_content{
+  font-size: 14px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+
+  text-align: center;
+}
+
+.HMV_Create_video_button{
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(87, 196, 157, 1);
+
+  border: none;
+  border-radius: 40px;
+  border-color: rgba(87, 196, 157, 1);
+
+  margin-left: 75%;
+  margin-top: 2.8em;
+}
+.HMV_Create_video_button:hover{
+  transform: scale(1.05); /*將元素放大1.05倍*/
+}
+
+.next_step_image{
+  position: absolute;
+  z-index: 1;
+  top: 16em;
+}
+
+
+/* Create video */
+.Choose_file_type{
+  font-size: 24px;
+  font-family: 'Poppins',Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 50px;
+  margin-left: 120px;
+}
+
+.CMV_upload_PPT_image{
+  display: inline-block;
+  width: 400px;
+  height: 245px;
+
+  margin-top: 10px;
+  margin-left: 18%;
+}
+
+.CMV_upload_video_image{
+  display: inline-block;
+  width: 400px;
+  height: 300px;
+
+  margin-left: 70px;
+}
+
+.checkbox{
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 100%;
+  border-color: rgba(217, 217, 217, 1);
+  background-color: rgba(243, 241, 241, 1);
+
+  margin-right: 10px;
+}
+
+.select_content_PPT{
+  display: block;
+  width: 300px;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: -60px;
+  padding-left: 30px;
+}
+
+.select_content_video{
+  display: block;
+  width: 300px;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: -30px;
+  padding-left: 50px;
+}
+
+.CMV_Next_button{
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(87, 196, 157, 1);
+
+  border: none;
+  border-radius: 40px;
+  border-color: rgba(87, 196, 157, 1);
+
+  margin-left: 75%;
+  margin-bottom: 50px;
+
+}
+.CMV_Next_button:hover{
+  transform: scale(1.05); /*將元素放大1.05倍*/
+}
+
+/*  Upload PPT page */
+.upload_file_title{
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 50px;
+  margin-left: 120px;
+  margin-bottom: 20px;
+}
+
+.Youtube_link_input{
+  display: inline-block;
+  width: 562px;
+  height: 44px;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+
+  border: none;
+  border-radius: 10px;
+
+  color: rgba(0, 0, 0, 1);
+  background-color: rgba(243, 241, 241, 1);
+  padding-left: 10px;
+}
+
+.no_padding_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+
+
+
+
+.code {
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.card {
+  padding: 1rem 1.2rem;
+  border-radius: var(--border-radius);
+  background: rgba(var(--card-rgb), 0);
+  border: 1px solid rgba(var(--card-border-rgb), 0);
+  transition: background 200ms, border 200ms;
+}
+
+.card span {
+  display: inline-block;
+  transition: transform 200ms;
+}
+
+.card h2 {
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.card p {
+  margin: 0;
+  opacity: 0.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 30ch;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 4rem 0;
+}
+
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    background: rgba(var(--card-rgb), 0.1);
+    border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  }
+
+  .card:hover span {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion) {
+
+  .card:hover span {
+    transform: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .content {
+    padding: 4rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 120px;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .card {
+    padding: 1rem 2.5rem;
+  }
+
+  .card h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .center {
+    padding: 8rem 0 6rem;
+  }
+
+}
+
+/* Tablet and Smaller Desktop */
+@media (min-width: 701px) and (max-width: 1120px) {
+  .grid {
+    grid-template-columns: repeat(2, 50%);
+  }
+}
+
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
