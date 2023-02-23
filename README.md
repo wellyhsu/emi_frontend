@@ -7,7 +7,7 @@ First, run the development server:
 1. Install n , `sudo npm install -g n`
 2. Use n to install nodejs, `sudo n 8.12.1`
 3. Install npm, `sudo apt install npm`
-4. Install this package, use to create React.js development environment, `sudo npm install -g create-react-app`
+4. Install this package, use to create Next.js development environment, `npx create-next-app@latest`
 5. Download the files, `git clone https://github.com/wellyhsu/EMI.git`
 6. Enter EMI folder, `cd EMI`
 7. Install node_modules, `npm install`
