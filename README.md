@@ -16,6 +16,7 @@ if show this error `showAll: args["--show-all"] ?? false,`, follow the steps bel
 2. Restart your terminal.
 3. Install nvm,  `nvm install v18.12.1`
 4. Run the Web, `npm run dev`  
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
