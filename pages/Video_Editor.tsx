@@ -34,12 +34,12 @@ export default function Home() {
             </div>
             
             <button className={styles.VideoEditor_button}>
-              <Link href="/How_to_Make_video">
+              <Link href="/VE_How_to_Make_video">
                 How to Make a video
               </Link>
             </button>
             <button className={styles.VideoEditor_button}>
-              <Link href="/Create_My_video">
+              <Link href="/VE_Create_My_video">
                 Create My Video
               </Link>
             </button>

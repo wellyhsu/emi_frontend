@@ -33,7 +33,7 @@ export default function Home() {
             </div>
             
             <button className={styles.VideoEditor_button}>
-              <Link href="/Log_in">
+              <Link href="/TTSA_Create_My_Audio">
               Create My Audio
               </Link>
             </button>

@@ -32,7 +32,7 @@ export default function Home() {
             </div>
             
             <button className={styles.VideoEditor_button}>
-              <Link href="/Log_in">
+              <Link href="/upload_video_page">
               Create My Quiz
               </Link>
             </button>

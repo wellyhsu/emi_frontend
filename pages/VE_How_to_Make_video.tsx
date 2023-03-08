@@ -109,7 +109,7 @@ export default function How_to_Make_video() {
                                 </div>
                             </div>
                         </div>
-                        <Link href="/Create_My_video">
+                        <Link href="/VE_Create_My_video">
                             <button className={styles.HMV_Create_video_button}>
                                 Create My Video
                             </button>
