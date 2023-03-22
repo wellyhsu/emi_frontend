@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, {useRef} from "react";
 import styles from '@/styles/Home.module.css'
-
+import { signIn, signOut, useSession } from "next-auth/client";
 
 
 export default function Home() {
@@ -13,7 +13,9 @@ export default function Home() {
 
 
 
-  function Log_in() {    //上傳圖片按鈕
+  function Log_in() {    //登入按鈕
+    const [session, loading] = useSession();
+    
     var information;
     var S_DATA;
 	  console.log('press Log_in')
@@ -26,12 +28,16 @@ export default function Home() {
       "password": passwordRef.current.value,  //轉json格式
     }
 
-    fetch("http://192.168.11.146:3000/api/login/", {
+    var account_send_json = JSON.stringify(account_send);  //轉json格式
+    console.log("account_send_json is " + account_send_json);
+    console.log('account_send_json is ',typeof(account_send_json));
+
+    fetch("http://localhost:3000/api/Next_Page_Link/", {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
       },
-      body: account_send,
+      body: account_send_json,
     })
       .then((response) => {
         information = response.json();
@@ -39,9 +45,8 @@ export default function Home() {
         return information;
       })
       .then((data) => {
-  //				render(s_data);
-        S_DATA = data["Prediction"]
-        console.log('data',data["Prediction"]);
+        S_DATA = data["token"]
+        console.log('data',data["token"]);
         console.log('data Type',typeof(data));
 //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
       })
@@ -80,7 +85,7 @@ export default function Home() {
               className={styles.password}
             />
 
-            <Link href="/Forgot_password" className={styles.ForgotPassword_link}>
+            <Link href={process.env.NEXT_PUBLIC_Forgot_password} className={styles.ForgotPassword_link}>
               Forgot password
             </Link>
             <button 
@@ -89,7 +94,7 @@ export default function Home() {
             >
               Log in
             </button>
-            <Link href="/Create_Account" className={styles.CreateAccountLink}>
+            <Link href={process.env.NEXT_PUBLIC_Create_Account} className={styles.CreateAccountLink}>
               Create an account
             </Link>
               

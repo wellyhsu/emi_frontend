@@ -33,8 +33,8 @@ export default function Home() {
             </div>
             
             <button className={styles.VideoEditor_button}>
-              <Link href="/Log_in">
-              Create My Video
+              <Link href={process.env.NEXT_PUBLIC_VE_Create_step2}>
+                Create My Video
               </Link>
             </button>
             <button className={styles.VideoEditor_button}>

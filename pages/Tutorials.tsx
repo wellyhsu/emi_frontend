@@ -38,7 +38,7 @@ export default function Home() {
                 Acapela Group provides digital voices with standard pronunciation
                 Just a few steps and your videos will be done.
                 Every one can be an EMI instructor!"
-                link="/Video_Editor"
+                link={process.env.NEXT_PUBLIC_Video_Editor}
                 button="Create My Video"
               />
             </div>
@@ -54,7 +54,7 @@ export default function Home() {
                 and 100 accents for users to choose.
                 Multi-character materials and listening exercises
                 for all accents are available."
-                link="/Text-to-Speech_Audio"
+                link={process.env.NEXT_PUBLIC_TextToSpeech_Audio}
                 button="Create Text-to-Speech Audio"
               />
             </div>
@@ -89,7 +89,7 @@ export default function Home() {
                 content="Teachers are able to insert pop-up quiz at specific
                 times allowing students to absorb knowledge while
                 evaluating the effectiveness of their learning."
-                link="/Pop-up_Quiz_Setting"
+                link={process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting}
                 button="Insert Pop-up Quiz In My Video"
               />
             </div>
@@ -105,7 +105,7 @@ export default function Home() {
                 their teaching materials.
                 Create your own teaching style and help students
                 learn better."
-                link="/Slide_Template"
+                link={process.env.NEXT_PUBLIC_Slide_Template}
                 button="Create My Slide"
               />
             </div>
@@ -141,7 +141,7 @@ export default function Home() {
                 Let us help you with it!
                 Just create an account and write down your needs,
                 we will customize your videos for you."
-                link="/Customized_Video"
+                link={process.env.NEXT_PUBLIC_Customized_Video}
                 button="Customize My Video"
               />
             </div>

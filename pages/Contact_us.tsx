@@ -15,7 +15,7 @@ export default function Home() {
         <div className={styles.Contact_us_grid}>
           <div className={styles.Contact_us_grid3}>
             <a
-              href="/E-mail_us"
+              href={process.env.NEXT_PUBLIC_Email_us}
               rel="noopener noreferrer"
             >
               <div className={styles.Contact_us_information}>

@@ -32,8 +32,8 @@ export default function Home() {
             </div>
             
             <button className={styles.VideoEditor_button}>
-              <Link href="/upload_video_page">
-              Create My Quiz
+              <Link href={process.env.NEXT_PUBLIC_PopUpQuiz_upload_video}>
+                Create My Quiz
               </Link>
             </button>
             <button className={styles.VideoEditor_button}>

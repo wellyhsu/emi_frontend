@@ -109,7 +109,7 @@ export default function How_to_Make_video() {
                                 </div>
                             </div>
                         </div>
-                        <Link href="/VE_Create_My_video">
+                        <Link href={process.env.NEXT_PUBLIC_VE_Create}>
                             <button className={styles.HMV_Create_video_button}>
                                 Create My Video
                             </button>

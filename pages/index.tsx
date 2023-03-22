@@ -63,7 +63,7 @@ export default function Home() {
         <div className={styles.grid}>
           <div className={styles.grid3}>
             <a
-              href="/Video_Editor"
+              href={process.env.NEXT_PUBLIC_Video_Editor}
               className={styles.card}
               rel="noopener noreferrer"
             >
@@ -85,7 +85,7 @@ export default function Home() {
             </a>
 
             <a
-              href="/Text-to-Speech_Audio"
+              href={process.env.NEXT_PUBLIC_TextToSpeech_Audio}
               className={styles.card}
               rel="noopener noreferrer"
             >
@@ -107,7 +107,7 @@ export default function Home() {
             </a>
 
             <a
-              href="/Pop-up_Quiz_Setting"
+              href={process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting}
               className={styles.card}
               rel="noopener noreferrer"
             >
@@ -132,7 +132,7 @@ export default function Home() {
         <div className={styles.grid}>
           <div className={styles.grid2}>
             <a
-              href="/Slide_Template"
+              href={process.env.NEXT_PUBLIC_Slide_Template}
               className={styles.card}
               rel="noopener noreferrer"
             >
@@ -153,7 +153,7 @@ export default function Home() {
             </a>
 
             <a
-              href="/Customized_Video"
+              href={process.env.NEXT_PUBLIC_Customized_Video}
               className={styles.card}
               rel="noopener noreferrer"
             >
@@ -201,10 +201,12 @@ export default function Home() {
             只要你有需要，我們就會關心 <br/>
             We care whenever you need us <br/>
 
-            <button className={styles.Subscribe_button}>
-              Subscribe
-            </button>
-            <Link href="/Contact_us">
+            <Link href={process.env.NEXT_PUBLIC_Pricing}>
+              <button className={styles.Subscribe_button}>
+                Subscribe
+              </button>
+            </Link>
+            <Link href={process.env.NEXT_PUBLIC_Contact_us}>
               <button  className={styles.Contact_us_button}>
                 Contact us
               </button>

@@ -117,11 +117,53 @@ ul.Layerout ul li:hover {
   padding-top: 1px;
   margin-top: -8px;
 }
-
 .login_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
 }
 
+.user_button{
+  width: 183px;
+  height: 60px;
+  cursor: pointer;
+
+  text-align: center;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+
+  color: rgba(0,0,0,1);
+  border: none;
+  border-radius: 20px;
+  background-color: rgba(255, 193, 7, 1);
+
+  padding-top: 1px;
+  margin-top: -8px;
+}
+.user_button:hover{
+  transform: scale(1.05); /*將元素放大1.05倍*/
+}
+
+.user_image{
+  display: inline-block;
+  margin-top: -1px;
+  margin-left: -100px;
+}
+
+.user_button_word{
+  position: absolute;
+  z-index: 1;
+
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  line-height: 28px;
+  color: rgba(255, 255, 255, 1);
+
+  margin-top: -46px;
+  margin-left: 80px;
+}
+
+
+/*  Home page   */
 .introduction
 {
   font-size: 23px;
@@ -1189,6 +1231,7 @@ ul.Layerout ul li:hover {
   display: inline-block;
   width: 562px;
   height: 298px;
+  cursor: pointer;
 
   font-size: 20px;
   font-family: 'Poppins', Arial;
@@ -1204,14 +1247,19 @@ ul.Layerout ul li:hover {
   margin-left: 13px;
 }
 
+.choose_file {
+  display: none;
+}
+
+.upload_image{
+  margin-top: 12%;
+  margin-left: 38%;
+}
+
 .upload_file_button{
   width: 100%;
 
   margin-top: 50px;
-}
-
-.upload_image{
-  margin-left: 38%;
 }
 
 .UploadFile_Back_button{
@@ -1372,6 +1420,7 @@ select.option{
   height: 40px;
   position: absolute;
   z-index: 1;
+  cursor: pointer;
 
   font-size: 20px;
   font-family: 'Poppins', Arial;
@@ -1388,7 +1437,9 @@ select.option{
   margin-top: 30px;
   margin-left: 30px;
 }
-
+.Test_button:hover{
+  transform: scale(1.02);
+}
 
 .Input_script{
   margin-top: 20px;
@@ -1652,6 +1703,295 @@ select.option{
   position: relative;
 }
 
+
+
+/*        Customized Video      */
+.CV_Write_down_needs{
+  font-size: 24px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 2%;
+  margin-left: 7%;
+}
+
+.CV_Choose_voice{
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+
+  margin-top: 70px;
+  margin-left: 20px;
+}
+
+.select_content_Yes{
+  display: inline-block;
+  width: 150px;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 10px;
+  margin-bottom: 30px;
+
+  padding-left: 50px;
+}
+
+.select_content_No{
+  display: inline-block;
+  width: 150px;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 10px;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.CV_Input_script_block{
+  display: block;
+  width: 70%;
+  height: 180px;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+
+  border: none;
+  border-radius: 10px;
+  resize: none;
+
+  background-color: rgba(243, 241, 241, 1);
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-bottom: 50px;
+
+  padding-top: 3px;
+  padding-left: 10px;
+}
+
+.Input_script_Notes{
+  display: block;
+  width: 70%;
+  height: 180px;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+
+  border: none;
+  border-radius: 10px;
+  resize: none;
+
+  background-color: rgba(243, 241, 241, 1);
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-bottom: 80px;
+
+  padding-top: 3px;
+  padding-left: 10px;
+}
+
+.CV_Submit{
+  display: inline;
+
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(87, 196, 157, 1);
+
+  border: none;
+  border-radius: 40px;
+  border-color: rgba(87, 196, 157, 1);
+
+  margin-left: 65%;
+}
+.CV_Submit:hover{
+  transform: scale(1.02);
+}
+
+.CV_under_Submit_word{
+  height: 30px;
+  display: block;  
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-left: 60%;
+  margin-bottom: 60px;
+}
+
+
+
+
+
+/* Account */
+.Account_My_Creations{
+  display: inline-block;
+  width: 562px;
+  height: 44px;
+
+  font-size: 24px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 5%;
+  margin-left: 10%;
+}
+
+.Account_Drafts{
+  display: inline-block;
+  width: 85px;
+  height: 28px;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-left: 30px;
+}
+
+.Account_Title_Black{
+  display: inline-block;
+  width: 85px;
+  height: 28px;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+
+  color: rgba(0, 0, 0, 1);
+}
+
+.Account_Title_Gray{
+  display: inline-block;
+  width: 85px;
+  height: 28px;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.Account_dash{
+  display: inline-block;
+  width: 10px;
+  height: 28px;
+  cursor: default;
+
+  font-size: 20px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.Account_grid{
+  display: flex;
+  justify-content: center;  
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 3em;
+}
+
+.Account_grid4{
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  gap: 10px;
+}
+
+.Drafts_block{
+  display: inline-block;
+  width: 240px;
+  height: 60px;
+  cursor: default;
+
+  border: none;
+  border-radius: 5px;
+
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(243, 241, 241, 1);
+}
+
+.Drafts_play_button{
+  position: absolute;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+
+  padding-top: 14px;
+  padding-left: 15px;
+}
+
+.Drafts_title{
+  display: inline-block;
+  width: 80%;
+  height: 28px;
+  cursor: default;
+
+  font-size: 16px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+
+  margin-top: 15px;
+  margin-left: 40px;
+}
 
 
 

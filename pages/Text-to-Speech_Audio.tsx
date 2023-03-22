@@ -33,7 +33,7 @@ export default function Home() {
             </div>
             
             <button className={styles.VideoEditor_button}>
-              <Link href="/TTSA_Create_My_Audio">
+              <Link href={process.env.NEXT_PUBLIC_TTSA_Create}>
               Create My Audio
               </Link>
             </button>

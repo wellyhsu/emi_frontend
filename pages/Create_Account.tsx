@@ -28,7 +28,7 @@ export default function Home() {
             <button className={styles.CreateAccount_button}>
               Create an account
             </button>
-            <Link href="/Log_in" className={styles.LoginLink}>
+            <Link href={process.env.NEXT_PUBLIC_Log_in} className={styles.LoginLink}>
               Log in
             </Link>
               
