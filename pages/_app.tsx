@@ -10,8 +10,12 @@ import {Header} from '../components/Header'
 
 //require('dotenv').config()
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  return (
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps } }: AppProps) {
+  
+    console.log("session=", session);
+    return (
     <SessionProvider session={session}>
       <Head>
         <title>EMI Website</title>

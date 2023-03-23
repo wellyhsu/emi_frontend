@@ -1946,6 +1946,12 @@ select.option{
   margin-bottom: 3em;
 }
 
+.Account_grid2{
+  display: grid;
+  grid-template-columns: 25% 40%;
+  gap: 10px;
+}
+
 .Account_grid4{
   display: grid;
   grid-template-columns: repeat(4, 25%);
@@ -1992,6 +1998,78 @@ select.option{
   margin-top: 15px;
   margin-left: 40px;
 }
+
+/* User Setting */
+
+
+.item_Subscription{
+  display: inline-block;
+  width: 250px;
+  height: 40px;
+  cursor: pointer;
+
+  font-size: 14px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: left;
+  color: rgba(0, 0, 0, 1);
+
+  border-radius: 10px;
+  border: none;
+
+  background-color: rgba(255, 193, 7, 1);
+  margin-bottom: 10px;
+}
+
+.item{
+  display: inline-block;
+  width: 250px;
+  height: 40px;
+  cursor: pointer;
+
+  font-size: 14px;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: left;
+  color: rgba(0, 0, 0, 1);
+
+  border-radius: 10px;
+  border: none;
+
+  background-color: rgba(243, 241, 241, 1);
+  margin-bottom: 10px;
+}
+
+.item_image{
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+
+  margin-top: 7px;
+  margin-left: 13px;
+}
+
+.item_word{
+  display: inline-block;
+
+  margin-top: 6px;
+  margin-left: 40px;
+}
+
+.item_arrow{
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+
+  margin-top: 8px;
+  margin-left: 4%;
+}
+
+
 
 
 

@@ -2,10 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, {useRef} from "react";
 import styles from '@/styles/Home.module.css'
-import { signIn, signOut, useSession } from "next-auth/client";
-
+import { useSession, signIn, signOut } from "next-auth/react"
 
 export default function Home() {
+  const { data: session } = useSession();
+
   const accountRef = useRef(undefined);
   const passwordRef = useRef(undefined);
   // 為了方便操作，建立一個array來管理這些ref
@@ -14,7 +15,7 @@ export default function Home() {
 
 
   function Log_in() {    //登入按鈕
-    const [session, loading] = useSession();
+  //  const [session, loading] = useSession();
     
     var information;
     var S_DATA;
@@ -32,7 +33,7 @@ export default function Home() {
     console.log("account_send_json is " + account_send_json);
     console.log('account_send_json is ',typeof(account_send_json));
 
-    fetch("http://localhost:3000/api/Next_Page_Link/", {
+    fetch("http://localhost:3001/api/Next_Page_Link/", {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
@@ -45,13 +46,17 @@ export default function Home() {
         return information;
       })
       .then((data) => {
-        S_DATA = data["token"]
-        console.log('data',data["token"]);
-        console.log('data Type',typeof(data));
+        S_DATA = data["Next_Link"];
+        S_DATA = JSON.stringify(S_DATA);
+        localStorage.setItem('token', S_DATA); //儲存
+//        localStorage.removeItem('token');   //移除
+        console.log('data',data["Next_Link"]);
+        console.log('data Type', typeof(S_DATA));
+        console.log("TToken~", localStorage.getItem('token'));
 //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
       })
       .catch((error) => console.log("error", error));
-  //	window.location.replace("./home.html");
+//    	window.location.replace("/");
   }
 
   return (
