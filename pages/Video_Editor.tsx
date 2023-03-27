@@ -34,17 +34,29 @@ export default function Home() {
             </div>
             
             <button className={styles.VideoEditor_button}>
-              <Link href="/VE_How_to_Make_video">
+              <Link 
+                href={{
+                  pathname: '/[page]',
+                  query: { page: process.env.NEXT_PUBLIC_VE_HOW }
+                  }}
+              >
                 How to Make a video
               </Link>
             </button>
             <button className={styles.VideoEditor_button}>
-              <Link href="/VE_Create_My_video">
+              <Link 
+                href={{
+                  pathname: '/[page]',
+                  query: { page: process.env.NEXT_PUBLIC_VE_Create }
+                  }}
+              >
                 Create My Video
               </Link>
             </button>
             <button className={styles.VideoEditor_button}>
-              <Link href="/Log_in">
+              <Link 
+                href="/Log_in"
+              >
                 Drafts
               </Link>
             </button> 

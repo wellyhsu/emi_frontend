@@ -90,7 +90,13 @@ export default function Home() {
               className={styles.password}
             />
 
-            <Link href={process.env.NEXT_PUBLIC_Forgot_password} className={styles.ForgotPassword_link}>
+            <Link 
+              href={{
+                pathname: '/[page]',
+                query: { page: process.env.NEXT_PUBLIC_Forgot_password }
+                }}
+              className={styles.ForgotPassword_link}
+            >
               Forgot password
             </Link>
             <button 
@@ -99,7 +105,13 @@ export default function Home() {
             >
               Log in
             </button>
-            <Link href={process.env.NEXT_PUBLIC_Create_Account} className={styles.CreateAccountLink}>
+            <Link 
+              href={{
+                pathname: '/[page]',
+                query: { page: process.env.NEXT_PUBLIC_Create_Account }
+                }}
+              className={styles.CreateAccountLink}
+            >
               Create an account
             </Link>
               

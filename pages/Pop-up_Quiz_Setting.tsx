@@ -32,7 +32,12 @@ export default function Home() {
             </div>
             
             <button className={styles.VideoEditor_button}>
-              <Link href={process.env.NEXT_PUBLIC_PopUpQuiz_upload_video}>
+              <Link
+                href={{
+                  pathname: '/[page]',
+                  query: { page: process.env.NEXT_PUBLIC_PopUpQuiz_upload_video }
+                  }}
+              >
                 Create My Quiz
               </Link>
             </button>

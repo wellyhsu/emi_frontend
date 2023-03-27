@@ -11,19 +11,37 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.Account_My_Creations}>
           My Creations
-            <Link href={process.env.NEXT_PUBLIC_Account_Drafts} className={styles.Account_Drafts}>
+            <Link 
+              href={{
+                pathname: '/[page]',
+                query: { page: process.env.NEXT_PUBLIC_Account_Drafts }
+                }}
+              className={styles.Account_Drafts}
+            >
               Drafts
             </Link>
             <div className={styles.Account_dash}>
               |
             </div>
-            <Link href={process.env.NEXT_PUBLIC_Account_Archive} className={styles.Account_Title_Black}>
+            <Link 
+              href={{
+                pathname: '/[page]',
+                query: { page: process.env.NEXT_PUBLIC_Account_Archive }
+                }}
+              className={styles.Account_Title_Black}
+            >
               Archive
             </Link> 
             <div className={styles.Account_dash}>
               |
             </div>
-            <Link href={process.env.NEXT_PUBLIC_Account_Settings} className={styles.Account_Title_Gray}>
+            <Link 
+              href={{
+                pathname: '/[page]',
+                query: { page: process.env.NEXT_PUBLIC_Account_Settings }
+                }}
+              className={styles.Account_Title_Gray}
+            >
               Settings
             </Link> 
         </div>

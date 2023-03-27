@@ -201,12 +201,22 @@ export default function Home() {
             只要你有需要，我們就會關心 <br/>
             We care whenever you need us <br/>
 
-            <Link href={process.env.NEXT_PUBLIC_Pricing}>
+            <Link 
+              href={{
+                pathname: '/[page]',
+                query: { page: process.env.NEXT_PUBLIC_Pricing }
+                }}
+            >
               <button className={styles.Subscribe_button}>
                 Subscribe
               </button>
             </Link>
-            <Link href={process.env.NEXT_PUBLIC_Contact_us}>
+            <Link
+              href={{
+                pathname: '/[page]',
+                query: { page: process.env.NEXT_PUBLIC_Contact_us }
+                }}
+            >
               <button  className={styles.Contact_us_button}>
                 Contact us
               </button>

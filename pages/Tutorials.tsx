@@ -27,7 +27,7 @@ export default function Home() {
                 width="500" 
                 height="348" 
                 autoplay="false" 
-                controls="true" 
+                controls= "True"
               />
             </div>
             <div>

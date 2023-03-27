@@ -33,12 +33,22 @@ export default function Home() {
             </div>
             
             <button className={styles.VideoEditor_button}>
-              <Link href={process.env.NEXT_PUBLIC_TTSA_Create}>
+              <Link 
+                href={{
+                  pathname: '/[page]',
+                  query: { page: process.env.NEXT_PUBLIC_TTSA_Create }
+                  }}
+              >
               Create My Audio
               </Link>
             </button>
             <button className={styles.VideoEditor_button}>
-              <Link href="/Log_in">
+              <Link 
+                href={{
+                  pathname: '/[page]',
+                  query: { page: "/Log_in" }
+                  }}
+              >
                 Drafts
               </Link>
             </button>

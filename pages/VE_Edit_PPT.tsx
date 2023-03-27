@@ -86,12 +86,19 @@ export default function How_to_Make_video() {
                 </div>
 
                 <div className={styles.upload_file_button}>
-                    <Link href={process.env.NEXT_PUBLIC_VE_Create_step2}>
+                    <Link 
+                        href={{
+                            pathname: '/[page]',
+                            query: { page: process.env.NEXT_PUBLIC_VE_Create_step2 }
+                            }}
+                    >
                         <button className={styles.UploadFile_Back_button}>
                             Back
                         </button>
                     </Link>
-                    <Link href="upload_file_page">
+                    <Link 
+                        href="upload_file_page"
+                    >
                         <button className={styles.UploadFile_Next_button}>
                             Next
                         </button>

@@ -33,12 +33,22 @@ export default function Home() {
             </div>
             
             <button className={styles.VideoEditor_button}>
-              <Link href={process.env.NEXT_PUBLIC_VE_Create_step2}>
+              <Link 
+                href={{
+                  pathname: '/[page]',
+                  query: { page: process.env.NEXT_PUBLIC_VE_Create_step2 }
+                  }}
+              >
                 Create My Video
               </Link>
             </button>
             <button className={styles.VideoEditor_button}>
-              <Link href="/Log_in">
+              <Link 
+                href={{
+                  pathname: '/[page]',
+                  query: { page: "/Log_in" }
+                  }}
+              >
                 Drafts
               </Link>
             </button>

@@ -24,7 +24,12 @@ export default function How_to_Make_video() {
 
                     </div>
                 </div>    
-                <Link href="/">
+                <Link 
+                    href={{
+                        pathname: '/[page]',
+                        query: { page: "/" }
+                        }}
+                >
                     <button className={styles.CMV_Next_button}>
                         Next
                     </button>
