@@ -1,12 +1,16 @@
-import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image'
 import Link from 'next/link'
 import React, {useRef} from "react";
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import styles from '@/styles/Home.module.css'
 
 var F_button=0;
-var token;
+const [storageValue, setStorageValue] = useState(null);
+
+useEffect(() => {
+    const token = JSON.stringify(localStorage.getItem('token'));
+    setStorageValue(token);
+})
 function Feature_button(){
   if(F_button)
   {
@@ -30,21 +34,24 @@ function link_click(){
 }
 
 export const Header = () => {
-//    token = JSON.stringify(localStorage.getItem('token'));
+    console.log("Home=",typeof(process.env.NEXT_PUBLIC_Home));
     if (typeof window !== 'undefined')
     {
         console.log('You are on the browser')
     }
-    console.log("~~token~~", token);
-    console.log("~~token~~", typeof(token));
+    console.log("~~token~~", storageValue);
+    console.log("~~token~~", typeof(storageValue));
 
-    if ((token != null) || (token != undefined)) {
+    if ((storageValue != null) || (storageValue != undefined)) {
         console.log("login!!");
         return (
             <>
                 <ul className={styles.Layerout}>
                     <li style={{marginLeft: "1em", marginTop: "0.6em"}}>
-                        <Link href={process.env.NEXT_PUBLIC_Home} onClick={link_click}>
+                        <Link 
+                            href="/"
+                            onClick={link_click}
+                        >
                             <Image
                             src="/Logo.svg"
                             alt="E-learning Logo"
@@ -62,27 +69,57 @@ export const Header = () => {
 
                         <ul id='Features_container'>
                             <li>
-                                <Link href={process.env.NEXT_PUBLIC_Video_Editor} onClick={link_click}>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Video_Editor }
+                                        }}
+                                    onClick={link_click}
+                                >
                                     Video Editor
                                 </Link>
                             </li>
                             <li>
-                                <Link href={process.env.NEXT_PUBLIC_TextToSpeech_Audio} onClick={link_click}>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_TextToSpeech_Audio }
+                                        }}
+                                    onClick={link_click}
+                                >
                                     Text-to-Speech Audio
                                 </Link>
                             </li>
                             <li>
-                                <Link href={process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting} onClick={link_click}>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting }
+                                        }}
+                                    onClick={link_click}
+                                >
                                     Pop-up Quiz Setting
                                 </Link>
                             </li>
                             <li>
-                                <Link href={process.env.NEXT_PUBLIC_Slide_Template} onClick={link_click}>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Slide_Template }
+                                        }}
+                                    onClick={link_click}
+                                >
                                     Slide Template
                                 </Link>
                             </li>
                             <li>
-                                <Link href={process.env.NEXT_PUBLIC_Customized_Video} onClick={link_click}>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Customized_Video }
+                                        }}
+                                    onClick={link_click}
+                                >
                                     Customized Video
                                 </Link>
                             </li>
@@ -90,25 +127,52 @@ export const Header = () => {
                     </li>
 
                     <li>
-                    <Link href={process.env.NEXT_PUBLIC_Tutorials} className={styles.layerbutton} onClick={link_click}>
+                    <Link
+                        href={{
+                            pathname: '/[page]',
+                            query: { page: process.env.NEXT_PUBLIC_Tutorials }
+                            }}
+                        className={styles.layerbutton}
+                        onClick={link_click}
+                    >
                         Tutorials
                     </Link>
                     </li>
 
                     <li>
-                        <Link href={process.env.NEXT_PUBLIC_Pricing} className={styles.layerbutton} onClick={link_click}>
-                        Pricing
+                        <Link
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_Pricing }
+                                }}
+                            className={styles.layerbutton}
+                            onClick={link_click}
+                        >
+                            Pricing
                         </Link>
                     </li>
 
                     <li>
-                        <Link href={process.env.NEXT_PUBLIC_Contact_us} className={styles.layerbutton} onClick={link_click}>
+                        <Link
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_Contact_us }
+                                }}
+                            className={styles.layerbutton}
+                            onClick={link_click}
+                        >
                             Contact us
                         </Link>
                     </li>
 
                     <li>
-                        <Link href={process.env.NEXT_PUBLIC_Account_Drafts} onClick={link_click}>
+                        <Link 
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_Account_Drafts }
+                                }}
+                            onClick={link_click}
+                        >
                             <button className={styles.user_button}>
                                 <div className={styles.user_image}>
                                     <Image
@@ -135,7 +199,10 @@ export const Header = () => {
             <>
                 <ul className={styles.Layerout}>
                     <li style={{marginLeft: "1em", marginTop: "0.6em"}}>
-                        <Link href={process.env.NEXT_PUBLIC_Home} onClick={link_click}>
+                        <Link
+                            href="/"
+                            onClick={link_click}
+                        >
                             <Image
                             src="/Logo.svg"
                             alt="E-learning Logo"
@@ -153,27 +220,57 @@ export const Header = () => {
 
                         <ul id='Features_container'>
                             <li>
-                                <Link href={process.env.NEXT_PUBLIC_Video_Editor} onClick={link_click}>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Video_Editor }
+                                        }}
+                                    onClick={link_click}
+                                >
                                     Video Editor
                                 </Link>
                             </li>
                             <li>
-                                <Link href={process.env.NEXT_PUBLIC_TextToSpeech_Audio} onClick={link_click}>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_TextToSpeech_Audio }
+                                        }}
+                                    onClick={link_click}
+                                >
                                     Text-to-Speech Audio
                                 </Link>
                             </li>
                             <li>
-                                <Link href={process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting} onClick={link_click}>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting }
+                                        }}
+                                    onClick={link_click}
+                                >
                                     Pop-up Quiz Setting
                                 </Link>
                             </li>
                             <li>
-                                <Link href={process.env.NEXT_PUBLIC_Slide_Template} onClick={link_click}>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Slide_Template }
+                                        }}
+                                    onClick={link_click}
+                                >
                                     Slide Template
                                 </Link>
                             </li>
                             <li>
-                                <Link href={process.env.NEXT_PUBLIC_Customized_Video} onClick={link_click}>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Customized_Video }
+                                        }}
+                                    onClick={link_click}
+                                >
                                     Customized Video
                                 </Link>
                             </li>
@@ -181,25 +278,52 @@ export const Header = () => {
                     </li>
 
                     <li>
-                    <Link href={process.env.NEXT_PUBLIC_Tutorials} className={styles.layerbutton} onClick={link_click}>
+                    <Link
+                        href={{
+                            pathname: '/[page]',
+                            query: { page: process.env.NEXT_PUBLIC_Tutorials }
+                            }}
+                        className={styles.layerbutton}
+                        onClick={link_click}
+                    >
                         Tutorials
                     </Link>
                     </li>
 
                     <li>
-                        <Link href={process.env.NEXT_PUBLIC_Pricing} className={styles.layerbutton} onClick={link_click}>
-                        Pricing
+                        <Link
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_Pricing }
+                                }}
+                            className={styles.layerbutton}
+                            onClick={link_click}
+                        >
+                            Pricing
                         </Link>
                     </li>
 
                     <li>
-                        <Link href={process.env.NEXT_PUBLIC_Contact_us} className={styles.layerbutton} onClick={link_click}>
+                        <Link
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_Contact_us }
+                                }}
+                            className={styles.layerbutton}
+                            onClick={link_click}
+                        >
                             Contact us
                         </Link>
                     </li>
 
                     <li>
-                        <Link href={process.env.NEXT_PUBLIC_Log_in} onClick={link_click}>
+                        <Link
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_Log_in }
+                                }}
+                            onClick={link_click}
+                        >
                             <button className={styles.login_button}>
                                 <div style={{fontSize: "20px"}}>
                                     Log in

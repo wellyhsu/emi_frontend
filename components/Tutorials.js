@@ -15,7 +15,12 @@ class Tutorials extends React.Component {
                 </div>
                 <div>
                     <button className={styles.Tutor_button}>
-                        <Link href={this.props.link}>
+                        <Link 
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: this.props.link }
+                                }}
+                        >
                             {this.props.button}
                         </Link>
                     </button>
