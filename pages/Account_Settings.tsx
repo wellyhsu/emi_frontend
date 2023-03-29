@@ -4,13 +4,21 @@ import styles from '@/styles/Home.module.css'
 
 import Archive_video from '../components/Archive_video'
 import User_item from '../components/User_item'
+import {useEffect, useState} from 'react';
 
 function Logout(){
+/*  const [Value, setValue] = useState("null");
 
+  useEffect(() => {
+    const L_token = JSON.stringify(localStorage.getItem('token'));
+    setValue(L_token);   //把storageValue設定為L_token
+  }, []) //傳遞一個空數組來保證只會被執行一次
+*/
   localStorage.removeItem('token');   //移除
-  console.log("logout->", localStorage.getitem('token'));
+  console.log("logout->");
+//  console.log("logout->", localStorage.getitem('token'));
 
-  //  window.location.replace("/");
+    window.location.replace("/");
 }
 
 export default function Home() {
@@ -25,7 +33,6 @@ export default function Home() {
                 pathname: '/[page]',
                 query: { page: process.env.NEXT_PUBLIC_Account_Drafts }
                 }}
-              style={{color: "rgba(0, 0, 0, 1)"}} 
               className={styles.Account_Drafts}
             >
               Drafts
@@ -50,6 +57,7 @@ export default function Home() {
                 pathname: '/[page]',
                 query: { page: process.env.NEXT_PUBLIC_Account_Settings }
                 }}
+              style={{color: "rgba(0, 0, 0, 1)"}} 
               className={styles.Account_Title_Gray}
             >
               Settings

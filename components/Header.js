@@ -5,12 +5,7 @@ import {useEffect, useState} from 'react';
 import styles from '@/styles/Home.module.css'
 
 var F_button=0;
-const [storageValue, setStorageValue] = useState(null);
 
-useEffect(() => {
-    const token = JSON.stringify(localStorage.getItem('token'));
-    setStorageValue(token);
-})
 function Feature_button(){
   if(F_button)
   {
@@ -34,15 +29,165 @@ function link_click(){
 }
 
 export const Header = () => {
-    console.log("Home=",typeof(process.env.NEXT_PUBLIC_Home));
-    if (typeof window !== 'undefined')
-    {
-        console.log('You are on the browser')
-    }
-    console.log("~~token~~", storageValue);
-    console.log("~~token~~", typeof(storageValue));
+    const [storageValue, setStorageValue] = useState("null");
 
-    if ((storageValue != null) || (storageValue != undefined)) {
+    useEffect(() => {
+        const token = JSON.stringify(localStorage.getItem('token'));
+        setStorageValue(token);
+    }, []) //傳遞一個空數組來保證只會被執行一次
+
+//    console.log("Home=",typeof(process.env.NEXT_PUBLIC_Home));
+
+    console.log("~~token~~", storageValue);
+    console.log("storageValue type ->", typeof(storageValue));
+
+    if ((storageValue == "null") || (storageValue == null)){    //未登入
+        console.log("還沒login!!");
+        return(
+            <>
+                <ul className={styles.Layerout}>
+                    <li style={{marginLeft: "1em", marginTop: "0.6em"}}>
+                        <Link
+                            href="/"
+                            onClick={link_click}
+                        >
+                            <Image
+                            src="/Logo.svg"
+                            alt="E-learning Logo"
+                            width={260}
+                            height={60}
+                            priority
+                            />
+                        </Link>
+                    </li>
+                    <li style={{marginLeft: "9.2%"}}>
+                    
+                        <button id='Features' className={styles.Features_button} onClick={Feature_button}> {/**/}
+                            Features
+                        </button>
+
+                        <ul id='Features_container'>
+                            <li>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Video_Editor }
+                                        }}
+                                    onClick={link_click}
+                                >
+                                    Video Editor
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_TextToSpeech_Audio }
+                                        }}
+                                    onClick={link_click}
+                                >
+                                    Text-to-Speech Audio
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting }
+                                        }}
+                                    onClick={link_click}
+                                >
+                                    Pop-up Quiz Setting
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Slide_Template }
+                                        }}
+                                    onClick={link_click}
+                                >
+                                    Slide Template
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href={{
+                                        pathname: '/[page]',
+                                        query: { page: process.env.NEXT_PUBLIC_Customized_Video }
+                                        }}
+                                    onClick={link_click}
+                                >
+                                    Customized Video
+                                </Link>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                    <Link
+                        href={{
+                            pathname: '/[page]',
+                            query: { page: process.env.NEXT_PUBLIC_Tutorials }
+                            }}
+                        className={styles.layerbutton}
+                        onClick={link_click}
+                    >
+                        Tutorials
+                    </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_Pricing }
+                                }}
+                            className={styles.layerbutton}
+                            onClick={link_click}
+                        >
+                            Pricing
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_Contact_us }
+                                }}
+                            className={styles.layerbutton}
+                            onClick={link_click}
+                        >
+                            Contact us
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_Log_in }
+                                }}
+                            onClick={link_click}
+                        >
+                            <button className={styles.login_button}>
+                                <div style={{fontSize: "20px"}}>
+                                    Log in
+                                </div>
+                                <div style={{fontSize: "16px", lineHeight: "1.4em"}}>
+                                    Create an Account
+                                </div>
+                            </button>
+            
+                        </Link>
+                    </li>
+                </ul>
+            </>
+        )   
+    }
+    else {
         console.log("login!!");
         return (
             <>
@@ -193,150 +338,5 @@ export const Header = () => {
             </>
         )
     }
-    else{    //未登入
-        console.log("還沒login!!");
-        return(
-            <>
-                <ul className={styles.Layerout}>
-                    <li style={{marginLeft: "1em", marginTop: "0.6em"}}>
-                        <Link
-                            href="/"
-                            onClick={link_click}
-                        >
-                            <Image
-                            src="/Logo.svg"
-                            alt="E-learning Logo"
-                            width={260}
-                            height={60}
-                            priority
-                            />
-                        </Link>
-                    </li>
-                    <li style={{marginLeft: "9.2%"}}>
-                    
-                        <button id='Features' className={styles.Features_button} onClick={Feature_button}> {/**/}
-                            Features
-                        </button>
 
-                        <ul id='Features_container'>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Video_Editor }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Video Editor
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_TextToSpeech_Audio }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Text-to-Speech Audio
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Pop-up Quiz Setting
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Slide_Template }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Slide Template
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Customized_Video }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Customized Video
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                    <Link
-                        href={{
-                            pathname: '/[page]',
-                            query: { page: process.env.NEXT_PUBLIC_Tutorials }
-                            }}
-                        className={styles.layerbutton}
-                        onClick={link_click}
-                    >
-                        Tutorials
-                    </Link>
-                    </li>
-
-                    <li>
-                        <Link
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Pricing }
-                                }}
-                            className={styles.layerbutton}
-                            onClick={link_click}
-                        >
-                            Pricing
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Contact_us }
-                                }}
-                            className={styles.layerbutton}
-                            onClick={link_click}
-                        >
-                            Contact us
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Log_in }
-                                }}
-                            onClick={link_click}
-                        >
-                            <button className={styles.login_button}>
-                                <div style={{fontSize: "20px"}}>
-                                    Log in
-                                </div>
-                                <div style={{fontSize: "16px", lineHeight: "1.4em"}}>
-                                    Create an Account
-                                </div>
-                            </button>
-            
-                        </Link>
-                    </li>
-                </ul>
-            </>
-        )   
-    }
 }

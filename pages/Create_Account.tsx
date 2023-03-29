@@ -2,9 +2,17 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
+import {useEffect, useState} from 'react';
 
 export default function Home() {
-  console.log("TToken~", localStorage.getItem('token'));
+//  console.log("TToken~", localStorage.getItem('token'));
+  const [Value, setValue] = useState("null");
+
+  useEffect(() => {
+    const L_token = JSON.stringify(localStorage.getItem('token'));
+    console.log("L_token~", L_token);
+    setValue(L_token);   //把storageValue設定為L_token
+  }, []) //傳遞一個空數組來保證只會被執行一次
 
   return (
     <>
