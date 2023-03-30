@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react';
 import styles from '@/styles/Home.module.css'
 
 var F_button=0;
+var hambuger_button=0;
 
 function Feature_button(){
   if(F_button)
@@ -28,6 +29,7 @@ function link_click(){
   document.getElementById("Features_container").style = "display: none;";
 }
 
+
 export const Header = () => {
     const [storageValue, setStorageValue] = useState("null");
 
@@ -45,22 +47,28 @@ export const Header = () => {
         console.log("還沒login!!");
         return(
             <>
-                <ul className={styles.Layerout}>
-                    <li style={{marginLeft: "1em", marginTop: "0.6em"}}>
-                        <Link
-                            href="/"
-                            onClick={link_click}
-                        >
-                            <Image
-                            src="/Logo.svg"
-                            alt="E-learning Logo"
-                            width={260}
-                            height={60}
-                            priority
-                            />
-                        </Link>
-                    </li>
-                    <li style={{marginLeft: "9.2%"}}>
+                <li className={styles.Home_Logo}>
+                    <Link
+                        href="/"
+                        onClick={link_click}
+                    >
+                        <Image
+                        src="/Logo.svg"
+                        alt="E-learning Logo"
+                        width={260}
+                        height={60}
+                        priority
+                        />
+                    </Link>
+                </li>
+
+                <input type="checkbox" id="menu" style={{display: "none"}}></input>
+                <label for="menu" className={styles.line}>
+                    <div className={styles.menu}></div>    
+                </label>
+
+                <ul className={styles.Layerout}> 
+                    <li className={styles.Li_Feature}>
                     
                         <button id='Features' className={styles.Features_button} onClick={Feature_button}> {/**/}
                             Features
@@ -184,6 +192,7 @@ export const Header = () => {
                         </Link>
                     </li>
                 </ul>
+
             </>
         )   
     }
@@ -191,24 +200,31 @@ export const Header = () => {
         console.log("login!!");
         return (
             <>
+                <li className={styles.Home_Logo}>
+                    <Link 
+                        href="/"
+                        onClick={link_click}
+                    >
+                        <Image
+                        src="/Logo.svg"
+                        alt="E-learning Logo"
+                        width={260}
+                        height={60}
+                        priority
+                        />
+                    </Link>
+                </li>
+
+                <input type="checkbox" id="menu" style={{display: "none"}}></input>
+                <label for="menu" className={styles.line}>
+                    <div className={styles.menu}></div>    
+                </label>
+
                 <ul className={styles.Layerout}>
-                    <li style={{marginLeft: "1em", marginTop: "0.6em"}}>
-                        <Link 
-                            href="/"
-                            onClick={link_click}
-                        >
-                            <Image
-                            src="/Logo.svg"
-                            alt="E-learning Logo"
-                            width={260}
-                            height={60}
-                            priority
-                            />
-                        </Link>
-                    </li>
-                    <li style={{marginLeft: "9.2%"}}>
                     
-                        <button id='Features' className={styles.Features_button} onClick={Feature_button}> {/**/}
+                    <li className={styles.Li_Feature}>
+                    
+                        <button id='Features' className={styles.Features_button} onClick={Feature_button}> 
                             Features
                         </button>
 

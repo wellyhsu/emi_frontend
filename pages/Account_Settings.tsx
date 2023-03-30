@@ -4,21 +4,11 @@ import styles from '@/styles/Home.module.css'
 
 import Archive_video from '../components/Archive_video'
 import User_item from '../components/User_item'
-import {useEffect, useState} from 'react';
 
 function Logout(){
-/*  const [Value, setValue] = useState("null");
-
-  useEffect(() => {
-    const L_token = JSON.stringify(localStorage.getItem('token'));
-    setValue(L_token);   //把storageValue設定為L_token
-  }, []) //傳遞一個空數組來保證只會被執行一次
-*/
   localStorage.removeItem('token');   //移除
   console.log("logout->");
-//  console.log("logout->", localStorage.getitem('token'));
-
-    window.location.replace("/");
+  window.location.replace("/");
 }
 
 export default function Home() {
@@ -79,6 +69,15 @@ export default function Home() {
                   image_alt="Subscription image"
                   title="Subscription"
                 />
+                <div className={styles.item_arrow}>
+                  <Image
+                    src="/User_arrow.svg"
+                    alt="enter image"
+                    width={20}
+                    height={20}
+                    priority
+                  />
+                </div>
               </div>
 
               <div className={styles.item}>
@@ -87,6 +86,15 @@ export default function Home() {
                   image_alt="user management image"
                   title="User management"
                 />
+                <div className={styles.item_arrow}>
+                  <Image
+                    src="/User_arrow.svg"
+                    alt="enter image"
+                    width={20}
+                    height={20}
+                    priority
+                  />
+                </div>
               </div>
               <button className={styles.item} onClick={Logout}>
                 <User_item
@@ -94,6 +102,15 @@ export default function Home() {
                   image_alt="log out image"
                   title="Log out"
                 />
+                <div className={styles.item_arrow}>
+                  <Image
+                    src="/User_arrow.svg"
+                    alt="enter image"
+                    width={20}
+                    height={20}
+                    priority
+                  />
+                </div>
               </button>
             </div>
             <div>
