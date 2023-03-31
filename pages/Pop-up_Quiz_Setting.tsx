@@ -2,8 +2,25 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
+import {useEffect, useState} from 'react';
 
+var Dreft_Href;
 export default function Home() {
+  const [storageValue, setStorageValue] = useState("null");
+
+    useEffect(() => {
+        const token = JSON.stringify(localStorage.getItem('token'));
+        setStorageValue(token);
+    }, []) //傳遞一個空數組來保證只會被執行一次
+    if(storageValue == "null")
+    {
+      Dreft_Href = process.env.NEXT_PUBLIC_Log_in;
+    }
+    else
+    {
+      Dreft_Href = process.env.NEXT_PUBLIC_Account_Drafts;
+    }
+
   return (
     <>
       <main className={styles.main}>
@@ -42,7 +59,12 @@ export default function Home() {
               </Link>
             </button>
             <button className={styles.VideoEditor_button}>
-              <Link href="/Log_in">
+              <Link
+                href={{
+                  pathname: '/[page]',
+                  query: { page: Dreft_Href }
+                  }}
+              >
                 Drafts
               </Link>
             </button>
