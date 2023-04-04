@@ -62,7 +62,7 @@ export const Header = () => {
                 </li>
 
                 <input type="checkbox" id="menu" style={{display: "none"}}></input>
-                <label for="menu" className={styles.line}>
+                <label htmlFor="menu" className={styles.line}>
                     <div className={styles.menu}></div>    
                 </label>
 
@@ -215,7 +215,7 @@ export const Header = () => {
                 </li>
 
                 <input type="checkbox" id="menu" style={{display: "none"}}></input>
-                <label for="menu" className={styles.line}>
+                <label htmlFor="menu" className={styles.line}>
                     <div className={styles.menu}></div>    
                 </label>
 
