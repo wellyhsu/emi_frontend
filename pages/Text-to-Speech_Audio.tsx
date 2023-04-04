@@ -2,8 +2,26 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
+import {useEffect, useState} from 'react';
 
+var Draft_href;
 export default function Home() {
+  const [storageValue, setStorageValue] = useState("null");
+
+  useEffect(() => {
+      const token = JSON.stringify(localStorage.getItem('token'));
+      setStorageValue(token);
+  }, []) //傳遞一個空數組來保證只會被執行一次
+
+  if(storageValue == "null")  //尚未登入
+  {
+    Draft_href = process.env.NEXT_PUBLIC_Log_in;
+  }
+  else  //已登入
+  {
+    Draft_href = process.env.NEXT_PUBLIC_Account_Drafts;
+  }
+
   return (
     <>
       <main className={styles.main}>
@@ -46,7 +64,7 @@ export default function Home() {
               <Link 
                 href={{
                   pathname: '/[page]',
-                  query: { page: "/Log_in" }
+                  query: { page: Draft_href }
                   }}
               >
                 Drafts

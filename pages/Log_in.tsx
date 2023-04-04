@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, {useRef} from "react";
 import styles from '@/styles/Home.module.css'
-//import { useSession, signIn, signOut } from "next-auth/react
 
 export default function Home() {
 //  const { data: session } = useSession();
@@ -14,7 +13,6 @@ export default function Home() {
 
 
   function Log_in() {    //登入按鈕
-  //  const [session, loading] = useSession();
     
     var information;
     var S_DATA;
@@ -32,7 +30,7 @@ export default function Home() {
     console.log("account_send_json is " + account_send_json);
     console.log('account_send_json is ',typeof(account_send_json));
 
-    fetch("http://localhost:3001/api/Next_Page_Link/", {
+    fetch("http://localhost:3000/api/Next_Page_Link/", {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'

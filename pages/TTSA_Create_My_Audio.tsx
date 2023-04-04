@@ -2,32 +2,32 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import People_item from '../components/Text-to-Speech_Audio_People_item'
-import Add_people_item from '../components/Add_people_item'
-
-var button_shift = 1;
-var new_people;
-//var People_number = 0;
-
-function add_people_block(){ 
-    
-    var newDiv = document.createElement('div');
-    var newDiv2 = document.createElement('div');
-    var people_block = document.getElementById("people_block");
-    new_people = document.getElementById('new_people');
-
-    document.getElementById("button_block").style = "margin-Top: 140px;";
-    button_shift++;
-
-    newDiv.appendChild(new_people);
-    newDiv2.appendChild(new_people);
-    people_block.appendChild(newDiv);
-    people_block.appendChild(newDiv2);
-    console.log("click");
+//import Add_people_item from '../components/Add_people_item'
+import {useEffect, useState} from 'react';
 
 
-}
+
 
 export default function How_to_Make_video() {
+    const [people_num_block, set_people_num_block] = useState(0);
+
+    const add_people_block= () => {        
+        set_people_num_block(people_num_block+1);
+    };
+    
+    const components = [];
+    
+    for(var i=0; i< people_num_block; i++)
+    {
+        components.push(
+            <People_item
+                people_image="/Tom.svg"
+                item_alt="Tom image"
+                people_Name="Tom"
+            />
+        );
+    }
+
     return (
         <>
             <main className={styles.main}>
@@ -46,6 +46,7 @@ export default function How_to_Make_video() {
                                 item_alt="Sally image"
                                 people_Name="Sally"
                             />
+                            {components}
 {/**/}                  </div>
                         <div id="button_block" className={styles.TTSA_button_center}>
                             <button className={styles.Add_more_Audios_button} onClick={add_people_block}>

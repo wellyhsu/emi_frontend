@@ -4,7 +4,7 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import {useEffect, useState} from 'react';
 
-var Dreft_Href;
+var Draft_href;
 export default function Home() {
   const [storageValue, setStorageValue] = useState("null");
 
@@ -12,13 +12,13 @@ export default function Home() {
         const token = JSON.stringify(localStorage.getItem('token'));
         setStorageValue(token);
     }, []) //傳遞一個空數組來保證只會被執行一次
-    if(storageValue == "null")
+    if(storageValue == "null")   //尚未登入
     {
-      Dreft_Href = process.env.NEXT_PUBLIC_Log_in;
+      Draft_href = process.env.NEXT_PUBLIC_Log_in;
     }
-    else
+    else    //已登入
     {
-      Dreft_Href = process.env.NEXT_PUBLIC_Account_Drafts;
+      Draft_href = process.env.NEXT_PUBLIC_Account_Drafts;
     }
 
   return (
@@ -62,7 +62,7 @@ export default function Home() {
               <Link
                 href={{
                   pathname: '/[page]',
-                  query: { page: Dreft_Href }
+                  query: { page: Draft_href }
                   }}
               >
                 Drafts

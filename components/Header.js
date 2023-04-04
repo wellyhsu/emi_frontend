@@ -5,7 +5,6 @@ import {useEffect, useState} from 'react';
 import styles from '@/styles/Home.module.css'
 
 var F_button=0;
-var hambuger_button=0;
 
 function Feature_button(){
   if(F_button)
