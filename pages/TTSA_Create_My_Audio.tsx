@@ -1,22 +1,53 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import People_item from '../components/Text-to-Speech_Audio_People_item'
-//import Add_people_item from '../components/Add_people_item'
+import People_item from '../components/People_item'
 import {useEffect, useState} from 'react';
 
 
 
 
 export default function How_to_Make_video() {
-    const [people_num_block, set_people_num_block] = useState(0);
+    const [people_num_block, set_people_num_block] = useState(2);
+    const components = [];
 
-    const add_people_block= () => {        
+    const add_people_block = () => {        
         set_people_num_block(people_num_block+1);
     };
-    
-    const components = [];
-    
+
+    const delete_people_block = () => {
+        set_people_num_block(people_num_block-1);
+
+        let index = components.indexOf(
+            <People_item
+                people_image="/Sally.svg"
+                item_alt="Sally image"
+                people_Name="Sally"
+                function={delete_people_block}
+            />
+        );      
+
+        if (index > -1) 
+        {
+            components.splice(index, 1);  //index: 要移除的元素的index ,1: The number of elements to remove.
+        }
+    }
+
+    components.push(
+        <People_item
+            people_image="/Tom.svg"
+            item_alt="Tom image"
+            people_Name="Tom"
+            function={delete_people_block}
+        />, 
+        <People_item
+            people_image="/Sally.svg"
+            item_alt="Sally image"
+            people_Name="Sally"
+            function={delete_people_block}
+        />
+    );
+
     for(var i=0; i< people_num_block; i++)
     {
         components.push(
@@ -24,6 +55,7 @@ export default function How_to_Make_video() {
                 people_image="/Tom.svg"
                 item_alt="Tom image"
                 people_Name="Tom"
+                function={delete_people_block}
             />
         );
     }
@@ -34,18 +66,6 @@ export default function How_to_Make_video() {
                 <div className={styles.TTSA_Create_My_Audio_grid2}>
                     <div>
                         <div id='people_block'>
-                            <div id='new_people'>
-                                <People_item
-                                    people_image="/Tom.svg"
-                                    item_alt="Tom image"
-                                    people_Name="Tom"
-                                />
-                           </div>
-                            <People_item
-                                people_image="/Sally.svg"
-                                item_alt="Sally image"
-                                people_Name="Sally"
-                            />
                             {components}
 {/**/}                  </div>
                         <div id="button_block" className={styles.TTSA_button_center}>

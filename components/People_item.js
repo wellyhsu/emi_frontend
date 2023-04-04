@@ -20,7 +20,7 @@ class People_item extends React.Component {
                 </div>
                 <textarea className={styles.CreateMyAudio_input} placeholder='Please enter text here'>
                 </textarea>
-                <button className={styles.TTSA_Delete}>
+                <button className={styles.TTSA_Delete} onClick={this.props.function}>
                     <Image
                         src="/TTSA_Delete_image.svg"
                         alt="Delete image"
