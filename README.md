@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 1. Install npm, `sudo apt install npm`
-2. Download the files, `git clone https://github.com/wellyhsu/EMI.git`
+2. Download the files, `git clone https://github.com/wellyhsu/emi_frontend.git`
 3. Enter EMI folder, `cd emi_frontend`
 4. Install node_modules, `npm install`
 5. Run the Web, `npm run dev`  
