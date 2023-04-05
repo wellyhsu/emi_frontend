@@ -6,23 +6,27 @@ import styles from '@/styles/Home.module.css'
 export default function Home() {
 //  const { data: session } = useSession();
 
-  const accountRef = useRef(undefined);
+  const nameRef = useRef(undefined);
   const passwordRef = useRef(undefined);
   // 為了方便操作，建立一個array來管理這些ref
-  const refArr = useRef([accountRef,passwordRef]);
+  const refArr = useRef([nameRef,passwordRef]);
 
 
   function Log_in() {    //登入按鈕
     
     var information;
-    var S_DATA;
+    var token_DATA;
+    var status_code;
+    var msg;
+    var userName;
+
 	  console.log('press Log_in')
-    console.log(accountRef.current.name +" is "+ accountRef.current.value);
+    console.log(nameRef.current.name +" is "+ nameRef.current.value);
     console.log(passwordRef.current.name +" is "+ passwordRef.current.value);
 
     const account_send =
     {
-      "email": accountRef.current.value,
+      "username": nameRef.current.value,
       "password": passwordRef.current.value,  //轉json格式
     }
 
@@ -30,7 +34,7 @@ export default function Home() {
     console.log("account_send_json is " + account_send_json);
     console.log('account_send_json is ',typeof(account_send_json));
 
-    fetch("http://localhost:3000/api/Next_Page_Link/", {
+    fetch("http://127.0.0.1:8000/login/", {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
@@ -43,18 +47,27 @@ export default function Home() {
         return information;
       })
       .then((data) => {
-        S_DATA = data["Next_Link"];
-        S_DATA = JSON.stringify(S_DATA);
-        localStorage.setItem('token', S_DATA); //儲存
-//        localStorage.removeItem('token');   //移除
-        console.log('data',data["Next_Link"]);
-        console.log('data Type', typeof(S_DATA));
-        console.log("TToken~", localStorage.getItem('token'));
+        token_DATA = data["token"];
+        status_code = data["code"];
+        msg = data["msg"];
+
+        token_DATA = JSON.stringify(token_DATA);
+        userName = JSON.stringify(nameRef.current.value);
+        
+        localStorage.setItem('token', token_DATA); //儲存
+        localStorage.setItem('userName', userName); //儲存
+        
+        console.log('token_DATA=',data["token"]);
+        console.log('status_code=',data["code"]);
+        console.log('msg=',data["msg"]);
+        alert(msg);
 //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
-        window.location.replace("/");
+        if(msg == "登入成功")
+        {
+          window.location.replace("/");
+        }
       })
       .catch((error) => console.log("error", error));
-
   }
 
   return (
@@ -75,9 +88,9 @@ export default function Home() {
           <div>
             <input 
               type="text" 
-              name='E-mail'
-              placeholder="E-mail" 
-              ref={accountRef}
+              name='Name'
+              placeholder="Name" 
+              ref={nameRef}
               className={styles.Name}
             />
             <input 

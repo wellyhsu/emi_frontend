@@ -1,18 +1,65 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-
+import {useEffect, useState} from 'react';
 import Archive_video from '../components/Archive_video'
 import User_item from '../components/User_item'
 
-function Logout(){
-  localStorage.removeItem('token');   //移除
-  console.log("logout->");
-  window.location.replace("/");
-}
+export default function Account_Settings() {
+   const [storageValue, setStorageValue] = useState("null");
 
-export default function Home() {
+    useEffect(() => {
+        const userName = localStorage.getItem('userName');
+        var send_userName; //取得不含""的字串
+        send_userName = userName?.substring(1,(userName?.length-1));    
+        setStorageValue(send_userName);
+    }, []) //傳遞一個空數組來保證只會被執行一次
+
+  function Logout(){ 
+    var information;
+    var success;  //description: 成功登出
   
+    console.log('press Log_out');
+  
+    localStorage.removeItem('token');   //移除
+    localStorage.removeItem('userName');   //移除
+    
+    console.log('token',localStorage.getItem('token'));
+    console.log('userName',localStorage.getItem('userName'));
+
+    const Log_out_send =
+    {
+      "username": storageValue,
+    }
+  
+    var Log_out_send_json = JSON.stringify(Log_out_send);  //轉json格式
+    console.log("account_send_json is " + Log_out_send_json);
+  
+    fetch("http://127.0.0.1:8000/logout/", {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: Log_out_send_json,
+    })
+      .then((response) => {
+        information = response.json();
+        console.log('info^^',information);
+        return information;
+      })
+      .then((data) => {
+        success = data["success"];
+
+        console.log('success=',data["success"]);
+        alert(success);
+        if(success == "Successfully logged out.") //成功登出 Successfully logged out.
+        {
+          window.location.replace("/");
+        }
+      })
+      .catch((error) => console.log("error", error));
+  }
+
   return (
     <>
       <main className={styles.main}>
