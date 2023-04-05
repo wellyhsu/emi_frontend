@@ -2,34 +2,36 @@ import Image from 'next/image'
 import React, {useRef} from "react";
 import styles from '@/styles/Home.module.css'
 
-export default function Forgot_password() {
-  const EmailRef = useRef(undefined);
+export default function Reset_password() {
+  const Reset_passwordRef = useRef(undefined);
+  const token_Ref = useRef(undefined);
   // 為了方便操作，建立一個array來管理這些ref
-  const refArr = useRef([EmailRef]);
+  const refArr = useRef([Reset_passwordRef, token_Ref]);
 
-  function Request_Reset_password() {    //登入按鈕
+  function Reset_password() {    //登入按鈕
     var information;
-    var token_DATA; //存取權杖
-    var user;  //使用者名稱
+    var detail;  //密碼重設狀態
 
 	  console.log('press Log_in')
-    console.log(EmailRef.current.name +" is "+ EmailRef.current.value);
+    console.log(Reset_passwordRef.current.name +" is "+ Reset_passwordRef.current.value);
+    console.log(token_Ref.current.name +" is "+ token_Ref.current.value);
 
-    const Request_Reset_password_send =
+    const Reset_password_send =
     {
-      "email": EmailRef.current.value,
+      "password": Reset_passwordRef.current.value,
+      "token": token_Ref.current.value,
     }
 
-    var Request_Reset_password_send_json = JSON.stringify(Request_Reset_password_send);  //轉json格式
-    console.log("account_send_json is " + Request_Reset_password_send_json);
-    console.log('account_send_json is ',typeof(Request_Reset_password_send_json));
+    var Reset_password_send_json = JSON.stringify(Reset_password_send);  //轉json格式
+    console.log("Reset_password_send_json is " + Reset_password_send_json);
+    console.log('Reset_password_send_json is ',typeof(Reset_password_send_json));
 
-    fetch("http://127.0.0.1:8000/password_reset_request/", {
+    fetch("http://127.0.0.1:8000/password_reset/", {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
       },
-      body: Request_Reset_password_send_json,
+      body: Reset_password_send_json,
     })
       .then((response) => {
         information = response.json();
@@ -37,21 +39,17 @@ export default function Forgot_password() {
         return information;
       })
       .then((data) => {
-        token_DATA = data["token"];
-        user = data["user"];
-
-/*        token_DATA = JSON.stringify(token_DATA);
-        userName = JSON.stringify(nameRef.current.value);
-        
-        localStorage.setItem('token', token_DATA); //儲存
-        localStorage.setItem('userName', userName); //儲存
-*/        
+//        token_DATA = data["token"];
+        detail = data["detail"];
+       
         console.log('token_DATA=',data["token"]);
-        console.log('user=',data["user"]);
-        alert("token=" + data["token"]);  
-              
-//        window.location.replace("/" + process.env.NEXT_PUBLIC_Reset_password);
-      })
+        console.log('detail=',data["detail"]);
+        alert(data["detail"]);
+/*        if(msg == "登入成功")
+        {
+          window.location.replace("/");
+        }
+*/      })
       .catch((error) => console.log("error", error));
   }
 
@@ -69,9 +67,9 @@ export default function Forgot_password() {
             </div>
             <input 
               type="text" 
-              placeholder="E-mail" 
-              name="E-mail"
-              ref={EmailRef}
+              placeholder="Reset your password" 
+              name="Reset_password"
+              ref={Reset_passwordRef}
               className={styles.Forgot_Email}
             >
               </input>
