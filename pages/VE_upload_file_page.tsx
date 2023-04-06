@@ -1,32 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import Script from 'next/script'
 //import upload from '../components/choose_file'
-
-var Next_Link="/VE_Edit_PPT";
-/*
-type Data = {
-    Next_Link: string
-  }
-
- {
-    //process.env.NEXT_PUBLIC_VE_Create_step3
-    console.log("type=", req.body.type);
-    if(req.body.type == "PPT")
-    {
-        res.status(200).json({ Next_Link: "/VE_Editor_PPT" })
-        Next_Link = "/VE_Edit_PPT";
-    }
-    else if(req.body.type == "Video")
-    {
-        res.status(200).json({ Next_Link: "/VE_Editor_video" })
-        Next_Link = "/VE_Edit_video";
-    }
-
-}
-*/
 
 
 function upload(e) {
@@ -52,23 +28,33 @@ function upload(e) {
   }  
 
 function upload_file(){
-    window.addEventListener("message", function (event) {
-        console.log(event.data);
-      });
-/*    var file_type;
+    var file_type;
+    var Next_Link;
+
     file_type = document.getElementById('file_name').value;
+    file_type = file_type?.substring(file_type?.indexOf(".",0));  //取得副檔名
+    
+    console.log("file_type=",file_type);
     if(file_type == ".mp4" || file_type == ".MOV")
     {
-        Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3;
+        Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3_video;  //VE_Edit_video
     }
-    else if()
+    else if(file_type == ".ppt" || file_type == ".pptx")
     {
-        Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3_video;
+        Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3;  //VE_Edit_PPT
     }
-*/
+    else if(file_type == "")
+    {
+        alert("Please choose a file.");
+        return false
+    }
+    else
+    {
+        alert("The file type uncorrect!");
+        return false
+    }
+    window.location.replace("/" + Next_Link);
 }
-
-
 
 
 export default function How_to_Make_video() {
@@ -98,7 +84,7 @@ export default function How_to_Make_video() {
                         file:                            
                     </div>
                         <input id="customFileInput" className={styles.choose_file} type="file" accept="*.ppt, *.pptx, video/*"></input>
-                        <label for="customFileInput" className={styles.upload_block} onClick={upload}>
+                        <label htmlFor="customFileInput" className={styles.upload_block} onClick={upload}>
                             <div className={styles.no_padding_center}>
                                 <div>
                                     <div className={styles.upload_image}>
@@ -126,13 +112,9 @@ export default function How_to_Make_video() {
                             Back
                         </button>
                     </Link>
-                    <Link 
-                        href={Next_Link}
-                    >
-                        <button className={styles.UploadFile_Next_button} onClick={upload_file}>
-                            Next
-                        </button>
-                    </Link>
+                    <button className={styles.UploadFile_Next_button} onClick={upload_file}>
+                        Next
+                    </button>
                 </div> 
                 
 

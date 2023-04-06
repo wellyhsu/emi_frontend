@@ -1,6 +1,8 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React, {useRef} from "react";
 import styles from '@/styles/Home.module.css'
+//FwAa639nC3fMyLrw0Sqk32jUiPwmdA9Rf5h8c2xDWwfszkFiXG
 
 export default function Reset_password() {
   const Reset_passwordRef = useRef(undefined);
@@ -39,17 +41,15 @@ export default function Reset_password() {
         return information;
       })
       .then((data) => {
-//        token_DATA = data["token"];
         detail = data["detail"];
-       
-        console.log('token_DATA=',data["token"]);
         console.log('detail=',data["detail"]);
+
         alert(data["detail"]);
-/*        if(msg == "登入成功")
+        if(data["detail"] == "Password reset successful")
         {
-          window.location.replace("/");
+          window.location.replace("/" + pcocess.env.NEXT_PUBLIC_Log_in);
         }
-*/      })
+      })
       .catch((error) => console.log("error", error));
   }
 
@@ -63,8 +63,8 @@ export default function Reset_password() {
                 Reset your password
             </div>
             <div className={styles.Reset_content}>
-                Please enter your Email and we will send you a link to reset your password.
-            </div>
+                Please enter your password and the token to reset your password.
+            </div> 
             <input 
               type="text" 
               placeholder="Reset your password" 
@@ -72,10 +72,31 @@ export default function Reset_password() {
               ref={Reset_passwordRef}
               className={styles.Forgot_Email}
             >
-              </input>
-            <button className={styles.Forgot_Send_button} onClick={Request_Reset_password}>
-                Send
-            </button>
+            </input>
+              <input 
+              type="text" 
+              placeholder="token" 
+              name="token"
+              ref={token_Ref}
+              className={styles.Forgot_Email}
+            >
+            </input>
+
+            <div className={styles.upload_file_button}>
+              <Link 
+                href={{
+                    pathname: '/[page]',
+                    query: { page: process.env.NEXT_PUBLIC_Forgot_password }
+                    }}
+              >
+                <button className={styles.Reset_back_button}>
+                    Back
+                </button>
+              </Link> 
+              <button className={styles.Reset_Send_button} onClick={Reset_password}>
+                  Reset password
+              </button>
+            </div>
           </div>
 
           <div className={styles.Forgot_image}>

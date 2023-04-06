@@ -39,18 +39,12 @@ export default function Forgot_password() {
       .then((data) => {
         token_DATA = data["token"];
         user = data["user"];
-
-/*        token_DATA = JSON.stringify(token_DATA);
-        userName = JSON.stringify(nameRef.current.value);
-        
-        localStorage.setItem('token', token_DATA); //儲存
-        localStorage.setItem('userName', userName); //儲存
-*/        
+   
         console.log('token_DATA=',data["token"]);
         console.log('user=',data["user"]);
-        alert("token=" + data["token"]);  
+        prompt("your token is" , data["token"]);  
               
-//        window.location.replace("/" + process.env.NEXT_PUBLIC_Reset_password);
+        window.location.replace("/" + process.env.NEXT_PUBLIC_Reset_password);
       })
       .catch((error) => console.log("error", error));
   }

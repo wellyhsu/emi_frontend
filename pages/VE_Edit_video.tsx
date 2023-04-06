@@ -14,15 +14,8 @@ export default function VE_Edit_video() {
                         <div className={styles.upload_file_title}>
                             Please select a voice and paste your script
                         </div>
-                        <div className={styles.VE_PPT_backpage}>
-                            <Image
-                                src="/VE_Edit_PPT_Left_image.svg"
-                                alt="back page"
-                                width={40}
-                                height={40}
-                                priority
-                            />
-                        </div>
+
+                        
                         <iframe 
                             src='' 
                             width="500px" 
@@ -30,15 +23,7 @@ export default function VE_Edit_video() {
                             frameBorder="0" 
                             className={styles.PPT}>
                         </iframe>
-                        <div className={styles.VE_PPT_nextpage}>
-                            <Image
-                                src="/VE_Edit_PPT_right_image.svg"
-                                alt="back page"
-                                width={40}
-                                height={40}
-                                priority
-                            />
-                        </div>
+                        
                     </div>
 
                     <div className={styles.Edit_right_part}>
