@@ -14,12 +14,15 @@ export default function VE_Edit_video() {
     const [storageValue, setStorageValue] = useState("null");
 
     useEffect(() => {
-        const acapela_token = localStorage.getItem('userName');   
+        const acapela_token = localStorage.getItem('acapela_token');   
+        console.log("acapela_token!",acapela_token);
         setStorageValue(acapela_token);
     }, []) //傳遞一個空數組來保證只會被執行一次
 
     function test(){
-
+        var token_acapela; //取得不含""的字串
+        token_acapela = storageValue?.substring(1,(storageValue?.length-1));
+        
         console.log(languageRef.current.name +" is "+ languageRef.current.value);
         console.log(VoiceRef.current.name +" is "+ VoiceRef.current.value);
         console.log(scriptRef.current.name +" is "+ scriptRef.current.value);
@@ -32,17 +35,18 @@ export default function VE_Edit_video() {
   
         var acapela_data_send_json = JSON.stringify(acapela_data_send);  //轉json格式
         console.log("account_send_json is " + acapela_data_send_json);
-
+        console.log("token~~",token_acapela);
         fetch("https://www.acapela-cloud.com/api/command/", {
             method: 'POST',
             headers:{
-                'Authorization': 'Token ' + storageValue,
+                'Authorization': 'Token ' + token_acapela,
                 'Content-Type': 'application/json'
             },
             body: acapela_data_send_json,
         })
         .then((response) => {
-            information = response.json();
+            console.log("token!!",token_acapela);
+            information = response;
             console.log('info^^',information);
             return information;
         })
@@ -107,7 +111,7 @@ export default function VE_Edit_video() {
                                         name="Voice"
                                     >
                                         <option></option>
-                                        <option>English</option>
+                                        <option>Lucy22k_NT</option>
                                         <option>Chineese</option>
                                     </select>
                                 </div>
