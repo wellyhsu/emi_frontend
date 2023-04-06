@@ -1,8 +1,60 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
+import React, {useRef} from "react";
+import {useEffect, useState} from 'react';
 
 export default function VE_Edit_video() {
+    var information;
+    const languageRef = useRef(undefined);
+    const VoiceRef = useRef(undefined);
+    const scriptRef = useRef(undefined);
+    // 為了方便操作，建立一個array來管理這些ref
+    const refArr = useRef([languageRef,VoiceRef,scriptRef]);
+    const [storageValue, setStorageValue] = useState("null");
+
+    useEffect(() => {
+        const acapela_token = localStorage.getItem('userName');   
+        setStorageValue(acapela_token);
+    }, []) //傳遞一個空數組來保證只會被執行一次
+
+    function test(){
+
+        console.log(languageRef.current.name +" is "+ languageRef.current.value);
+        console.log(VoiceRef.current.name +" is "+ VoiceRef.current.value);
+        console.log(scriptRef.current.name +" is "+ scriptRef.current.value);
+
+        const acapela_data_send =
+        {
+            "voice": VoiceRef.current.value,
+            "text": scriptRef.current.value,
+        }
+  
+        var acapela_data_send_json = JSON.stringify(acapela_data_send);  //轉json格式
+        console.log("account_send_json is " + acapela_data_send_json);
+
+        fetch("https://www.acapela-cloud.com/api/command/", {
+            method: 'POST',
+            headers:{
+                'Authorization': 'Token ' + storageValue,
+                'Content-Type': 'application/json'
+            },
+            body: acapela_data_send_json,
+        })
+        .then((response) => {
+            information = response.json();
+            console.log('info^^',information);
+            return information;
+        })
+        .then((data) => {
+        //    acapela_token = data["token"];
+        //    acapela_token = JSON.stringify(acapela_token);
+
+        //    console.log('acapela_token=',acapela_token);
+        })
+        .catch((error) => console.log("error", error));
+    }
+
     return (
         <>
             <main className={styles.main}>
@@ -14,8 +66,7 @@ export default function VE_Edit_video() {
                         <div className={styles.upload_file_title}>
                             Please select a voice and paste your script
                         </div>
-
-                        
+   
                         <iframe 
                             src='' 
                             width="500px" 
@@ -34,7 +85,11 @@ export default function VE_Edit_video() {
                                     <div className={styles.language}>
                                         language
                                     </div>
-                                    <select className={styles.select}>
+                                    <select 
+                                        className={styles.select} 
+                                        ref={languageRef}
+                                        name="language"
+                                    >
                                         <option></option>
                                         <option>English (Australia)</option>
                                         <option>English (India)</option>
@@ -46,14 +101,18 @@ export default function VE_Edit_video() {
                                     <div className={styles.Voice}>
                                         Voice
                                     </div>
-                                    <select className={styles.select}>
+                                    <select
+                                        className={styles.select}
+                                        ref={VoiceRef}
+                                        name="Voice"
+                                    >
                                         <option></option>
                                         <option>English</option>
                                         <option>Chineese</option>
                                     </select>
                                 </div>
 
-                                <button className={styles.Test_button}>
+                                <button className={styles.Test_button} onClick={test}>
                                     Test
                                 </button>
                             </div>
@@ -63,7 +122,11 @@ export default function VE_Edit_video() {
                             <div className={styles.Input_script_word}>
                                 2.Input the script
                             </div>
-                            <textarea className={styles.Input_script_block}>
+                            <textarea
+                                ref={scriptRef}
+                                name="script"
+                                className={styles.Input_script_block}
+                            >
                                 
                             </textarea>
                         </div>

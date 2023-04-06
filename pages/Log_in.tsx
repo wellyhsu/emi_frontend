@@ -4,8 +4,6 @@ import React, {useRef} from "react";
 import styles from '@/styles/Home.module.css'
 
 export default function Home() {
-//  const { data: session } = useSession();
-
   const nameRef = useRef(undefined);
   const passwordRef = useRef(undefined);
   // 為了方便操作，建立一個array來管理這些ref

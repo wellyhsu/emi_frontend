@@ -5,7 +5,41 @@ import styles from '@/styles/Home.module.css'
 import Archive_video from '../components/Archive_video'
 
 export default function Home() {
+  var information;
+  var id;
+  var title;
+  var description;
+  var updated_at;
+  var video_file;
   
+  fetch("http://127.0.0.1:8000/videos/", {
+    method: 'GET',
+    headers:{
+        'Content-Type': 'application/json'
+    },
+  })
+  .then((response) => {
+      information = response.json();
+      console.log('info^^',information);
+      return information;
+  })
+  .then((data) => {
+    id = data["id"];
+    title = data["title"];
+    description = data["description"];
+    updated_at = data["updated_at"];
+    video_file = data["video_file"];
+
+    console.log('id=',data["id"]);
+    console.log('title=',data["title"]);
+    console.log('description=',data["description"]);
+    console.log('updated_at=',data["updated_at"]);
+    console.log('video_file=',data["video_file"]);
+
+//            alert(data["detail"]);
+  })
+  .catch((error) => console.log("error", error));
+
   return (
     <>
       <main className={styles.main}>
