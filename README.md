@@ -9,7 +9,7 @@ First, run the development server:
 3. Run this command to get the **nvm**.
     `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`.
 4. Restart your terminal.
-5. Install nvm,  `nvm install v18.12.1`
+5. Use nvm update node to version 18.12.1,  `nvm install v18.12.1`
 6. Install npm, `sudo apt install npm`.
 7. Update npm to version 8.19.2, `sudo npm install -g npm@8.19.2`.
 8. Download the files, `git clone https://github.com/wellyhsu/emi_frontend.git`
