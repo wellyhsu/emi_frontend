@@ -4,18 +4,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the development server:
 
-1. Install npm, `sudo apt install npm`
-2. Download the files, `git clone https://github.com/wellyhsu/emi_frontend.git`
-3. Enter EMI folder, `cd emi_frontend`
-4. Install node_modules, `npm install`
-5. Run the Web, `npm run dev`  
-
-if show this error `showAll: args["--show-all"] ?? false,`, follow the steps below.  
-1. Run this command to get the **nvm**.
-    `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`  
-2. Restart your terminal.
-3. Install nvm,  `nvm install v18.12.1`
-4. Run the Web, `npm run dev`  
+1. `sudo apt-get update`.
+2. Install node.js, `sudo apt-get install node.js`.
+3. Run this command to get the **nvm**.
+    `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`.
+4. Restart your terminal.
+5. Install nvm,  `nvm install v18.12.1`
+6. Install npm, `sudo apt install npm`.
+7. Update npm to version 8.19.2, `sudo npm install -g npm@8.19.2`.
+8. Download the files, `git clone https://github.com/wellyhsu/emi_frontend.git`
+9. Enter EMI folder, `cd emi_frontend`
+10. Install node_modules, `npm install`
+11. Run the Web, `npm run dev`   
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
