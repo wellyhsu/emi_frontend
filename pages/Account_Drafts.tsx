@@ -1,8 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-
+import Cookies from 'js-cookie';
 import Archive_video from '../components/Archive_video'
+
+const token = Cookies.get('token');
+if(token == null || token == "null")
+{
+  window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+}
 
 export default function Home() {
   

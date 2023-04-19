@@ -4,6 +4,13 @@ import styles from '@/styles/Home.module.css'
 import {useEffect, useState} from 'react';
 import Archive_video from '../components/Archive_video'
 import User_item from '../components/User_item'
+import Cookies from 'js-cookie';
+
+const token = Cookies.get('token');
+if(token == null || token == "null")
+{
+  window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+}
 
 export default function Account_Settings() {
    const [storageValue, setStorageValue] = useState("null");

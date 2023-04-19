@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React, {useRef} from "react";
+import Cookies from 'js-cookie'; 
 import styles from '@/styles/Home.module.css'
 
 export default function Home() {
@@ -52,11 +53,11 @@ export default function Home() {
         token_DATA = JSON.stringify(token_DATA);
         userName = JSON.stringify(nameRef.current.value);
         
-        localStorage.setItem('token', token_DATA); //儲存
-        localStorage.setItem('userName', userName); //儲存
+        Cookies.set('token', token_DATA);
+        Cookies.set('userName', userName);
         
-        console.log('token_DATA=',data["token"]);
-        console.log('status_code=',data["code"]);
+        console.log('token_DATA=', Cookies.get('token'));
+        console.log('userName=', Cookies.get('userName'));
         console.log('msg=',data["msg"]);
         alert(msg);
 //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	

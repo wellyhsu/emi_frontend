@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, {useRef} from "react";
+import Cookies from 'js-cookie'; 
 import styles from '@/styles/Home.module.css'
 import {Header} from '../components/Header'
 
@@ -35,9 +36,8 @@ export default function App({ Component, pageProps }: AppProps) {
   })
   .then((data) => {
     acapela_token = data["token"];
-    acapela_token = JSON.stringify(acapela_token);
-    localStorage.setItem('acapela_token', acapela_token); //儲存
-    console.log('acapela_token=',acapela_token);
+    Cookies.set('acapela_token', acapela_token);//儲存
+    console.log('acapela_token=', acapela_token);
   })
   .catch((error) => console.log("error", error));
 

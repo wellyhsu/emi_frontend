@@ -2,9 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import React, {useRef} from "react";
+import Cookies from 'js-cookie'; 
 import {useEffect, useState} from 'react';
 
-var audio_file;
+var audio_file=0;
+
 export default function VE_Edit_video() {
     var information;
     const languageRef = useRef(undefined);
@@ -12,18 +14,11 @@ export default function VE_Edit_video() {
     const scriptRef = useRef(undefined);
     // 為了方便操作，建立一個array來管理這些ref
     const refArr = useRef([languageRef,VoiceRef,scriptRef]);
-    const [storageValue, setStorageValue] = useState("null");
-
-    useEffect(() => {
-        const acapela_token = localStorage.getItem('acapela_token');   
-        console.log("acapela_token!",acapela_token);
-        setStorageValue(acapela_token);
-    }, []) //傳遞一個空數組來保證只會被執行一次
+    const [streamData, setStreamData] = useState("null");
+    const acapela_token = Cookies.get('acapela_token');
 
     function test(){
-        var token_acapela; //取得不含""的字串
-        token_acapela = storageValue?.substring(1,(storageValue?.length-1));
-        
+
         console.log(languageRef.current.name +" is "+ languageRef.current.value);
         console.log(VoiceRef.current.name +" is "+ VoiceRef.current.value);
         console.log(scriptRef.current.name +" is "+ scriptRef.current.value);
@@ -32,22 +27,24 @@ export default function VE_Edit_video() {
         {
             "voice": VoiceRef.current.value,
             "text": scriptRef.current.value,
-            "output": "file" 
+            "output": "stream " 
         }
   
         var acapela_data_send_json = JSON.stringify(acapela_data_send);  //轉json格式
         console.log("account_send_json is " + acapela_data_send_json);
-        console.log("token~~",token_acapela);
+        console.log("!!!",acapela_token);
+//        audio_file = 1;
+        
+
         fetch("https://www.acapela-cloud.com/api/command/", {
             method: 'POST',
             headers:{
-                'Authorization': 'Token ' + token_acapela,
+                'Authorization': 'Token ' + acapela_token,
                 'Content-Type': 'application/json'
             },
             body: acapela_data_send_json,
         })
         .then((response) => {
-            console.log("token!!",token_acapela);
             information = response;
             console.log('info^^',information);
             console.log('infomation type=',typeof(information));
@@ -63,7 +60,45 @@ export default function VE_Edit_video() {
         })
         .catch((error) => console.log("error", error));
     }
-
+/*
+    if(audio_file == 1)
+    {
+        useEffect(() => {
+            async function fetchStreamData() {
+                const response = await fetch("https://www.acapela-cloud.com/api/command/", {
+                    method: 'POST',
+                    headers:{
+                        'Authorization': 'Token ' + acapela_token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: acapela_data_send_json,
+                })
+                .then((response) => {
+                    information = response;
+                    console.log('info^^',information);
+                    console.log('infomation type=',typeof(information));
+                    return information;
+                })
+                .then((data) => {
+                //    acapela_token = data["token"];
+                //    acapela_token = JSON.stringify(acapela_token);
+                  //  audio_file=data["body"];
+                    console.log('data["url"]=',data["url"]);
+                    console.log('data["blob"]=',data["blob"]);
+                    console.log('audio_file=',audio_file);
+                })
+                .catch((error) => console.log("error", error));
+                const audioData = await response.arrayBuffer();
+                const audioBlob = new Blob([audioData], {type: 'audio/mp3'});
+                const url = URL.createObjectURL(audioBlob);
+                setStreamData(url);
+            }
+            fetchStreamData();
+            console.log('streamData=',streamData );
+        }, []);
+        audio_file=0;
+    }
+*/
     return (
         <>
             <main className={styles.main}>
@@ -72,14 +107,21 @@ export default function VE_Edit_video() {
                         <div className={styles.Start_making}>
                             Edit the script
                         </div>
+                        <div>
+                            
+                        </div>
                         <div className={styles.upload_file_title}>
                             Please select a voice and paste your script
                         </div>
-{/**/}                         <div>
-                            {audio_file}
-                            <audio controls>
-                                <source src={audio_file} type="audio/mp3" />
-                            </audio>   
+{/**/}                  <div>
+                            {
+                                streamData && 
+                                (
+                                    <audio controls>
+                                        <source src={streamData} type="audio/mp3" />
+                                    </audio>  
+                                )
+                            }     
                         </div>
 
                         <iframe 

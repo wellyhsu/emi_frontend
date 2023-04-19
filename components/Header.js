@@ -1,10 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React, {useRef} from "react";
+import Cookies from 'js-cookie'; 
 import {useEffect, useState} from 'react';
 import styles from '@/styles/Home.module.css'
 
 var F_button=0;
+Cookies.set('token', "null");
 
 function Feature_button(){
   if(F_button)
@@ -30,19 +32,13 @@ function link_click(){
 
 
 export const Header = () => {
-    const [storageValue, setStorageValue] = useState("null");
 
-    useEffect(() => {
-        const token = JSON.stringify(localStorage.getItem('token'));
-        setStorageValue(token);
-    }, []) //傳遞一個空數組來保證只會被執行一次
+    const token = Cookies.get('token');
 
-//    console.log("Home=",typeof(process.env.NEXT_PUBLIC_Home));
+    console.log("~~token~~", token);
+    console.log("storageValue type ->", typeof(token));
 
-    console.log("~~token~~", storageValue);
-    console.log("storageValue type ->", typeof(storageValue));
-
-    if ((storageValue == "null") || (storageValue == null)){    //未登入
+    if ((token == "null") || (token == null)){    //未登入
         console.log("還沒login!!");
         return(
             <>
