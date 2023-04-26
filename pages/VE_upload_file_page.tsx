@@ -33,7 +33,7 @@ function upload(e) {
       document.getElementById('file_name').value = fileName;
     
     }, false);
-  }  
+}  
 
 function upload_file(){
     var information;
@@ -148,7 +148,7 @@ function upload_file(){
 }
 
 
-export default function How_to_Make_video() {
+export default function VE_upload_file_page() {
     return (
         <>
 {/*            <Script

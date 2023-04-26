@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, {useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Cookies from 'js-cookie'; 
 import styles from '@/styles/Home.module.css'
 import {Header} from '../components/Header'
@@ -22,24 +22,30 @@ export default function App({ Component, pageProps }: AppProps) {
   var Acapela_login_send_json = JSON.stringify(Acapela_login_send);  //轉json格式
   console.log("Acapela_login_send_json is " + Acapela_login_send_json);
 
-  fetch("https://www.acapela-cloud.com/api/login/", {
-    method: 'POST',
-    headers:{
-      'Content-Type': 'application/json'
-    },
-    body: Acapela_login_send_json,
-  })
-  .then((response) => {
-      information = response.json();
-      console.log('info^^',information);
-      return information;
-  })
-  .then((data) => {
-    acapela_token = data["token"];
-    Cookies.set('acapela_token', acapela_token);//儲存
-    console.log('acapela_token=', acapela_token);
-  })
-  .catch((error) => console.log("error", error));
+  useEffect(() => {
+    console.log(acapela_token);
+    if(acapela_token == null)
+    {
+      fetch("https://www.acapela-cloud.com/api/login/", {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: Acapela_login_send_json,
+      })
+      .then((response) => {
+          information = response.json();
+          console.log('info^^',information);
+          return information;
+      })
+      .then((data) => {
+        acapela_token = data["token"];
+        Cookies.set('acapela_token', acapela_token);//儲存
+        console.log('acapela_token=', acapela_token);
+      })
+      .catch((error) => console.log("error", error));
+    }
+  }, []);
 
   return (
     <>

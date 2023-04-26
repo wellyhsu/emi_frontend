@@ -5,7 +5,9 @@ import React, {useRef} from "react";
 import Cookies from 'js-cookie'; 
 import {useEffect, useState} from 'react';
 
-var audio_file=0;
+var click_Test_button=0;
+var audio_file;
+var audio_URL;
 
 export default function VE_Edit_video() {
     var information;
@@ -19,52 +21,50 @@ export default function VE_Edit_video() {
 
     function test(){
 
-        console.log(languageRef.current.name +" is "+ languageRef.current.value);
-        console.log(VoiceRef.current.name +" is "+ VoiceRef.current.value);
-        console.log(scriptRef.current.name +" is "+ scriptRef.current.value);
-
         const acapela_data_send =
         {
             "voice": VoiceRef.current.value,
             "text": scriptRef.current.value,
-            "output": "stream " 
+            "output": "file " 
         }
   
         var acapela_data_send_json = JSON.stringify(acapela_data_send);  //轉json格式
         console.log("account_send_json is " + acapela_data_send_json);
-        console.log("!!!",acapela_token);
-//        audio_file = 1;
-        
+        console.log("Token + ",acapela_token);
 
         fetch("https://www.acapela-cloud.com/api/command/", {
             method: 'POST',
             headers:{
                 'Authorization': 'Token ' + acapela_token,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: acapela_data_send_json,
         })
         .then((response) => {
             information = response;
-            console.log('info^^',information);
-            console.log('infomation type=',typeof(information));
-            return information;
+//            audio_file = response.arrayBuffer();
+            console.log('info^^', information);
+            console.log('infomation type=', typeof(information));
+/*            console.log('audio_file=', audio_file);
+            const audioBlob = new Blob([audio_file], {type: 'audio/mp3'});
+            audio_URL = URL.createObjectURL(audioBlob);
+            console.log('audioBlob=', audioBlob);
+            console.log('url=', audio_URL);
+*/            return information;
         })
         .then((data) => {
         //    acapela_token = data["token"];
         //    acapela_token = JSON.stringify(acapela_token);
           //  audio_file=data["body"];
-            console.log('data["url"]=',data["url"]);
-            console.log('data["blob"]=',data["blob"]);
-            console.log('audio_file=',audio_file);
+ //           console.log('data["url"]=',data["url"]);
+   //         console.log('data["blob"]=',data["blob"]);
+     //       console.log('audio_file=',audio_file);
         })
         .catch((error) => console.log("error", error));
-    }
-/*
-    if(audio_file == 1)
-    {
-        useEffect(() => {
-            async function fetchStreamData() {
+      }
+
+
+/*            async function fetchStreamData() {
                 const response = await fetch("https://www.acapela-cloud.com/api/command/", {
                     method: 'POST',
                     headers:{
@@ -75,14 +75,12 @@ export default function VE_Edit_video() {
                 })
                 .then((response) => {
                     information = response;
+                    audio_file = response.arrayBuffer();
                     console.log('info^^',information);
                     console.log('infomation type=',typeof(information));
                     return information;
                 })
                 .then((data) => {
-                //    acapela_token = data["token"];
-                //    acapela_token = JSON.stringify(acapela_token);
-                  //  audio_file=data["body"];
                     console.log('data["url"]=',data["url"]);
                     console.log('data["blob"]=',data["blob"]);
                     console.log('audio_file=',audio_file);
@@ -95,10 +93,8 @@ export default function VE_Edit_video() {
             }
             fetchStreamData();
             console.log('streamData=',streamData );
-        }, []);
-        audio_file=0;
-    }
-*/
+*/    
+
     return (
         <>
             <main className={styles.main}>
@@ -118,7 +114,7 @@ export default function VE_Edit_video() {
                                 streamData && 
                                 (
                                     <audio controls>
-                                        <source src={streamData} type="audio/mp3" />
+                                        <source src={audio_URL} type="audio/mp3" />
                                     </audio>  
                                 )
                             }     
@@ -149,7 +145,8 @@ export default function VE_Edit_video() {
                                     >
                                         <option></option>
                                         <option>English (Australia)</option>
-                                        <option>English (India)</option>
+                                        <option>USEnglish</option>
+                                        <option>British</option>
                                         <option>Chineese</option>
                                     </select>
                                 </div>
@@ -166,6 +163,9 @@ export default function VE_Edit_video() {
                                         <option></option>
                                         <option>Lucy22k_NT</option>
                                         <option>Peter22k_NT</option>
+                                        <option>Lulu22k_HQ</option>
+                                        <option>QueenElizabeth22k_NT</option>
+                                        <option>Rachel22k_NT</option>
                                     </select>
                                 </div>
 

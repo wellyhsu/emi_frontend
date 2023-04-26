@@ -5,7 +5,7 @@ import styles from '@/styles/Home.module.css'
 class People_item extends React.Component {
     render() { 
         return (
-            <div className={styles.CreateMyAudio_voice_block}>
+            <div id={this.props.id} className={styles.CreateMyAudio_voice_block}>
                 <div className={styles.CreateMyAudio_people_image}>
                     <Image
                         src={this.props.people_image}

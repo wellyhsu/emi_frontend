@@ -29,6 +29,7 @@ export default function TTSA_Create_My_Audio() {
         console.log("Click_key type=", typeof(Click_key));
         console.log("remove_index=",remove_index);
         console.log("key=",key);
+        console.log("Click_key=",Click_key);
         console.log("remove_number=",remove_number);
 
         index_number.splice(remove_index, 1);
@@ -78,6 +79,7 @@ export default function TTSA_Create_My_Audio() {
                 item_alt="Tom image"
                 people_Name="Tom"
                 function={delete_people_block}
+                id={index_number[i]}
                 key={index_number[i]}
             />
         );

@@ -514,7 +514,7 @@ ul.Layerout ul li:hover {
   color: rgb(255,255,255);  
   background-color:#57c49d;
 
-  padding-top: 0.4em;
+  padding-bottom: 0.4em;
   
 /*  margin-bottom: 1em;*/
 }
@@ -1417,7 +1417,7 @@ ul.Layerout ul li:hover {
 }
 
 .upload_block{
-  display: inline-block;
+  display: block;
   width: 562px;
   height: 298px;
   cursor: pointer;
@@ -1890,6 +1890,123 @@ select.option{
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+.Reselect_video{
+  display: inline-block;
+
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(0, 0, 0, 0.5);
+  background-color:   rgba(255, 255, 255, 1);
+
+  border: solid;
+  border-radius: 5px;
+  border-color: rgba(87, 196, 157, 1);
+
+  margin-left: 25%;
+  margin-bottom: 50px;
+}
+
+.Start_editing{
+  display: inline-block;
+
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(87, 196, 157, 1);
+
+  border: solid;
+  border-radius: 5px;
+  border-color: rgba(87, 196, 157, 1);
+
+  margin-left: 130px;
+  margin-bottom: 50px;
+}
+
+.PopupQuiz_video_preview{
+  margin-top: 4%;
+  margin-bottom: 1%;
+}
+/* Pop-up editing video*/
+.Popup_add_button{
+  position: absolute;
+  z-index: 1;
+  cursor: pointer;
+
+  width: 70px;
+  height: 70px;
+
+  color:rgba(255, 255, 255, 1);
+  background-color:  rgba(255, 193, 7, 1);
+  border: none; 
+  border-radius: 50px;
+
+  margin-top: 26%;
+  margin-left: 13%;
+}
+.Popup_add_button:hover{
+  transform: scale(1.02);  
+}
+
+.question_button{
+  display: none;
+  position: absolute;
+  z-index: 1;
+  margin-top: 30.8%;
+  margin-left: 26%;
+}
+
+.gap_fill_button{
+  display: inline-block;
+  cursor: pointer;
+
+  width: 95px;
+  height: 35px;
+
+  color:none;
+  background-color:  rgb(255,255,255);
+
+  border: solid;
+  border-width: 2px;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.gap_fill_button:hover{
+  transform: scale(1.02);  
+}
+
+.Multiple_choice_button{
+  display: inline-block;
+  cursor: pointer;
+
+  width: 95px;
+  height: 35px;
+
+  color:none;
+  background-color:  rgb(255,255,255);
+
+  border: solid;
+  border-width: 2px;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+
+  margin-left: 10px;
+}
+.Multiple_choice_button:hover{
+  transform: scale(1.02);  
 }
 
 
