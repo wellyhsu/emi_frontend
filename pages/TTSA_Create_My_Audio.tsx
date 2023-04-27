@@ -42,12 +42,12 @@ const play_audio = (key) => {
 //            audio_file = response.arrayBuffer();
         console.log('info^^', information);
         console.log('infomation type=', typeof(information));
-/*            console.log('audio_file=', audio_file);
-        const audioBlob = new Blob([audio_file], {type: 'audio/mp3'});
-        audio_URL = URL.createObjectURL(audioBlob);
-        console.log('audioBlob=', audioBlob);
-        console.log('url=', audio_URL);
-*/            return information;
+//            console.log('audio_file=', audio_file);
+//        const audioBlob = new Blob([audio_file], {type: 'audio/mp3'});
+//        audio_URL = URL.createObjectURL(audioBlob);
+//        console.log('audioBlob=', audioBlob);
+//        console.log('url=', audio_URL);
+            return information;
     })
     .then((data) => {
     //    acapela_token = data["token"];
