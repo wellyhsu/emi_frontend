@@ -5,7 +5,7 @@ import styles from '@/styles/Home.module.css'
 class People_item extends React.Component {
     render() { 
         return (
-            <div id={this.props.id} className={styles.CreateMyAudio_voice_block}>
+            <div className={styles.CreateMyAudio_voice_block}>
                 <div className={styles.CreateMyAudio_people_image}>
                     <Image
                         src={this.props.people_image}
@@ -18,21 +18,22 @@ class People_item extends React.Component {
                         {this.props.people_Name}
                     </div>
                 </div>
-                <textarea className={styles.CreateMyAudio_input} placeholder='Please enter text here'>
+                <textarea id={this.props.id} className={styles.CreateMyAudio_input} placeholder='Please enter text here'>
+                
                 </textarea>
                 <button className={styles.TTSA_Delete} onClick={this.props.function}>
                     <Image
                         src="/TTSA_Delete_image.svg"
-                        alt="Delete image"
+                        alt={this.props.Delete_id}//"Delete image"
                         width={25}
                         height={25}
                         priority
                     />
                 </button>
-                <button className={styles.TTSA_Try_listening}>
+                <button className={styles.TTSA_Try_listening} onClick={this.props.play_function}>
                     <Image
                         src="/TTSA_try_listening.svg"
-                        alt="Try listening image"
+                        alt={this.props.Delete_id}
                         width={25}
                         height={25}
                         priority
