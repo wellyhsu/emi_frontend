@@ -5,7 +5,6 @@ import React, {useRef} from "react";
 import Cookies from 'js-cookie'; 
 import {useEffect, useState} from 'react';
 
-var click_Test_button=0;
 var audio_file;
 var audio_URL;
 
@@ -14,8 +13,6 @@ export default function VE_Edit_video() {
     const languageRef = useRef(undefined);
     const VoiceRef = useRef(undefined);
     const scriptRef = useRef(undefined);
-    // 為了方便操作，建立一個array來管理這些ref
-    const refArr = useRef([languageRef,VoiceRef,scriptRef]);
     const [streamData, setStreamData] = useState("null");
     const acapela_token = Cookies.get('acapela_token');
 
@@ -25,8 +22,8 @@ export default function VE_Edit_video() {
         {
             "voice": VoiceRef.current.value,
             "text": scriptRef.current.value,
-            "output": "file " 
-        }
+            "output": "file" 
+        };
   
         var acapela_data_send_json = JSON.stringify(acapela_data_send);  //轉json格式
         console.log("account_send_json is " + acapela_data_send_json);
@@ -41,59 +38,41 @@ export default function VE_Edit_video() {
             body: acapela_data_send_json,
         })
         .then((response) => {
-            information = response;
+            response.blob()
+            .then(blob => {
+                const audio = document.querySelector('audio');
+                const source = document.querySelector('source');
+
+                const url = URL.createObjectURL(blob);  // 使用Blob創建URL
+                source.src = url;  // 設定audio的src屬性為創建的URL
+                audio.load();
+                audio.play();
+
+                const download = document.getElementById('download');
+                download.setAttribute('href', url);
+                download.setAttribute('download', 'audio.mp3');
+            })
+            .catch(error => console.error(error));
+
 //            audio_file = response.arrayBuffer();
             console.log('info^^', information);
             console.log('infomation type=', typeof(information));
-/*            console.log('audio_file=', audio_file);
-            const audioBlob = new Blob([audio_file], {type: 'audio/mp3'});
-            audio_URL = URL.createObjectURL(audioBlob);
-            console.log('audioBlob=', audioBlob);
-            console.log('url=', audio_URL);
-*/            return information;
+//            console.log('audio_file=', audio_file);
+//            const audioBlob = new Blob([audio_file], {type: 'audio/mp3'});
+//            audio_URL = URL.createObjectURL(audioBlob);
+//            console.log('audioBlob=', audioBlob);
+//            console.log('url=', audio_URL);
+//            return information;
         })
         .then((data) => {
-        //    acapela_token = data["token"];
-        //    acapela_token = JSON.stringify(acapela_token);
-          //  audio_file=data["body"];
- //           console.log('data["url"]=',data["url"]);
-   //         console.log('data["blob"]=',data["blob"]);
-     //       console.log('audio_file=',audio_file);
+//          audio_file=data["body"];
+//            console.log('data["url"]=',data["url"]);
+//            console.log('data["blob"]=',data["blob"]);
+//            console.log('audio_file=',audio_file);
         })
         .catch((error) => console.log("error", error));
       }
-
-
-/*            async function fetchStreamData() {
-                const response = await fetch("https://www.acapela-cloud.com/api/command/", {
-                    method: 'POST',
-                    headers:{
-                        'Authorization': 'Token ' + acapela_token,
-                        'Content-Type': 'application/json'
-                    },
-                    body: acapela_data_send_json,
-                })
-                .then((response) => {
-                    information = response;
-                    audio_file = response.arrayBuffer();
-                    console.log('info^^',information);
-                    console.log('infomation type=',typeof(information));
-                    return information;
-                })
-                .then((data) => {
-                    console.log('data["url"]=',data["url"]);
-                    console.log('data["blob"]=',data["blob"]);
-                    console.log('audio_file=',audio_file);
-                })
-                .catch((error) => console.log("error", error));
-                const audioData = await response.arrayBuffer();
-                const audioBlob = new Blob([audioData], {type: 'audio/mp3'});
-                const url = URL.createObjectURL(audioBlob);
-                setStreamData(url);
-            }
-            fetchStreamData();
-            console.log('streamData=',streamData );
-*/    
+ 
 
     return (
         <>
@@ -109,7 +88,7 @@ export default function VE_Edit_video() {
                         <div className={styles.upload_file_title}>
                             Please select a voice and paste your script
                         </div>
-{/**/}                  <div>
+                        <div>
                             {
                                 streamData && 
                                 (
@@ -119,7 +98,7 @@ export default function VE_Edit_video() {
                                 )
                             }     
                         </div>
-
+                        <a id="download" href="#" download>下載語音檔</a>
                         <iframe 
                             src='' 
                             width="500px" 

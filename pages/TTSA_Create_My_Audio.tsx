@@ -22,7 +22,7 @@ const play_audio = (key) => {
     {
         "voice": "Lucy22k_NT",
         "text": text,
-        "output": "file " 
+        "output": "file" 
     }
   
     var acapela_data_send_json = JSON.stringify(acapela_data_send);  //轉json格式

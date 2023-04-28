@@ -23,8 +23,8 @@ export default function App({ Component, pageProps }: AppProps) {
   console.log("Acapela_login_send_json is " + Acapela_login_send_json);
 
   useEffect(() => {
-    console.log(acapela_token);
-    if(acapela_token == null)
+    console.log('effect_acapela=',Cookies.get('acapela_token'));
+    if(Cookies.get('acapela_token') == null)
     {
       fetch("https://www.acapela-cloud.com/api/login/", {
         method: 'POST',
