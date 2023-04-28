@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import {useEffect, useState} from 'react';
 import styles from '@/styles/Home.module.css'
 import People_item from '../components/People_item'
-import {useEffect, useState} from 'react';
 import Cookies from 'js-cookie'; 
 
 const index_number = [];   //component的id
@@ -38,24 +38,22 @@ const play_audio = (key) => {
         body: acapela_data_send_json,
     })
     .then((response) => {
-        information = response;
-//            audio_file = response.arrayBuffer();
+        response.blob()   //同步 異步 問題
+        .then(blob => {
+            const audio = document.querySelector('audio');
+            const source = document.querySelector('source');
+
+            const url = URL.createObjectURL(blob);  // 使用Blob創建URL
+            source.src = url;  // 設定audio的src屬性為創建的URL
+            audio.load();
+            audio.play();
+
+            const download = document.getElementById('download');
+            download.setAttribute('href', url);
+            download.setAttribute('download', 'audio.mp3');
+        })
+        .catch(error => console.error(error));
         console.log('info^^', information);
-        console.log('infomation type=', typeof(information));
-//            console.log('audio_file=', audio_file);
-//        const audioBlob = new Blob([audio_file], {type: 'audio/mp3'});
-//        audio_URL = URL.createObjectURL(audioBlob);
-//        console.log('audioBlob=', audioBlob);
-//        console.log('url=', audio_URL);
-            return information;
-    })
-    .then((data) => {
-    //    acapela_token = data["token"];
-    //    acapela_token = JSON.stringify(acapela_token);
-        //  audio_file=data["body"];
-//           console.log('data["url"]=',data["url"]);
-//         console.log('data["blob"]=',data["blob"]);
-    //       console.log('audio_file=',audio_file);
     })
     .catch((error) => console.log("error", error));
 
@@ -148,7 +146,7 @@ export default function TTSA_Create_My_Audio() {
                     <div>
                         <div id='people_block'>
                             {components}
-{/**/}                  </div>
+                        </div>
                         <div id="button_block" className={styles.TTSA_button_center}>
                             <button className={styles.Add_more_Audios_button} onClick={add_people_block}>
                                 <Image

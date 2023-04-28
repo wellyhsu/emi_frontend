@@ -3,17 +3,12 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import React, {useRef} from "react";
 import Cookies from 'js-cookie'; 
-import {useEffect, useState} from 'react';
-
-var audio_file;
-var audio_URL;
 
 export default function VE_Edit_video() {
     var information;
     const languageRef = useRef(undefined);
     const VoiceRef = useRef(undefined);
     const scriptRef = useRef(undefined);
-    const [streamData, setStreamData] = useState("null");
     const acapela_token = Cookies.get('acapela_token');
 
     function test(){
@@ -38,7 +33,7 @@ export default function VE_Edit_video() {
             body: acapela_data_send_json,
         })
         .then((response) => {
-            response.blob()
+            response.blob()   //同步 異步 問題
             .then(blob => {
                 const audio = document.querySelector('audio');
                 const source = document.querySelector('source');
@@ -53,22 +48,7 @@ export default function VE_Edit_video() {
                 download.setAttribute('download', 'audio.mp3');
             })
             .catch(error => console.error(error));
-
-//            audio_file = response.arrayBuffer();
             console.log('info^^', information);
-            console.log('infomation type=', typeof(information));
-//            console.log('audio_file=', audio_file);
-//            const audioBlob = new Blob([audio_file], {type: 'audio/mp3'});
-//            audio_URL = URL.createObjectURL(audioBlob);
-//            console.log('audioBlob=', audioBlob);
-//            console.log('url=', audio_URL);
-//            return information;
-        })
-        .then((data) => {
-//          audio_file=data["body"];
-//            console.log('data["url"]=',data["url"]);
-//            console.log('data["blob"]=',data["blob"]);
-//            console.log('audio_file=',audio_file);
         })
         .catch((error) => console.log("error", error));
       }
@@ -88,24 +68,15 @@ export default function VE_Edit_video() {
                         <div className={styles.upload_file_title}>
                             Please select a voice and paste your script
                         </div>
+                        <video>
+                            
+                        </video>
                         <div>
-                            {
-                                streamData && 
-                                (
-                                    <audio controls>
-                                        <source src={audio_URL} type="audio/mp3" />
-                                    </audio>  
-                                )
-                            }     
+                            <audio controls>
+                                <source type="audio/mp3" />
+                            </audio>   
                         </div>
                         <a id="download" href="#" download>下載語音檔</a>
-                        <iframe 
-                            src='' 
-                            width="500px" 
-                            height="279px" 
-                            frameBorder="0" 
-                            className={styles.PPT}>
-                        </iframe>
                         
                     </div>
 

@@ -39,7 +39,9 @@ class People_item extends React.Component {
                         priority
                     />
                 </button>
-                
+                <audio autoplay>
+                    <source type="audio/mp3" />
+                </audio>
             </div>
         )
     }
