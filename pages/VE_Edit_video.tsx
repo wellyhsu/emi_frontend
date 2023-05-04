@@ -68,16 +68,23 @@ export default function VE_Edit_video() {
                         <div className={styles.upload_file_title}>
                             Please select a voice and paste your script
                         </div>
-                        <video>
-                            
-                        </video>
-                        <div>
+                        <div className={styles.Edit_video}>
+                            <video 
+                                src="video_preview.svg"
+                                poster=""
+                                width="500" 
+                                height="348" 
+                                autoplay="false" 
+                                controls="true" 
+                            />
+                        </div>
+                        <div style={{display: "none"}}>
                             <audio controls>
                                 <source type="audio/mp3" />
                             </audio>   
-                        </div>
-                        <a id="download" href="#" download>下載語音檔</a>
                         
+                            <a id="download" href="#" download>下載語音檔</a>
+                        </div>
                     </div>
 
                     <div className={styles.Edit_right_part}>

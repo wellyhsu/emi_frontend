@@ -9,7 +9,45 @@ const index_number = [];   //component的id
 const remove_number = [];   //被移除掉的component的id
 var repeat=0;   //用於判斷index在index_number內是否有重複
 var index=0;   //用於給component 一個key值
+var Download_as=0;
+var Format=0;
+var Quality=0;
+var Channel=0;
+
 const acapela_token = Cookies.get('acapela_token');
+
+const closed_Download_windows = ()=>{
+    document.getElementById("Download_window").style="display: none;";
+}
+
+const button_control = () =>{
+    if(Download_as)
+    {
+        document.getElementById("Single_file").style=" background-color: rgba(217, 217, 217, 1);";
+    }
+    else
+    {
+
+    }
+    rgba(255, 255, 255, 1)
+}
+
+const Build_Audio = () =>{
+    var text;
+    var total_text="";
+    for(var i=0; i<index_number.length;i++)
+    {
+        text = document.getElementById(String(index_number[i])).value;
+        total_text=total_text+text;
+        console.log("text=",total_text);
+    }
+    
+
+}
+
+const Export = () => {
+    document.getElementById("Download_window").style="display: block;";
+}
 
 const play_audio = (key) => {
     var text;
@@ -172,14 +210,84 @@ export default function TTSA_Create_My_Audio() {
                             priority
                         />
                         <div className={styles.TTSA_button_block}>
-                            <button className={styles.Build_Audio_button}>
+                            <button className={styles.Build_Audio_button} onClick={Build_Audio}>
                                 Build Audio
                             </button>
-                            <button className={styles.Export_button}>
+                            <button className={styles.Export_button} onClick={Export}>
                                 Export
                             </button>
                         </div> 
                     </div>
+                </div>
+                <div id="Download_window" className={styles.Download_block}>
+                    <button className={styles.X} onClick={closed_Download_windows}>
+                        <Image
+                            src="/X.svg"
+                            alt="close download windows"
+                            width={12}
+                            height={12}
+                            priority
+                        />
+                    </button>
+                    <div className={styles.Download}>
+                        Download
+                    </div>
+                    <div className={styles.Download_word}>
+                        Download as
+                    </div>
+                    <div>
+                        <button id="Single_file" className={styles.download_left_button}>
+                            Single file
+                        </button>
+                        <button id="Split_by_blocks" className={styles.download_right_button}>
+                            Split by blocks
+                        </button>
+                    </div>
+                    <div className={styles.Download_word}>
+                        Format
+                    </div>
+                    <div>
+                        <button id="mp3" className={styles.download_left_button}>
+                            .mp3
+                        </button>
+                        <button id="WAV" className={styles.download_center_button}>
+                            .WAV
+                        </button>
+                        <button id="FLAC" className={styles.download_right_button}>
+                            .FLAC
+                        </button>
+                    </div>
+                    <div className={styles.Download_word}>
+                        Quality
+                    </div>
+                    <div>
+                        <button id="LOW" className={styles.download_left_button}>
+                            LOW
+                        </button>
+                        <button id="Medium" className={styles.download_center_button}>
+                            Medium
+                        </button>
+                        <button id="High" className={styles.download_right_button}>
+                            High
+                        </button>
+                        <div className={styles.Quality_text}>
+                            (48kHz, 16bit)
+                        </div>
+                    </div>
+                    <div className={styles.Download_word}>
+                        Channel
+                    </div>
+                    <div>
+                        <button id="Stereo" className={styles.download_left_button}>
+                            Stereo
+                        </button>
+                        <button id="Mono" className={styles.download_right_button}>
+                            Mono
+                        </button>
+                    </div>
+                    <button className={styles.Download_Button}>
+                            Download
+                    </button>
                 </div>
 
                 
