@@ -4,14 +4,54 @@ import styles from '@/styles/Home.module.css'
 import React, {useRef} from "react";
 import Cookies from 'js-cookie'; 
 
+
+
 export default function VE_Edit_video() {
     var information;
+
     const languageRef = useRef(undefined);
     const VoiceRef = useRef(undefined);
     const scriptRef = useRef(undefined);
     const acapela_token = Cookies.get('acapela_token');
 
-    function test(){
+
+    function get_language()
+    {
+        console.log('VoiceRef=',languageRef.current.value);
+        if(languageRef.current.value == "USEnglish")
+        {
+            document.getElementById("all").style = "display: none;";
+            document.getElementById("USEnglish").style = "display: block;";
+            document.getElementById("British").style = "display: none;";
+            document.getElementById("MandarinChinese").style = "display: none;";
+        }
+        else if(languageRef.current.value == "British")
+        {
+            document.getElementById("all").style = "display: none;";
+            document.getElementById("USEnglish").style = "display: none;";
+            document.getElementById("British").style = "display: block;";
+            document.getElementById("MandarinChinese").style = "display: none;";
+        }
+        else if(languageRef.current.value == "MandarinChinese")
+        {
+            document.getElementById("all").style = "display: none;";
+            document.getElementById("USEnglish").style = "display: none;";
+            document.getElementById("British").style = "display: none;";
+            document.getElementById("MandarinChinese").style = "display: block;";
+        }
+        else
+        {
+            document.getElementById("all").style = "display: block;";
+            document.getElementById("USEnglish").style = "display: none;";
+            document.getElementById("British").style = "display: none;";
+            document.getElementById("MandarinChinese").style = "display: none;";
+        }
+    }
+    function test()
+    {
+
+        var selectVideo = document.querySelector('video');
+        console.log('currentTime=',selectVideo?.currentTime);
 
         const acapela_data_send =
         {
@@ -51,31 +91,29 @@ export default function VE_Edit_video() {
             console.log('info^^', information);
         })
         .catch((error) => console.log("error", error));
-      }
+    }
  
 
     return (
         <>
             <main className={styles.main}>
+                <div className={styles.Start_making}>
+                    Edit the script
+                </div>
+                <div className={styles.upload_file_title}>
+                    Please select a voice and paste your script
+                </div>
+
                 <div className={styles.Edit_grid2}>
-                    <div className={styles.Edit_left_part}>
-                        <div className={styles.Start_making}>
-                            Edit the script
-                        </div>
-                        <div>
-                            
-                        </div>
-                        <div className={styles.upload_file_title}>
-                            Please select a voice and paste your script
-                        </div>
+                    <div className={styles.Edit_left_part}>    
                         <div className={styles.Edit_video}>
                             <video 
-                                src="video_preview.svg"
+                                src=""//"白熊咖啡厅第三集cut.mp4"
                                 poster=""
                                 width="500" 
                                 height="348" 
-                                autoplay="false" 
-                                controls="true" 
+                                autoPlay={false} 
+                                controls={true} 
                             />
                         </div>
                         <div style={{display: "none"}}>
@@ -99,12 +137,12 @@ export default function VE_Edit_video() {
                                         className={styles.select} 
                                         ref={languageRef}
                                         name="language"
+                                        onChange={get_language}
                                     >
                                         <option></option>
-                                        <option>English (Australia)</option>
                                         <option>USEnglish</option>
                                         <option>British</option>
-                                        <option>Chineese</option>
+                                        <option>MandarinChinese</option>
                                     </select>
                                 </div>
 
@@ -112,18 +150,74 @@ export default function VE_Edit_video() {
                                     <div className={styles.Voice}>
                                         Voice
                                     </div>
-                                    <select
-                                        className={styles.select}
-                                        ref={VoiceRef}
-                                        name="Voice"
-                                    >
-                                        <option></option>
-                                        <option>Lucy22k_NT</option>
-                                        <option>Peter22k_NT</option>
-                                        <option>Lulu22k_HQ</option>
-                                        <option>QueenElizabeth22k_NT</option>
-                                        <option>Rachel22k_NT</option>
-                                    </select>
+                                    <div id="all" className={styles.all}>
+                                        <select
+                                            className={styles.select}
+                                            ref={VoiceRef}
+                                            name="Voice"
+                                        >
+                                            <option></option>
+                                            <optgroup label="USEnglish">
+                                                <option>Darius22k_NT</option>
+                                                <option>Karen22k_NT</option>
+                                                <option>Laura22k_NT</option>
+                                                <option>Rod22k_NT</option>
+                                            </optgroup>
+
+                                            <optgroup label="British">
+                                                <option>Lucy22k_NT</option>
+                                                <option>Peter22k_NT</option>
+                                                <option>QueenElizabeth22k_NT</option>
+                                                <option>Rachel22k_NT</option>
+                                            </optgroup>
+
+                                            <optgroup label="MandarinChinese">
+                                                <option>Lulu22k_HQ</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div id="USEnglish" className={styles.USEnglish}>
+                                        <select
+                                            className={styles.select}
+                                            ref={VoiceRef}
+                                            name="Voice"
+                                        >
+                                            <option></option>
+                                            <optgroup label="USEnglish">
+                                                <option>Darius22k_NT</option>
+                                                <option>Karen22k_NT</option>
+                                                <option>Laura22k_NT</option>
+                                                <option>Rod22k_NT</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div id="British" className={styles.British}>
+                                        <select
+                                            className={styles.select}
+                                            ref={VoiceRef}
+                                            name="Voice"
+                                        >
+                                            <option></option>
+                                            <optgroup label="British">
+                                                <option>Lucy22k_NT</option>
+                                                <option>Peter22k_NT</option>
+                                                <option>QueenElizabeth22k_NT</option>
+                                                <option>Rachel22k_NT</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div id="MandarinChinese" className={styles.MandarinChinese}>
+                                        <select
+                                            className={styles.select}
+                                            ref={VoiceRef}
+                                            name="Voice"
+                                        >
+                                            <option></option>
+                                            <optgroup label="MandarinChinese">
+                                                <option>Lulu22k_HQ</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <button className={styles.Test_button} onClick={test}>

@@ -193,6 +193,9 @@ export default function VE_upload_file_page() {
                         </label>
                 </div>
                 <div className={styles.upload_file_button}>
+                    <button className={styles.UploadFile_Next_button} onClick={upload_file}>
+                        Next
+                    </button>
                     <Link 
                         href={{
                             pathname: '/[page]',
@@ -203,9 +206,7 @@ export default function VE_upload_file_page() {
                             Back
                         </button>
                     </Link>
-                    <button className={styles.UploadFile_Next_button} onClick={upload_file}>
-                        Next
-                    </button>
+                    
                 </div> 
                 
 

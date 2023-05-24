@@ -184,6 +184,11 @@ ul.Layerout ul li:hover {
 /* 當視窗寬度小於1200px時執行 */
 @media screen and (max-width: 1200px) 
 {
+  .AboutUs{
+    height:100%;
+    background-color: #15b47f;
+  }
+
   .line{
     width: 24px;
     height: 24px;
@@ -391,13 +396,14 @@ ul.Layerout ul li:hover {
   width: var(--max-width);
   max-width: 100%;
   gap: 3em;
-  margin-left: 20em;
+  margin-left: 20%;
 }
 
 .Information{
   display:inline-block;
   width: 100%;
   height: 100%;
+  max-width: 800px;
   border-radius: 20px;
 /*  margin-left: 7%;*/
   font-family: Arial;
@@ -411,13 +417,23 @@ ul.Layerout ul li:hover {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.8);
 }
 
+.information_picture{
+  position: relative;
+  width:22vw;
+  height: 40vh;
+  margin-top: 12px;
+}
 
-.AboutUs{
-  height: 600px;
-  background-color:rgba(255,251,240,1);
-  text-align: center;
-  font-family: Arial;
-  margin-top: 3em;
+@media screen and (max-width: 1200px) 
+{
+  .AboutUs{
+    height: 600px;
+    max-width: 1200px;
+    background-color:rgba(255,251,240,1);
+    text-align: center;
+    font-family: Arial;
+    margin-top: 3em;
+  }
 }
 
 .AboutUsTitle{
@@ -433,10 +449,17 @@ ul.Layerout ul li:hover {
   line-height: 2.6em;
 }
 
+.Aboutus_picture{
+  display: flex;
+  justify-content: center;  
+  width: 100%;
+}
+
 .Cpart{
   display: flex;
   justify-content: center;  
   width: 100%;
+  
 }
 
 .Cpart_word{
@@ -458,8 +481,9 @@ ul.Layerout ul li:hover {
 }
 
 .Subscribe_button{
-  width: 10em;
+  width: 40%;
   height: 2.5em; 
+  max-width: 10em;
   cursor: pointer;
 
   font-size: 16px;
@@ -479,8 +503,9 @@ ul.Layerout ul li:hover {
 }
 
 .Contact_us_button{
-  width: 10em;
+  width: 40%;;
   height: 2.5em; 
+  max-width: 10em;
   cursor: pointer;
 
   font-size: 16px;
@@ -1277,7 +1302,7 @@ ul.Layerout ul li:hover {
 
 .CMV_upload_PPT_image{
   display: inline-block;
-  width: 400px;
+  width: 312px;
   height: 245px;
 
   margin-top: 10px;
@@ -1286,10 +1311,10 @@ ul.Layerout ul li:hover {
 
 .CMV_upload_video_image{
   display: inline-block;
-  width: 400px;
+  width: 250px;
   height: 300px;
 
-  margin-left: 70px;
+  margin-left: 16%;
 }
 
 .checkbox{
@@ -1337,7 +1362,8 @@ ul.Layerout ul li:hover {
 }
 
 .CMV_Next_button{
-  display: inline-block;
+/*  display: inline-block;  */
+  float: right;
 
   width: 250px;
   height: 55px;
@@ -1354,9 +1380,8 @@ ul.Layerout ul li:hover {
   border-radius: 40px;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-left: 76.5%;
+  margin-right: 5vw;
   margin-bottom: 50px;
-
 }
 .CMV_Next_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -1451,9 +1476,9 @@ ul.Layerout ul li:hover {
   margin-top: 50px;
 }
 
-.UploadFile_Back_button{
-  display: inline-block;
 
+.UploadFile_Back_button{
+  float: right;
   width: 250px;
   height: 55px;
   cursor: pointer;
@@ -1469,7 +1494,7 @@ ul.Layerout ul li:hover {
   border-radius: 40px;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-left: 53%;
+  margin-right: 40px;
   margin-bottom: 50px;
 }
 .UploadFile_Back_button:hover{
@@ -1477,8 +1502,7 @@ ul.Layerout ul li:hover {
 }
 
 .UploadFile_Next_button{
-  display: inline-block;
-
+  float: right;
   width: 250px;
   height: 55px;
   cursor: pointer;
@@ -1495,21 +1519,39 @@ ul.Layerout ul li:hover {
   border-color: rgba(87, 196, 157, 1);
 
   margin-bottom: 50px;
-  margin-left: 50px;
+  margin-right: 50px;
 }
 .UploadFile_Next_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
 }
 
-
-
 /*    VE    Edit PPT Page     */
-.Edit_grid2 {
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
-  width: var(--max-width);
-  max-width: 100%;
-  gap: 45px;
+/*寬度大於1200px時，適用此格式。*/
+@media screen and (min-width: 1200px) 
+{
+  .Edit_grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    width: var(--max-width);
+    max-width: 100%;
+    gap: 2%;
+  }
+}
+/*寬度小於1200px時，適用此格式。*/
+@media screen and (max-width: 1200px) 
+{
+  .Edit_grid2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    display: grid;
+    grid-template-rows: repeat(2, 50%);
+    width: var(--max-width);
+    max-width: 100%;
+    gap: 2%;
+  }
 }
 
 .VE_PPT_backpage{
@@ -1534,9 +1576,22 @@ ul.Layerout ul li:hover {
   margin-left: 46.6%;
 }
 
-.Edit_right_part{
-  margin-top: 80px;
-  margin-left: 40px;
+/*寬度大於1200px時，適用此格式。*/
+@media screen and (min-width: 1200px) 
+{
+  .Edit_right_part{
+    margin-top: -70px;
+    margin-left: 2%;
+  }
+}
+
+/*寬度小於1200px時，適用此格式。*/
+@media screen and (max-width: 1200px) 
+{
+  .Edit_right_part{
+    margin-left: 2%;
+    margin-bottom: 50px;
+  }
 }
 
 .Choose_voice{
@@ -1583,6 +1638,18 @@ ul.Layerout ul li:hover {
   color: rgba(0, 0, 0, 0.5);
 
   padding-left: 10px;
+}
+
+.USEnglish{
+  display: none;
+}
+
+.British{
+  display: none;
+}
+
+.MandarinChinese{
+  display: none;
 }
 
 .select{
@@ -2526,6 +2593,9 @@ select.option{
 }
 
 .card {
+  min-width: 25vw;
+
+
   padding: 1rem 1.2rem;
   border-radius: var(--border-radius);
   background: rgba(var(--card-rgb), 0);

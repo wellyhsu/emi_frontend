@@ -68,12 +68,11 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               <div className={styles.Information}>
-                <div style={{padding: "1em"}}>
+                <div className={styles.information_picture}>
                   <Image
                     src="/video-editing.svg"
                     alt="video-editing image"
-                    width={157}
-                    height={157}
+                    fill={true}
                     priority
                   />
                 </div>
@@ -90,12 +89,11 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               <div className={styles.Information}>
-                <div style={{padding: "1em"}}>
+                <div className={styles.information_picture}>
                   <Image
                     src="/voice-message.svg"
                     alt="Text-to-Speech_Audio image"
-                    width={157}
-                    height={157}
+                    fill={true}
                     priority
                   />
                 </div>
@@ -112,12 +110,11 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               <div className={styles.Information}>
-                <div style={{padding: "1em"}}>
+                <div className={styles.information_picture}>
                   <Image
                     src="/desktop-computer.svg"
                     alt="Pop-up Quiz Setting image"
-                    width={157}
-                    height={157}
+                    fill={true}
                     priority
                   />
                 </div>
@@ -137,12 +134,11 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               <div className={styles.Information}>
-                <div style={{padding: "1em"}}>
+                <div className={styles.information_picture}>
                   <Image
                     src="/slide.svg"
                     alt="Slide_Template image"
-                    width={157}
-                    height={157}
+                    fill={true}
                     priority
                   />
                 </div>
@@ -158,12 +154,11 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               <div className={styles.Information}>
-                <div style={{padding: "1em"}}>
+                <div className={styles.information_picture}>
                   <Image
                     src="/clapboard.svg"
                     alt="Customized_Video image"
-                    width={157}
-                    height={157}
+                    fill={true}
                     priority
                   />
                 </div>
@@ -185,15 +180,17 @@ export default function Home() {
             We aim at improving digital teaching materials, assisting users to simplify <br/>
             the process of lesson preparation and diversify the learning scenarios with 30+ languages and 100+ voices. <br/>
           </div>
-          <div style={{marginLeft: "-18%"}}>
-            <Image
-                src="/About_us_image.svg"
-                alt="About_us_image image"
-                width={1200}
-                height={603}
-                priority
-              />
+          <div className={styles.Aboutus_picture}>
+            <div style={{marginLeft: "-18em"}}>
+              <Image
+                  src="/About_us_image.svg"
+                  alt="About_us_image image"
+                  width={1200}
+                  height={603}
+                  priority
+                />
             </div>
+          </div>
         </div>
 
         <div className={styles.Cpart}>
