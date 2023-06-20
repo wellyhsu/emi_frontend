@@ -1,0 +1,69 @@
+2023-06-20 12:56:58.166 [info] 
+
+
+
+
+2023-06-20 12:56:58.196 [info] Extension host agent started.
+2023-06-20 12:56:58.384 [info] [127.0.0.1][f5549b40][ManagementConnection] New connection established.
+2023-06-20 12:56:58.402 [info] [127.0.0.1][8c7a1291][ExtensionHostConnection] New connection established.
+2023-06-20 12:56:58.528 [info] [127.0.0.1][8c7a1291][ExtensionHostConnection] <2263> Launched Extension Host Process.
+2023-06-20 12:57:08.287 [info] [127.0.0.1][f5549b40][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+2023-06-20 12:57:08.331 [info] [127.0.0.1][8c7a1291][ExtensionHostConnection] <2263> Extension Host Process exited with code: 0, signal: null.
+2023-06-20 12:57:08.331 [info] Cancelling previous shutdown timeout
+2023-06-20 12:57:08.331 [info] Last EH closed, waiting before shutting down
+2023-06-20 12:57:10.543 [info] Got delay-shutdown request while in shutdown timeout, delaying
+2023-06-20 12:57:10.543 [info] Cancelling previous shutdown timeout
+2023-06-20 12:57:10.729 [info] [127.0.0.1][5ce5551a][ManagementConnection] New connection established.
+2023-06-20 12:57:10.806 [info] [127.0.0.1][bc40369c][ExtensionHostConnection] New connection established.
+2023-06-20 12:57:10.821 [info] [127.0.0.1][bc40369c][ExtensionHostConnection] <2366> Launched Extension Host Process.
+2023-06-20 13:02:10.544 [info] New EH opened, aborting shutdown
+2023-06-20 13:04:01.586 [warning] [File Watcher (node.js)] Watcher shutdown because watched path got deleted
+2023-06-20 13:04:28.149 [warning] [File Watcher (node.js)] Watcher shutdown because watched path got deleted
+2023-06-20 13:19:07.544 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:16.485 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:22.484 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:24.485 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:30.487 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:32.541 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:36.582 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:38.501 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:42.009 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:44.479 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:47.580 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:19:49.523 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:20:42.744 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:21:42.511 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:22:43.077 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:22:43.808 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:22:50.167 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:23:45.801 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:24:46.972 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:25:46.857 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:26:47.551 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:27:45.093 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:28:46.205 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)
+2023-06-20 13:29:45.318 [error] Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1247:16)

@@ -1,0 +1,15 @@
+2023-06-14 15:11:27.832 [info] 
+
+
+
+
+2023-06-14 15:11:27.832 [info] Extension host agent started.
+2023-06-14 15:11:27.851 [info] Started initializing default profile extensions in extensions installation folder. file:///home/welly/.vscode-server/extensions
+2023-06-14 15:11:27.899 [info] Completed initializing default profile extensions in extensions installation folder. file:///home/welly/.vscode-server/extensions
+2023-06-14 15:11:27.935 [info] [127.0.0.1][3e0056bf][ManagementConnection] New connection established.
+2023-06-14 15:11:27.975 [info] [127.0.0.1][0625f0f8][ExtensionHostConnection] New connection established.
+2023-06-14 15:11:28.070 [info] [127.0.0.1][0625f0f8][ExtensionHostConnection] <1412> Launched Extension Host Process.
+2023-06-14 15:11:36.871 [info] [127.0.0.1][3e0056bf][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+2023-06-14 15:11:36.889 [info] [127.0.0.1][0625f0f8][ExtensionHostConnection] <1412> Extension Host Process exited with code: 0, signal: null.
+2023-06-14 15:11:36.889 [info] Cancelling previous shutdown timeout
+2023-06-14 15:11:36.889 [info] Last EH closed, waiting before shutting down
