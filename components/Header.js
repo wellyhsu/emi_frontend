@@ -32,7 +32,10 @@ function link_click(){
 
 
 export const Header = () => {
-
+/*    var token_DATA;
+    token_DATA = JSON.stringify("12wf3fgwf456");
+    Cookies.set('token', token_DATA);  /////////////////
+*/
     const token = Cookies.get('token');
 
     console.log("~~token~~", token);
@@ -41,7 +44,7 @@ export const Header = () => {
     if ((token == "null") || (token == null)){    //未登入
         console.log("還沒login!!");
         return(
-            <>
+            <div style={{position: "relative",zIndex: "4"}}>
                 <li className={styles.Home_Logo}>
                     <Link
                         href="/"
@@ -188,13 +191,13 @@ export const Header = () => {
                     </li>
                 </ul>
 
-            </>
+            </div>
         )   
     }
     else {
         console.log("login!!");
         return (
-            <>
+            <div style={{position: "relative",zIndex: "4"}}>
                 <li className={styles.Home_Logo}>
                     <Link 
                         href="/"
@@ -346,7 +349,7 @@ export const Header = () => {
                         </Link>
                     </li>
                 </ul>
-            </>
+            </div>
         )
     }
 

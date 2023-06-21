@@ -20,16 +20,147 @@ const closed_Download_windows = ()=>{
     document.getElementById("Download_window").style="display: none;";
 }
 
-const button_control = () =>{
-    if(Download_as)
-    {
-        document.getElementById("Single_file").style=" background-color: rgba(217, 217, 217, 1);";
-    }
-    else
-    {
+const Single_file = () =>{
+    document.getElementById("Single_file").style=" background-color: rgba(217, 217, 217, 1);";
+    document.getElementById("Split_by_blocks").style=" background-color: rgba(255, 255, 255, 1);";
+    Download_as=0;
+}
+const Split_by_blocks = () =>{
+    document.getElementById("Single_file").style=" background-color: rgba(255, 255, 255, 1);";
+    document.getElementById("Split_by_blocks").style=" background-color: rgba(217, 217, 217, 1);";
+    Download_as=1;
+}
+const mp3 = () =>{
+    document.getElementById("mp3").style=" background-color: rgba(217, 217, 217, 1);";
+    document.getElementById("WAV").style=" background-color: rgba(255, 255, 255, 1);";
+    document.getElementById("FLAC").style=" background-color: rgba(255, 255, 255, 1);";
+    Format=0;
+}
+const WAV = () =>{
+    document.getElementById("mp3").style=" background-color: rgba(255, 255, 255, 1);";
+    document.getElementById("WAV").style=" background-color: rgba(217, 217, 217, 1);";
+    document.getElementById("FLAC").style=" background-color: rgba(255, 255, 255, 1);";
+    Format=1;
+}
+const FLAC = () =>{
+    document.getElementById("mp3").style=" background-color: rgba(255, 255, 255, 1);";
+    document.getElementById("WAV").style=" background-color: rgba(255, 255, 255, 1);";
+    document.getElementById("FLAC").style=" background-color: rgba(217, 217, 217, 1);";
+    Format=2;
+}
+const LOW = () =>{
+    document.getElementById("LOW").style=" background-color: rgba(217, 217, 217, 1);";
+    document.getElementById("Medium").style=" background-color: rgba(255, 255, 255, 1);";
+    document.getElementById("High").style=" background-color: rgba(255, 255, 255, 1);";
+    Quality=0;
+}
+const Medium = () =>{
+    document.getElementById("LOW").style=" background-color: rgba(255, 255, 255, 1);";
+    document.getElementById("Medium").style=" background-color: rgba(217, 217, 217, 1);";
+    document.getElementById("High").style=" background-color: rgba(255, 255, 255, 1);";
+    Quality=1;
+}
+const High = () =>{
+    document.getElementById("LOW").style=" background-color: rgba(255, 255, 255, 1);";
+    document.getElementById("Medium").style=" background-color: rgba(255, 255, 255, 1);";
+    document.getElementById("High").style=" background-color: rgba(217, 217, 217, 1);";
+    Quality=2;
+}
+const Stereo = () =>{
+    document.getElementById("Stereo").style=" background-color: rgba(217, 217, 217, 1);";
+    document.getElementById("Mono").style=" background-color: rgba(255, 255, 255, 1);";
+    Channel=0;
+}
+const Mono = () =>{
+    document.getElementById("Stereo").style=" background-color: rgba(255, 255, 255, 1);";
+    document.getElementById("Mono").style=" background-color: rgba(217, 217, 217, 1);";
+    Channel=1;
+}
 
+const Download = () =>{
+    var text;
+    var total_text="";
+    var type;
+    for(var i=0; i<index_number.length;i++)
+    {
+        text = document.getElementById(String(index_number[i])).value;
+        total_text=total_text + text + ". ";
     }
-    rgba(255, 255, 255, 1)
+    console.log("text=",total_text);
+    
+    if(Format == 0)
+    {
+        type="mp3"
+    }
+    else if(Format == 1)
+    {
+        type="wav"
+    }
+    else if(Format == 2)
+    {
+        type="flac"
+    }
+
+    const acapela_data_send =
+    {
+        "voice": "Lucy22k_NT",
+        "text": total_text,
+        "output": "file", 
+        "type": type
+    };
+
+    var acapela_data_send_json = JSON.stringify(acapela_data_send);  //轉json格式
+    console.log("account_send_json is " + acapela_data_send_json);
+    console.log("Token + ",acapela_token);
+
+    fetch("https://www.acapela-cloud.com/api/command/", {
+        method: 'POST',
+        headers:{
+            'Authorization': 'Token ' + acapela_token,
+            'Content-Type': 'application/json',
+        },
+        body: acapela_data_send_json,
+    })
+    .then((response) => {
+        response.blob()   //同步 異步 問題
+        .then(blob => {
+            const audio = document.querySelector('audio');
+            const source = document.querySelector('source');
+
+            const url = URL.createObjectURL(blob);  // 使用Blob創建URL
+            source.src = url;  // 設定audio的src屬性為創建的URL
+            audio.load();
+            audio.loop=false;
+/*
+            hidden_a.href = window.URL.createObjectURL(new Blob([results.data]));
+            hidden_a.setAttribute('download', 'download_image.jpg');
+            document.body.appendChild(hidden_a);
+            hidden_a.click();
+*/
+            let hidden_a = document.createElement('a');
+            hidden_a.href = "#";
+//            const download = document.getElementById('download');
+            hidden_a.setAttribute('href', url);
+            console.log("Format=",Format);
+            if(Format == 0)
+            {
+                hidden_a.setAttribute('download', 'audio.mp3');
+            }
+            else if(Format == 1)
+            {
+                hidden_a.setAttribute('download', 'audio.wav');
+            }
+            else if (Format ==2)
+            {
+                hidden_a.setAttribute('download', 'audio.flac');
+            }
+            document.body.appendChild(hidden_a);
+            hidden_a.click();
+        })
+        .catch(error => console.error(error));
+        console.log('info^^', information);
+    })
+    .catch((error) => console.log("error", error));
 }
 
 const Build_Audio = () =>{
@@ -38,11 +169,43 @@ const Build_Audio = () =>{
     for(var i=0; i<index_number.length;i++)
     {
         text = document.getElementById(String(index_number[i])).value;
-        total_text=total_text+text;
-        console.log("text=",total_text);
+        total_text=total_text + text + ". ";
     }
-    
+    console.log("text=",total_text);    
 
+    const acapela_data_send =
+    {
+        "voice": "Lucy22k_NT",
+        "text": total_text,
+        "output": "file", 
+    };
+
+    var acapela_data_send_json = JSON.stringify(acapela_data_send);  //轉json格式
+    console.log("account_send_json is " + acapela_data_send_json);
+    console.log("Token + ",acapela_token);
+
+    fetch("https://www.acapela-cloud.com/api/command/", {
+        method: 'POST',
+        headers:{
+            'Authorization': 'Token ' + acapela_token,
+            'Content-Type': 'application/json',
+        },
+        body: acapela_data_send_json,
+    })
+    .then((response) => {
+        response.blob()   //同步 異步 問題
+        .then(blob => {
+            const audio = document.querySelector('audio');
+            const source = document.querySelector('source');
+
+            const url = URL.createObjectURL(blob);  // 使用Blob創建URL
+            source.src = url;  // 設定audio的src屬性為創建的URL
+            audio.load();
+            audio.loop=false;
+        })
+        .catch(error => console.error(error));
+    })
+    .catch((error) => console.log("error", error));
 }
 
 const Export = () => {
@@ -85,10 +248,6 @@ const play_audio = (key) => {
             source.src = url;  // 設定audio的src屬性為創建的URL
             audio.load();
             audio.play();
-
-            const download = document.getElementById('download');
-            download.setAttribute('href', url);
-            download.setAttribute('download', 'audio.mp3');
         })
         .catch(error => console.error(error));
         console.log('info^^', information);
@@ -181,7 +340,7 @@ export default function TTSA_Create_My_Audio() {
         <>
             <main className={styles.main}>
                 <div className={styles.TTSA_Create_My_Audio_grid2}>
-                    <div>
+                    <div className={styles.edit_block}>
                         <div id='people_block'>
                             {components}
                         </div>
@@ -202,13 +361,19 @@ export default function TTSA_Create_My_Audio() {
                     </div>
 
                     <div className={styles.TTSA_right_part}>
-                        <Image
-                            src="/TTSA_Cat_image.svg"
-                            alt="TTSA Cat image image"
-                            width={485}
-                            height={300}
-                            priority
-                        />
+                        <div className={styles.TTSA_image}>
+                            <Image
+                                src="/TTSA_Cat_image.svg"
+                                alt="TTSA Cat image image"
+                                fill={true}
+                                priority
+                            />
+                            <div className={styles.play_audio}>
+                                <audio controls>
+                                    <source type="audio/mp3" />
+                                </audio>
+                            </div>
+                        </div>
                         <div className={styles.TTSA_button_block}>
                             <button className={styles.Build_Audio_button} onClick={Build_Audio}>
                                 Build Audio
@@ -236,10 +401,10 @@ export default function TTSA_Create_My_Audio() {
                         Download as
                     </div>
                     <div>
-                        <button id="Single_file" className={styles.download_left_button}>
+                        <button id="Single_file" className={styles.Single_file} onClick={Single_file}>
                             Single file
                         </button>
-                        <button id="Split_by_blocks" className={styles.download_right_button}>
+                        <button id="Split_by_blocks" className={styles.Split_by_blocks} onClick={Split_by_blocks}>
                             Split by blocks
                         </button>
                     </div>
@@ -247,13 +412,13 @@ export default function TTSA_Create_My_Audio() {
                         Format
                     </div>
                     <div>
-                        <button id="mp3" className={styles.download_left_button}>
+                        <button id="mp3" className={styles.mp3} onClick={mp3}>
                             .mp3
                         </button>
-                        <button id="WAV" className={styles.download_center_button}>
+                        <button id="WAV" className={styles.WAV} onClick={WAV}>
                             .WAV
                         </button>
-                        <button id="FLAC" className={styles.download_right_button}>
+                        <button id="FLAC" className={styles.FLAC} onClick={FLAC}>
                             .FLAC
                         </button>
                     </div>
@@ -261,13 +426,13 @@ export default function TTSA_Create_My_Audio() {
                         Quality
                     </div>
                     <div>
-                        <button id="LOW" className={styles.download_left_button}>
+                        <button id="LOW" className={styles.LOW} onClick={LOW}>
                             LOW
                         </button>
-                        <button id="Medium" className={styles.download_center_button}>
+                        <button id="Medium" className={styles.Medium} onClick={Medium}>
                             Medium
                         </button>
-                        <button id="High" className={styles.download_right_button}>
+                        <button id="High" className={styles.High} onClick={High}>
                             High
                         </button>
                         <div className={styles.Quality_text}>
@@ -278,16 +443,16 @@ export default function TTSA_Create_My_Audio() {
                         Channel
                     </div>
                     <div>
-                        <button id="Stereo" className={styles.download_left_button}>
+                        <button id="Stereo" className={styles.Stereo} onClick={Stereo}>
                             Stereo
                         </button>
-                        <button id="Mono" className={styles.download_right_button}>
+                        <button id="Mono" className={styles.Mono} onClick={Mono}>
                             Mono
                         </button>
                     </div>
-                    <button className={styles.Download_Button}>
+                        <button className={styles.Download_Button} onClick={Download}>
                             Download
-                    </button>
+                        </button>
                 </div>
 
                 

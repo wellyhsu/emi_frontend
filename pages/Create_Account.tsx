@@ -44,7 +44,23 @@ export default function Create_Account() {
     var Create_account_send_json = JSON.stringify(Create_account_send);  //轉json格式
     console.log("account_send_json is " + Create_account_send_json);
     console.log('account_send_json is ',typeof(Create_account_send_json));
-  
+  /*
+    var User_Name = "";
+    User_Name = "Invalid request data.";
+    if(User_Name == "user_table with this username already exists.")
+    {
+      alert("This username is already exists.");
+    }
+    else if(User_Name == "Invalid request data.")
+    {
+      alert("Invalid request data.");
+    }
+    else
+    {
+      alert("Create account sucessfully.");
+      window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
+    }
+*/
     fetch("http://127.0.0.1:8000/signup/", {
       method: 'POST',
       headers:{
@@ -61,17 +77,17 @@ export default function Create_Account() {
       username = data["username"];
       email = data["email"];
       password = data["password"];
-      hashed_password = data["hashed_password"];
-      is_active = data["is_active"];
 
       console.log('username=',data["username"]);
       console.log('email=',data["email"]);
       console.log('password=',data["password"]);
-      console.log('hashed_password=', hashed_password);
-      console.log("is_active=", is_active);
       if(data["username"] == "user_table with this username already exists.")
       {
         alert("This username is already exists.");
+      }
+      else if(data["username"] == "Invalid request data.")
+      {
+        alert("Invalid request data.");
       }
       else
       {
@@ -141,12 +157,7 @@ export default function Create_Account() {
             </Link>
               
           </div>
-      
-          
         </div>
-
-      
-
       </main>
     </>
   )

@@ -17,7 +17,8 @@ export default function Home() {
       <main className={styles.main}>
 
         <div className={styles.center}>
-          <div>
+          <div className={styles.homepage_grid2}>
+          <div >
             <div className={styles.introduction}>
               Hi! We're
             </div>
@@ -31,23 +32,23 @@ export default function Home() {
               will make your teaching materials professional and interactive.
             </div>
             <div>
-{/*              <a href="#Bpart">*/}
-                <button className={styles.View_more}>
-                  View more
-                </button>
-{/*              </a>  */}
+              {/*<a href="#Bpart">*/}
+              <button className={styles.View_more}>
+                View more
+              </button>
+              {/*</a>  */}
             </div>
           </div>
       
-          <div>
+          <div className={styles.homepage_picture}>
             <Image
               src="/E-learning_image.svg"
-              alt="Next.js Logo"
-              width={400}
-              height={400}
+              alt="E-learning Logo"
+              fill={true}
               priority
             />
           </div>
+        </div>
         </div>
 
         <div className={styles.Bpartword} > {/*id="Bpart"*/}
@@ -181,15 +182,12 @@ export default function Home() {
             the process of lesson preparation and diversify the learning scenarios with 30+ languages and 100+ voices. <br/>
           </div>
           <div className={styles.Aboutus_picture}>
-            <div style={{marginLeft: "-18em"}}>
-              <Image
-                  src="/About_us_image.svg"
-                  alt="About_us_image image"
-                  width={1200}
-                  height={603}
-                  priority
-                />
-            </div>
+            <Image
+                src="/About_us_image.svg"
+                alt="About_us_image image"
+                fill={true}
+                priority
+              />
           </div>
         </div>
 

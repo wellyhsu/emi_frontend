@@ -6,36 +6,42 @@ import Script from 'next/script'
 var fileData;
 var fileName;
 var fileType;
-var fileSize;
+var fileSize;//檔案的大小
 var fileTime;
+const SPLIT_BYTES = 100; //檔案以每100KB做切割
+var start = 0; //位元組數的開頭
+var end = SPLIT_BYTES; //位元組數的結束
+var count = fileSize % SPLIT_BYTES == 0 ? fileSize / SPLIT_BYTES : Math.floor(fileSize / SPLIT_BYTES) + 1;
+//上述為計算一共會切出幾份檔案 
+var video_Data;
 
 function upload(e) {
     console.log("press button");
     var inputFile = document.getElementById('customFileInput');
-  
+     
     inputFile.addEventListener('change', function(e) {
-    
-      fileData = e.target.files[0]; // 檔案資訊
-      fileName = fileData.name; // 檔案名稱
-      fileType = fileData.type; // 檔案類型
-      fileSize = Math.floor(fileData.size * 0.001); // 檔案大小轉成kb
-      fileTime = fileData.lastModifiedDate;
-    
-      console.log("fileData=",fileData); // 用開發人員工具可看到資料
-      console.log("fileName=",fileName); // 用開發人員工具可看到資料
-      console.log("fileType=",fileType); // 用開發人員工具可看到資料
-      console.log("fileSize",fileSize); // 用開發人員工具可看到資料
-      console.log("fileTime",fileTime); // 用開發人員工具可看到資料
-      
-      if (!fileData) {
-        return;
-      }    
-      document.getElementById('file_name').value = fileName;
+        fileData = e.target.files[0]; // 檔案資訊
+        fileName = fileData.name; // 檔案名稱
+        fileType = fileData.type; // 檔案類型
+        fileSize = Math.floor(fileData.size * 0.001); // 檔案大小轉成kb
+        fileTime = fileData.lastModifiedDate;   
+
+        console.log("fileData=",fileData); // 用開發人員工具可看到資料
+        console.log("fileName=",fileName); // 用開發人員工具可看到資料
+        console.log("fileType=",fileType); // 用開發人員工具可看到資料
+        console.log("fileSize=",fileSize); // 用開發人員工具可看到資料
+        console.log("fileTime=",fileTime); // 用開發人員工具可看到資料
+        console.log("video_Data==",e.target.pid); // 用開發人員工具可看到資料
+
+        if (!fileData) {
+            return;
+        }    
+        document.getElementById('file_name').value = fileName;
     
     }, false);
 }  
 
-function upload_file(){
+function upload_file(e){
     var information;
     var id;
     var title;
@@ -43,9 +49,13 @@ function upload_file(){
     var updated_at;
     var video_file;
     var file;
-
     var file_type;
     var Next_Link;
+    var upload=0;
+
+    var intIdentifier = 1;
+    var completed = 0;
+    var xhr = new self.XMLHttpRequest();
 
     file_type = fileName?.substring(fileName?.indexOf(".",0));  //取得副檔名
     
@@ -61,9 +71,10 @@ function upload_file(){
             "video_file": fileData,
         }
 
-        var upload_videos_send_json = JSON.stringify(upload_videos_send);  //轉json格式
-        console.log("upload_videos_send_json is " + upload_videos_send_json);
-        console.log('upload_videos_send_json is ',typeof(upload_videos_send_json));
+//        var upload_videos_send_json = JSON.stringify(upload_videos_send);  //轉json格式
+        console.log("upload_videos_send_json is " + upload_videos_send);
+        console.log('upload_videos_send_json is ',typeof(upload_videos_send));
+        upload = 1;
 /*
         fetch("http://127.0.0.1:8000/videos/upload/", {
             method: 'POST',
@@ -93,7 +104,8 @@ function upload_file(){
 //            alert(data["detail"]);
         })
         .catch((error) => console.log("error", error));
-    */    }
+    */    
+    }
     else if(file_type == ".ppt" || file_type == ".pptx")
     {
         Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3;  //VE_Edit_PPT
@@ -144,6 +156,57 @@ function upload_file(){
         alert("The file type uncorrect!");
         return false
     }
+
+    xhr.onload = function () {
+        console.log("xhr.onload");
+        completed++; //完成上傳的計數器
+        if (completed === count) {
+            //當最後一個檔案成功上傳時，通知後端做檔案處理
+            uploadComplete(e.target.pid, fileName);
+            console.log("complete");
+        }
+    }
+    //如果檔案大於切割大小，代表檔案可以進行切割，就利用切割進行檔案上傳
+    if(fileSize > SPLIT_BYTES)
+    {
+        console.log("fileSize: ",fileSize);
+        console.log("SPLIT_BYTES: ",SPLIT_BYTES);
+        for (var i = 1; i <= count; i++) {
+            var chunk = fileData.slice(start, end); //利用slice來將檔案的位元組數做"分段(切割)"讀取
+//            var url = '/home/emi/emi_frontend/fileUpload/' + intIdentifier + '?name=' + e.target.pid + "&filename=" + fileName +"&cache="+Date.now();
+            var url = 'http://localhost:3000/api/hello/' + intIdentifier + '?name=' + e.target.pid + "&filename=" + fileName +"&cache="+Date.now();
+            xhr.open('POST', url, false);
+            xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+            xhr.send(chunk);
+            //因為我們是"分段(切割)"做處理，所以我們的start與end要跟著做移動
+            //更新切割的起始位置和結束位置
+            start = end; 
+            end = start + SPLIT_BYTES;
+            intIdentifier++;
+        }
+        console.log("end");
+    }
+    else  //直接上傳不切割
+    {
+        console.log("fileSize: ",fileSize);
+        //這裡就是一般的檔案上傳動作了
+        var url = 'http://localhost:3000/api/hello/' + intIdentifier + '?name=' + e.target.pid + "&filename=" + fileName + "&cache=" + Date.now();
+        xhr.open('POST', url, false);
+        xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+        xhr.send(fileData.slice(start, fileSize));
+    }
+    
+    function uploadComplete(id, name) {
+        var url1 = '/home/emi/emi_frontend/fileUpload/UploadComplete?id=' + id + "&filename=" + name + "&semesterID=" + e.data.semesterID + "&cache=" + Date.now();;
+        var xhr1 = new self.XMLHttpRequest();
+        xhr1.onload = function (e) {
+            var result = JSON.parse(xhr1.response);
+            self.postMessage(result);
+        }
+        xhr1.open('POST', url1, true);
+        xhr1.send(null);
+    }
+    
     window.location.replace("/" + Next_Link);
 }
 
@@ -187,7 +250,7 @@ export default function VE_upload_file_page() {
                                             priority
                                         />
                                     </div>
-                                      Click here to upload or drag your file here to upload file
+                                      Click here to upload your file 
                                 </div>
                             </div>
                         </label>

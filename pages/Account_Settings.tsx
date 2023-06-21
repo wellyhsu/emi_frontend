@@ -6,11 +6,6 @@ import Archive_video from '../components/Archive_video'
 import User_item from '../components/User_item'
 import Cookies from 'js-cookie';
 
-const token = Cookies.get('token');
-if(token == null || token == "null")
-{
-  window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
-}
 
 export default function Account_Settings() {
    const [storageValue, setStorageValue] = useState("null");
@@ -20,7 +15,17 @@ export default function Account_Settings() {
         var send_userName; //取得不含""的字串
         send_userName = userName?.substring(1,(userName?.length-1));    
         setStorageValue(send_userName);
+
+        const token = Cookies.get('token');
+
+        if(token == null || token == "null")
+        {
+          window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
     }, []) //傳遞一個空數組來保證只會被執行一次
+
+
+
 
   function Logout(){ 
     var information;
@@ -55,11 +60,11 @@ export default function Account_Settings() {
         return information;
       })
       .then((data) => {
-        success = data["success"];
+        success = data["message"];
 
-        console.log('success=',data["success"]);
+        console.log('success=',data["message"]);
         alert(success);
-        if(success == "Successfully logged out.") //成功登出 Successfully logged out.
+        if(success == "Logout successful") //成功登出 Successfully logged out.
         {
           window.location.replace("/");
         }

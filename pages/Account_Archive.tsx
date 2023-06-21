@@ -26,6 +26,8 @@ export default function Home() {
   var send_userName = userName?.substring(1,(userName?.length-1));    
   console.log("send_userName=",send_userName);
 
+
+
   fetch("http://127.0.0.1:8000/videos/", {
     method: 'GET',
     headers:{

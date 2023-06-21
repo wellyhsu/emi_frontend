@@ -23,7 +23,6 @@ export default function Home() {
   }
 
   return (
-    <>
       <main className={styles.main}>
 
         <div className={styles.VideoEditor_center}>
@@ -85,6 +84,6 @@ export default function Home() {
         </div>
 
       </main>
-    </>
+
   )
 }

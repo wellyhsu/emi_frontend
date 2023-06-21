@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, {useRef} from "react";
 import styles from '@/styles/Home.module.css'
-//FwAa639nC3fMyLrw0Sqk32jUiPwmdA9Rf5h8c2xDWwfszkFiXG
 
 export default function Reset_password() {
   const Reset_passwordRef = useRef(undefined);

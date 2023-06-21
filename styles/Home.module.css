@@ -1,11 +1,29 @@
 
+.html{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .main {
-  display:inline-block;
+  display: inline-block; 
+
   width: 100%;
   height: 100%;
+  min-height: 100%;
+  position: relative;
+
   background-color:#ffffff; 
-  margin-top: 70px;
+
+  padding-top: 70px;
 }
+
 
 .Home_Logo{
   list-style: none;
@@ -50,7 +68,7 @@
   /* 取消ul預設的內縮及樣式 */
   margin: 0;
   padding: 0;
-  list-style: none;
+/*  list-style: none; */
 }
 
 .Li_Feature{
@@ -184,11 +202,6 @@ ul.Layerout ul li:hover {
 /* 當視窗寬度小於1200px時執行 */
 @media screen and (max-width: 1200px) 
 {
-  .AboutUs{
-    height:100%;
-    background-color: #15b47f;
-  }
-
   .line{
     width: 24px;
     height: 24px;
@@ -309,8 +322,15 @@ ul.Layerout ul li:hover {
 }
 
 
-
 /*  Home page   */
+.homepage_grid2 {
+  display: grid;
+  grid-template-columns: 40% 20%;
+
+  gap: 1px;
+  margin-left: 20%;
+}
+
 .introduction
 {
   font-size: 23px;
@@ -333,6 +353,32 @@ ul.Layerout ul li:hover {
   font-family: '微軟正黑體', Arial;
   line-height: 2em;
   color: rgba(0, 0, 0, 1);
+}
+
+/*寬度大於1200px時，適用此格式。*/
+@media screen and (min-width: 930px) 
+{
+  .homepage_picture{
+    width: 50vw;
+    height: 65vh;
+    float: right;
+    position: relative;
+    right: 6vw;
+    margin-left: 5px;
+  }
+}
+
+/*寬度小於1200px時，適用此格式。*/
+@media screen and (max-width: 930px) 
+{
+  .homepage_picture{
+    width: 50vw;
+    height: 65vh;
+    float: right;
+    position: relative;
+
+    margin-left: 5px;
+  }
 }
 
 .View_more{
@@ -401,6 +447,7 @@ ul.Layerout ul li:hover {
 
 .Information{
   display:inline-block;
+  min-width: 130px;
   width: 100%;
   height: 100%;
   max-width: 800px;
@@ -424,15 +471,44 @@ ul.Layerout ul li:hover {
   margin-top: 12px;
 }
 
-@media screen and (max-width: 1200px) 
+/*寬度大於1200px時，適用此格式。*/
+@media screen and (min-width: 700px) 
 {
   .AboutUs{
-    height: 600px;
+    height: 650px;
     max-width: 1200px;
     background-color:rgba(255,251,240,1);
     text-align: center;
     font-family: Arial;
     margin-top: 3em;
+  }
+
+  .Aboutus_picture{
+    position: relative;
+    height: 120vh; 
+    width: 100%;
+    right: 10vw;
+  }
+}
+
+/*寬度小於1200px時，適用此格式。*/
+@media screen and (max-width: 700px) 
+{
+  .AboutUs{
+    height: 650px;
+    max-width: 1200px;
+    background-color:rgba(255,251,240,1);
+    text-align: center;
+    font-family: Arial;
+    margin-top: 3em;
+  }
+
+  .Aboutus_picture{
+    position: relative;
+    height: 120vh; 
+    width: 100%;
+    right: 10vw;
+    top: -14vh;
   }
 }
 
@@ -449,17 +525,13 @@ ul.Layerout ul li:hover {
   line-height: 2.6em;
 }
 
-.Aboutus_picture{
-  display: flex;
-  justify-content: center;  
-  width: 100%;
-}
-
 .Cpart{
   display: flex;
   justify-content: center;  
   width: 100%;
-  
+
+  position: relative;
+  z-index: 2;
 }
 
 .Cpart_word{
@@ -540,8 +612,7 @@ ul.Layerout ul li:hover {
   background-color:#57c49d;
 
   padding-bottom: 0.4em;
-  
-/*  margin-bottom: 1em;*/
+  padding-top: 0.4em;
 }
 
 /*     Tutorials        */
@@ -1129,12 +1200,13 @@ ul.Layerout ul li:hover {
 /*Video Editor*/
 
 .VideoEditor_center{
-  height: 100%;
+  height: 80vh;
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-bottom: 3%;
+  padding-bottom: 3%;
 }
 
 .Video_Editor_title{
@@ -1361,6 +1433,11 @@ ul.Layerout ul li:hover {
   padding-left: 50px;
 }
 
+.button_block{
+  display: block;
+  padding-bottom: 14vh;
+}
+
 .CMV_Next_button{
 /*  display: inline-block;  */
   float: right;
@@ -1381,7 +1458,7 @@ ul.Layerout ul li:hover {
   border-color: rgba(87, 196, 157, 1);
 
   margin-right: 5vw;
-  margin-bottom: 50px;
+  margin-bottom: 35px;
 }
 .CMV_Next_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -1472,8 +1549,9 @@ ul.Layerout ul li:hover {
 
 .upload_file_button{
   width: 100%;
-
   margin-top: 50px;
+
+  padding-bottom: 14vh;
 }
 
 
@@ -1744,17 +1822,60 @@ select.option{
 
 
 /*  TTSA Create My Audio*/
-.TTSA_Create_My_Audio_grid2{
-  display: grid;
-  grid-template-columns: 61% 40%;
-  width: var(--max-width);
-  max-width: 100%;
-  gap: 5%;
+/*寬度大於1200px時，適用此格式。*/
+@media screen and (min-width: 1200px) 
+{
+  .TTSA_Create_My_Audio_grid2{
+    display: grid;
+    grid-template-columns: 61% 40%;
+    width: var(--max-width);
+    max-width: 100%;
+    gap: 5%;
 
+  }
+
+  .TTSA_image{
+    position: relative;
+    height: 50vh;
+    top: -8vh;
+    right: 0vw;
+  }
+
+  .play_audio{
+    position: relative;
+    top: 40%;
+    left: 20%;
+
+
+    display: none;
+  }
+}
+
+/*寬度小於1200px時，適用此格式。*/
+@media screen and (max-width: 1200px) 
+{
+  .TTSA_Create_My_Audio_grid2{
+    display: grid;
+    grid-template-rows: 50% 40%;
+    width: var(--max-width);
+    max-width: 100%;
+    gap: 1%;
+  }
+
+  .TTSA_image{
+    position: relative;
+    height: 50vh;
+    top: -40vh;
+    right: 10vw;
+  }
+}
+
+.edit_block{
+  height: 80%;
 }
 
 .CreateMyAudio_voice_block{
-  width: 650px;
+  width: 690px;
   height: 100px;
 
   box-sizing: border-box;
@@ -1770,11 +1891,11 @@ select.option{
 
 .CreateMyAudio_people_image{
   display: inline-block;
-  position: absolute;
+  position: relative;
   z-index: 1;
 
-  margin-top: 16px;
-  margin-left: 20px;
+  top: 18px;
+  left: 28px;
 }
 
 .CreateMyAudio_people_Name{
@@ -1814,14 +1935,14 @@ select.option{
 
 .TTSA_Delete{
   display: inline-block;
-  position: absolute;
+  position: relative;
   z-index: 1;
 
   cursor: pointer;
   border: none;
 
-  margin-top: 60px;
-  margin-left: 40px;
+  top: 30px;
+  left: 30px;
 }
 .TTSA_Delete:hover{
   transform: scale(1.01);
@@ -1829,14 +1950,14 @@ select.option{
 
 .TTSA_Try_listening{
   display: inline-block;
-  position: absolute;
+  position: relative;
   z-index: 1;
 
   cursor: pointer;
   border: none;
 
-  margin-top: 60px;
-  margin-left: 75px;
+  top: 30px;
+  left: 42px;
 }
 .TTSA_Try_listening:hover{
   transform: scale(1.02);
@@ -1964,7 +2085,7 @@ select.option{
   margin-left: 5%;
 }
 
-.download_left_button{
+.Single_file{
   width: 100px;
   height: 30px;
   cursor: pointer;
@@ -1985,7 +2106,26 @@ select.option{
   margin-left: 5%;
 }
 
-.download_center_button{
+.Split_by_blocks{
+  width: 120px;
+  height: 30px;
+  cursor: pointer;
+
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  background-color: rgba(255, 255, 255, 1);
+
+  border: solid;
+  border-color: rgba(128, 128, 128, 1);
+  border-width: 1px;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.mp3{
   width: 100px;
   height: 30px;
   cursor: pointer;
@@ -2001,11 +2141,52 @@ select.option{
   border: solid;
   border-color: rgba(128, 128, 128, 1);
   border-width: 1px;
+  border-radius: 5px 0px 0px 5px;
+
+  margin-left: 5%;
+}
+
+.WAV{
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  background-color: rgba(255, 255, 255, 1);
+
+  border: solid;
+  border-color: rgba(128, 128, 128, 1);
+  border-width: 1px;
   border-radius: 0px 0px 0px 0px;
 }
 
-.download_right_button{
-  width: 110px;
+.FLAC{
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  background-color: rgba(255, 255, 255, 1);
+
+  border: solid;
+  border-color: rgba(128, 128, 128, 1);
+  border-width: 1px;
+  border-radius: 0px 5px 5px 0px;
+
+}
+
+.LOW{
+  width: 100px;
   height: 30px;
   cursor: pointer;
 
@@ -2020,8 +2201,87 @@ select.option{
   border: solid;
   border-color: rgba(128, 128, 128, 1);
   border-width: 1px;
-  border-radius: 0px 5px 5px 0px;
+  border-radius: 5px 0px 0px 5px;
 
+  margin-left: 5%;
+}
+
+.Medium{
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  background-color: rgba(255, 255, 255, 1);
+
+  border: solid;
+  border-color: rgba(128, 128, 128, 1);
+  border-width: 1px;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.High{
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  background-color: rgba(255, 255, 255, 1);
+
+  border: solid;
+  border-color: rgba(128, 128, 128, 1);
+  border-width: 1px;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.Stereo{
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  background-color: rgba(217, 217, 217, 1);
+
+  border: solid;
+  border-color: rgba(128, 128, 128, 1);
+  border-width: 1px;
+  border-radius: 5px 0px 0px 5px;
+
+  margin-left: 5%;
+}
+
+.Mono{
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  background-color: rgba(255, 255, 255, 1);
+
+  border: solid;
+  border-color: rgba(128, 128, 128, 1);
+  border-width: 1px;
+  border-radius: 0px 5px 5px 0px;
 }
 
 .Quality_text{
@@ -2649,7 +2909,7 @@ select.option{
   }
 }
 
-/* Mobile */
+/* Mobile 
 @media (max-width: 700px) {
   .content {
     padding: 4rem;
@@ -2675,14 +2935,15 @@ select.option{
   }
 
 }
+*/
 
-/* Tablet and Smaller Desktop */
+/* Tablet and Smaller Desktop 
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
     grid-template-columns: repeat(2, 50%);
   }
 }
-
+*/
 
 @keyframes rotate {
   from {

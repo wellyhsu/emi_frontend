@@ -46,5 +46,4 @@ class People_item extends React.Component {
         )
     }
 }
-
 export default People_item

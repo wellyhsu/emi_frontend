@@ -11,9 +11,14 @@ export default function VE_Edit_video() {
 
     const languageRef = useRef(undefined);
     const VoiceRef = useRef(undefined);
+    const VoiceRef_English = useRef(undefined);
+    const VoiceRef_British = useRef(undefined);
+    const VoiceRef_Chinese = useRef(undefined);
+
+
     const scriptRef = useRef(undefined);
     const acapela_token = Cookies.get('acapela_token');
-
+    var Voice_Select;
 
     function get_language()
     {
@@ -24,6 +29,7 @@ export default function VE_Edit_video() {
             document.getElementById("USEnglish").style = "display: block;";
             document.getElementById("British").style = "display: none;";
             document.getElementById("MandarinChinese").style = "display: none;";
+            Voice_Select = VoiceRef_English.current.value;
         }
         else if(languageRef.current.value == "British")
         {
@@ -31,6 +37,7 @@ export default function VE_Edit_video() {
             document.getElementById("USEnglish").style = "display: none;";
             document.getElementById("British").style = "display: block;";
             document.getElementById("MandarinChinese").style = "display: none;";
+            Voice_Select = VoiceRef_British.current.value;
         }
         else if(languageRef.current.value == "MandarinChinese")
         {
@@ -38,6 +45,7 @@ export default function VE_Edit_video() {
             document.getElementById("USEnglish").style = "display: none;";
             document.getElementById("British").style = "display: none;";
             document.getElementById("MandarinChinese").style = "display: block;";
+            Voice_Select = VoiceRef_Chinese.current.value;
         }
         else
         {
@@ -45,17 +53,34 @@ export default function VE_Edit_video() {
             document.getElementById("USEnglish").style = "display: none;";
             document.getElementById("British").style = "display: none;";
             document.getElementById("MandarinChinese").style = "display: none;";
+            Voice_Select = VoiceRef.current.value;
         }
     }
     function test()
     {
-
+        if(languageRef.current.value == "USEnglish")
+        {
+           Voice_Select = VoiceRef_English.current.value;
+        }
+        else if(languageRef.current.value == "British")
+        {
+            Voice_Select = VoiceRef_British.current.value;
+        }
+        else if(languageRef.current.value == "MandarinChinese")
+        {
+            Voice_Select = VoiceRef_Chinese.current.value;
+        }
+        else
+        {
+            Voice_Select = VoiceRef.current.value;
+        }
+        
         var selectVideo = document.querySelector('video');
         console.log('currentTime=',selectVideo?.currentTime);
 
         const acapela_data_send =
         {
-            "voice": VoiceRef.current.value,
+            "voice": Voice_Select,
             "text": scriptRef.current.value,
             "output": "file" 
         };
@@ -179,7 +204,7 @@ export default function VE_Edit_video() {
                                     <div id="USEnglish" className={styles.USEnglish}>
                                         <select
                                             className={styles.select}
-                                            ref={VoiceRef}
+                                            ref={VoiceRef_English}
                                             name="Voice"
                                         >
                                             <option></option>
@@ -194,7 +219,7 @@ export default function VE_Edit_video() {
                                     <div id="British" className={styles.British}>
                                         <select
                                             className={styles.select}
-                                            ref={VoiceRef}
+                                            ref={VoiceRef_British}
                                             name="Voice"
                                         >
                                             <option></option>
@@ -209,7 +234,7 @@ export default function VE_Edit_video() {
                                     <div id="MandarinChinese" className={styles.MandarinChinese}>
                                         <select
                                             className={styles.select}
-                                            ref={VoiceRef}
+                                            ref={VoiceRef_Chinese}
                                             name="Voice"
                                         >
                                             <option></option>

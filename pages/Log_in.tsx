@@ -32,7 +32,15 @@ export default function Home() {
     var account_send_json = JSON.stringify(account_send);  //轉json格式
     console.log("account_send_json is " + account_send_json);
     console.log('account_send_json is ',typeof(account_send_json));
-
+/*
+    msg='Login successful';
+    alert(msg);
+//        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
+    if(msg == "Login successful")
+    {
+      window.location.replace("/");
+    }
+*/
     fetch("http://127.0.0.1:8000/login/", {
       method: 'POST',
       headers:{
@@ -48,7 +56,7 @@ export default function Home() {
       .then((data) => {
         token_DATA = data["token"];
         status_code = data["code"];
-        msg = data["msg"];
+        msg = data["message"];
 
         token_DATA = JSON.stringify(token_DATA);
         userName = JSON.stringify(nameRef.current.value);
@@ -59,9 +67,10 @@ export default function Home() {
         console.log('token_DATA=', Cookies.get('token'));
         console.log('userName=', Cookies.get('userName'));
         console.log('msg=',data["msg"]);
+        msg='Login successful';
         alert(msg);
 //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
-        if(msg == "登入成功")
+        if(msg == "Login successful")
         {
           window.location.replace("/");
         }

@@ -103,7 +103,7 @@ export default function How_to_Make_video() {
                         Upload video
                     </div>
                 </div>
-                <div>
+                <div className={styles.button_block}>
                     <button className={styles.CMV_Next_button} onClick={Choose_type}>
                         Next
                     </button>
