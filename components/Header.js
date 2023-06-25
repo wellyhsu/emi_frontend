@@ -4,6 +4,7 @@ import React, {useRef} from "react";
 import Cookies from 'js-cookie'; 
 import {useEffect, useState} from 'react';
 import styles from '@/styles/Home.module.css'
+import Script from 'next/script';
 
 var F_button=0;
 
@@ -197,6 +198,7 @@ export const Header = () => {
     }
     else {
         console.log("login!!");
+        const User = Cookies.get('username');
         return (
             <div style={{position: "relative",zIndex: "4"}}>
                 <li className={styles.Home_Logo}>
@@ -343,15 +345,21 @@ export const Header = () => {
                                         priority
                                     />
                                 </div>
-                                <div className={styles.user_button_word}>
+                                <div id="UserName" className={styles.user_button_word}>
                                     User01
                                 </div>
+{/* 
+                               <Script>
+                                    document.getElementById("UserName").innerHTML = User;
+                                </Script>
+*/}                                 
                             </button>
                         </Link>
                     </li>
                 </ul>
             </div>
         )
+        
     }
 
 }
