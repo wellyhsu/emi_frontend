@@ -7,8 +7,8 @@ import React, {useEffect, useRef, useState} from "react";
 import Cookies from 'js-cookie'; 
 import styles from '@/styles/Home.module.css'
 import {Header} from '../components/Header'
-import '../styles/style.css';
-import '../styles/tailwind.min.css';
+//import '../styles/style.css';
+//import '../styles/tailwind.min.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   var information;

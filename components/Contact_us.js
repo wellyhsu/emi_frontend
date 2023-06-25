@@ -7,7 +7,7 @@ class Contact_us extends React.Component {
     render() { 
         return (
             <div>
-                <div style={{textAlign: "center"}}>
+                <div style={{paddingLeft: "38%",width: "100%"}}>
                     <Image
                         src={this.props.image}
                         alt={this.props.image_alt}

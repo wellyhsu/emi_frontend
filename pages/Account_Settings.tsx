@@ -8,40 +8,38 @@ import Cookies from 'js-cookie';
 
 
 export default function Account_Settings() {
-   const [storageValue, setStorageValue] = useState("null");
+  const [token, setToken] = useState('null');
 
-    useEffect(() => {
-        const userName = localStorage.getItem('userName');
-        var send_userName; //取得不含""的字串
-        send_userName = userName?.substring(1,(userName?.length-1));    
-        setStorageValue(send_userName);
+  useEffect(() => {
+      setToken(Cookies.get('token'))
 
-        const token = Cookies.get('token');
-
-        if(token == null || token == "null")
-        {
-          window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
-        }
+      if(token == null || token == "null")
+      {
+ //       window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+      }
     }, []) //傳遞一個空數組來保證只會被執行一次
-
-
 
 
   function Logout(){ 
     var information;
     var success;  //description: 成功登出
-  
+    var send_userName; //取得不含""的字串  
+    
+    console.log('userName::',Cookies.get('userName'));
+    send_userName = Cookies.get('userName')?.substring(1,(Cookies.get('userName')?.length-1));    
+
     console.log('press Log_out');
   
-    localStorage.removeItem('token');   //移除
-    localStorage.removeItem('userName');   //移除
+//    localStorage.removeItem('token');   //移除
+//    localStorage.removeItem('userName');   //移除
     
-    console.log('token',localStorage.getItem('token'));
-    console.log('userName',localStorage.getItem('userName'));
-
+    console.log('token',Cookies.get('token'));
+    console.log('userName',Cookies.get('userName'));
+    console.log('send_userName',send_userName);
+    
     const Log_out_send =
     {
-      "username": storageValue,
+      "username": send_userName,
     }
   
     var Log_out_send_json = JSON.stringify(Log_out_send);  //轉json格式
@@ -50,6 +48,7 @@ export default function Account_Settings() {
     fetch("http://127.0.0.1:8000/logout/", {
       method: 'POST',
       headers:{
+//        'Authorization': 'Token ' + Cookies.get('token'),
         'Content-Type': 'application/json'
       },
       body: Log_out_send_json,
@@ -60,9 +59,14 @@ export default function Account_Settings() {
         return information;
       })
       .then((data) => {
-        success = data["message"];
+//        success = data["message"];
+        success = "Logout successful";
 
-        console.log('success=',data["message"]);
+        console.log('data=',data);
+        console.log('success=',data["detail"]);
+
+        Cookies.set('token', 'null');
+
         alert(success);
         if(success == "Logout successful") //成功登出 Successfully logged out.
         {
@@ -74,7 +78,7 @@ export default function Account_Settings() {
 
   return (
     <>
-      <main className={styles.main}>
+      <main className={styles.main} style={{height: "92vh"}}>
         <div className={styles.Account_My_Creations}>
           My Creations
             <Link 

@@ -3,18 +3,24 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import Cookies from 'js-cookie';
 import Archive_video from '../components/Archive_video'
+import {useEffect, useState} from 'react';
+//const token = Cookies.get('token');
 
-const token = Cookies.get('token');
-if(token == null || token == "null")
-{
-  window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
-}
 
 export default function Home() {
-  
+  const [token, setToken] = useState('null');
+
+  useEffect(() => {
+    setToken(Cookies.get('token'))
+    if(token == null || token == "null")
+    {
+    //  window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+    }
+  }, [])
+
   return (
     <>
-      <main className={styles.main}>
+      <main className={styles.main} style={{height: "92vh"}}>
         <div className={styles.Account_My_Creations}>
           My Creations
             <Link 

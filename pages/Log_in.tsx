@@ -66,8 +66,7 @@ export default function Home() {
         
         console.log('token_DATA=', Cookies.get('token'));
         console.log('userName=', Cookies.get('userName'));
-        console.log('msg=',data["msg"]);
-        msg='Login successful';
+        console.log('msg=',msg);
         alert(msg);
 //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
         if(msg == "Login successful")

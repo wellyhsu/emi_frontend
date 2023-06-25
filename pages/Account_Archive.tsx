@@ -6,11 +6,6 @@ import Cookies from 'js-cookie';
 import Archive_video from '../components/Archive_video'
 import { env } from 'process';
 
-const token = Cookies.get('token');
-if(token == null || token == "null")
-{
-  window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
-}
 
 export default function Home() {
   var information;
@@ -20,12 +15,21 @@ export default function Home() {
   var updated_at;
   var video_file;
 
+  const [token, setToken] = useState('null');
+
+  useEffect(() => {
+    setToken(Cookies.get('token'))
+    if(token == null || token == "null")
+    {
+    //  window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+    }
+  }, [])
+
   const userName = Cookies.get('userName');
   console.log("userName=",userName);
 
   var send_userName = userName?.substring(1,(userName?.length-1));    
   console.log("send_userName=",send_userName);
-
 
 
   fetch("http://127.0.0.1:8000/videos/", {
@@ -58,7 +62,7 @@ export default function Home() {
 
   return (
     <>
-      <main className={styles.main}>
+      <main className={styles.main} style={{height: "92vh"}}>
         <div className={styles.Account_My_Creations}>
           My Creations
             <Link 

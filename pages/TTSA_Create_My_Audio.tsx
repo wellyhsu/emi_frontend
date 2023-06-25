@@ -368,7 +368,7 @@ export default function TTSA_Create_My_Audio() {
                                 fill={true}
                                 priority
                             />
-                            <div className={styles.play_audio}>
+                            <div className={styles.play_audio} style={{display: "none"}}>
                                 <audio controls>
                                     <source type="audio/mp3" />
                                 </audio>

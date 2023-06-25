@@ -113,7 +113,7 @@ export default function Create_Account() {
             />
           </div>
           
-          <div>
+          <div className={styles.CreateAccount_block}>
             <input 
               type="text" 
               placeholder="Name" 

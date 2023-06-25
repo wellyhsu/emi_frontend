@@ -634,15 +634,15 @@ ul.Layerout ul li:hover {
 
 .Tutorials_R_grid2 {
   display: grid;
-  grid-template-columns: 30% 50%;
+  grid-template-columns: 50% 50%;
   width: var(--max-width);
   max-width: 100%;
-  gap: 15em;
+  gap: 3em;
 }
 
 .Tutorials_L_grid2 {
   display: grid;
-  grid-template-columns: 50% 30%;
+  grid-template-columns: 50% 50%;
   width: var(--max-width);
   max-width: 100%;
   gap: 3em;
@@ -689,6 +689,9 @@ ul.Layerout ul li:hover {
 }
 
 .Tutor_acapela_Logo{
+  position: relative;
+  z-index: 1;
+
   width: 144px;
   height: 43px;
   margin-left: 3em;
@@ -734,7 +737,7 @@ ul.Layerout ul li:hover {
   width: 300px;
   height: 393px;
   background-color: rgba(243, 241, 241, 1);
-
+  
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 
   padding-top: 2em;
@@ -973,6 +976,35 @@ ul.Layerout ul li:hover {
 
 
 /* Login/Create account */
+/*寬度大於1200px時，適用此格式。*/
+@media screen and (min-width: 1200px) 
+{
+  .CreateAccount_block{
+    display: inline-block;
+  }
+}
+/*寬度小於1200px時，適用此格式。*/
+@media screen and (max-width: 1200px) 
+{
+  .CreateAccount_block{
+    display: inline-block;
+    max-width: 100%;
+    margin-right: 10vw;
+    margin-left: -10vw;
+  }
+}
+
+/*寬度小於1200px時，適用此格式。*/
+@media screen and (max-width: 1000px) 
+{
+  .CreateAccount_block{
+    display: inline-block;
+    max-width: 100%;
+    margin-right: calc(var(--max-width) * 2vw);
+    margin-left: -15vw;
+  }
+}
+
 .Name{
   display: block;
   width: 411px;
@@ -1846,8 +1878,12 @@ select.option{
     top: 40%;
     left: 20%;
 
-
     display: none;
+  }
+
+  .TTSA_button_block{
+    padding-top: 30px;
+    padding-left: 13%;
   }
 }
 
@@ -1863,10 +1899,18 @@ select.option{
   }
 
   .TTSA_image{
+    display: block;
     position: relative;
     height: 50vh;
-    top: -40vh;
+    top: -30vh;
     right: 10vw;
+  }
+
+  .TTSA_button_block{
+    position: relative;
+    height: 5vh;
+    top: -23vh;
+    left: 22vw;
   }
 }
 
@@ -1992,11 +2036,6 @@ select.option{
   margin-left: 0px;
 }
 
-.TTSA_button_block{
-  padding-top: 30px;
-  padding-left: 13%;
-}
-
 .Build_Audio_button{
   width: 160px;
   height: 48px;
@@ -2045,7 +2084,7 @@ select.option{
 .Download_block{
   display: none;
   position: absolute;
-  z-index: 2;
+  z-index: 5;
   top: 10%;  
   left: 30%;
 

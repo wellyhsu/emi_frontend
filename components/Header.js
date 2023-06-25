@@ -6,7 +6,6 @@ import {useEffect, useState} from 'react';
 import styles from '@/styles/Home.module.css'
 
 var F_button=0;
-Cookies.set('token', "null");
 
 function Feature_button(){
   if(F_button)
@@ -36,9 +35,11 @@ export const Header = () => {
     token_DATA = JSON.stringify("12wf3fgwf456");
     Cookies.set('token', token_DATA);  /////////////////
 */
-    const token = Cookies.get('token');
+    const [token, setToken] = useState('null')
+    useEffect(() => setToken(Cookies.get('token')), [])
+//    const token = Cookies.get('token');
 
-    console.log("~~token~~", token);
+    console.log("~~token~~", Cookies.get('token'));
     console.log("storageValue type ->", typeof(token));
 
     if ((token == "null") || (token == null)){    //未登入
