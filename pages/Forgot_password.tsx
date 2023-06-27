@@ -24,7 +24,7 @@ export default function Forgot_password() {
     console.log("account_send_json is " + Request_Reset_password_send_json);
     console.log('account_send_json is ',typeof(Request_Reset_password_send_json));
 
-    fetch("http://127.0.0.1:8000/password_reset/request/", {
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_forget_password_request, {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'

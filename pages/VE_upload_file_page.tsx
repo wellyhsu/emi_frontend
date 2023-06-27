@@ -9,13 +9,14 @@ var fileType;
 var fileSize;//檔案的大小
 var fileTime;
 const SPLIT_BYTES = 100; //檔案以每100KB做切割
-var start = 0; //位元組數的開頭
-var end = SPLIT_BYTES; //位元組數的結束
-var count = fileSize % SPLIT_BYTES == 0 ? fileSize / SPLIT_BYTES : Math.floor(fileSize / SPLIT_BYTES) + 1;
+const CHUNK_SIZE = 100; //檔案以每100KB做切割
+//var start = 0; //位元組數的開頭
+//var end = SPLIT_BYTES; //位元組數的結束
+//var count = fileSize % SPLIT_BYTES == 0 ? fileSize / SPLIT_BYTES : Math.floor(fileSize / SPLIT_BYTES) + 1;
 //上述為計算一共會切出幾份檔案 
 var video_Data;
 
-function upload(e) {
+function select_file(e) {
     console.log("press button");
     var inputFile = document.getElementById('customFileInput');
      
@@ -41,21 +42,38 @@ function upload(e) {
     }, false);
 }  
 
+export const slice = (file, piece = CHUNK_SIZE) => {
+    return new Promise((resolve, reject) => {
+        let totalSize = file.size;  //取得檔案大小
+        const chunks = [];   //宣告一個陣列存放切割下來的chunk                   //Safari 中是 blob.webkitSlice()
+        const blobSlice = File.prototype.slice || File.prototype.webkitSlice; //根據瀏覽器的不同，它指向適當的切片方法。
+        let start = 0;   //宣告開始切割的位址
+        var end;
+        end = start + piece >= totalSize ? totalSize : start + piece; //取得最後的位置
+
+        while (start < totalSize) {
+            const chunk = blobSlice.call(file, start, end);   //把fileData切割成一個一個的chunk
+            chunks.push(chunk); //霸切割除來的chunk放進chunks陣列
+
+            start = end;   //從這一次結束的位址開始下一次切割
+            end = start + piece >= totalSize ? totalSize : start + piece;
+        }
+      
+      resolve(chunks);
+    });
+  };
+
 function upload_file(e){
     var information;
     var id;
     var title;
-    var description;
-    var updated_at;
-    var video_file;
-    var file;
     var file_type;
     var Next_Link;
     var upload=0;
 
     var intIdentifier = 1;
     var completed = 0;
-    var xhr = new self.XMLHttpRequest();
+//    var xhr = new self.XMLHttpRequest();
 
     file_type = fileName?.substring(fileName?.indexOf(".",0));  //取得副檔名
     
@@ -63,7 +81,49 @@ function upload_file(e){
     if(file_type == ".mp4" || file_type == ".MOV")
     {
         Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3_video;  //VE_Edit_video
-        
+
+        slice(fileData, SPLIT_BYTES)
+        .then(chunks => {
+            // 在這裡對分塊進行後續處理
+            console.log(chunks); // 輸出分塊陣列
+            console.log('length=',chunks.length);
+        })
+        .catch(error => {
+            // 處理錯誤
+            console.error(error);
+        });
+/*
+        fetch("http://127.0.0.1:8000/videos/upload/", {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: upload_videos_send_json,
+        })
+        .then((response) => {
+            information = response.json();
+            console.log('info^^',information);
+            return information;
+        })
+        .then((data) => {
+            id = data["id"];
+            title = data["title"];
+            description = data["description"];
+            updated_at = data["updated_at"];
+            video_file = data["video_file"];
+
+            console.log('id=',data["id"]);
+            console.log('title=',data["title"]);
+            console.log('description=',data["description"]);
+            console.log('updated_at=',data["updated_at"]);
+            console.log('video_file=',data["video_file"]);
+
+//            alert(data["detail"]);
+        })
+        .catch((error) => console.log("error", error));
+
+*/
+/*
         const upload_videos_send =
         {
             "title": fileName,
@@ -75,7 +135,7 @@ function upload_file(e){
         console.log("upload_videos_send_json is " + upload_videos_send);
         console.log('upload_videos_send_json is ',typeof(upload_videos_send));
         upload = 1;
-/*
+
         fetch("http://127.0.0.1:8000/videos/upload/", {
             method: 'POST',
             headers:{
@@ -156,7 +216,7 @@ function upload_file(e){
         alert("The file type uncorrect!");
         return false
     }
-
+/*
     xhr.onload = function () {
         console.log("xhr.onload");
         completed++; //完成上傳的計數器
@@ -195,7 +255,7 @@ function upload_file(e){
         xhr.setRequestHeader('Content-Type', 'application/octet-stream');
         xhr.send(fileData.slice(start, fileSize));
     }
-    
+   
     function uploadComplete(id, name) {
         var url1 = '/home/emi/emi_frontend/fileUpload/UploadComplete?id=' + id + "&filename=" + name + "&semesterID=" + e.data.semesterID + "&cache=" + Date.now();;
         var xhr1 = new self.XMLHttpRequest();
@@ -206,7 +266,8 @@ function upload_file(e){
         xhr1.open('POST', url1, true);
         xhr1.send(null);
     }
-    
+*/     
+
     window.location.replace("/" + Next_Link);
 }
 
@@ -238,7 +299,7 @@ export default function VE_upload_file_page() {
                         file:                            
                     </div>
                         <input id="customFileInput" className={styles.choose_file} type="file" accept="*.ppt, *.pptx, video/*"></input>
-                        <label htmlFor="customFileInput" className={styles.upload_block} onClick={upload}>
+                        <label htmlFor="customFileInput" className={styles.upload_block} onClick={select_file}>
                             <div className={styles.no_padding_center}>
                                 <div>
                                     <div className={styles.upload_image}>

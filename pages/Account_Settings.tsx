@@ -45,13 +45,12 @@ export default function Account_Settings() {
     var Log_out_send_json = JSON.stringify(Log_out_send);  //轉json格式
     console.log("account_send_json is " + Log_out_send_json);
   
-    fetch("http://127.0.0.1:8000/logout/", {
+    fetch(process.env.NEXT_PUBLIC_API_URL +　process.env.NEXT_PUBLIC_API_logout, {
       method: 'POST',
       headers:{
-//        'Authorization': 'Token ' + Cookies.get('token'),
+        'Authorization': 'Token ' + Cookies.get('token'),
         'Content-Type': 'application/json'
       },
-      body: Log_out_send_json,
     })
       .then((response) => {
         information = response.json();

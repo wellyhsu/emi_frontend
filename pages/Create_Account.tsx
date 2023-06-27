@@ -61,7 +61,7 @@ export default function Create_Account() {
       window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
     }
 */
-    fetch("http://127.0.0.1:8000/signup/", {
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_signup, {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ export default function Create_Account() {
       else
       {
         alert("Create account sucessfully.");
-        window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
+      //  window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
       }
     })
     .catch((error) => console.log("error", error));

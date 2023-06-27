@@ -43,7 +43,7 @@ export const Header = () => {
     console.log("~~token~~", Cookies.get('token'));
     console.log("storageValue type ->", typeof(token));
 
-    if ((token == "null") || (token == null)){    //未登入
+    if ((token == "null") || (token == null) || (token == "undefined")){    //未登入
         console.log("還沒login!!");
         return(
             <div style={{position: "relative",zIndex: "4"}}>
