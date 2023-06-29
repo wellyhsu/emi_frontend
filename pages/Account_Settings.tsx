@@ -23,32 +23,18 @@ export default function Account_Settings() {
   function Logout(){ 
     var information;
     var success;  //description: 成功登出
-    var send_userName; //取得不含""的字串  
+    var send_Token; //取得不含""的字串  
     
-    console.log('userName::',Cookies.get('userName'));
-    send_userName = Cookies.get('userName')?.substring(1,(Cookies.get('userName')?.length-1));    
-
+    send_Token = Cookies.get('token')?.substring(1,(Cookies.get('token')?.length-1));    
+    setToken(send_Token);
+    
     console.log('press Log_out');
-  
-//    localStorage.removeItem('token');   //移除
-//    localStorage.removeItem('userName');   //移除
-    
-    console.log('token',Cookies.get('token'));
-    console.log('userName',Cookies.get('userName'));
-    console.log('send_userName',send_userName);
-    
-    const Log_out_send =
-    {
-      "username": send_userName,
-    }
-  
-    var Log_out_send_json = JSON.stringify(Log_out_send);  //轉json格式
-    console.log("account_send_json is " + Log_out_send_json);
-  
-    fetch(process.env.NEXT_PUBLIC_API_URL +　process.env.NEXT_PUBLIC_API_logout, {
+    console.log('token',send_Token);
+
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_logout, {
       method: 'POST',
       headers:{
-        'Authorization': 'Token ' + Cookies.get('token'),
+        'Authorization': 'Token ' + send_Token,
         'Content-Type': 'application/json'
       },
     })
@@ -58,17 +44,16 @@ export default function Account_Settings() {
         return information;
       })
       .then((data) => {
-//        success = data["message"];
-        success = "Logout successful";
+       success = data["message"];
 
         console.log('data=',data);
         console.log('success=',data["detail"]);
 
-        Cookies.set('token', 'null');
 
         alert(success);
         if(success == "Logout successful") //成功登出 Successfully logged out.
         {
+          Cookies.set('token', "null");
           window.location.replace("/");
         }
       })

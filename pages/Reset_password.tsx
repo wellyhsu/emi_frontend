@@ -19,8 +19,9 @@ export default function Reset_password() {
 
     const Reset_password_send =
     {
-      "password": Reset_passwordRef.current.value,
       "token": token_Ref.current.value,
+      "password": Reset_passwordRef.current.value,
+      
     }
 
     var Reset_password_send_json = JSON.stringify(Reset_password_send);  //轉json格式

@@ -22,6 +22,7 @@
   background-color:#ffffff; 
 
   padding-top: 70px;
+/*  overflow-x: scroll;*/
 }
 
 
@@ -1465,10 +1466,26 @@ ul.Layerout ul li:hover {
   padding-left: 50px;
 }
 
-.button_block{
-  display: block;
-  padding-bottom: 14vh;
+/*寬度小於1200px時，適用此格式。*/
+@media screen and (max-width: 1200px) 
+{
+  .button_block{
+    height: 20vh;
+    display: block;
+    padding-top: 4vh;    
+    margin-bottom: 10vh;
+  }
 }
+
+/*寬度大於1200px時，適用此格式。*/
+@media screen and (min-width: 1200px) 
+{
+  .button_block{
+    display: block;  
+    padding-bottom: 14vh;
+  }
+}
+
 
 .CMV_Next_button{
 /*  display: inline-block;  */

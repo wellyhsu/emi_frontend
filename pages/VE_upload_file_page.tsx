@@ -268,7 +268,7 @@ function upload_file(e){
     }
 */     
 
-    window.location.replace("/" + Next_Link);
+//    window.location.replace("/" + Next_Link);
 }
 
 
