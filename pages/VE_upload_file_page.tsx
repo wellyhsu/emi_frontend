@@ -346,7 +346,7 @@ function upload_file(e){
 
 export default function VE_upload_file_page() {
     return (
-        <>
+        <div>
 {/*            <Script
                 src="../components/choose_file.js"
             />
@@ -408,6 +408,6 @@ export default function VE_upload_file_page() {
 
             </main>
             
-        </>
+        </div>
     )
 }

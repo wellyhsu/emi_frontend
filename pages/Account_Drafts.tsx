@@ -19,7 +19,6 @@ export default function Home() {
   }, [])
 //style={{height: "92vh"}}
   return (
-    <>
       <main className={styles.main}>
         <div className={styles.Account_My_Creations}>
           My Creations
@@ -84,6 +83,5 @@ export default function Home() {
         </div>
 
       </main>
-    </>
   )
 }
