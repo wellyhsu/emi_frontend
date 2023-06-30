@@ -71,7 +71,7 @@ function Choose_type() {    //選擇類型
 export default function How_to_Make_video() {
     return (
         <>
-            <main className={styles.main} style={{height: "100vh"}}>
+            <main className={styles.main}>
                 <div className={styles.Choose_file_type}>
                     Choose the type of upload file
                 </div>

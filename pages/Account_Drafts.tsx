@@ -17,10 +17,10 @@ export default function Home() {
     //  window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
     }
   }, [])
-
+//style={{height: "92vh"}}
   return (
     <>
-      <main className={styles.main} style={{height: "92vh"}}>
+      <main className={styles.main}>
         <div className={styles.Account_My_Creations}>
           My Creations
             <Link 

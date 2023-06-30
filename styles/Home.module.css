@@ -1,4 +1,4 @@
-
+/*  在globals.css檔案中
 .html{
   height: 100%;
   margin: 0;
@@ -10,7 +10,7 @@
   margin: 0;
   padding: 0;
 }
-
+*/
 .main {
   display: inline-block; 
 
@@ -472,7 +472,7 @@ ul.Layerout ul li:hover {
   margin-top: 12px;
 }
 
-/*寬度大於1200px時，適用此格式。*/
+/*寬度大於700px時，適用此格式。*/
 @media screen and (min-width: 700px) 
 {
   .AboutUs{
@@ -492,7 +492,7 @@ ul.Layerout ul li:hover {
   }
 }
 
-/*寬度小於1200px時，適用此格式。*/
+/*寬度小於700px時，適用此格式。*/
 @media screen and (max-width: 700px) 
 {
   .AboutUs{

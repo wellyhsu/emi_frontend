@@ -8,8 +8,8 @@ var fileName;
 var fileType;
 var fileSize;//檔案的大小
 var fileTime;
-const SPLIT_BYTES = 100; //檔案以每100KB做切割
-const CHUNK_SIZE = 100; //檔案以每100KB做切割
+const SPLIT_BYTES = 100*1024; //檔案以每100KB做切割
+const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 //var start = 0; //位元組數的開頭
 //var end = SPLIT_BYTES; //位元組數的結束
 //var count = fileSize % SPLIT_BYTES == 0 ? fileSize / SPLIT_BYTES : Math.floor(fileSize / SPLIT_BYTES) + 1;
@@ -61,7 +61,35 @@ export const slice = (file, piece = CHUNK_SIZE) => {
       
       resolve(chunks);
     });
-  };
+};
+
+async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片
+    const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
+
+    for (let chunk of chunks) {   //
+        const fd = new FormData();   //宣告fd為FormData();
+        fd.append('chunk', chunk);     //把每一個chunk插入fd中
+  
+        try {
+            const response = await fetch('api/hello', {   //call後端的API
+            method: 'POST',
+            body: fd,    //傳送到後端的內容
+            });
+  
+            if (response.ok) {
+                const data = await response.json();   //取得後端回傳的資料
+                results.push(data);    //將後端後端傳回的資料放到results
+            } 
+            else {
+                results.push(null);
+            }
+        } 
+        catch (err) {    //如果發生錯誤
+            results.push(null);    //不放入資料 留空白
+        }
+    }
+    return results;
+}
 
 function upload_file(e){
     var information;
@@ -81,17 +109,61 @@ function upload_file(e){
     if(file_type == ".mp4" || file_type == ".MOV")
     {
         Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3_video;  //VE_Edit_video
+        
+        if(fileSize*1024 > SPLIT_BYTES)
+        {
+            slice(fileData, SPLIT_BYTES)
+            .then(chunks => {
+                // 在這裡對分塊進行後續處理
+                console.log(chunks); // 輸出分塊陣列
+                console.log('length=',chunks.length);
+                console.log('type=',typeof(chunks));
+                
+                _chunkUploadTask(chunks)
+                .then(results => {
+                    // 处理上传结果
+                    console.log(results);
+                })
+                .catch(error => {
+                    // 处理错误
+                    console.error(error);
+                });
+            })
+            .catch(error => {
+                // 處理錯誤
+                console.error(error);
+            });
+        }
+        else
+        {
+            const noSlice_fd = new FormData();   //宣告fd為FormData();
+            noSlice_fd.append('Data', fileData);     //把每一個chunk插入fd中
+      
+            //fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
+            fetch("/api/hello", {
+                method: 'POST',
+                body: noSlice_fd,
+            })
+                .then((response) => {
+                    information = response.json();
+                    console.log('info^^',information);
+                    return information;
+                })
+                .then((data) => {
+                    var msg = data["message"];
 
-        slice(fileData, SPLIT_BYTES)
-        .then(chunks => {
-            // 在這裡對分塊進行後續處理
-            console.log(chunks); // 輸出分塊陣列
-            console.log('length=',chunks.length);
-        })
-        .catch(error => {
-            // 處理錯誤
-            console.error(error);
-        });
+                    console.log('msg=',msg);
+                    console.log('data=',data);
+                    alert(msg);
+            //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
+                    if(msg == "Login successful")
+                    {
+                        window.location.replace("/");
+                    }
+                })
+                .catch((error) => console.log("error", error));
+
+        }
 /*
         fetch("http://127.0.0.1:8000/videos/upload/", {
             method: 'POST',

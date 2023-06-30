@@ -15,13 +15,13 @@ export default function Home() {
   var updated_at;
   var video_file;
 
-  const [token, setToken] = useState('null');
-
   useEffect(() => {
-    setToken(Cookies.get('token'))
+    console.log("useEffect triggered");
+    const token = Cookies.get('token');
     if(token == null || token == "null")
     {
-    //  window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+      alert("Please Log in, thanks!");
+      window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
     }
   }, [])
 
@@ -62,7 +62,7 @@ export default function Home() {
 
   return (
     <>
-      <main className={styles.main} style={{height: "92vh"}}>
+      <main className={styles.main}>
         <div className={styles.Account_My_Creations}>
           My Creations
             <Link 
