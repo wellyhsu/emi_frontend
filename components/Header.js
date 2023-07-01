@@ -345,8 +345,7 @@ export const Header = () => {
                                     <Image
                                         src="/user.svg"
                                         alt="user image"
-                                        width={60}
-                                        height={60}
+                                        fill={true}
                                         priority
                                     />
                                 </div>

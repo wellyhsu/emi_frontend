@@ -49,17 +49,17 @@
   list-style: none;
   position: fixed;
   z-index: 3;
-  margin-Left: 10px;
+  margin-Left: 2vw;
   margin-Top: 10px;
 }
 
 .Features_button{
-  width: 2em;
+  width: 2vw;
   height: 30px;
   display: inline-block;
   cursor: pointer;
 
-  font-size: 20px;
+  font-size: 1.6vw;
   font-family: 'Poppins', Arial, '微軟正黑體';
 
   color: rgba(255,255,255,1);
@@ -70,7 +70,7 @@
 }
 
 .layerbutton{
-  width: 2em;
+  width: 2vw;
   height: 30px;
   display: inline-block;
   cursor: pointer;
@@ -102,10 +102,8 @@
     position: fixed;
     z-index: 2;
     width: 100vw;
-    height: 80px;
+    height: 13vh;
     display: inline-block;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-size: 13px;
     background-color: #15b47f;
   }
 
@@ -119,34 +117,34 @@
   ul.Layerout>li {
     float: left;  /* 只有第一層是靠左對齊*/
     margin-right: 7%;
-    margin-top: 20px;
+    margin-top: 2.8vh;
   }
 
   ul.Layerout ul {
     display: none;  /*隱藏次選單*/
     
-    font-size: 20px;
+    font-size: 1.6vw;
     font-family: 'Poppins', Arial, '微軟正黑體';
 
     color: rgba(255,255,255,1);
     background-color: #15b47f;
-    border: 2.5px solid #a9c4df;
-    border-radius: 10px;
+    border: 0.2vw solid #a9c4df;
+    border-radius: 1vw;
 
     position: absolute;
     z-index: 99;
     left: -1px;
     top: 100%;
     min-width: 180px;
-    width: 300px;
+    width: 22vw;
 
     margin-top: 1.2em;
   }
 
   ul.Layerout ul li {
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-left: 1vw;
+    margin-top: 1.3vh;
+    margin-bottom: 1vh;
     line-height: 1.5em;
   }
 }
@@ -158,8 +156,8 @@ ul.Layerout ul li:hover {
 }
 
 .login_button{
-  width: 14em;
-  height: 60px;
+  width: 15vw;
+  height: 10vh;
   display: inline-block;
   cursor: pointer;
 
@@ -168,19 +166,19 @@ ul.Layerout ul li:hover {
 
   color: rgba(0,0,0,1);
   border: none;
-  border-radius: 30px;
+  border-radius: 3vw;
   background-color: rgba(255, 193, 7, 1);
 
-  padding-top: 1px;
-  margin-top: -8px;
+  padding-top: 0.4vh;
+  margin-top: -1.4vh;
 }
 .login_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
 }
 
 .user_button{
-  width: 183px;
-  height: 60px;
+  width: 14.5vw;
+  height: 10.5vh;
   cursor: pointer;
 
   text-align: center;
@@ -188,11 +186,11 @@ ul.Layerout ul li:hover {
 
   color: rgba(0,0,0,1);
   border: none;
-  border-radius: 20px;
+  border-radius: 1.5vw;
   background-color: rgba(255, 193, 7, 1);
 
-  padding-top: 1px;
-  margin-top: -8px;
+  padding-top: 0.2vh;
+  margin-top: -1.5vh;
 }
 .user_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -200,19 +198,30 @@ ul.Layerout ul li:hover {
 
 .user_image{
   display: inline-block;
-  margin-top: -1px;
-  margin-left: -100px;
+  position: relative;
+  width: 15vw;
+  height: 10vh;
+
+  margin-top: -3vh;
+  margin-left: -8vw;
+/*
+  top: -1.3vh;
+  left: -4vw;
+*/
+
 }
 
 .user_button_word{
-  position: absolute;
+  position: relative;
   z-index: 1;
+  top: 0.1em;
+  left: -1.5em;
 
   text-align: center;
-  font-size: 18px;
+  font-size: 1.4vw;
   font-weight: 500;
   font-family: 'Poppins', Arial, '微軟正黑體';
-  line-height: 28px;
+  line-height: 5vh;
   color: rgba(255, 255, 255, 1);
 
   margin-top: -46px;
@@ -345,10 +354,9 @@ ul.Layerout ul li:hover {
 /*  Home page   */
 .homepage_grid2 {
   display: grid;
-  grid-template-columns: 40% 20%;
+  grid-template-columns: 50vw 20vw;
 
-  gap: 1px;
-  margin-left: 20%;
+  gap: 0.2vw;
 }
 
 .introduction
@@ -2961,7 +2969,7 @@ select.option{
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 4rem 0;
+  padding-top: 5vw;
 }
 
 

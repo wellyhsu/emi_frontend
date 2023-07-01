@@ -18,37 +18,37 @@ export default function Home() {
 
         <div className={styles.center}>
           <div className={styles.homepage_grid2}>
-          <div >
-            <div className={styles.introduction}>
-              Hi! We're
-            </div>
-            <div className={styles.Elearning}>
-              E-learning
-            </div>
-            <div className={styles.introduction_content}>
-              E-learning provides various tools to help you prepare <br/>
-              your lessons easily and diversely. <br/>
-              Standard pronunciation and pop-up quiz <br/>
-              will make your teaching materials professional and interactive.
-            </div>
             <div>
-              {/*<a href="#Bpart">*/}
-              <button className={styles.View_more}>
-                View more
-              </button>
-              {/*</a>  */}
+              <div className={styles.introduction}>
+                Hi! We're
+              </div>
+              <div className={styles.Elearning}>
+                E-learning
+              </div>
+              <div className={styles.introduction_content}>
+                E-learning provides various tools to help you prepare <br/>
+                your lessons easily and diversely. <br/>
+                Standard pronunciation and pop-up quiz <br/>
+                will make your teaching materials professional and interactive.
+              </div>
+              <div>
+                {/*<a href="#Bpart">*/}
+                <button className={styles.View_more}>
+                  View more
+                </button>
+                {/*</a>  */}
+              </div>
+            </div>
+      
+            <div className={styles.homepage_picture}>
+              <Image
+                src="/E-learning_image.svg"
+                alt="E-learning Logo"
+                fill={true}
+                priority
+              />
             </div>
           </div>
-      
-          <div className={styles.homepage_picture}>
-            <Image
-              src="/E-learning_image.svg"
-              alt="E-learning Logo"
-              fill={true}
-              priority
-            />
-          </div>
-        </div>
         </div>
 
         <div className={styles.Bpartword} > {/*id="Bpart"*/}
