@@ -46,6 +46,9 @@
 
 
 .Home_Logo{
+  width: 20vw;
+  height: 10vh;
+
   list-style: none;
   position: fixed;
   z-index: 3;
@@ -75,7 +78,7 @@
   display: inline-block;
   cursor: pointer;
 
-  font-size: 20px;
+  font-size: 1.6vw;
   font-family: 'Poppins', Arial, '微軟正黑體';
 
   color: rgba(255,255,255,1);
@@ -98,6 +101,23 @@
 /*寬度大於1200px時，適用此格式。*/
 @media screen and (min-width: 1200px) 
 {
+  .Features_button{
+    width: 2vw;
+    height: 30px;
+    display: inline-block;
+    cursor: pointer;
+  
+    font-size: 1.6vw;
+    font-family: 'Poppins', Arial, '微軟正黑體';
+  
+    color: rgba(255,255,255,1);
+    border: none;
+    background-color: #15b47f;
+  
+    margin-top: 0.4em;
+    margin-left: 7vw;
+  }
+
   ul.Layerout {
     position: fixed;
     z-index: 2;
@@ -162,6 +182,7 @@ ul.Layerout ul li:hover {
   cursor: pointer;
 
   text-align: center;
+  font-size: 1.6vw;
   font-family: 'Poppins', Arial, '微軟正黑體';
 
   color: rgba(0,0,0,1);
@@ -354,14 +375,14 @@ ul.Layerout ul li:hover {
 /*  Home page   */
 .homepage_grid2 {
   display: grid;
-  grid-template-columns: 50vw 20vw;
+  grid-template-columns: 30vw 20vw;
 
-  gap: 0.2vw;
+  gap: 0.01vw;
 }
 
 .introduction
 {
-  font-size: 23px;
+  font-size: 1.8vw;
   font-weight: 600;
   font-family: '微軟正黑體', Arial;
   line-height: 2em;
@@ -370,20 +391,20 @@ ul.Layerout ul li:hover {
 }
 
 .Elearning{
-  font-size: 3em;
+  font-size: 3.7vw;
   font-weight: 900;
   font-family: '微軟正黑體', Arial;
 }
 
 .introduction_content{
-  font-size: 16px;
+  font-size: 1.2vw;
   font-weight: 600;
   font-family: '微軟正黑體', Arial;
   line-height: 2em;
   color: rgba(0, 0, 0, 1);
 }
 
-/*寬度大於1200px時，適用此格式。*/
+/*寬度大於930px時，適用此格式。*/
 @media screen and (min-width: 930px) 
 {
   .homepage_picture{
@@ -396,7 +417,7 @@ ul.Layerout ul li:hover {
   }
 }
 
-/*寬度小於1200px時，適用此格式。*/
+/*寬度小於930px時，適用此格式。*/
 @media screen and (max-width: 930px) 
 {
   .homepage_picture{
@@ -410,18 +431,18 @@ ul.Layerout ul li:hover {
 }
 
 .View_more{
-  width: 300px;
-  height: 50px;
+  width: 18vw;
+  height: 8vh;
   cursor: pointer;
 
   padding-top: 1px;
   text-align: center;
-  font-size: 18px;
+  font-size: 1.5vw;
   font-family: 'Poppins', Arial, '微軟正黑體';
   color: rgba(255,255,255,1);
 
   border: none;
-  border-radius: 30px;
+  border-radius: 2vw;
   background-color: rgba(87, 196, 157, 1);
 
   margin-top: 0.6em;
@@ -438,13 +459,13 @@ ul.Layerout ul li:hover {
 }
 
 .Bpartword_title{
-  font-size: 22px;
+  font-size: 1.7vw;
   font-weight: 600;
   line-height: 3em;
 }
 
 .fivefeatures_introduce{
-  font-size: 17px;
+  font-size: 1.3vw;
   color: rgba(128,128,128,1);
   margin-bottom: 1em;
 }
@@ -458,17 +479,15 @@ ul.Layerout ul li:hover {
 .grid3 {
   display: grid;
   grid-template-columns: repeat(3, 28%);
-  width: var(--max-width);
-  max-width: 100%;
+  width: 100%;
   gap: 3em;
-  margin-left: 3%;
+  margin-left: 5%;
 }
 
 .grid2 {
   display: grid;
   grid-template-columns: repeat(2, 33%);
-  width: var(--max-width);
-  max-width: 100%;
+  width: 100%;
   gap: 3em;
   margin-left: 20%;
 }
@@ -478,9 +497,9 @@ ul.Layerout ul li:hover {
   min-width: 130px;
   width: 100%;
   height: 100%;
-  max-width: 800px;
-  border-radius: 20px;
-/*  margin-left: 7%;*/
+
+  border-radius: 2vw;
+
   font-family: Arial;
   text-align: center;
   line-height: 1.5em;
@@ -496,19 +515,22 @@ ul.Layerout ul li:hover {
   position: relative;
   width:22vw;
   height: 40vh;
+
   margin-top: 12px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*寬度大於700px時，適用此格式。*/
 @media screen and (min-width: 700px) 
 {
   .AboutUs{
-    height: 650px;
+    height: 110vh;
     max-width: 100%;
     background-color:rgba(255,251,240,1);
     text-align: center;
     font-family: Arial;
-    margin-top: 3em;
+    margin-top: 10vh;
   }
 
   .Aboutus_picture{
@@ -541,14 +563,14 @@ ul.Layerout ul li:hover {
 }
 
 .AboutUsTitle{
-  font-size: 30px;
+  font-size: 3vw;
   font-weight:bold;
   line-height: 3em;
   padding-top: 1em;
 }
 
 .AboutUsContent{
-  font-size: 18px;
+  font-size: 1.7vw;
   font-weight: 400;
   line-height: 2.6em;
 }
@@ -565,7 +587,7 @@ ul.Layerout ul li:hover {
 .Cpart_word{
   width: 65%;
   height: 10em; 
-  font-size: 20px;
+  font-size: 2vw;
   font-weight: 600;
   font-family: Arial, 微軟正黑體;
   text-align: center;
@@ -581,12 +603,13 @@ ul.Layerout ul li:hover {
 }
 
 .Subscribe_button{
-  width: 40%;
-  height: 2.5em; 
-  max-width: 10em;
+  width: 16vw;
+  height: 7vh; 
+
+  max-width: 16vw;
   cursor: pointer;
 
-  font-size: 16px;
+  font-size: 1.6vw;
   font-weight: 600;
   font-family: Arial, 微軟正黑體;
   text-align: center;
@@ -595,7 +618,7 @@ ul.Layerout ul li:hover {
   color: rgba(87,196,157,1);
   background-color: rgb(255,255,255);
   border: none;
-  border-radius: 13px;
+  border-radius: 1.2vw;
   margin-top: 2em;
 }
 .Subscribe_button:hover { /*:hover代表滑鼠移到元素上時的狀態*/ 
@@ -603,12 +626,12 @@ ul.Layerout ul li:hover {
 }
 
 .Contact_us_button{
-  width: 40%;;
-  height: 2.5em; 
-  max-width: 10em;
+  width: 16vw;
+  height: 7vh; 
+  max-width: 16vw;
   cursor: pointer;
 
-  font-size: 16px;
+  font-size: 1.6vw;
   font-weight: 600;
   font-family: Arial, 微軟正黑體;
   text-align: center;
@@ -619,7 +642,7 @@ ul.Layerout ul li:hover {
   border-width: 3px;
   border-style: solid;
   border-color: rgb(255,255,255);
-  border-radius: 13px;
+  border-radius: 1.2vw;
 
   margin-top: 2em;
   margin-left: 1em;
@@ -630,8 +653,9 @@ ul.Layerout ul li:hover {
 
 .editor{
   width: 100%;
-  height: 3em; 
+  height: 8vh; 
 
+  font-size: 1.5vw;
   font-family: Arial, 微軟正黑體;
   line-height: 2em;
   text-align: center;
@@ -1271,19 +1295,19 @@ ul.Layerout ul li:hover {
 
 .Video_Editor_title{
   text-align: left;
-  font-size: 40px;
+  font-size: 3.8vw;
   font-weight: 600;
   font-family: 'Poppins',Arial;
 
   margin-left: 40%;
-  padding-top: 1%;
+  padding-top: 1vh;
 }
 
 .Video_Editor_content{
   text-align: left;
-  font-size: 20px;
+  font-size: 2vw;
   font-family: 'Poppins',Arial;
-  line-height: 1.8em;
+  line-height: 5.8vh;
 
   margin-left: 40%;
   margin-top: 1em;
@@ -1291,8 +1315,8 @@ ul.Layerout ul li:hover {
 
 .VideoEditor_image{
   display: block;
-  width: 300px;
-  height: 100px;
+  width: 42vw;
+  height: 28vh;
   display: flex;
   justify-content: right;
   align-items: center;
@@ -1304,18 +1328,18 @@ ul.Layerout ul li:hover {
 
 .VideoEditor_button{
   display: inline-block;
-  width: 250px;
-  height: 55px;
+  width: 24vw;
+  height: 10vh;
   cursor: pointer;
 
   text-align: center;
-  font-size: 20px;
+  font-size: 2vw;
   font-family: 'Poppins',Arial;
 
   color: rgba(255, 255, 255, 1);
   background-color: rgba(87, 196, 157, 1);
 
-  border-radius: 40px;
+  border-radius: 4vw;
   border: none;
 
   margin-left: 4.6em;
@@ -1388,7 +1412,17 @@ ul.Layerout ul li:hover {
   text-align: center;
 }
 
+.HMV_button_block{
+  display: inline-block;
+
+  margin-left: 75%;
+  margin-top: 2.8em;
+  margin-bottom: 5vh;
+}
+
 .HMV_Create_video_button{
+  display: inline-block;
+  
   width: 250px;
   height: 55px;
   cursor: pointer;
@@ -1403,9 +1437,6 @@ ul.Layerout ul li:hover {
   border: none;
   border-radius: 40px;
   border-color: rgba(87, 196, 157, 1);
-
-  margin-left: 75%;
-  margin-top: 2.8em;
 }
 .HMV_Create_video_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -2937,7 +2968,6 @@ select.option{
 
 .card {
   min-width: 25vw;
-
 
   padding: 1rem 1.2rem;
   border-radius: var(--border-radius);

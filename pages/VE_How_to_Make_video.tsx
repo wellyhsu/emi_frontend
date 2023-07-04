@@ -109,16 +109,18 @@ export default function How_to_Make_video() {
                                 </div>
                             </div>
                         </div>
-                        <Link 
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_VE_Create }
-                                }}
-                        >
-                            <button className={styles.HMV_Create_video_button}>
-                                Create My Video
-                            </button>
-                        </Link>
+                        <div className={styles.HMV_button_block}>
+                            <Link 
+                                href={{
+                                    pathname: '/[page]',
+                                    query: { page: process.env.NEXT_PUBLIC_VE_Create }
+                                    }}
+                            >
+                                <button className={styles.HMV_Create_video_button}>
+                                    Create My Video
+                                </button>
+                            </Link>
+                        </div>
                     </div>
                 
                 </div>

@@ -58,11 +58,10 @@ export const Header = () => {
                         onClick={link_click}
                     >
                         <Image
-                        src="/Logo.svg"
-                        alt="E-learning Logo"
-                        width={260}
-                        height={60}
-                        priority
+                            src="/Logo.svg"
+                            alt="E-learning Logo"
+                            fill={true}
+                            priority
                         />
                     </Link>
                 </li>
@@ -186,10 +185,10 @@ export const Header = () => {
                             onClick={link_click}
                         >
                             <button className={styles.login_button}>
-                                <div style={{fontSize: "20px"}}>
+                                <div>
                                     Log in
                                 </div>
-                                <div style={{fontSize: "16px", lineHeight: "1.4em"}}>
+                                <div style={{fontSize: "1.2vw", lineHeight: "1.4em"}}>
                                     Create an Account
                                 </div>
                             </button>

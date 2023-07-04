@@ -41,8 +41,7 @@ export default function Home() {
               <Image
                 src="/Video_Editor_image.svg"
                 alt="Video Editor image"
-                width={146}
-                height={146}
+                fill={true}
                 priority
               />
             </div>
