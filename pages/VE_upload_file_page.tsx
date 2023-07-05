@@ -3,6 +3,8 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import Script from 'next/script'
 //import upload from '../components/choose_file'
+var T=0;
+var Next_Link;
 var fileData;
 var fileName;
 var fileType;
@@ -96,7 +98,6 @@ function upload_file(e){
     var id;
     var title;
     var file_type;
-    var Next_Link;
     var upload=0;
 
     var intIdentifier = 1;
@@ -108,8 +109,6 @@ function upload_file(e){
     console.log("file_type=",file_type);
     if(file_type == ".mp4" || file_type == ".MOV")
     {
-        Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3_video;  //VE_Edit_video
-        
         if(fileSize*1024 > SPLIT_BYTES)
         {
             slice(fileData, SPLIT_BYTES)
@@ -343,6 +342,21 @@ function upload_file(e){
 //    window.location.replace("/" + Next_Link);
 }
 
+function choose_upload_script(){
+    if(T==0)
+    {
+        T=1;
+        document.getElementById("script_button").style = "  background-color: rgba(255,0 ,0 , 1);";
+        Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3_video;  //VE_Edit_video
+    }
+    else
+    {
+        T=0;
+        document.getElementById("script_button").style = "  background-color: rgba(243, 241, 241, 1);";
+        Next_Link = process.env.NEXT_PUBLIC_VE_Create_no_script;  //VE_Edit_video
+    }
+    console.log("T=",T);
+}
 
 export default function VE_upload_file_page() {
     return (
@@ -353,6 +367,13 @@ export default function VE_upload_file_page() {
 */}            <main className={styles.main}>
                 <div className={styles.Start_making}>
                     Start making
+                </div>
+                <div className={styles.upload_script}>
+                    Please choose whether upload your script.
+                </div>
+                <div className={styles.transcript_block}>
+                    <button id="script_button" className={styles.checkbox} onClick={choose_upload_script}></button>
+                    Upload transcript
                 </div>
                 <div className={styles.upload_file_title}>
                     Please upload your teaching material. (It might take a few minutes.)
@@ -389,9 +410,6 @@ export default function VE_upload_file_page() {
                         </label>
                 </div>
                 <div className={styles.upload_file_button}>
-                    <button className={styles.UploadFile_Next_button} onClick={upload_file}>
-                        Next
-                    </button>
                     <Link 
                         href={{
                             pathname: '/[page]',
@@ -402,12 +420,11 @@ export default function VE_upload_file_page() {
                             Back
                         </button>
                     </Link>
-                    
+                    <button className={styles.UploadFile_Next_button} onClick={upload_file}>
+                        Next
+                    </button>
                 </div> 
-                
-
             </main>
-            
         </div>
     )
 }

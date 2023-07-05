@@ -267,14 +267,6 @@ export default function VE_Edit_video() {
                 </div>
 
                 <div className={styles.upload_file_button}>
-                    
-                    <Link 
-                        href="upload_file_page"
-                    >
-                        <button className={styles.UploadFile_Next_button}>
-                            Next
-                        </button>
-                    </Link>
                     <Link 
                         href={{
                             pathname: '/[page]',
@@ -283,6 +275,13 @@ export default function VE_Edit_video() {
                     >
                         <button className={styles.UploadFile_Back_button}>
                             Back
+                        </button>
+                    </Link>
+                    <Link 
+                        href="upload_file_page"
+                    >
+                        <button className={styles.UploadFile_Next_button}>
+                            Next
                         </button>
                     </Link>
                 </div> 
