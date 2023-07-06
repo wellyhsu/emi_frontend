@@ -13,6 +13,8 @@ First, run the development server:
 6. Install npm, `sudo apt install npm`.
 7. Update npm to version 8.19.2, `sudo npm install -g npm@8.19.2`.
 8. Download the files, `git clone https://github.com/wellyhsu/emi_frontend.git`
+   user name: `wellyhsu`
+   password: `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`
 9. Enter EMI folder, `cd emi_frontend`
 10. Install node_modules, `npm install`
 11. Run the Web, `npm run dev`   
