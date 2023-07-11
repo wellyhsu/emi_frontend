@@ -20,7 +20,6 @@ function choose_type_video(){
     type = "Video";
 }
 
-
 function Choose_type() {    //選擇類型
     var back_data;
     var get_DATA;
@@ -57,16 +56,11 @@ function Choose_type() {    //選擇類型
         get_DATA = data["Next_Link"];
         console.log('data',data["Next_Link"]);
         console.log('data Type',typeof(data));
-//        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
       })
       .catch((error) => console.log("EError", error));
   	
       window.location.assign(process.env.NEXT_PUBLIC_VE_Create_step2);
   }
-/*  const url = "http://localhost:3001/VE_Create_My_video";
-  const otherPage = window.open(url);
-  otherPage.postMessage(type, "http://localhost:3001/VE_upload_file_page");
-*/
 
 export default function How_to_Make_video() {
     return (
@@ -75,32 +69,36 @@ export default function How_to_Make_video() {
                 <div className={styles.Choose_file_type}>
                     Choose the type of upload file
                 </div>
-                        
-                <div className={styles.CMV_upload_PPT_image} >
-                    <Image
-                        src="/CMV_upload_PPT.svg"
-                        alt="upload video image"
-                        width={312}
-                        height={300}
-                        priority
-                    />
-                    <div className={styles.select_content_PPT}>
-                        <button id="PPT_button" className={styles.checkbox} onClick={choose_type_PPT}></button>
-                        Upload PPT
+                
+                <div style={{width: "100%", height: "55vh"}}>
+                    <div className={styles.CMV_upload_PPT_image_block} >
+                        <div className={styles.CMV_upload_PPT_image}>
+                            <Image
+                                src="/CMV_upload_PPT.svg"
+                                alt="upload video image"
+                                fill={true}
+                                priority
+                            />
+                        </div>
+                        <div className={styles.select_content_PPT}>
+                            <button id="PPT_button" className={styles.checkbox} onClick={choose_type_PPT}></button>
+                            Upload PPT
+                        </div>
                     </div>
-                </div>
-                            
-                <div className={styles.CMV_upload_video_image}>
-                    <Image
-                        src="/CMV_upload_video.svg"
-                        alt="next step ->"
-                        width={250}
-                        height={250}
-                        priority
-                    />
-                    <div className={styles.select_content_video}>
-                        <button id="video_button" className={styles.checkbox} onClick={choose_type_video}></button>
-                        Upload video
+                                
+                    <div className={styles.CMV_upload_video_image_block}>
+                        <div className={styles.CMV_upload_video_image}>
+                            <Image
+                                src="/CMV_upload_video.svg"
+                                alt="next step ->"
+                                fill={true}
+                                priority
+                            />
+                        </div>
+                        <div className={styles.select_content_video}>
+                            <button id="video_button" className={styles.checkbox} onClick={choose_type_video}></button>
+                            Upload video
+                        </div>
                     </div>
                 </div>
                 <div className={styles.button_block}>

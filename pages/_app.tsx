@@ -59,9 +59,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <Header/>
         <div className={styles._main_block}>
           <Component {...pageProps} />
-        
           <div className={styles.editor}>
-              Work | 2022 All Rights Reserved
+            Work | 2022 All Rights Reserved
           </div>
         </div>
     </div>

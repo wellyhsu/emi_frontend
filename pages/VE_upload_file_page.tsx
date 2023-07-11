@@ -4,7 +4,7 @@ import styles from '@/styles/Home.module.css'
 import Script from 'next/script'
 //import upload from '../components/choose_file'
 var T=0;
-var Next_Link;
+var Next_Link = process.env.NEXT_PUBLIC_VE_Create_no_script;
 var fileData;
 var fileName;
 var fileType;
@@ -339,7 +339,7 @@ function upload_file(e){
     }
 */     
 
-//    window.location.replace("/" + Next_Link);
+    window.location.replace("/" + Next_Link);
 }
 
 function choose_upload_script(){
@@ -384,7 +384,6 @@ export default function VE_upload_file_page() {
                         <input type="text" id="file_name" className={styles.file_input}>
 
                         </input>
-
                     </div>
                 </div>   
                 <div className={styles.no_padding_center}>
@@ -399,8 +398,7 @@ export default function VE_upload_file_page() {
                                         <Image
                                             src="/Upload_cloud_image.svg"
                                             alt="Upload cloud image"
-                                            width={115}
-                                            height={115}
+                                            fill={true}
                                             priority
                                         />
                                     </div>
@@ -410,19 +408,21 @@ export default function VE_upload_file_page() {
                         </label>
                 </div>
                 <div className={styles.upload_file_button}>
-                    <Link 
-                        href={{
-                            pathname: '/[page]',
-                            query: { page: process.env.NEXT_PUBLIC_VE_Create }
-                            }}
-                    >
-                        <button className={styles.UploadFile_Back_button}>
-                            Back
+                    <div style={{float: "right"}}>
+                        <Link 
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_VE_Create }
+                                }}
+                        >
+                            <button className={styles.UploadFile_Back_button}>
+                                Back
+                            </button>
+                        </Link>
+                        <button className={styles.UploadFile_Next_button} onClick={upload_file}>
+                            Next
                         </button>
-                    </Link>
-                    <button className={styles.UploadFile_Next_button} onClick={upload_file}>
-                        Next
-                    </button>
+                    </div>
                 </div> 
             </main>
         </div>

@@ -41,7 +41,7 @@ export default function Home() {
       window.location.replace("/");
     }
 */  // http://34.81.60.252:30031/user/login/
-console.log("URL=",process.env.NEXT_PUBLIC_API_URL + "/" + process.env.NEXT_PUBLIC_API_login);
+console.log("URL=",process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login);
  
 fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
 //    fetch("http://34.81.60.252:30031/api/user/login/", {

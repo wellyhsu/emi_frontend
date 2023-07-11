@@ -1,7 +1,10 @@
 ._app_block {
+  display: inline-block;
   position: relative;
+
   height: 100%;
   width: 100%;
+  
   margin: 0;
   padding: 0;
 }
@@ -584,6 +587,7 @@ ul.Layerout ul li:hover {
 .Cpart_word{
   width: 65%;
   height: 10em; 
+  
   font-size: 2vw;
   font-weight: 600;
   font-family: Arial, 微軟正黑體;
@@ -649,7 +653,7 @@ ul.Layerout ul li:hover {
 }
 
 .editor{
-  display: block;
+  display: inline-block;
 
   width: 100%;
   height: 8vh; 
@@ -1313,14 +1317,15 @@ ul.Layerout ul li:hover {
 }
 
 .VideoEditor_image{
-  display: block;
-  width: 42vw;
-  height: 28vh;
   display: flex;
+  
   justify-content: right;
   align-items: center;
   position: relative;
-  padding: 4rem 0;
+
+  width: 42vw;
+  height: 28vh;
+  
   margin-top: 12%;
   margin-bottom: 1em;
 }
@@ -1450,121 +1455,129 @@ ul.Layerout ul li:hover {
 
 /* Create video */
 .Choose_file_type{
-  font-size: 24px;
+  display: inline-block;
+
+  font-size: 2vw;
   font-family: 'Poppins',Arial;
   font-style: normal;
   font-weight: 600;
-  line-height: 28px;
+  line-height: 4vh;
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 50px;
+  margin-top: 6%;
   margin-left: 120px;
+}
+
+.CMV_upload_PPT_image_block{
+  display: inline-block;
+
+  width: 30vw;
+  height: 60vh;
+
+  margin-top: 10px;
+  margin-left: 14%;
 }
 
 .CMV_upload_PPT_image{
   display: inline-block;
-  width: 312px;
-  height: 245px;
+  position: relative;
 
-  margin-top: 10px;
-  margin-left: 18%;
+  width: 30vw;
+  height: 50vh;
+}
+
+.CMV_upload_video_image_block{
+  display: inline-block;
+
+  width: 30vw;
+  height: 60vh;
+
+  margin-left: 13%;
 }
 
 .CMV_upload_video_image{
   display: inline-block;
-  width: 250px;
-  height: 300px;
+  position: relative;
 
-  margin-left: 16%;
+  width: 30vw;
+  height: 43vh;
 }
 
 .checkbox{
-  width: 30px;
-  height: 30px;
+  width: 2.8vw;
+  height: 2.8vw;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
 
   border-style: solid;
-  border-width: 5px;
+  border-width: 0.5vw;
   border-radius: 100%;
   border-color: rgba(217, 217, 217, 1);
   background-color: rgba(243, 241, 241, 1);
 
-  margin-right: 10px;
+  margin-right: 1vw;
 }
 
 .select_content_PPT{
   display: block;
-  width: 300px;
+  width: 30vw;
 
-  font-size: 20px;
+  font-size: 2vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
   line-height: 40px;
-
   color: rgba(0, 0, 0, 0.5);
-  margin-top: -60px;
-  padding-left: 30px;
+
+  margin-top: -9vh;
+  padding-left: 4vw;
 }
 
 .select_content_video{
   display: block;
-  width: 300px;
+  width: 30vw;
 
-  font-size: 20px;
+  font-size: 2vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
   line-height: 40px;
 
   color: rgba(0, 0, 0, 0.5);
-  margin-top: -30px;
-  padding-left: 50px;
+  margin-top: -6vh;
+  padding-left: 6vw;
 }
 
-/*寬度小於1200px時，適用此格式。*/
-@media screen and (max-width: 1200px) 
-{
-  .button_block{
-    height: 20vh;
-    display: block;
-    padding-top: 4vh;    
-    margin-bottom: 10vh;
-  }
+.button_block{
+  display: inline-block;
+  height: 10vh;
+  width: 100%;
+  
+  margin-top: 1vh;    
+  margin-bottom: 2vh;
 }
-
-/*寬度大於1200px時，適用此格式。*/
-@media screen and (min-width: 1200px) 
-{
-  .button_block{
-    display: block;  
-    padding-bottom: 14vh;
-  }
-}
-
 
 .CMV_Next_button{
-/*  display: inline-block;  */
-  float: right;
+  float: right;  
 
-  width: 250px;
-  height: 55px;
+  width: 18vw;
+  height: 9vh;
   cursor: pointer;
 
   text-align: center;
-  font-size: 20px;
+  font-size: 1.6vw;
   font-family: 'Poppins',Arial;
 
   color: rgba(255, 255, 255, 1);
   background-color: rgba(87, 196, 157, 1);
 
   border: none;
-  border-radius: 40px;
+  border-radius: 3vw;
   border-color: rgba(87, 196, 157, 1);
 
   margin-right: 5vw;
-  margin-bottom: 35px;
 }
 .CMV_Next_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -1572,25 +1585,25 @@ ul.Layerout ul li:hover {
 
 /* upload teaching material page*/
 .Start_making{
-  font-size: 24px;
+  font-size: 2.6vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 600;
-  line-height: 40px;
+  line-height: 7vh;
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 50px;
-  margin-left: 70px;
-  margin-bottom: -40px;
+  margin-top: 10vh;
+  margin-left: 7.7vw;
+  margin-bottom: -6.5vh;
 }
 
 .upload_script{
-  font-size: 20px;
+  font-size: 2.2vw;
   font-family: 'Poppins',Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 28px;
+  line-height: 5vh;
 
   color: rgba(0, 0, 0, 0.5);
 
@@ -1605,7 +1618,7 @@ ul.Layerout ul li:hover {
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  font-size: 1.6vw;
+  font-size: 2vw;
   line-height: 2vh;
   text-align: center;
 
@@ -1616,60 +1629,65 @@ ul.Layerout ul li:hover {
 .file_Name{
   display: inline-block;
 
-  font-size: 20px;
+  font-size: 2.3vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 28px;
+  line-height: 3vh;
 }
 
 .file_input{
   display: inline-block;
-  width: 562px;
-  height: 40px;
+  width: 62vw;
+  height: 7vh;
+
+  font-size: 2vw;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 3vh;
 
   border: none;
-  border-radius: 10px;
+  border-radius: 1vh;
 
   color: rgba(0, 0, 0, 1);
   background-color: rgba(243, 241, 241, 1);
 
-  margin-left: 10px;
-  padding-left: 10px;
+  margin-left: 1vw;
+  padding-left: 1vw;
 }
 
 .file{
-  height: 30px;
   display: inline-block;  
 
-  font-size: 20px;
+  font-size: 2.2vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 28px;
+  line-height: 3vh;
 
-  margin-top: -250px;
-  margin-left: 28px;
+  margin-top: -41vh;
+  margin-left: 3vw;
 }
 
 .upload_block{
   display: block;
-  width: 562px;
-  height: 298px;
+  width: 62vw;
+  height: 52vh;
   cursor: pointer;
 
-  font-size: 20px;
+  font-size: 2.2vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 28px;
+  line-height: 5vh;
 
   border: none;
-  border-radius: 10px;
+  border-radius: 1vh;
 
   background-color: rgba(243, 241, 241, 1);
-  margin-top: 20px;
-  margin-left: 13px;
+  margin-top: 4vh;
+  margin-left: 1.5vw;
 }
 
 .choose_file {
@@ -1677,8 +1695,13 @@ ul.Layerout ul li:hover {
 }
 
 .upload_image{
-  margin-top: 12%;
-  margin-left: 38%;
+  position: relative;
+  width: 20vw;
+  height: 20vh;
+  
+  margin-top: 9vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .upload_file_button_no_script{
@@ -1693,30 +1716,28 @@ ul.Layerout ul li:hover {
   display: inline-block;
   width: 100%;
 
-  margin-top: 5vh;
-  padding-left: 43vw;
-  margin-bottom: 2vh;
+  margin-top: 5.5vh;
+  margin-bottom: 5vh;
 }
 
 .UploadFile_Back_button{
   display: inline-block;
-  width: 250px;
-  height: 55px;
+  width: 24vw;
+  height: 10vh;
   cursor: pointer;
 
   text-align: center;
-  font-size: 20px;
+  font-size: 2vw;
   font-family: 'Poppins',Arial;
 
   color: rgba(255, 255, 255, 1);
   background-color: rgba(87, 196, 157, 1);
 
   border: none;
-  border-radius: 40px;
+  border-radius: 3vw;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-right: 40px;
-  margin-bottom: 50px;
+  margin-right: 3vw;
 }
 .UploadFile_Back_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -1724,37 +1745,51 @@ ul.Layerout ul li:hover {
 
 .UploadFile_Next_button{
   display: inline-block;
-  width: 250px;
-  height: 55px;
+  width: 24vw;
+  height: 10vh;
   cursor: pointer;
 
   text-align: center;
-  font-size: 20px;
+  font-size: 2vw;
   font-family: 'Poppins',Arial;
 
   color: rgba(255, 255, 255, 1);
   background-color: rgba(87, 196, 157, 1);
 
   border: none;
-  border-radius: 40px;
+  border-radius: 3vw;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-bottom: 50px;
-  margin-right: 50px;
+  margin-right: 3.5vw;
 }
 .UploadFile_Next_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
 }
 
-/*    VE    Edit PPT Page     */
+/*    VE Edit Page     */
+
+.VE_Edit_title{
+  font-size: 2.2vw;
+  font-family: 'Poppins',Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 10vh;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 5vh;
+  margin-left: 9vw;
+  margin-bottom: 3vh;
+}
+
 /*寬度大於1200px時，適用此格式。*/
 @media screen and (min-width: 1200px) 
 {
   .Edit_grid2 {
     display: grid;
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, 50vw);
     width: 100%;
-    gap: 2%;
+    gap: 0.5vw;
   }
 }
 /*寬度小於1200px時，適用此格式。*/
@@ -1767,10 +1802,19 @@ ul.Layerout ul li:hover {
     position: relative;
 
     display: grid;
-    grid-template-rows: repeat(2, 50%);
+    grid-template-rows: repeat(2, 50vh);
     width: 100%;
-    gap: 2%;
+    gap: 1vh;
   }
+}
+
+.Edit_video{
+  position: relative;
+  
+  width: 80vw;
+  height: 60vh;
+
+  margin-left: 6vw;
 }
 
 .VE_PPT_backpage{
@@ -1799,8 +1843,7 @@ ul.Layerout ul li:hover {
 @media screen and (min-width: 1200px) 
 {
   .Edit_right_part{
-    margin-top: -70px;
-    margin-left: 2%;
+    margin-top: -3vh;
   }
 }
 
@@ -1814,49 +1857,48 @@ ul.Layerout ul li:hover {
 }
 
 .Choose_voice{
-
-  font-size: 20px;
+  font-size: 1.6vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 28px;
+  line-height: 4.8vh;
 
-  margin-left: 20px;
+  margin-left: 1.5vw;
 }
 
 .language_part{
   display: inline-block;
 
-  margin-left: 10px;
+  margin-left: 1vw;
 }
 
 .language{
-  font-size: 16px;
+  font-size: 1.3vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px;
+  line-height: 3vh;
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 20px;
-  padding-left: 12px;
+  margin-top: 3vh;
+  padding-left: 1vw;
 }
 
 .Voice_part{
   display: inline-block;
 
-  margin-left: 30px;
+  margin-left: 2vw;
 }
 
 .Voice{
-  font-size: 16px;
+  font-size: 1.3vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 12px;
+  line-height: 3vh;
   color: rgba(0, 0, 0, 0.5);
 
-  padding-left: 10px;
+  padding-left: 1vw;
 }
 
 .USEnglish{
@@ -1872,93 +1914,89 @@ ul.Layerout ul li:hover {
 }
 
 .select{
-  width: 150px;
-  height: 30px;
+  width: 12vw;
+  height: 5vh;
 
   border: none;
-  border-radius: 8px;
+  border-radius: 1vh;
 
   background-color: rgba(243, 241, 241, 1);
-  padding-left: 10px;
+  padding-left: 1vw;
 }
 
 select.option{
   border: none;
-  border-radius: 8px;
 
   background-color: rgba(243, 241, 241, 1);
 }
 
 .Test_button{
   display: inline-block;
-  width: 168px;
-  height: 40px;
+  width: 13.5vw;
+  height: 7vh;
   position: absolute;
   z-index: 1;
   cursor: pointer;
 
-  font-size: 20px;
+  font-size: 1.6vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 600;
-  line-height: 28px;
+  line-height: 6vh;
 
   border: none;
-  border-radius: 20px;
+  border-radius: 3vw;
 
   color: rgba(255, 255, 255, 1);
   background-color: rgba(87, 196, 157, 1);
 
-  margin-top: 30px;
-  margin-left: 30px;
+  margin-top: 5.3vh;
+  margin-left: 2vw;
 }
 .Test_button:hover{
   transform: scale(1.02);
 }
 
 .Input_script{
-  margin-top: 20px;
+  margin-top: 4vh;
 }
 
 .Input_script_word {
-  height: 30px;
   display: inline;  
 
-  font-size: 20px;
+  font-size: 1.6vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 28px;
+  line-height: 4vh;
 
-  margin-top: -250px;
-  margin-left: 28px;
+  margin-left: 1.5vw;
 }
 
 .Input_script_block{
   display: block;
-  width: 562px;
-  height: 280px;
+  width: 42vw;
+  height: 40vh;
 
-  font-size: 20px;
+  font-size: 1.6vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 28px;
+  line-height: 4.5vh;
 
   border: none;
   border-radius: 10px;
   resize: none;
 
   background-color: rgba(243, 241, 241, 1);
-  margin-top: 10px;
-  margin-left: 30px;
-  padding-top: 3px;
-  padding-left: 10px;
+  margin-top: 2vh;
+  margin-left: 2.5vw;
+
+  padding-top: 1vh;
+  padding-left: 1vw;
 }
 
-.Edit_video{
-  margin-left: 13%;
-}
+
 
 
 
@@ -2468,11 +2506,11 @@ select.option{
 
 /*  Pop-up Quiz  Upload PPT page */
 .upload_file_title{
-  font-size: 20px;
+  font-size: 2.2vw;
   font-family: 'Poppins',Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 28px;
+  line-height: 5vh;
 
   color: rgba(0, 0, 0, 0.5);
 

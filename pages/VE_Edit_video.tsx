@@ -120,153 +120,153 @@ export default function VE_Edit_video() {
  
 
     return (
-        <>
-            <main className={styles.main}>
-                <div className={styles.Start_making}>
-                    Edit the script
-                </div>
-                <div className={styles.upload_file_title}>
-                    Please select a voice and paste your script
-                </div>
+        <main className={styles.main}>
+            <div className={styles.Start_making}>
+                Edit the script
+            </div>
+            <div className={styles.VE_Edit_title}>
+                Please select a voice and paste your script
+            </div>
 
-                <div className={styles.Edit_grid2}>
-                    <div className={styles.Edit_left_part}>    
-                        <div className={styles.Edit_video}>
-                            <video 
-                                src=""//"白熊咖啡厅第三集cut.mp4"
-                                poster=""
-                                width="500" 
-                                height="348" 
-                                autoPlay={false} 
-                                controls={true} 
-                            />
-                        </div>
-                        <div style={{display: "none"}}>
-                            <audio controls>
-                                <source type="audio/mp3" />
-                            </audio>   
-                        
-                            <a id="download" href="#" download>下載語音檔</a>
-                        </div>
+            <div className={styles.Edit_grid2}>
+                <div id="Edit_left_part">    
+                    <div className={styles.Edit_video}>
+                        <video 
+                            src=""//"白熊咖啡厅第三集cut.mp4"
+                            poster=""
+                            width="500" 
+                            height="348" 
+                            autoPlay={false} 
+                            controls={true} 
+                        />
                     </div>
+                    <div style={{display: "none"}}>
+                        <audio controls>
+                            <source type="audio/mp3" />
+                        </audio>   
+                    
+                        <a id="download" href="#" download>下載語音檔</a>
+                    </div>
+                </div>
 
-                    <div className={styles.Edit_right_part}>
-                        <div className={styles.Choose_voice}>
-                            1.Please choose a digital voice 
-                            <div>
-                                <div className={styles.language_part}>
-                                    <div className={styles.language}>
-                                        language
-                                    </div>
-                                    <select 
-                                        className={styles.select} 
-                                        ref={languageRef}
-                                        name="language"
-                                        onChange={get_language}
+                <div className={styles.Edit_right_part}>
+                    <div className={styles.Choose_voice}>
+                        1.Please choose a digital voice 
+                        <div>
+                            <div className={styles.language_part}>
+                                <div className={styles.language}>
+                                    language
+                                </div>
+                                <select 
+                                    className={styles.select} 
+                                    ref={languageRef}
+                                    name="language"
+                                    onChange={get_language}
+                                >
+                                    <option></option>
+                                    <option>USEnglish</option>
+                                    <option>British</option>
+                                    <option>MandarinChinese</option>
+                                </select>
+                            </div>
+
+                            <div className={styles.Voice_part}>
+                                <div className={styles.Voice}>
+                                    Voice
+                                </div>
+                                <div id="all" className={styles.all}>
+                                    <select
+                                        className={styles.select}
+                                        ref={VoiceRef}
+                                        name="Voice"
                                     >
                                         <option></option>
-                                        <option>USEnglish</option>
-                                        <option>British</option>
-                                        <option>MandarinChinese</option>
+                                        <optgroup label="USEnglish">
+                                            <option>Darius22k_NT</option>
+                                            <option>Karen22k_NT</option>
+                                            <option>Laura22k_NT</option>
+                                            <option>Rod22k_NT</option>
+                                        </optgroup>
+
+                                        <optgroup label="British">
+                                            <option>Lucy22k_NT</option>
+                                            <option>Peter22k_NT</option>
+                                            <option>QueenElizabeth22k_NT</option>
+                                            <option>Rachel22k_NT</option>
+                                        </optgroup>
+
+                                        <optgroup label="MandarinChinese">
+                                            <option>Lulu22k_HQ</option>
+                                        </optgroup>
                                     </select>
                                 </div>
-
-                                <div className={styles.Voice_part}>
-                                    <div className={styles.Voice}>
-                                        Voice
-                                    </div>
-                                    <div id="all" className={styles.all}>
-                                        <select
-                                            className={styles.select}
-                                            ref={VoiceRef}
-                                            name="Voice"
-                                        >
-                                            <option></option>
-                                            <optgroup label="USEnglish">
-                                                <option>Darius22k_NT</option>
-                                                <option>Karen22k_NT</option>
-                                                <option>Laura22k_NT</option>
-                                                <option>Rod22k_NT</option>
-                                            </optgroup>
-
-                                            <optgroup label="British">
-                                                <option>Lucy22k_NT</option>
-                                                <option>Peter22k_NT</option>
-                                                <option>QueenElizabeth22k_NT</option>
-                                                <option>Rachel22k_NT</option>
-                                            </optgroup>
-
-                                            <optgroup label="MandarinChinese">
-                                                <option>Lulu22k_HQ</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                    <div id="USEnglish" className={styles.USEnglish}>
-                                        <select
-                                            className={styles.select}
-                                            ref={VoiceRef_English}
-                                            name="Voice"
-                                        >
-                                            <option></option>
-                                            <optgroup label="USEnglish">
-                                                <option>Darius22k_NT</option>
-                                                <option>Karen22k_NT</option>
-                                                <option>Laura22k_NT</option>
-                                                <option>Rod22k_NT</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                    <div id="British" className={styles.British}>
-                                        <select
-                                            className={styles.select}
-                                            ref={VoiceRef_British}
-                                            name="Voice"
-                                        >
-                                            <option></option>
-                                            <optgroup label="British">
-                                                <option>Lucy22k_NT</option>
-                                                <option>Peter22k_NT</option>
-                                                <option>QueenElizabeth22k_NT</option>
-                                                <option>Rachel22k_NT</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                    <div id="MandarinChinese" className={styles.MandarinChinese}>
-                                        <select
-                                            className={styles.select}
-                                            ref={VoiceRef_Chinese}
-                                            name="Voice"
-                                        >
-                                            <option></option>
-                                            <optgroup label="MandarinChinese">
-                                                <option>Lulu22k_HQ</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
+                                <div id="USEnglish" className={styles.USEnglish}>
+                                    <select
+                                        className={styles.select}
+                                        ref={VoiceRef_English}
+                                        name="Voice"
+                                    >
+                                        <option></option>
+                                        <optgroup label="USEnglish">
+                                            <option>Darius22k_NT</option>
+                                            <option>Karen22k_NT</option>
+                                            <option>Laura22k_NT</option>
+                                            <option>Rod22k_NT</option>
+                                        </optgroup>
+                                    </select>
                                 </div>
-
-                                <button className={styles.Test_button} onClick={test}>
-                                    Test
-                                </button>
+                                <div id="British" className={styles.British}>
+                                    <select
+                                        className={styles.select}
+                                        ref={VoiceRef_British}
+                                        name="Voice"
+                                    >
+                                        <option></option>
+                                        <optgroup label="British">
+                                            <option>Lucy22k_NT</option>
+                                            <option>Peter22k_NT</option>
+                                            <option>QueenElizabeth22k_NT</option>
+                                            <option>Rachel22k_NT</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div id="MandarinChinese" className={styles.MandarinChinese}>
+                                    <select
+                                        className={styles.select}
+                                        ref={VoiceRef_Chinese}
+                                        name="Voice"
+                                    >
+                                        <option></option>
+                                        <optgroup label="MandarinChinese">
+                                            <option>Lulu22k_HQ</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
                             </div>
-                        </div>   
 
-                        <div className={styles.Input_script}>
-                            <div className={styles.Input_script_word}>
-                                2.Input the script
-                            </div>
-                            <textarea
-                                ref={scriptRef}
-                                name="script"
-                                className={styles.Input_script_block}
-                            >
-                                
-                            </textarea>
+                            <button className={styles.Test_button} onClick={test}>
+                                Test
+                            </button>
                         </div>
+                    </div>   
+
+                    <div className={styles.Input_script}>
+                        <div className={styles.Input_script_word}>
+                            2.Input the script
+                        </div>
+                        <textarea
+                            ref={scriptRef}
+                            name="script"
+                            className={styles.Input_script_block}
+                        >
+                            
+                        </textarea>
                     </div>
                 </div>
+            </div>
 
-                <div className={styles.upload_file_button}>
+            <div className={styles.upload_file_button}>
+                <div style={{float: "right"}}>
                     <Link 
                         href={{
                             pathname: '/[page]',
@@ -285,9 +285,7 @@ export default function VE_Edit_video() {
                         </button>
                     </Link>
                 </div> 
-                
-
-            </main>
-        </>
+            </div>
+        </main>
     )
 }
