@@ -9,9 +9,15 @@ var fileName;
 var fileType;
 var fileSize;
 var fileTime;
+var number=0;
 
-const token = Cookies.get('token');
-console.log("cookies=",token);
+function NO_logibn(){
+  if(number==0)
+  {
+    alert("Please Log in, thanks!"); 
+  }
+  number = number + 1;
+}
 
 function upload(e) {
     console.log("press button");
@@ -40,14 +46,18 @@ function upload(e) {
 }  
 
 export default function How_to_Make_video() {
-/*    useEffect(() => {
-        if(token == "null")
+    
+    useEffect(() => {
+        console.log("useEffect triggered");
+        const token = Cookies.get('token');
+        console.log("cookies=",token);
+        if(token == null || token == "null")
         {
-            alert("Please login first.");
-            window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+          NO_logibn();
+          window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
         }
-    }, [])
-*/    
+      }, [])
+
     return (
         <>
             <main className={styles.main}>

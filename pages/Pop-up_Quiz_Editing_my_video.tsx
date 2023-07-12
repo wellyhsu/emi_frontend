@@ -1,16 +1,27 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
+import {useEffect, useState} from 'react';
+import Cookies from 'js-cookie'; 
 import Script from 'next/script'
 //import upload from '../components/choose_file'
+
 var fileData;
 var fileName;
 var fileType;
 var fileSize;
 var fileTime;
 
-
 var ADD_button=0;
+var number=0;
+
+function NO_logibn(){
+  if(number==0)
+  {
+    alert("Please Log in, thanks!"); 
+  }
+  number = number + 1;
+}
 
 function Click_add()
 {
@@ -29,6 +40,16 @@ function Click_add()
 }
 
 export default function Pop_up_Quiz_Editing_my_video() {
+
+    useEffect(() => {
+        console.log("useEffect triggered");
+        const token = Cookies.get('token');
+        if(token == null || token == "null")
+        {
+          NO_logibn();
+          window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
+      }, [])
 
     return (
         <>

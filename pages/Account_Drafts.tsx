@@ -4,20 +4,29 @@ import styles from '@/styles/Home.module.css'
 import Cookies from 'js-cookie';
 import Archive_video from '../components/Archive_video'
 import {useEffect, useState} from 'react';
-//const token = Cookies.get('token');
 
+var number=0;
+
+function NO_logibn(){
+  if(number==0)
+  {
+    alert("Please Log in, thanks!"); 
+  }
+  number = number + 1;
+}
 
 export default function Home() {
-  const [token, setToken] = useState('null');
 
   useEffect(() => {
-    setToken(Cookies.get('token'))
+    console.log("useEffect triggered");
+    const token = Cookies.get('token');
     if(token == null || token == "null")
     {
-    //  window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+      NO_logibn();
+      window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
     }
   }, [])
-//style={{height: "92vh"}}
+
   return (
       <main className={styles.main}>
         <div className={styles.Account_My_Creations}>

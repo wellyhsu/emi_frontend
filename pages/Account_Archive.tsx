@@ -4,8 +4,16 @@ import styles from '@/styles/Home.module.css'
 import {useEffect, useState} from 'react';
 import Cookies from 'js-cookie'; 
 import Archive_video from '../components/Archive_video'
-import { env } from 'process';
 
+var number=0;
+
+function NO_logibn(){
+  if(number==0)
+  {
+    alert("Please Log in, thanks!"); 
+  }
+  number = number + 1;
+}
 
 export default function Home() {
   var information;
@@ -20,7 +28,7 @@ export default function Home() {
     const token = Cookies.get('token');
     if(token == null || token == "null")
     {
-      alert("Please Log in, thanks!");
+      NO_logibn();
       window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
     }
   }, [])

@@ -6,18 +6,27 @@ import Archive_video from '../components/Archive_video'
 import User_item from '../components/User_item'
 import Cookies from 'js-cookie';
 
+var number=0;
+
+function NO_logibn(){
+  if(number==0)
+  {
+    alert("Please Log in, thanks!"); 
+  }
+  number = number + 1;
+}
 
 export default function Account_Settings() {
-  const [token, setToken] = useState('null');
 
   useEffect(() => {
-      setToken(Cookies.get('token'))
-
-      if(token == null || token == "null")
-      {
- //       window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
-      }
-    }, []) //傳遞一個空數組來保證只會被執行一次
+    console.log("useEffect triggered");
+    const token = Cookies.get('token');
+    if(token == null || token == "null")
+    {
+      NO_logibn();
+      window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+    }
+  }, []) //傳遞一個空數組來保證只會被執行一次
 
 
   function Logout(){ 

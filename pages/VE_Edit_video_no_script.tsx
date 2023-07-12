@@ -230,7 +230,8 @@ export default function VE_Edit_video() {
                     <video 
                         src=""//"白熊咖啡厅第三集cut.mp4"
                         poster=""
-                        fill={true}
+                        width="500" 
+                        height="348" 
                         autoPlay={false} 
                         controls={true} 
                     />

@@ -3,24 +3,27 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import {useEffect, useState} from 'react';
+import Cookies from 'js-cookie'; 
 
 var Draft_href;
+
 export default function Home() {
-  const [storageValue, setStorageValue] = useState("null");
 
   useEffect(() => {
-      const token = JSON.stringify(localStorage.getItem('token'));
-      setStorageValue(token);
+    console.log("useEffect triggered");
+    const token = Cookies.get('token');
+
+    if(token == null ||  token == "null")
+    {
+      Draft_href = process.env.NEXT_PUBLIC_Log_in;
+    }
+    else
+    {
+      Draft_href = process.env.NEXT_PUBLIC_Account_Drafts;
+    }
+
   }, []) //傳遞一個空數組來保證只會被執行一次
 
-  if(storageValue == "null")  //尚未登入
-  {
-    Draft_href = process.env.NEXT_PUBLIC_Log_in;
-  }
-  else  //已登入
-  {
-    Draft_href = process.env.NEXT_PUBLIC_Account_Drafts;
-  }
 
   return (
     <>
