@@ -4,6 +4,7 @@ import styles from '@/styles/Home.module.css'
 import Cookies from 'js-cookie';
 import Archive_video from '../components/Archive_video'
 import {useEffect, useState} from 'react';
+import { getServerSideProps } from 'next';
 
 var number=0;
 
@@ -24,6 +25,11 @@ export default function Home() {
     {
       NO_logibn();
       window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+      return(
+        <div style={{height: "100%", width: "100%", backgroundColor: "rgba(255,255,255,1)"}}>
+        
+      </div>
+      )
     }
   }, [])
 

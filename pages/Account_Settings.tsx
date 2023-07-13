@@ -35,7 +35,6 @@ export default function Account_Settings() {
     var send_Token; //取得不含""的字串  
     
     send_Token = Cookies.get('token')?.substring(1,(Cookies.get('token')?.length-1));    
-    setToken(send_Token);
     
     console.log('press Log_out');
     console.log('token',send_Token);

@@ -51,7 +51,7 @@ export const Header = () => {
     if ((token == "null") || (token == null) || (token == "undefined")){    //未登入
         console.log("還沒login!!");
         return(
-            <div style={{position: "relative",zIndex: "4"}}>
+            <header style={{position: "relative",zIndex: "4"}}>
                 <li className={styles.Home_Logo}>
                     <Link
                         href="/"
@@ -197,14 +197,14 @@ export const Header = () => {
                     </li>
                 </ul>
 
-            </div>
+            </header>
         )   
     }
     else {
         console.log("login!!");
         const User = Cookies.get('username');
         return (
-            <div style={{position: "relative",zIndex: "4"}}>
+            <header style={{position: "relative",zIndex: "4"}}>
                 <li className={styles.Home_Logo}>
                     <Link 
                         href="/"
@@ -360,7 +360,7 @@ export const Header = () => {
                         </Link>
                     </li>
                 </ul>
-            </div>
+            </header>
         )
         
     }

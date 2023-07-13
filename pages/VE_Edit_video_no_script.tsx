@@ -126,8 +126,7 @@ export default function VE_Edit_video() {
             <div className={styles.VE_Edit_title}>
                 Please select a voice and we will merge the audio and video.
             </div>
-            <div className={styles.Choose_voice}>
-                1.Please choose a digital voice 
+            <div className={styles.Choose_voice_block}>
                 <div>
                     <div className={styles.language_part}>
                         <div className={styles.language}>
@@ -250,7 +249,7 @@ export default function VE_Edit_video() {
                         </button>
                     </Link>
                     <Link 
-                        href="upload_file_page"
+                        href=""
                     >
                         <button className={styles.UploadFile_Next_button}>
                             Next

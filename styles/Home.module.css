@@ -1,28 +1,4 @@
-._app_block {
-  display: inline-block;
-  position: relative;
-
-  height: 100%;
-  width: 100%;
-  
-  margin: 0;
-  padding: 0;
-}
-
 /*
-._app_block{
-  display: inline-block; 
-
-  width: 100%;
-  height: 100%;
-
-  margin: 0;
-  padding: 0;
-
-  overflow: none;
-}
-*/
-
 ._main_block{
   display: inline-block; 
 
@@ -32,8 +8,10 @@
   margin: 0;
   padding: 0;
   overflow: none;
-}
 
+  padding-top: 2vh;
+}
+*/
 .main {
   display: inline-block; 
 
@@ -44,7 +22,7 @@
   background-color:#ffffff; 
 
   padding-top: 70px;
-/*  overflow-x: scroll;*/
+
 }
 
 
@@ -53,8 +31,9 @@
   height: 10vh;
 
   list-style: none;
-  position: fixed;
   z-index: 3;
+  position: fixed;
+
   margin-Left: 2vw;
   margin-Top: 10px;
 }
@@ -155,7 +134,7 @@
     border-radius: 1vw;
 
     position: absolute;
-    z-index: 99;
+    z-index: 9;
     left: -1px;
     top: 100%;
     min-width: 180px;
@@ -359,7 +338,7 @@ ul.Layerout ul li:hover {
     border-radius: 10px;
 
     position: absolute;
-    z-index: 99;
+    z-index: 9;
     left: 215px;
     top: 0px;
   }
@@ -1996,8 +1975,18 @@ select.option{
   padding-left: 1vw;
 }
 
+/* VE Edit no_script*/
+.Choose_voice_block{
+  font-size: 1.6vw;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 4.8vh;
 
-
+  margin-top: -3vh;
+  margin-left: 28vw;
+  margin-bottom: 5vh;
+}
 
 
 /*  TTSA Create My Audio*/
