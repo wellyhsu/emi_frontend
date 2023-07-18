@@ -4,6 +4,7 @@ import React, {useRef} from "react";
 import Cookies from 'js-cookie'; 
 import {useEffect, useState} from 'react';
 import styles from '@/styles/Home.module.css'
+import { useRouter } from 'next/router';
 import Script from 'next/script';
 
 var F_button=0;
@@ -36,6 +37,7 @@ export const Header = () => {
     token_DATA = JSON.stringify("12wf3fgwf456");
     Cookies.set('token', token_DATA);  /////////////////
 */
+    const router = useRouter();
     const [token, setToken] = useState('null');
 
     useEffect(() => {
@@ -49,6 +51,12 @@ export const Header = () => {
     console.log("storageValue type ->", typeof(token));
 
     if ((token == "null") || (token == null) || (token == "undefined")){    //未登入
+        if(router.pathname == "/" + process.env.NEXT_PUBLIC_Video_Editor)
+        {
+           // alert("Please Log in, thanks!"); 
+            router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
+            console.log("router.pathname=",router.pathname);
         console.log("還沒login!!");
         return(
             <header style={{position: "relative",zIndex: "4"}}>

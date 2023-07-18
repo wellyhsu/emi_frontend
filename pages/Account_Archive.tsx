@@ -1,31 +1,23 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import {useEffect, useState} from 'react';
+import {useLayoutEffect, useEffect, useState} from 'react';
 import Cookies from 'js-cookie'; 
 import { useRouter } from 'next/router';
 import Archive_video from '../components/Archive_video'
+import Modal from 'react-modal';
 
-var number=0;
+const token =  Cookies.get('token');
 
-function checkUserAuthentication(){
 
-  const token = Cookies.get('token');
-  console.log("user_token=",token);
-  if(token == null || token == "null")
-  {
-    return false;
-  }
-  return true;   //代表使用者已登入
-}
+const customStyles = {
+  content: {
+    width: '50%',
+    height: '50%',
+    margin: 'auto',
+  },
+};
 
-function NO_logibn(){
-  if(number==0)
-    {
-      alert("Please Log in, thanks!"); 
-    }
-    number = number + 1;
-}
 
 export default function Account_Archive() {
   var information;
@@ -36,22 +28,47 @@ export default function Account_Archive() {
   var video_file;
   const router = useRouter();
   
-  var isAuthenticated;
-  isAuthenticated  = checkUserAuthentication();
-  console.log("isAuthenticated=",isAuthenticated);
-  if(!isAuthenticated)
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function AlertMessage() {
+
+    const closeModal = () => {
+      setModalIsOpen(false);
+    };  
+
+    return (
+      <div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          {/* Modal 內容 */}
+          <h2>Modal Title</h2>
+          <p>Modal Content...</p>
+          <button onClick={() => window.location.href = "/"+ process.env.NEXT_PUBLIC_Log_in}>Close Modal</button>
+        </Modal>
+      </div>
+    );
+  }
+
+  if((token == "null") || (token == null) || (token == "undefined"))
   {
-    useEffect(() => {
+    useLayoutEffect(() => { // 使用 useLayoutEffect 替代 useEffect
 
       console.log("useEffect triggered");
-      NO_logibn();
-      router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+      setModalIsOpen(true); // 打開彈出視窗
+   //   router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
     }, [])
 
     return(
-      <div style={{height: "100%", width: "100%", backgroundColor: "rgba(255,255,255,1)"}}>
-        
-      </div>
+      <>
+        <div style={{height: "100%", width: "100%", backgroundColor: "rgba(255,255,255,1)"}}>
+          <AlertMessage/>
+        </div>
+      </>
+      
     )
   }
   else
