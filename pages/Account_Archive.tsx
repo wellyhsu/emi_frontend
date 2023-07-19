@@ -20,22 +20,17 @@ export default function Account_Archive() {
   const router = useRouter();
 
   function alert_message(){
-    console.log("warning!!");
-    
+    router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
   }
   if((token == "null") || (token == null) || (token == "undefined"))
   {
     useEffect(() => {
 
       console.log("useEffect triggered");
-      alert_message();
-    //  router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
     }, [])
 
     return(
-      <button className={styles.alert_background}>
-        <h1>dgdgdgd</h1>
-
+      <button className={styles.alert_background} onClick={alert_message}>
         <div className={styles.alert_message}>
           <div style={{display: "inline-block", marginTop: "15vh",  verticalAlign: "middle"}}>
             <Image
@@ -47,7 +42,7 @@ export default function Account_Archive() {
             />
           </div>
           <div className={styles.alert_content}>
-            sdfghjmk
+            Please log in, thanks. 
           </div>
         </div>
       </button>

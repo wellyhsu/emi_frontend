@@ -3,8 +3,8 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import {useEffect, useState} from 'react';
 import Cookies from 'js-cookie'; 
-import Script from 'next/script'
-//import upload from '../components/choose_file'
+import Script from 'next/script';
+import pop_up_question from '../components/pop_up_question';
 
 var fileData;
 var fileName;
@@ -15,12 +15,25 @@ var fileTime;
 var ADD_button=0;
 var number=0;
 
-function NO_logibn(){
-  if(number==0)
-  {
-    alert("Please Log in, thanks!"); 
-  }
-  number = number + 1;
+function gap_fill_question(){
+    return(
+        <button className={styles.alert_background}>
+          <div className={styles.alert_message}>
+            <div style={{display: "inline-block", marginTop: "15vh",  verticalAlign: "middle"}}>
+              <Image
+                src="/warning-sign.png"
+                alt="Add new question"
+                width={70}
+                height={70}
+                priority
+              />
+            </div>
+            <div className={styles.alert_content}>
+              Please log in, thanks. 
+            </div>
+          </div>
+        </button>
+      )
 }
 
 function Click_add()
@@ -41,68 +54,11 @@ function Click_add()
 
 export default function Pop_up_Quiz_Editing_my_video() {
 
-    useEffect(() => {
-        console.log("useEffect triggered");
-        const token = Cookies.get('token');
-        if(token == null || token == "null")
-        {
-          NO_logibn();
-          window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
-        }
-      }, [])
+
 
     return (
         <>
            <main className={styles.main}>
-                <div className={styles.Start_making}>
-                    <button className={styles.Popup_add_button} onClick={Click_add}>
-                        <Image
-                            src="/Pop-upQuiz_add.svg"
-                            alt="Add new question"
-                            width={70}
-                            height={70}
-                            priority
-                        />
-                    </button>
-                </div>
-                <div id="question_button" className={styles.question_button}>
-                    <button className={styles.gap_fill_button}>
-                        <Image
-                            src="/Pop-up_gap_fill.svg"
-                            alt="Add gap_fill question"
-                            width={65}
-                            height={20}
-                            priority
-                        />
-                    </button>
-                    <button className={styles.Multiple_choice_button}>
-                        <Image
-                            src="/Pop-up_Multiple_choice.svg"
-                            alt="Add Multiple choice question"
-                            width={30}
-                            height={20}
-                            priority
-                        />
-                    </button>
-                    <button className={styles.Multiple_choice_button}>
-                        <Image
-                            src="/Pop-up_Scramble_task.svg"
-                            alt="Add Scramble task question"
-                            width={40}
-                            height={17}
-                            priority
-                        />
-                    </button>
-                    <button className={styles.Multiple_choice_button}>
-                        <Image
-                            src="/Pop-up_cut_video.svg"
-                            alt="Cut video"
-                            width={20}
-                            height={20}
-                            priority
-                        />
-                    </button>
-                </div>
                 <div className={styles.no_padding_center}>
                     <div className={styles.PopupQuiz_video_preview}>
                         <video 
@@ -114,11 +70,56 @@ export default function Pop_up_Quiz_Editing_my_video() {
                             controls="true" 
                         />
                     </div>
-                </div>   
-
-                
-                
-
+                </div> 
+                <div className={styles.Popup_add_block} >
+                    <button className={styles.Popup_add_button} onClick={Click_add}>
+                        <Image
+                            src="/Pop-upQuiz_add.svg"
+                            alt="Add new question"
+                            width={70}
+                            height={70}
+                            priority
+                        />
+                    </button>
+                    <div id="question_button" className={styles.question_button}>
+                        <button className={styles.gap_fill_button} onClick={gap_fill_question}>
+                            <Image
+                                src="/Pop-up_gap_fill.svg"
+                                alt="Add gap_fill question"
+                                width={65}
+                                height={20}
+                                priority
+                            />
+                        </button>
+                        <button className={styles.Multiple_choice_button}>
+                            <Image
+                                src="/Pop-up_Multiple_choice.svg"
+                                alt="Add Multiple choice question"
+                                width={30}
+                                height={20}
+                                priority
+                            />
+                        </button>
+                        <button className={styles.Multiple_choice_button}>
+                            <Image
+                                src="/Pop-up_Scramble_task.svg"
+                                alt="Add Scramble task question"
+                                width={40}
+                                height={17}
+                                priority
+                            />
+                        </button>
+                        <button className={styles.Multiple_choice_button}>
+                            <Image
+                                src="/Pop-up_cut_video.svg"
+                                alt="Cut video"
+                                width={20}
+                                height={20}
+                                priority
+                            />
+                        </button>
+                    </div>
+                </div> 
             </main>
             
         </>
