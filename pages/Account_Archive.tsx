@@ -1,23 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import {useLayoutEffect, useEffect, useState} from 'react';
+import React, {useLayoutEffect, useEffect, useState} from 'react';
 import Cookies from 'js-cookie'; 
 import { useRouter } from 'next/router';
+import { Dialog } from "@headlessui/react";
 import Archive_video from '../components/Archive_video'
-import Modal from 'react-modal';
+import AlertMessage from '../components/AlertMessage'
 
 const token =  Cookies.get('token');
-
-
-const customStyles = {
-  content: {
-    width: '50%',
-    height: '50%',
-    margin: 'auto',
-  },
-};
-
 
 export default function Account_Archive() {
   var information;
@@ -27,89 +18,43 @@ export default function Account_Archive() {
   var updated_at;
   var video_file;
   const router = useRouter();
-  
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  function AlertMessage() {
-
-    const closeModal = () => {
-      setModalIsOpen(false);
-    };  
-
-    return (
-      <div>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          {/* Modal 內容 */}
-          <h2>Modal Title</h2>
-          <p>Modal Content...</p>
-          <button onClick={() => window.location.href = "/"+ process.env.NEXT_PUBLIC_Log_in}>Close Modal</button>
-        </Modal>
-      </div>
-    );
+  function alert_message(){
+    console.log("warning!!");
+    
   }
-
   if((token == "null") || (token == null) || (token == "undefined"))
   {
-    useLayoutEffect(() => { // 使用 useLayoutEffect 替代 useEffect
+    useEffect(() => {
 
       console.log("useEffect triggered");
-      setModalIsOpen(true); // 打開彈出視窗
-   //   router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+      alert_message();
+    //  router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
     }, [])
 
     return(
-      <>
-        <div style={{height: "100%", width: "100%", backgroundColor: "rgba(255,255,255,1)"}}>
-          <AlertMessage/>
+      <button className={styles.alert_background}>
+        <h1>dgdgdgd</h1>
+
+        <div className={styles.alert_message}>
+          <div style={{display: "inline-block", marginTop: "15vh",  verticalAlign: "middle"}}>
+            <Image
+              src="/warning-sign.png"
+              alt="Add new question"
+              width={70}
+              height={70}
+              priority
+            />
+          </div>
+          <div className={styles.alert_content}>
+            sdfghjmk
+          </div>
         </div>
-      </>
-      
+      </button>
     )
   }
   else
   {
-
-    /*
-      const userName = Cookies.get('userName');
-      console.log("userName=",userName);
-
-      var send_userName = userName?.substring(1,(userName?.length-1));    
-      console.log("send_userName=",send_userName);
-
-
-      fetch("http://127.0.0.1:8000/videos/", {
-        method: 'GET',
-        headers:{
-            'Content-Type': 'application/json'
-        },
-      })
-      .then((response) => {
-          information = response.json();
-          console.log('info^^',information);
-          return information;
-      })
-      .then((data) => {
-        id = data["id"];
-        title = data["title"];
-        description = data["description"];
-        updated_at = data["updated_at"];
-        video_file = data["video_file"];
-
-        console.log('id=',data["id"]);
-        console.log('title=',data["title"]);
-        console.log('description=',data["description"]);
-        console.log('updated_at=',data["updated_at"]);
-        console.log('video_file=',data["video_file"]);
-
-    //            alert(data["detail"]);
-      })
-      .catch((error) => console.log("error", error));
-    */
     return (
       <>
         <main className={styles.main}>

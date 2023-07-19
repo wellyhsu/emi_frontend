@@ -1,33 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import {useEffect, useState} from 'react';
-import Archive_video from '../components/Archive_video'
-import User_item from '../components/User_item'
+import { useLayoutEffect, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
-var number=0;
+import Archive_video from '../components/Archive_video'
+import User_item from '../components/User_item'
 
-function NO_logibn(){
-  if(number==0)
-  {
-    alert("Please Log in, thanks!"); 
-  }
-  number = number + 1;
-}
+
+const token =  Cookies.get('token');
+
 
 export default function Account_Settings() {
-
-  useEffect(() => {
-    console.log("useEffect triggered");
-    const token = Cookies.get('token');
-    if(token == null || token == "null")
-    {
-      NO_logibn();
-      window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
-    }
-  }, []) //傳遞一個空數組來保證只會被執行一次
-
+  const router = useRouter();
 
   function Logout(){ 
     var information;
@@ -68,113 +54,123 @@ export default function Account_Settings() {
       .catch((error) => console.log("error", error));
   }
 
-  return (
-    <>
-      <main className={styles.main}>
-        <div className={styles.Account_My_Creations}>
-          My Creations
-            <Link 
-              href={{
-                pathname: '/[page]',
-                query: { page: process.env.NEXT_PUBLIC_Account_Drafts }
-                }}
-              className={styles.Account_Drafts}
-            >
-              Drafts
-            </Link>
-            <div className={styles.Account_dash}>
-              |
-            </div>
-            <Link 
-              href={{
-                pathname: '/[page]',
-                query: { page: process.env.NEXT_PUBLIC_Account_Archive }
-                }}
-              className={styles.Account_Title_Gray}
-            >
-              Archive
-            </Link> 
-            <div className={styles.Account_dash}>
-              |
-            </div>
-            <Link 
-              href={{
-                pathname: '/[page]',
-                query: { page: process.env.NEXT_PUBLIC_Account_Settings }
-                }}
-              style={{color: "rgba(0, 0, 0, 1)"}} 
-              className={styles.Account_Title_Gray}
-            >
-              Settings
-            </Link> 
-        </div>
-        
-        <div className={styles.Account_grid}>
-          <div className={styles.Account_grid2}>
-            <div>
-              <div className={styles.block}>
-               
+  if((token == "null") || (token == null) || (token == "undefined"))
+  {
+    useLayoutEffect(() => { // 使用 useLayoutEffect 替代 useEffect
+      console.log("useEffect triggered");
+      router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+    }, [])
+  }
+  else
+  {
+    return (
+      <>
+        <main className={styles.main}>
+          <div className={styles.Account_My_Creations}>
+            My Creations
+              <Link 
+                href={{
+                  pathname: '/[page]',
+                  query: { page: process.env.NEXT_PUBLIC_Account_Drafts }
+                  }}
+                className={styles.Account_Drafts}
+              >
+                Drafts
+              </Link>
+              <div className={styles.Account_dash}>
+                |
+              </div>
+              <Link 
+                href={{
+                  pathname: '/[page]',
+                  query: { page: process.env.NEXT_PUBLIC_Account_Archive }
+                  }}
+                className={styles.Account_Title_Gray}
+              >
+                Archive
+              </Link> 
+              <div className={styles.Account_dash}>
+                |
+              </div>
+              <Link 
+                href={{
+                  pathname: '/[page]',
+                  query: { page: process.env.NEXT_PUBLIC_Account_Settings }
+                  }}
+                style={{color: "rgba(0, 0, 0, 1)"}} 
+                className={styles.Account_Title_Gray}
+              >
+                Settings
+              </Link> 
+          </div>
+          
+          <div className={styles.Account_grid}>
+            <div className={styles.Account_grid2}>
+              <div>
+                <div className={styles.block}>
                 
+                  
+
+                </div>
+
+                <div className={styles.item_Subscription}>
+                  <User_item
+                    image_name="Subscription_image.svg"
+                    image_alt="Subscription image"
+                    title="Subscription"
+                  />
+                  <div className={styles.item_arrow}>
+                    <Image
+                      src="/User_arrow.svg"
+                      alt="enter image"
+                      width={20}
+                      height={20}
+                      priority
+                    />
+                  </div>
+                </div>
+
+                <div className={styles.item}>
+                  <User_item
+                    image_name="user_management.svg"
+                    image_alt="user management image"
+                    title="User management"
+                  />
+                  <div className={styles.item_arrow}>
+                    <Image
+                      src="/User_arrow.svg"
+                      alt="enter image"
+                      width={20}
+                      height={20}
+                      priority
+                    />
+                  </div>
+                </div>
+                <button className={styles.item} onClick={Logout}>
+                  <User_item
+                    image_name="User_log_out.svg"
+                    image_alt="log out image"
+                    title="Log out"
+                  />
+                  <div className={styles.item_arrow}>
+                    <Image
+                      src="/User_arrow.svg"
+                      alt="enter image"
+                      width={20}
+                      height={20}
+                      priority
+                    />
+                  </div>
+                </button>
+              </div>
+              <div>
 
               </div>
-
-              <div className={styles.item_Subscription}>
-                <User_item
-                  image_name="Subscription_image.svg"
-                  image_alt="Subscription image"
-                  title="Subscription"
-                />
-                <div className={styles.item_arrow}>
-                  <Image
-                    src="/User_arrow.svg"
-                    alt="enter image"
-                    width={20}
-                    height={20}
-                    priority
-                  />
-                </div>
-              </div>
-
-              <div className={styles.item}>
-                <User_item
-                  image_name="user_management.svg"
-                  image_alt="user management image"
-                  title="User management"
-                />
-                <div className={styles.item_arrow}>
-                  <Image
-                    src="/User_arrow.svg"
-                    alt="enter image"
-                    width={20}
-                    height={20}
-                    priority
-                  />
-                </div>
-              </div>
-              <button className={styles.item} onClick={Logout}>
-                <User_item
-                  image_name="User_log_out.svg"
-                  image_alt="log out image"
-                  title="Log out"
-                />
-                <div className={styles.item_arrow}>
-                  <Image
-                    src="/User_arrow.svg"
-                    alt="enter image"
-                    width={20}
-                    height={20}
-                    priority
-                  />
-                </div>
-              </button>
-            </div>
-            <div>
-
             </div>
           </div>
-        </div>
 
-      </main>
-    </>
-  )
+        </main>
+      </>
+    )
+  }
 }

@@ -1,4 +1,4 @@
-import React from 'react'   //用於Home.js Page  實驗室相關消息
+import React from 'react'  
 
 class Information extends React.Component {
     render() { 
