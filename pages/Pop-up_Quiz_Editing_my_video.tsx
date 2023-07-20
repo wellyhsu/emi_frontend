@@ -13,27 +13,14 @@ var fileSize;
 var fileTime;
 
 var ADD_button=0;
-var number=0;
 
-function gap_fill_question(){
-    return(
-        <button className={styles.alert_background}>
-          <div className={styles.alert_message}>
-            <div style={{display: "inline-block", marginTop: "15vh",  verticalAlign: "middle"}}>
-              <Image
-                src="/warning-sign.png"
-                alt="Add new question"
-                width={70}
-                height={70}
-                priority
-              />
-            </div>
-            <div className={styles.alert_content}>
-              Please log in, thanks. 
-            </div>
-          </div>
-        </button>
-      )
+function gap_fill_question(){  
+    document.getElementById("gap_fill_question").style = "display: flex";
+   
+}
+
+function close(){
+    document.getElementById("gap_fill_question").style = "display: none";
 }
 
 function Click_add()
@@ -55,10 +42,41 @@ function Click_add()
 export default function Pop_up_Quiz_Editing_my_video() {
 
 
-
     return (
         <>
            <main className={styles.main}>
+                <div id="gap_fill_question" style={{height: "100%",display: "none"}}>
+                    <div className={styles.question_background}>
+                        <div className={styles.alert_question}>
+                            <div className={styles.question_title}>
+                                Gap fill question
+                            </div>
+                            <div style={{display: "block", marginLeft: "5vw"}}>
+                                <div className={styles.content_title}>
+                                    Question
+                                    <textarea className={styles.content_input} placeholder="Please input Question">
+
+                                    </textarea>
+                                </div>
+                                <div className={styles.content_title}>
+                                    Choice
+                                    <textarea className={styles.content_input} placeholder="Please input Choice">
+                                        
+                                    </textarea>
+                                </div>
+                                <div className={styles.content_title}>
+                                    Answer and explain
+                                    <textarea className={styles.content_input} placeholder="Please input Answer">
+                                        
+                                    </textarea>
+                                </div>
+                            </div>
+                            <button className={styles.Continuous_button} onClick={close}>
+                                Continuous
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div className={styles.no_padding_center}>
                     <div className={styles.PopupQuiz_video_preview}>
                         <video 
@@ -66,8 +84,8 @@ export default function Pop_up_Quiz_Editing_my_video() {
                             poster=""
                             width="847" 
                             height="466" 
-                            autoplay="false" 
-                            controls="true" 
+                            autoPlay={false}
+                            controls={true} 
                         />
                     </div>
                 </div> 
@@ -120,6 +138,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                         </button>
                     </div>
                 </div> 
+                
             </main>
             
         </>

@@ -129,7 +129,7 @@ export default function VE_Edit_video() {
             </div>
 
             <div className={styles.Edit_grid2}>
-                <div id="Edit_left_part">    
+                <div className={styles.Edit_left_part}>    
                     <div className={styles.Edit_video}>
                         <video 
                             src=""//"白熊咖啡厅第三集cut.mp4"

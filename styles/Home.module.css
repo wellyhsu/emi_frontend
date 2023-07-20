@@ -1775,19 +1775,25 @@ ul.Layerout ul li:hover {
 @media screen and (max-width: 1200px) 
 {
   .Edit_grid2 {
-    display: flex;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 4vh;
+    
+    height: 100%;
+    width: 100%;
+
     justify-content: center;
     align-items: center;
-    position: relative;
 
-    display: grid;
-    grid-template-rows: repeat(2, 50vh);
-    width: 100%;
-    gap: 1vh;
+
+
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
 .Edit_video{
+  display: inline-block;
   position: relative;
   
   width: 80vw;
@@ -1830,6 +1836,8 @@ ul.Layerout ul li:hover {
 @media screen and (max-width: 1200px) 
 {
   .Edit_right_part{
+    display: inline-block;
+
     margin-left: 2%;
     margin-bottom: 50px;
   }
@@ -2584,7 +2592,128 @@ select.option{
   margin-top: 2vh;
   margin-bottom: 2vh;
 }
+
 /* Pop-up editing video*/
+
+.question_background{
+  display: flex;
+  height: 100%;
+  width: 100%;  
+
+  justify-content: center;      /* 水平置中 */
+  align-items: center;      /* 垂直置中 */    
+  cursor: default;
+
+  position: absolute;
+  z-index: 2;
+  border: none;
+  
+
+  background-color: rgba(75, 75, 75, 0.471);
+
+  padding-top: 5vh;
+  padding-bottom: 18vh;
+}
+
+.alert_question{
+  display: inline;
+  position: fixed;
+  z-index: 4;
+
+  height: 80vh;
+  width: 40vw;
+
+/*  cursor: default;  */
+
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 1vw;
+
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
+.question_title
+{
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  height: 8vh;
+
+  font-size: 1.3vw;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 5vh;
+
+  text-align: center;
+  color: rgb(255, 255, 255);
+  background-color: #38c18a;
+
+  border-top-left-radius: 1vw;
+  border-top-right-radius: 1vw;
+
+
+  padding-top: 1vh;
+}
+
+.content_title{
+  display: inline-block;
+  width: 30vw;
+  height: 8vh;
+
+  font-size: 1.7vw;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 8vh;
+  text-align: left;
+  padding-top: 2vh;
+}
+
+.content_input{
+  display: block;
+  width: 30vw;
+  height: 8vh;
+
+  font-size: 1.5vw;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 4.5vh;
+  text-align: left;
+  resize: none;
+
+  color: rgba(0, 100, 0, 1);
+  background-color: rgba(255, 255, 255, 0.907);
+
+  border-style: solid;
+  border-radius: 0.2vw;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+
+  padding-top: 0.5vw;
+  padding-left: 1vw;
+}
+
+.Continuous_button{
+  display: block;
+  float: right;
+  width: 10vw;
+  height: 6vh;
+  cursor: pointer;
+
+  border-radius: 0.6vw;
+  border-width: 0.3vh;
+  box-shadow: rgba(0, 0, 0, 0.2);
+
+  margin-top: 3vh;
+  margin-right: 5vw;
+}
+.Continuous_button:hover{
+  transform: scale(1.02);
+}
+
 .Popup_add_block{
   margin-top: -10vh;
   margin-left: 19vw;
@@ -3132,6 +3261,7 @@ select.option{
     transform: rotate(0deg);
   }
 }
+
 .alert_background{
   display: flex;
   justify-content: center;      /* 水平置中 */

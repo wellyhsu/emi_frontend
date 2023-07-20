@@ -44,7 +44,7 @@ function select_file(e) {
     }, false);
 }  
 
-export const slice = (file, piece = CHUNK_SIZE) => {
+export const slice = (file, piece = CHUNK_SIZE) => {   //切割
     return new Promise((resolve, reject) => {
         let totalSize = file.size;  //取得檔案大小
         const chunks = [];   //宣告一個陣列存放切割下來的chunk                   //Safari 中是 blob.webkitSlice()
@@ -67,15 +67,28 @@ export const slice = (file, piece = CHUNK_SIZE) => {
 
 async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片
     const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
+    var Chunk_Number = 0;
+    var Chunk_Final = false;
+    console.log('Length=',chunks.length);
 
     for (let chunk of chunks) {   //
         const fd = new FormData();   //宣告fd為FormData();
         fd.append('chunk', chunk);     //把每一個chunk插入fd中
-  
+
         try {
-            const response = await fetch('api/hello', {   //call後端的API
-            method: 'POST',
-            body: fd,    //傳送到後端的內容
+            Chunk_Number = Chunk_Number + 1;
+            if(Chunk_Number == chunks.length)
+            {
+                Chunk_Final = true;
+            }
+
+            const response = await fetch(process.env.NEXT_PUBLIC_API_upload_video, {   //call後端的API
+                method: 'POST',
+                headers:{
+                    "chunk-number": String(Chunk_Number),
+                    "chunk-final": String(Chunk_Final), 
+                },
+                body: fd,    //傳送到後端的內容
             });
   
             if (response.ok) {
@@ -85,10 +98,13 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片
             else {
                 results.push(null);
             }
+            
         } 
         catch (err) {    //如果發生錯誤
             results.push(null);    //不放入資料 留空白
         }
+        console.log('chunknumber=',Chunk_Number);
+        console.log('chunkfinal=',Chunk_Final);
     }
     return results;
 }
@@ -117,7 +133,7 @@ function upload_file(e){
                 console.log(chunks); // 輸出分塊陣列
                 console.log('length=',chunks.length);
                 console.log('type=',typeof(chunks));
-                
+
                 _chunkUploadTask(chunks)
                 .then(results => {
                     // 处理上传结果
@@ -139,7 +155,7 @@ function upload_file(e){
             noSlice_fd.append('Data', fileData);     //把每一個chunk插入fd中
       
             //fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
-            fetch("/api/hello", {
+            fetch(NEXT_PUBLIC_API_upload_video, {
                 method: 'POST',
                 body: noSlice_fd,
             })
@@ -163,79 +179,7 @@ function upload_file(e){
                 .catch((error) => console.log("error", error));
 
         }
-/*
-        fetch("http://127.0.0.1:8000/videos/upload/", {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body: upload_videos_send_json,
-        })
-        .then((response) => {
-            information = response.json();
-            console.log('info^^',information);
-            return information;
-        })
-        .then((data) => {
-            id = data["id"];
-            title = data["title"];
-            description = data["description"];
-            updated_at = data["updated_at"];
-            video_file = data["video_file"];
-
-            console.log('id=',data["id"]);
-            console.log('title=',data["title"]);
-            console.log('description=',data["description"]);
-            console.log('updated_at=',data["updated_at"]);
-            console.log('video_file=',data["video_file"]);
-
-//            alert(data["detail"]);
-        })
-        .catch((error) => console.log("error", error));
-
-*/
-/*
-        const upload_videos_send =
-        {
-            "title": fileName,
-            "description": "影片描述",
-            "video_file": fileData,
-        }
-
-//        var upload_videos_send_json = JSON.stringify(upload_videos_send);  //轉json格式
-        console.log("upload_videos_send_json is " + upload_videos_send);
-        console.log('upload_videos_send_json is ',typeof(upload_videos_send));
-        upload = 1;
-
-        fetch("http://127.0.0.1:8000/videos/upload/", {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body: upload_videos_send_json,
-        })
-        .then((response) => {
-            information = response.json();
-            console.log('info^^',information);
-            return information;
-        })
-        .then((data) => {
-            id = data["id"];
-            title = data["title"];
-            description = data["description"];
-            updated_at = data["updated_at"];
-            video_file = data["video_file"];
-
-            console.log('id=',data["id"]);
-            console.log('title=',data["title"]);
-            console.log('description=',data["description"]);
-            console.log('updated_at=',data["updated_at"]);
-            console.log('video_file=',data["video_file"]);
-
-//            alert(data["detail"]);
-        })
-        .catch((error) => console.log("error", error));
-    */    
+   
     }
     else if(file_type == ".ppt" || file_type == ".pptx")
     {
@@ -252,29 +196,7 @@ function upload_file(e){
         console.log('upload_ppts_send_json is ',typeof(upload_ppts_send_json));
 /*
         fetch("http://127.0.0.1:8000/ppts/", {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body: upload_ppts_send_json,
-        })
-        .then((response) => {
-            information = response.json();
-            console.log('info^^',information);
-            return information;
-        })
-        .then((data) => {
-            id = data["id"];
-            title = data["title"];
-            file = data["file"];
 
-            console.log('id=',data["id"]);
-            console.log('title=',data["title"]);
-            console.log('file=',data["file"]);
-
-//            alert(data["detail"]);
-        })
-        .catch((error) => console.log("error", error));
     */
     }
     else if(file_type == "")
@@ -339,7 +261,7 @@ function upload_file(e){
     }
 */     
 
-    window.location.replace("/" + Next_Link);
+//    window.location.replace("/" + Next_Link);
 }
 
 function choose_upload_script(){

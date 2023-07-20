@@ -3,10 +3,16 @@ import React from 'react'
 class pop_up_question extends React.Component {
     render() { 
         return(
-            <button className={styles.alert_background} onClick={alert_message}>
-                <div className={styles.alert_message}>
+            <button className={styles.question_background}>
+                <div className={styles.alert_question}>
                     <div style={{display: "inline-block", marginTop: "15vh",  verticalAlign: "middle"}}>
-                    123
+                    <Image
+                        src="/warning-sign.png"
+                        alt="Add new question"
+                        width={70}
+                        height={70}
+                        priority
+                    />
                     </div>
                     <div className={styles.alert_content}>
                     Please log in, thanks. 

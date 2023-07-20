@@ -51,12 +51,7 @@ export const Header = () => {
     console.log("storageValue type ->", typeof(token));
 
     if ((token == "null") || (token == null) || (token == "undefined")){    //未登入
-        if(router.pathname == "/" + process.env.NEXT_PUBLIC_Video_Editor)
-        {
-           // alert("Please Log in, thanks!"); 
-            router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
-        }
-            console.log("router.pathname=",router.pathname);
+        console.log("router.pathname=",router.pathname);
         console.log("還沒login!!");
         return(
             <header style={{position: "relative",zIndex: "4"}}>
