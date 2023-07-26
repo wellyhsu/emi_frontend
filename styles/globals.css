@@ -82,7 +82,7 @@
 html,
 body {
   height: 100%;
-  width: 100%;
+  width: 100vw;
 
   margin: 0;
   padding: 0;
@@ -91,16 +91,15 @@ body {
 }
 
 #__next {
-  display: inline-block;
-  position: relative;
-  z-index: 13;
-  height: 100%;
-  width: 100%;
-
-  margin: 0;
-  padding: 0;
-  overflow: auto;
+  display: flex; /* 設置為Flex容器 */
+  flex-direction: column; /* 在垂直方向上排列子元素 */
   
+  z-index: 99;
+  height: 100%;
+  width: 100vw;
+
+  overflow: auto;
+ 
   background-color:#ffffff; 
 /*  padding-bottom: 48px;*/
 }

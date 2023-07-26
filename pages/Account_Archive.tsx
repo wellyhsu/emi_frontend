@@ -22,6 +22,8 @@ export default function Account_Archive() {
   function alert_message(){
     router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
   }
+
+  useLayoutEffect(() => {
   if((token == "null") || (token == null) || (token == "undefined"))
   {
     useEffect(() => {
@@ -30,7 +32,10 @@ export default function Account_Archive() {
     }, [])
 
     return(
-      <button className={styles.alert_background} onClick={alert_message}>
+      <>
+        <button className={styles.alert_background} onClick={alert_message}>
+          
+        </button>
         <div className={styles.alert_message}>
           <div style={{display: "inline-block", marginTop: "15vh",  verticalAlign: "middle"}}>
             <Image
@@ -45,11 +50,11 @@ export default function Account_Archive() {
             Please log in, thanks. 
           </div>
         </div>
-      </button>
+      </>
     )
   }
-  else
-  {
+}, [])
+
     return (
       <>
         <main className={styles.main}>
@@ -117,5 +122,4 @@ export default function Account_Archive() {
         </main>
       </>
     )
-  }
 }

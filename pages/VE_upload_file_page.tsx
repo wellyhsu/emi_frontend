@@ -65,7 +65,7 @@ export const slice = (file, piece = CHUNK_SIZE) => {   //切割
     });
 };
 
-async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片
+async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依據切割長度發送請求次數)
     const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
     var Chunk_Number = 0;
     var Chunk_Final = false;
@@ -108,7 +108,52 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片
     }
     return results;
 }
+/*
+async function uploadMultipleBlobsToServer(blobsArray) {   //上傳分割好的小段影片
+    const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
+    var Chunk_Number = 0;
+    var Chunk_Final = false;
+    console.log('Length=',chunks.length);
 
+    const formData = new FormData();   //宣告formData為FormData();
+    
+    blobsArray.forEach((blob, index) => {
+        formData.append(`file${index}`, blob);     //把每一個chunk插入fd中
+    });
+
+        try {
+            Chunk_Number = Chunk_Number + 1;
+            if(Chunk_Number == chunks.length)
+            {
+                Chunk_Final = true;
+            }
+
+            const response = await fetch(process.env.NEXT_PUBLIC_API_upload_video, {   //call後端的API
+                method: 'POST',
+                headers:{
+                    "chunk-number": String(Chunk_Number),
+                    "chunk-final": String(Chunk_Final), 
+                },
+                body: fd,    //傳送到後端的內容
+            });
+  
+            if (response.ok) {
+                const data = await response.json();   //取得後端回傳的資料
+                results.push(data);    //將後端後端傳回的資料放到results
+            } 
+            else {
+                results.push(null);
+            }
+            
+        } 
+        catch (err) {    //如果發生錯誤
+            results.push(null);    //不放入資料 留空白
+        }
+        console.log('chunknumber=',Chunk_Number);
+        console.log('chunkfinal=',Chunk_Final);
+    return results;
+}
+*/
 function upload_file(e){
     var information;
     var id;
@@ -123,7 +168,7 @@ function upload_file(e){
     file_type = fileName?.substring(fileName?.indexOf(".",0));  //取得副檔名
     
     console.log("file_type=",file_type);
-    if(file_type == ".mp4" || file_type == ".MOV")
+    if(file_type == ".mp4" || file_type == ".MOV") //如果檔案 
     {
         if(fileSize*1024 > SPLIT_BYTES)
         {

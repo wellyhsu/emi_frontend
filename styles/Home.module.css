@@ -13,15 +13,15 @@
 }
 */
 .main {
-  display: inline-block; 
+  flex: 1; /* 佔滿剩餘空間，讓.main填滿#__next的所有空間 */
 
-  width: 100%;
-  height: 100%;
   overflow: none;
 
   background-color:#ffffff; 
 
   padding-top: 70px;
+  padding-bottom: 70px;
+
 
 }
 
@@ -632,8 +632,6 @@ ul.Layerout ul li:hover {
 }
 
 .editor{
-  display: inline-block;
-
   width: 100%;
   height: 8vh; 
 
@@ -1361,7 +1359,7 @@ ul.Layerout ul li:hover {
 .steps{
   width: 100%;
   display: inline-block;
-  margin-top: 100px;
+  margin-top: 8vh;
 }
 
 .make_video_step{
@@ -1796,8 +1794,8 @@ ul.Layerout ul li:hover {
   display: inline-block;
   position: relative;
   
-  width: 80vw;
-  height: 60vh;
+  width: 33vw;
+  height: 40vh;
 
   margin-left: 6vw;
 }
