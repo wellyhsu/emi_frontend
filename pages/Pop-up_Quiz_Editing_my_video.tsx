@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import {useEffect, useState} from 'react';
+import {useLayoutEffect, useEffect, useState} from 'react';
+import { useRouter } from 'next/router';
 import Cookies from 'js-cookie'; 
 import Script from 'next/script';
 import pop_up_question from '../components/pop_up_question';
@@ -13,6 +14,7 @@ var fileSize;
 var fileTime;
 
 var ADD_button=0;
+const token =  Cookies.get('token');
 
 function gap_fill_question(){  
     document.getElementById("gap_fill_question").style = "display: flex";
@@ -40,7 +42,16 @@ function Click_add()
 }
 
 export default function Pop_up_Quiz_Editing_my_video() {
+    const router = useRouter();
 
+    useLayoutEffect(() => {
+
+        if((token == "null") || (token == null) || (token == "undefined"))
+        {
+          console.log("useEffect triggered");
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
+      }, [])
 
     return (
         <>

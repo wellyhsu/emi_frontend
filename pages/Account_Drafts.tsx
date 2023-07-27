@@ -3,33 +3,21 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import Cookies from 'js-cookie';
 import Archive_video from '../components/Archive_video'
-import {useEffect, useState} from 'react';
-import { getServerSideProps } from 'next';
+import {useLayoutEffect, useEffect, useState} from 'react';
+import { useRouter } from 'next/router';
 
-var number=0;
-
-function NO_logibn(){
-  if(number==0)
-  {
-    alert("Please Log in, thanks!"); 
-  }
-  number = number + 1;
-}
+const token =  Cookies.get('token');
 
 export default function Home() {
+  const router = useRouter();
 
-  useEffect(() => {
-    console.log("useEffect triggered");
-    const token = Cookies.get('token');
-    if(token == null || token == "null")
+  useLayoutEffect(() => {
+
+    if((token == "null") || (token == null) || (token == "undefined"))
     {
-      NO_logibn();
-      window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
-      return(
-        <div style={{height: "100%", width: "100%", backgroundColor: "rgba(255,255,255,1)"}}>
-        
-      </div>
-      )
+      console.log("useEffect triggered");
+      router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+
     }
   }, [])
 

@@ -2,9 +2,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import { json } from 'stream/consumers';
+import { useLayoutEffect, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 //import Choose_type from '../components/Call_API'
 
 var type = "nothing";
+const token =  Cookies.get('token');
 
 function choose_type_PPT(){
 
@@ -63,6 +67,17 @@ function Choose_type() {    //選擇類型
   }
 
 export default function How_to_Make_video() {
+    const router = useRouter();
+
+    useLayoutEffect(() => {
+
+        if((token == "null") || (token == null) || (token == "undefined"))
+        {
+          console.log("useEffect triggered");
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
+      }, [])
+      
     return (
         <>
             <main className={styles.main}>

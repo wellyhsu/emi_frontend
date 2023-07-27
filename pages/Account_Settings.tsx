@@ -54,15 +54,16 @@ export default function Account_Settings() {
       .catch((error) => console.log("error", error));
   }
 
-  if((token == "null") || (token == null) || (token == "undefined"))
-  {
-    useLayoutEffect(() => { // 使用 useLayoutEffect 替代 useEffect
+  useLayoutEffect(() => { // 使用 useLayoutEffect 替代 useEffect
+    if((token == "null") || (token == null) || (token == "undefined"))
+    {
+    
       console.log("useEffect triggered");
       router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
-    }, [])
-  }
-  else
-  {
+
+    }
+  }, [])
+  
     return (
       <>
         <main className={styles.main}>
@@ -107,27 +108,12 @@ export default function Account_Settings() {
           <div className={styles.Account_grid}>
             <div className={styles.Account_grid2}>
               <div>
-                <div className={styles.block}>
-                
-                  
-
-                </div>
-
                 <div className={styles.item_Subscription}>
                   <User_item
                     image_name="Subscription_image.svg"
                     image_alt="Subscription image"
                     title="Subscription"
                   />
-                  <div className={styles.item_arrow}>
-                    <Image
-                      src="/User_arrow.svg"
-                      alt="enter image"
-                      width={20}
-                      height={20}
-                      priority
-                    />
-                  </div>
                 </div>
 
                 <div className={styles.item}>
@@ -136,15 +122,6 @@ export default function Account_Settings() {
                     image_alt="user management image"
                     title="User management"
                   />
-                  <div className={styles.item_arrow}>
-                    <Image
-                      src="/User_arrow.svg"
-                      alt="enter image"
-                      width={20}
-                      height={20}
-                      priority
-                    />
-                  </div>
                 </div>
                 <button className={styles.item} onClick={Logout}>
                   <User_item
@@ -152,25 +129,13 @@ export default function Account_Settings() {
                     image_alt="log out image"
                     title="Log out"
                   />
-                  <div className={styles.item_arrow}>
-                    <Image
-                      src="/User_arrow.svg"
-                      alt="enter image"
-                      width={20}
-                      height={20}
-                      priority
-                    />
-                  </div>
                 </button>
               </div>
-              <div>
 
-              </div>
             </div>
           </div>
-
         </main>
       </>
     )
-  }
+
 }

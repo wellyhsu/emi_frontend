@@ -18,6 +18,15 @@ class User_item extends React.Component {
                 <div className={styles.item_word}>
                     {this.props.title}                    
                 </div>
+                <div className={styles.item_arrow}>
+                    <Image
+                      src="/User_arrow.svg"
+                      alt="enter image"
+                      width={20}
+                      height={20}
+                      priority
+                    />
+                </div>
             </div>
         )
     }

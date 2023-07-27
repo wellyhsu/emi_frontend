@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import Cookies from 'js-cookie'; 
-import { useEffect } from 'react';
 import styles from '@/styles/Home.module.css'
+import Cookies from 'js-cookie'; 
+import { useLayoutEffect, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 var fileData;
 var fileName;
@@ -11,13 +12,7 @@ var fileSize;
 var fileTime;
 var number=0;
 
-function NO_logibn(){
-  if(number==0)
-  {
-    alert("Please Log in, thanks!"); 
-  }
-  number = number + 1;
-}
+const token =  Cookies.get('token');
 
 function upload(e) {
     console.log("press button");
@@ -45,18 +40,17 @@ function upload(e) {
     }, false);
 }  
 
-export default function How_to_Make_video() {
-    
-    useEffect(() => {
-        console.log("useEffect triggered");
-        const token = Cookies.get('token');
-        console.log("cookies=",token);
-        if(token == null || token == "null")
+export default function Pop-up_Quiz_upload_video_page() {
+    const router = useRouter();
+
+    useLayoutEffect(() => {
+
+        if((token == "null") || (token == null) || (token == "undefined"))
         {
-          NO_logibn();
-          window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+            console.log("useEffect triggered");
+            router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
         }
-      }, [])
+    }, [])
 
     return (
         <>

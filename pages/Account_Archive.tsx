@@ -9,7 +9,11 @@ import Archive_video from '../components/Archive_video'
 import AlertMessage from '../components/AlertMessage'
 
 const token =  Cookies.get('token');
-
+const index_number = [];   //component的id
+const remove_number = [];   //被移除掉的component的id
+var repeat=0;   //用於判斷index在index_number內是否有重複
+var index=0;   //用於給component 一個key值
+var VideoName="";
 export default function Account_Archive() {
   var information;
   var id;
@@ -24,13 +28,14 @@ export default function Account_Archive() {
   }
 
   useLayoutEffect(() => {
-  if((token == "null") || (token == null) || (token == "undefined"))
-  {
-    useEffect(() => {
 
+    if((token == "null") || (token == null) || (token == "undefined"))
+    {
       console.log("useEffect triggered");
-    }, [])
-
+      router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+    }
+  }, [])
+/*
     return(
       <>
         <button className={styles.alert_background} onClick={alert_message}>
@@ -52,8 +57,76 @@ export default function Account_Archive() {
         </div>
       </>
     )
+
   }
 }, [])
+  */
+  const [video_num_block, set_video_num_block] = useState(2);
+  const components = [];   //畫面上的component
+
+  const add_video_block = () => {        
+    set_video_num_block(video_num_block + 1);
+    index++;   //用於編component的id
+  };
+
+  const delete_vedio = (key) => {
+      document.getElementById("preview_video").style= "display : none;" ;
+
+      set_video_num_block(video_num_block - 1);
+
+      let remove_index = key.target.alt;  //components.indexOf(Click_key);   
+      remove_number.push(remove_index);  //把要移除的component id放入remove_number
+
+      console.log("remove_index=",remove_index);
+      console.log("key=",key);
+      console.log("key.target.alt=",key.target.alt);
+      console.log("remove_number=",remove_number);
+      console.log("index_number_r_index",index_number.indexOf(remove_index));
+
+      index_number.splice(index_number.indexOf(remove_index), 1); //找到要移除的component id位址，並從index_number中移除
+      console.log("index_number=", index_number);
+
+      if (remove_index > -1) 
+      {
+          console.log("remove~");
+          components.splice(index_number.indexOf(remove_index), 1);  //index: 要移除的元素的index ,1: The number of elements to remove.
+          console.log("components=",components);
+      }
+  }
+  console.log("F-index_number=", index_number);
+
+  console.log("remove_number=",remove_number);
+    for(var i=0; i< video_num_block; i++)
+    {       
+        repeat = 0;
+        for(var j=0; j<index_number.length; j++)
+        {                                      // remove_number.indexOf(index) == -1  代表remove_number內沒有index這個項目
+            if(index == index_number[j] || remove_number.indexOf(index_number[j]) != -1)  //若i在index_number陣列內
+            {
+                repeat++;  //表示重複了
+            }
+        }
+        if(repeat == 0 )
+        {
+            index_number.push(String(index));
+            console.log("add~");
+        }
+        console.log("repeat=",repeat);
+        console.log("index_number type=!",typeof(index_number[0]));
+        console.log("index_number=!",index_number);
+
+        VideoName="MathClass"+ String(index)+ ".mp4";
+        components.push(
+          <Archive_video
+              videoNam = {VideoName}
+              Deletefunction={delete_vedio}
+              key={index_number[i]}
+            />
+        );
+        console.log("key=",index_number[i]);
+        console.log("index_number:",index_number[i]);
+    }
+    console.log("final:",index_number);
 
     return (
       <>
@@ -97,15 +170,24 @@ export default function Account_Archive() {
           
 
           <div className={styles.Account_grid}>
-            <div className={styles.Account_grid4}>
+            <div id='video_block' className={styles.Account_grid4}>
+              {components}
               <div>
                 <Archive_video
                   videoName="MathClass01.mp4"
                 />
               </div>
+
+
               <div>
                 <Archive_video
-                  videoName="MathClass02.mp4"
+                  videoName="MathClass03.mp4"
+                />
+              </div>
+              
+              <div>
+                <Archive_video
+                  videoName="MathClass03.mp4"
                 />
               </div>
               <div>
@@ -113,9 +195,6 @@ export default function Account_Archive() {
                   videoName="MathClass03.mp4"
                 />
               </div>
-              <Archive_video
-                videoName="MathClass04.mp4"
-              />
             </div>
           </div>
 

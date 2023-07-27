@@ -1,12 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import React, {useRef} from "react";
+import React, { useLayoutEffect, useRef} from "react";
 import Cookies from 'js-cookie'; 
+import { useRouter } from 'next/router';
 
-
+const token =  Cookies.get('token');
 
 export default function VE_Edit_video() {
+    const router = useRouter();
+
     var information;
 
     const languageRef = useRef(undefined);
@@ -15,10 +18,18 @@ export default function VE_Edit_video() {
     const VoiceRef_British = useRef(undefined);
     const VoiceRef_Chinese = useRef(undefined);
 
-
     const scriptRef = useRef(undefined);
     const acapela_token = Cookies.get('acapela_token');
     var Voice_Select;
+
+    useLayoutEffect(() => {
+
+        if((token == "null") || (token == null) || (token == "undefined"))
+        {
+          console.log("useEffect triggered");
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
+      }, [])
 
     function get_language()
     {

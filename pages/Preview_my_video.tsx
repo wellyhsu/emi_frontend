@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import {useEffect, useState} from 'react';
+import {useLayoutEffect, useEffect, useState} from 'react';
 import Cookies from 'js-cookie'; 
+import { useRouter } from 'next/router';
 import Script from 'next/script'
 //import upload from '../components/choose_file'
 
@@ -11,27 +12,19 @@ var fileName;
 var fileType;
 var fileSize;
 var fileTime;
-var number=0;
-
-function NO_logibn(){
-  if(number==0)
-  {
-    alert("Please Log in, thanks!"); 
-  }
-  number = number + 1;
-}
+const token =  Cookies.get('token');
 
 export default function Preview_my_video() {
+    const router = useRouter();
 
-    useEffect(() => {
-        console.log("useEffect triggered");
-        const token = Cookies.get('token');
-        if(token == null || token == "null")
+    useLayoutEffect(() => {
+
+        if((token == "null") || (token == null) || (token == "undefined"))
         {
-          NO_logibn();
-          window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+            console.log("useEffect triggered");
+            router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
         }
-      }, [])
+    }, [])
 
     return (
         <>

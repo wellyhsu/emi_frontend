@@ -2,8 +2,14 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import Make_Video_Steps from '../components/Make_Video_Steps'
 import Link from 'next/link'
+import React, {useLayoutEffect} from 'react';
+import Cookies from 'js-cookie'; 
+import { useRouter } from 'next/router';
+
+const token =  Cookies.get('token');
 
 export default function How_to_Make_video() {
+      
     return (
         <>
             <main className={styles.main}>

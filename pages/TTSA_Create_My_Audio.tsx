@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import {useEffect, useState} from 'react';
+import { useLayoutEffect, useEffect, useState} from 'react';
 import styles from '@/styles/Home.module.css'
 import People_item from '../components/People_item'
 import Cookies from 'js-cookie'; 
+import { useRouter } from 'next/router';
 
 const index_number = [];   //component的id
 const remove_number = [];   //被移除掉的component的id
@@ -15,6 +16,7 @@ var Quality=0;
 var Channel=0;
 
 const acapela_token = Cookies.get('acapela_token');
+const token =  Cookies.get('token');
 
 const closed_Download_windows = ()=>{
     document.getElementById("Download_window").style="display: none;";
@@ -81,6 +83,7 @@ const Download = () =>{
     var text;
     var total_text="";
     var type;
+    
     for(var i=0; i<index_number.length;i++)
     {
         text = document.getElementById(String(index_number[i])).value;
@@ -257,6 +260,17 @@ const play_audio = (key) => {
 }
 
 export default function TTSA_Create_My_Audio() {
+    const router = useRouter();
+
+    useLayoutEffect(() => {
+
+        if((token == "null") || (token == null) || (token == "undefined"))
+        {
+          console.log("useEffect triggered");
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
+    }, [])
+
     const [people_num_block, set_people_num_block] = useState(1);
 //    const [Click_key, set_Click_key] = useState(null);
     const components = [];   //畫面上的component

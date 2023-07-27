@@ -59,7 +59,7 @@ export default function Forgot_password() {
                 Reset your password
             </div>
             <div className={styles.Reset_content}>
-                Please enter your Email and we will send you a link to reset your password.
+                Please enter your Email and we will send you a token to reset your password.
             </div>
             <input 
               type="text" 

@@ -4,14 +4,15 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import {useEffect, useState} from 'react';
 import Cookies from 'js-cookie'; 
+import { useRouter } from 'next/router';
 
-var Draft_href;
+var Draft_href = process.env.NEXT_PUBLIC_Log_in;
+const token =  Cookies.get('token');
 
 export default function Home() {
 
   useEffect(() => {
     console.log("useEffect triggered");
-    const token = Cookies.get('token');
 
     if(token == null ||  token == "null")
     {

@@ -81,10 +81,11 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
             {
                 Chunk_Final = true;
             }
-
+            console.log("fileName==",fileName);
             const response = await fetch(process.env.NEXT_PUBLIC_API_upload_video, {   //call後端的API
                 method: 'POST',
                 headers:{
+                    "file-name": fileName,
                     "chunk-number": String(Chunk_Number),
                     "chunk-final": String(Chunk_Final), 
                 },
