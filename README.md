@@ -15,7 +15,7 @@ First, run the development server:
 8. Download the files, `git clone https://github.com/wellyhsu/emi_frontend.git`
 
    user name: `wellyhsu`
-   password: `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`
+   password: `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`
 9. Enter EMI folder, `cd emi_frontend`
 10. Install node_modules, `npm install`
 11. Run the Web, `npm run dev`   
