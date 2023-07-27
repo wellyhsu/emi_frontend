@@ -32,7 +32,7 @@ export default function Account_Archive() {
     if((token == "null") || (token == null) || (token == "undefined"))
     {
       console.log("useEffect triggered");
-      router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+//      router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
     }
   }, [])
 /*
@@ -61,10 +61,11 @@ export default function Account_Archive() {
   }
 }, [])
   */
-  const [video_num_block, set_video_num_block] = useState(2);
+  const [video_num_block, set_video_num_block] = useState(0);
   const components = [];   //畫面上的component
 
   const add_video_block = () => {        
+    document.getElementById("preview_video").style= "display : none;" ;
     set_video_num_block(video_num_block + 1);
     index++;   //用於編component的id
   };
@@ -74,12 +75,12 @@ export default function Account_Archive() {
 
       set_video_num_block(video_num_block - 1);
 
-      let remove_index = key.target.alt;  //components.indexOf(Click_key);   
+      let remove_index = key.target.id;  //components.indexOf(Click_key);   
       remove_number.push(remove_index);  //把要移除的component id放入remove_number
 
       console.log("remove_index=",remove_index);
       console.log("key=",key);
-      console.log("key.target.alt=",key.target.alt);
+      console.log("key.target=",key.target);
       console.log("remove_number=",remove_number);
       console.log("index_number_r_index",index_number.indexOf(remove_index));
 
@@ -115,12 +116,13 @@ export default function Account_Archive() {
         console.log("index_number type=!",typeof(index_number[0]));
         console.log("index_number=!",index_number);
 
-        VideoName="MathClass"+ String(index)+ ".mp4";
+        VideoName="MathClass"+ String(index_number[i])+ ".mp4";
         components.push(
           <Archive_video
-              videoNam = {VideoName}
+              videoName = {VideoName}
               Deletefunction={delete_vedio}
               key={index_number[i]}
+              button_id={index_number[i]}
             />
         );
         console.log("key=",index_number[i]);
@@ -175,26 +177,31 @@ export default function Account_Archive() {
               <div>
                 <Archive_video
                   videoName="MathClass01.mp4"
+                  Deletefunction={delete_vedio}
                 />
               </div>
-
-
               <div>
                 <Archive_video
                   videoName="MathClass03.mp4"
+                  Deletefunction={delete_vedio}
                 />
               </div>
               
               <div>
                 <Archive_video
                   videoName="MathClass03.mp4"
+                  Deletefunction={delete_vedio}
                 />
               </div>
               <div>
                 <Archive_video
                   videoName="MathClass03.mp4"
+                  Deletefunction={delete_vedio}
                 />
               </div>
+              <button  onClick={add_video_block}>
+                add
+              </button>
             </div>
           </div>
 

@@ -29,7 +29,7 @@ class Archive_video extends React.Component {
                         />
                     </div>
                     <div style={{display: "flex", justifyContent: "center"}}>
-                        <botton className={styles.preview_video_button} onClick={this.props.Deletefunction}>
+                        <botton id={this.props.button_id} className={styles.preview_video_button} onClick={this.props.Deletefunction}>
                             Delete 
                         </botton>
                         <botton className={styles.preview_video_button} onClick={OK}>
