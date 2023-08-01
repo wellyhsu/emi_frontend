@@ -40,17 +40,10 @@ function upload(e) {
     }, false);
 }  
 
-export default function Pop-up_Quiz_upload_video_page() {
+export default function Popup_Quiz_upload_video_page() {
     const router = useRouter();
 
-    useLayoutEffect(() => {
 
-        if((token == "null") || (token == null) || (token == "undefined"))
-        {
-            console.log("useEffect triggered");
-            router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
-        }
-    }, [])
 
     return (
         <>

@@ -14,6 +14,7 @@ const remove_number = [];   //被移除掉的component的id
 var repeat=0;   //用於判斷index在index_number內是否有重複
 var index=0;   //用於給component 一個key值
 var VideoName="";
+
 export default function Account_Archive() {
   var information;
   var id;
@@ -199,10 +200,10 @@ export default function Account_Archive() {
                   Deletefunction={delete_vedio}
                 />
               </div>
-              <button  onClick={add_video_block}>
+{/*              <button  onClick={add_video_block}>
                 add
               </button>
-            </div>
+*/}            </div>
           </div>
 
         </main>

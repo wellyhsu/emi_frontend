@@ -1920,7 +1920,7 @@ select.option{
   display: inline-block;
   width: 13.5vw;
   height: 7vh;
-  position: absolute;
+  vertical-align: middle;
   z-index: 1;
   cursor: pointer;
 

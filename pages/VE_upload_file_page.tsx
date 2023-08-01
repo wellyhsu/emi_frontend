@@ -1,8 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
+import React, {useLayoutEffect, useEffect, useState} from 'react';
 import Script from 'next/script'
-//import upload from '../components/choose_file'
+import Cookies from 'js-cookie'; 
+import { useRouter } from 'next/router';
+
+const token =  Cookies.get('token');
 var T=0;
 var Next_Link = process.env.NEXT_PUBLIC_VE_Create_no_script;
 var fileData;
@@ -164,7 +168,7 @@ function upload_file(e){
 
     var intIdentifier = 1;
     var completed = 0;
-//    var xhr = new self.XMLHttpRequest();
+ //    var xhr = new self.XMLHttpRequest();
 
     file_type = fileName?.substring(fileName?.indexOf(".",0));  //取得副檔名
     
@@ -307,7 +311,7 @@ function upload_file(e){
     }
 */     
 
-//    window.location.replace("/" + Next_Link);
+   // window.location.replace("/" + Next_Link);
 }
 
 function choose_upload_script(){
@@ -327,6 +331,15 @@ function choose_upload_script(){
 }
 
 export default function VE_upload_file_page() {
+    const router = useRouter();
+
+    useLayoutEffect(() => {
+        if((token == "null") || (token == null) || (token == "undefined"))
+        {
+          console.log("useEffect triggered");
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
+      }, [])
     return (
         <div>
 {/*            <Script
