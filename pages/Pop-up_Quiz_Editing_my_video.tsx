@@ -15,7 +15,13 @@ var fileSize;
 var fileTime;
 
 var ADD_button=0;
-var Question_title="";
+var Question_type="";
+var Question="";
+var Choice="";
+var Answer="";
+var Time="";
+
+
 const token =  Cookies.get('token');
 
 function gap_fill_question(){  
@@ -38,18 +44,7 @@ function Multiple_choice_question(){
     document.getElementById("Multiple_choice_question").style = "display: flex";
     console.log("Multiple");
 }
-function Multiple_choice_close(){
-    document.getElementById("Multiple_choice_question").style = "display: none";
-    var Question = document.getElementById("Multiple_choice_question").value;
-    console.log = ("Question= ",Question);
-    /*
-    Question_type = "Multiple_choice";  //插入影片中的題目類型
-    Question=;       //使用者輸入的題目內容
-    Choice=;         //多選題的選項
-    Answer=;         //題目答案
-    Time=;           //影片播放到的時間
-    */
-}
+
 
 function Scramble_task_question(){  
     document.getElementById("Scramble_task_question").style = "display: flex";
@@ -81,6 +76,76 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const Multiple_choice_Choice_Ref = useRef(undefined);
     const Multiple_choice_Answer_Ref = useRef(undefined);
 
+
+    function Multiple_choice_close(){
+        var information;
+        var selectVideo = document.querySelector('video');
+        
+        document.getElementById("Multiple_choice_question").style = "display: none";
+
+        Question_type = "Multiple_choice";  //插入影片中的題目類型
+        Question = Multiple_choice_Question_Ref.current.value;   //使用者輸入的題目內容
+        Choice = Multiple_choice_Choice_Ref.current.value;      //多選題的選項
+        Answer = Multiple_choice_Answer_Ref.current.value;         //題目答案
+        Time = String(selectVideo.currentTime);           //影片播放到的時間
+
+        console.log("Question= ", Question);
+        console.log("Choice= ", Choice);
+        console.log("Answer= ", Answer);
+        console.log("Time= ", Time);
+
+
+        const question_send =
+        {
+            "Question_type": "Multiple_choice",
+            "Question": Question,
+            "Choice": Choice,  
+            "Answer": Answer,
+            "Time": Time,
+        }
+        
+        var question_send_json = JSON.stringify(question_send);  //轉json格式
+        fetch(process.env.NEXT_PUBLIC_API_URL/* + process.env.NEXT_PUBLIC_API_login*/, {            
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: question_send_json,
+        })
+            .then((response) => {
+                information = response.json();
+                console.log('info^^',information);
+                return information;
+            })
+            .then((data) => {
+/*                
+                token_DATA = data["token"];  
+                token_DATA = JSON.stringify(token_DATA);           
+                console.log('token_DATA=', Cookies.get('token'));
+
+        //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
+*/            })
+            .catch((error) => console.log("error", error));
+
+
+        Multiple_choice_Question_Ref.current.value = "";   //使用者輸入的題目內容
+        Multiple_choice_Choice_Ref.current.value = "";      //多選題的選項
+        Multiple_choice_Answer_Ref.current.value = "";         //題目答案
+    }
+
+    function Multiple_choice_ClearClose(){
+        document.getElementById("Multiple_choice_question").style = "display: none";
+
+        Question_type = "Multiple_choice";  //插入影片中的題目類型
+        Multiple_choice_Question_Ref.current.value = "";   //使用者輸入的題目內容
+        Multiple_choice_Choice_Ref.current.value = "";      //多選題的選項
+        Multiple_choice_Answer_Ref.current.value = "";         //題目答案
+
+        console.log("Question= ", Question);
+        console.log("Choice= ", Choice);
+        console.log("Answer= ", Answer);
+    }
+
     useLayoutEffect(() => {
 
         if((token == "null") || (token == null) || (token == "undefined"))
@@ -88,6 +153,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
           console.log("useEffect triggered");
 //          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
         }
+
       }, [])
 
     return (
@@ -125,9 +191,14 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                     </textarea>
                                 </div>
                             </div>
-                            <button className={styles.Continuous_button} onClick={Multiple_choice_close}>
-                                Continuous
-                            </button>
+                            <div style={{float: "right"}}>
+                                <button className={styles.Cancel_button} onClick={Multiple_choice_ClearClose}>
+                                    Cancel
+                                </button>
+                                <button className={styles.Continuous_button} onClick={Multiple_choice_close}>
+                                    Continuous
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -137,67 +208,72 @@ export default function Pop_up_Quiz_Editing_my_video() {
                         colse_function={Scramble_task_close}
                     />
                 </div>
+
                 <div className={styles.no_padding_center}>
-                    <div className={styles.PopupQuiz_video_preview}>
-                        <video 
-                            src="video_preview.svg"
-                            poster=""
-                            width="847" 
-                            height="466" 
-                            autoPlay={false}
-                            controls={true} 
-                        />
+                    <div>
+                        <div className={styles.PopupQuiz_video_preview}>
+                            <video 
+                                poster=""
+                                autoPlay={false}
+                                controls={true} 
+                            >
+                                <source src="TEST.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div className={styles.Popup_add_block} >
+                            <button className={styles.Popup_add_button} onClick={Click_add}>
+                                <Image
+                                    src="/Pop-upQuiz_add.svg"
+                                    alt="Add new question"
+                                    width={70}
+                                    height={70}
+                                    priority
+                                />
+                            </button>
+                            <div id="question_button" className={styles.question_button}>
+                                <button className={styles.gap_fill_button} onClick={gap_fill_question}>
+                                    <Image
+                                        src="/Pop-up_gap_fill.svg"
+                                        alt="Add gap_fill question"
+                                        width={65}
+                                        height={20}
+                                        priority
+                                    />
+                                </button>
+                                <button className={styles.Multiple_choice_button} onClick={Multiple_choice_question}>
+                                    <Image
+                                        src="/Pop-up_Multiple_choice.svg"
+                                        alt="Add Multiple choice question"
+                                        width={30}
+                                        height={20}
+                                        priority
+                                    />
+                                </button>
+                                <button className={styles.Multiple_choice_button} onClick={Scramble_task_question}>
+                                    <Image
+                                        src="/Pop-up_Scramble_task.svg"
+                                        alt="Add Scramble task question"
+                                        width={40}
+                                        height={17}
+                                        priority
+                                    />
+                                </button>
+                                <button className={styles.Multiple_choice_button}>
+                                    <Image
+                                        src="/Pop-up_cut_video.svg"
+                                        alt="Cut video"
+                                        width={20}
+                                        height={20}
+                                        priority
+                                    />
+                                </button>
+                            </div>
+                        </div> 
                     </div>
                 </div> 
-                <div className={styles.Popup_add_block} >
-                    <button className={styles.Popup_add_button} onClick={Click_add}>
-                        <Image
-                            src="/Pop-upQuiz_add.svg"
-                            alt="Add new question"
-                            width={70}
-                            height={70}
-                            priority
-                        />
-                    </button>
-                    <div id="question_button" className={styles.question_button}>
-                        <button className={styles.gap_fill_button} onClick={gap_fill_question}>
-                            <Image
-                                src="/Pop-up_gap_fill.svg"
-                                alt="Add gap_fill question"
-                                width={65}
-                                height={20}
-                                priority
-                            />
-                        </button>
-                        <button className={styles.Multiple_choice_button} onClick={Multiple_choice_question}>
-                            <Image
-                                src="/Pop-up_Multiple_choice.svg"
-                                alt="Add Multiple choice question"
-                                width={30}
-                                height={20}
-                                priority
-                            />
-                        </button>
-                        <button className={styles.Multiple_choice_button} onClick={Scramble_task_question}>
-                            <Image
-                                src="/Pop-up_Scramble_task.svg"
-                                alt="Add Scramble task question"
-                                width={40}
-                                height={17}
-                                priority
-                            />
-                        </button>
-                        <button className={styles.Multiple_choice_button}>
-                            <Image
-                                src="/Pop-up_cut_video.svg"
-                                alt="Cut video"
-                                width={20}
-                                height={20}
-                                priority
-                            />
-                        </button>
-                    </div>
-                </div> 
+                
+                
                 
             </main>
             

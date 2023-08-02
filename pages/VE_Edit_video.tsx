@@ -27,7 +27,7 @@ export default function VE_Edit_video() {
         if((token == "null") || (token == null) || (token == "undefined"))
         {
           console.log("useEffect triggered");
-          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+    //      router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
         }
     }, [])
 

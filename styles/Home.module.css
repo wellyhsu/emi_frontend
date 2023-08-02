@@ -20,8 +20,8 @@
   
   background-color:#ffffff; 
 
-  padding-top: 70px;
-  padding-bottom: 70px;
+  padding-top: 14vh;
+  padding-bottom: 0px;
 
 
 }
@@ -2586,10 +2586,13 @@ select.option{
 }
 
 .PopupQuiz_video_preview{
+  display: flex;
   height: 70vh;
 
-  margin-top: 2vh;
-  margin-bottom: 2vh;
+  margin-top: 3vh;
+  margin-bottom: 10vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Pop-up editing video*/
@@ -2696,8 +2699,7 @@ select.option{
 }
 
 .Continuous_button{
-  display: block;
-  float: right;
+  display: inline-block;
   width: 10vw;
   height: 6vh;
   cursor: pointer;
@@ -2707,15 +2709,32 @@ select.option{
   box-shadow: rgba(0, 0, 0, 0.2);
 
   margin-top: 3vh;
-  margin-right: 5vw;
+  margin-right: 6vw;
 }
 .Continuous_button:hover{
   transform: scale(1.02);
 }
 
+.Cancel_button{
+  display: inline-block;
+  width: 10vw;
+  height: 6vh;
+  cursor: pointer;
+
+  border-radius: 0.6vw;
+  border-width: 0.3vh;
+  box-shadow: rgba(0, 0, 0, 0.2);
+
+  margin-top: 3vh;
+  margin-right: 9vw;
+}
+.Cancel_button:hover{
+  transform: scale(1.02);
+}
+
 .Popup_add_block{
-  margin-top: -10vh;
-  margin-left: 19vw;
+  margin-top: -35vh;
+  margin-left: 2.5vw;
 }
 
 .Popup_add_button{
