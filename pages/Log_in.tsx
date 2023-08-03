@@ -26,7 +26,7 @@ export default function Home() {
     const account_send =
     {
       "username": nameRef.current.value,
-      "password": passwordRef.current.value,  //轉json格式
+      "password": passwordRef.current.value,  
     }
 
     var account_send_json = JSON.stringify(account_send);  //轉json格式

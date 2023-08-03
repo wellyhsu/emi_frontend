@@ -71,17 +71,17 @@ export default function Account_Archive() {
     index++;   //用於編component的id
   };
 
-  const delete_vedio = (key) => {
+  const delete_vedio = (event) => {
       document.getElementById("preview_video").style= "display : none;" ;
 
       set_video_num_block(video_num_block - 1);
 
-      let remove_index = key.target.id;  //components.indexOf(Click_key);   
+      let remove_index = event.target.id;  //components.indexOf(Click_key);   
       remove_number.push(remove_index);  //把要移除的component id放入remove_number
 
       console.log("remove_index=",remove_index);
-      console.log("key=",key);
-      console.log("key.target=",key.target);
+      console.log("event=",event);
+      console.log("event.target=",event.target);
       console.log("remove_number=",remove_number);
       console.log("index_number_r_index",index_number.indexOf(remove_index));
 

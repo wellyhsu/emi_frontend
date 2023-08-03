@@ -21,23 +21,10 @@ var Choice="";
 var Answer="";
 var Time="";
 
-
 const token =  Cookies.get('token');
 
 function gap_fill_question(){  
     document.getElementById("gap_fill_question").style = "display: flex";
-}
-function gap_fill_close(){
-    document.getElementById("gap_fill_question").style = "display: none";
-
-    /*
-    Question_type=;  //插入影片中的題目類型
-    Question=;       //使用者輸入的題目內容
-    Choice=;         //多選題的選項
-    Answer=;         //題目答案
-    Time=;           //影片播放到的時間
-    */
-
 }
 
 function Multiple_choice_question(){  
@@ -45,14 +32,11 @@ function Multiple_choice_question(){
     console.log("Multiple");
 }
 
-
 function Scramble_task_question(){  
     document.getElementById("Scramble_task_question").style = "display: flex";
     Question_title = "Scramble task question";
 }
-function Scramble_task_close(){
-    document.getElementById("Scramble_task_question").style = "display: none";
-}
+
 
 function Click_add()
 {
@@ -72,10 +56,79 @@ function Click_add()
 
 export default function Pop_up_Quiz_Editing_my_video() {
     const router = useRouter();
+    const Gap_fill_Question_Question_Ref = useRef(undefined);
+    const Gap_fill_Question_Answer_Ref = useRef(undefined);
+
     const Multiple_choice_Question_Ref = useRef(undefined);
     const Multiple_choice_Choice_Ref = useRef(undefined);
     const Multiple_choice_Answer_Ref = useRef(undefined);
 
+    const Scramble_task_Question_Ref = useRef(undefined);
+    const Scramble_task_Choice_Ref = useRef(undefined);
+    const Scramble_task_Answer_Ref = useRef(undefined);
+
+    function gap_fill_close(){
+        var information;
+        var selectVideo = document.querySelector('video');
+
+        document.getElementById("gap_fill_question").style = "display: none";
+
+        Question_type = "Gap fill";  //插入影片中的題目類型
+        Question = Gap_fill_Question_Question_Ref.current.value;   //使用者輸入的題目內容
+        Answer = Gap_fill_Question_Answer_Ref.current.value;         //題目答案
+        Time = String(Math.floor(selectVideo.currentTime));           //影片播放到的時間
+
+        console.log("Question= ", Question);
+        console.log("Choice= ", Choice);
+        console.log("Answer= ", Answer);
+        console.log("Time= ", Time);
+
+        const question_send =
+        {
+            "Question_type": "Multiple_choice",
+            "Question": Question,
+            "Choice": "",  
+            "Answer": Answer,
+            "Time": Time,
+        }
+        
+        var question_send_json = JSON.stringify(question_send);  //轉json格式
+        fetch(process.env.NEXT_PUBLIC_API_URL/* + process.env.NEXT_PUBLIC_API_login*/, {            
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: question_send_json,
+        })
+            .then((response) => {
+                information = response.json();
+                console.log('info^^',information);
+                return information;
+            })
+            .then((data) => {
+/*                
+                token_DATA = data["token"];  
+                token_DATA = JSON.stringify(token_DATA);           
+                console.log('token_DATA=', Cookies.get('token'));
+
+        //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
+*/            })
+            .catch((error) => console.log("error", error));
+
+
+        Gap_fill_Question_Question_Ref.current.value = "";   //使用者輸入的題目內容
+        Gap_fill_Question_Answer_Ref.current.value = "";         //題目答案
+    }
+    function gap_fill_ClearClose(){
+        document.getElementById("gap_fill_question").style = "display: none";
+
+        Gap_fill_Question_Question_Ref.current.value = "";   //使用者輸入的題目內容
+        Gap_fill_Question_Answer_Ref.current.value = "";         //題目答案
+
+        console.log("Question= ", Question);
+        console.log("Choice= ", Choice);
+        console.log("Answer= ", Answer);
+    }
 
     function Multiple_choice_close(){
         var information;
@@ -87,7 +140,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         Question = Multiple_choice_Question_Ref.current.value;   //使用者輸入的題目內容
         Choice = Multiple_choice_Choice_Ref.current.value;      //多選題的選項
         Answer = Multiple_choice_Answer_Ref.current.value;         //題目答案
-        Time = String(selectVideo.currentTime);           //影片播放到的時間
+        Time = String(Math.floor(selectVideo.currentTime));           //影片播放到的時間
 
         console.log("Question= ", Question);
         console.log("Choice= ", Choice);
@@ -132,14 +185,26 @@ export default function Pop_up_Quiz_Editing_my_video() {
         Multiple_choice_Choice_Ref.current.value = "";      //多選題的選項
         Multiple_choice_Answer_Ref.current.value = "";         //題目答案
     }
-
     function Multiple_choice_ClearClose(){
         document.getElementById("Multiple_choice_question").style = "display: none";
 
-        Question_type = "Multiple_choice";  //插入影片中的題目類型
         Multiple_choice_Question_Ref.current.value = "";   //使用者輸入的題目內容
         Multiple_choice_Choice_Ref.current.value = "";      //多選題的選項
         Multiple_choice_Answer_Ref.current.value = "";         //題目答案
+
+        console.log("Question= ", Question);
+        console.log("Choice= ", Choice);
+        console.log("Answer= ", Answer);
+    }
+
+    function Scramble_task_close(){
+        document.getElementById("Scramble_task_question").style = "display: none";
+    }
+    function Scramble_task_ClearClose(){
+        document.getElementById("Scramble_task_question").style = "display: none";
+
+        Gap_fill_Question_Question_Ref.current.value = "";   //使用者輸入的題目內容
+        Gap_fill_Question_Answer_Ref.current.value = "";         //題目答案
 
         console.log("Question= ", Question);
         console.log("Choice= ", Choice);
@@ -160,10 +225,35 @@ export default function Pop_up_Quiz_Editing_my_video() {
         <>
            <main className={styles.main}>
                 <div id="gap_fill_question" style={{height: "100%",display: "none"}}>
-                    <PopUpWindow
-                        Pop_up_Question_title = "Gap fill question"
-                        colse_function={gap_fill_close}
-                    />
+                    <div className={styles.question_background}>
+                        <div className={styles.alert_question}>
+                            <div className={styles.question_title}>
+                                Gap fill question
+                            </div>
+                            <div style={{display: "block", marginLeft: "5vw"}}>
+                                <div className={styles.content_title}>
+                                    Question
+                                    <textarea ref={Gap_fill_Question_Question_Ref} id="Question_content" className={styles.content_input} placeholder="Please input Question">
+
+                                    </textarea>
+                                </div>
+                                <div className={styles.content_title}>
+                                    Answer and explain
+                                    <textarea ref={Gap_fill_Question_Answer_Ref} id="Answer_content" className={styles.content_input} placeholder="Please input Answer">
+                                        
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div style={{float: "right"}}>
+                                <button className={styles.Cancel_button} onClick={gap_fill_ClearClose}>
+                                    Cancel
+                                </button>
+                                <button className={styles.Continuous_button} onClick={gap_fill_close}>
+                                    Continuous
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="Multiple_choice_question" style={{height: "100%",display: "none"}}>
                     <div className={styles.question_background}>
@@ -203,10 +293,35 @@ export default function Pop_up_Quiz_Editing_my_video() {
                     </div>
                 </div>
                 <div id="Scramble_task_question" style={{height: "100%",display: "none"}}>
-                    <PopUpWindow
-                        Pop_up_Question_title = "Scramble task question"
-                        colse_function={Scramble_task_close}
-                    />
+                    <div className={styles.question_background}>
+                        <div className={styles.alert_question}>
+                            <div className={styles.question_title}>
+                                Scramble task question
+                            </div>
+                            <div style={{display: "block", marginLeft: "5vw"}}>
+                                <div className={styles.content_title}>
+                                    Question
+                                    <textarea ref={Gap_fill_Question_Question_Ref} id="Question_content" className={styles.content_input} placeholder="Please input Question">
+
+                                    </textarea>
+                                </div>
+                                <div className={styles.content_title}>
+                                    Answer and explain
+                                    <textarea ref={Gap_fill_Question_Answer_Ref} id="Answer_content" className={styles.content_input} placeholder="Please input Answer">
+                                        
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div style={{float: "right"}}>
+                                <button className={styles.Cancel_button} onClick={Scramble_task_ClearClose}>
+                                    Cancel
+                                </button>
+                                <button className={styles.Continuous_button} onClick={Scramble_task_close}>
+                                    Continuous
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className={styles.no_padding_center}>
@@ -217,7 +332,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                 autoPlay={false}
                                 controls={true} 
                             >
-                                <source src="TEST.mp4" type="video/mp4" />
+                                <source src="TEST(1min30sec).mp4" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         </div>

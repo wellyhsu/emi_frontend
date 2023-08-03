@@ -26,6 +26,12 @@
 
 }
 
+.no_padding_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
 
 .Home_Logo{
   width: 20vw;
@@ -1555,7 +1561,7 @@ ul.Layerout ul li:hover {
   border-radius: 3vw;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-right: 5vw;
+  margin-right: 3vw;
 }
 .CMV_Next_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -1673,10 +1679,14 @@ ul.Layerout ul li:hover {
 }
 
 .upload_image{
+  display: flex;
   position: relative;
   width: 20vw;
   height: 20vh;
   
+  justify-content: center;
+  align-items: center;
+
   margin-top: 9vh;
   margin-left: auto;
   margin-right: auto;
@@ -1692,10 +1702,16 @@ ul.Layerout ul li:hover {
 
 .upload_file_button{
   display: inline-block;
+  height: 11vh;
   width: 100%;
 
   margin-top: 5.5vh;
   margin-bottom: 5vh;
+}
+.upload_file_button::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .UploadFile_Back_button{
@@ -1760,6 +1776,20 @@ ul.Layerout ul li:hover {
   margin-bottom: 3vh;
 }
 
+.upload_file_title{
+  font-size: 2.2vw;
+  font-family: 'Poppins',Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 5vh;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 5vh;
+  margin-left: 9vw;
+  margin-bottom: 3vh;
+}
+
 /*寬度大於1200px時，適用此格式。*/
 @media screen and (min-width: 1200px) 
 {
@@ -1769,37 +1799,57 @@ ul.Layerout ul li:hover {
     width: 100%;
     gap: 0.5vw;
   }
+
+  .Edit_video{
+    display: flex;
+    height: 100%;
+    width: 60vh;
+
+    margin-top: 2vh;
+    margin-bottom: 6vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 /*寬度小於1200px時，適用此格式。*/
 @media screen and (max-width: 1200px) 
 {
   .Edit_grid2 {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 0.5fr 1fr;
     gap: 4vh;
     
+    height: 70%;
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .Edit_left_part{
+    display: flex;
     height: 100%;
     width: 100%;
 
     justify-content: center;
     align-items: center;
 
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+  }
 
+  .Edit_video{
+    display: flex;
+    height: 50vh;
 
     margin-left: auto;
     margin-right: auto;
   }
 }
 
-.Edit_video{
-  display: inline-block;
-  position: relative;
-  
-  width: 33vw;
-  height: 40vh;
-
-  margin-left: 6vw;
-}
 
 .VE_PPT_backpage{
   display: inline-block;
@@ -1835,10 +1885,16 @@ ul.Layerout ul li:hover {
 @media screen and (max-width: 1200px) 
 {
   .Edit_right_part{
-    display: inline-block;
+    display: flex;
+    height: 100%;
+    width: 100%;
 
-    margin-left: 2%;
-    margin-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: auto;
+    margin-right: auto;   
+    margin-bottom: 5vh;
   }
 }
 
@@ -1936,7 +1992,7 @@ select.option{
   color: rgba(255, 255, 255, 1);
   background-color: rgba(87, 196, 157, 1);
 
-  margin-top: 5.3vh;
+  margin-top: 0vh;
   margin-left: 2vw;
 }
 .Test_button:hover{
@@ -1944,6 +2000,10 @@ select.option{
 }
 
 .Input_script{
+  display: block;
+  width: auto;
+  height: auto;
+
   margin-top: 4vh;
 }
 
@@ -1995,6 +2055,17 @@ select.option{
   margin-bottom: 5vh;
 }
 
+.no_script_select{
+  width: 12vw;
+  height: 5vh;
+  min-width: 10em;
+
+  border: none;
+  border-radius: 1vh;
+
+  background-color: rgba(243, 241, 241, 1);
+  padding-left: 1vw;
+}
 
 /*  TTSA Create My Audio*/
 /*寬度大於1200px時，適用此格式。*/
@@ -2025,6 +2096,7 @@ select.option{
   }
 
   .TTSA_button_block{
+    display: block;
     padding-top: 30px;
     padding-left: 13%;
   }
@@ -2035,8 +2107,10 @@ select.option{
 {
   .TTSA_Create_My_Audio_grid2{
     display: grid;
-    grid-template-rows: 50% 40%;
+    grid-template-rows: auto auto;
     width: var(--max-width);
+    height: 100%;
+
     max-width: 100%;
     gap: 1%;
   }
@@ -2050,6 +2124,7 @@ select.option{
   }
 
   .TTSA_button_block{
+    display: block;
     position: relative;
     height: 5vh;
     top: -23vh;
@@ -2501,8 +2576,8 @@ select.option{
 }
 
 /*  Pop-up Quiz  Upload PPT page */
-.upload_file_title{
-  font-size: 2.2vw;
+.pop_upload_file_title{
+  font-size: 2vw;
   font-family: 'Poppins',Arial;
   font-style: normal;
   font-weight: 500;
@@ -2517,10 +2592,10 @@ select.option{
 
 .Youtube_link_input{
   display: inline-block;
-  width: 562px;
-  height: 44px;
+  width: 50vw;
+  height: 8vh;
 
-  font-size: 20px;
+  font-size: 1.6vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
@@ -2534,11 +2609,52 @@ select.option{
   padding-left: 10px;
 }
 
-.no_padding_center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+.pop_upload_block{
+  display: block;
+  width: 50vw;
+  height: 52vh;
+  cursor: pointer;
+
+  font-size: 2.2vw;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 5vh;
+
+  border: none;
+  border-radius: 1vh;
+
+  background-color: rgba(243, 241, 241, 1);
+  margin-top: 4vh;
+  margin-left: 0.5vw;
+}
+
+.clearfix{
+  height: 15vh;
+
+  padding-top: 2.5vh;
+}
+.clearfix::after {
+  content: ""; /* 伪元素内容为空 */
+  display: table; /* 使伪元素以块级元素展示 */
+  clear: both; /* 清除浮动 */
+}
+
+.pop_Start_making{
+  display: inline-block;
+  height: 8vh;
+
+  font-size: 2.6vw;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 7vh;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  margin-top: 10vh;
+  margin-left: 7.7vw;
+  margin-bottom: 2vh;
 }
 
 .Reselect_video{
@@ -2562,6 +2678,9 @@ select.option{
   margin-left: 25%;
   margin-bottom: 50px;
 }
+.Reselect_video:hover{
+  transform: scale(1.02);
+}
 
 .Start_editing{
   display: inline-block;
@@ -2583,6 +2702,9 @@ select.option{
 
   margin-left: 130px;
   margin-bottom: 50px;
+}
+.Start_editing:hover{
+  transform: scale(1.02);
 }
 
 .PopupQuiz_video_preview{
@@ -2803,6 +2925,29 @@ select.option{
   transform: scale(1.02);  
 }
 
+/* Student view page */
+.choice_button{
+  display: block;
+  width: 10vw;
+  height: 5vh;
+  cursor: pointer;
+
+  color: rgba(0, 0, 0, 1);
+  background-color: #ffffff;
+
+  border-radius: 1vh;
+  border-style: solid;
+
+  border-color: #38c18a;
+
+  margin-bottom: 2vh;
+}
+.choice_button:hover{
+  transform: scale(1.02);
+  
+  color: rgba(255, 255, 255, 1);
+  background-color: #38c18a;
+}
 
 
 /*        Customized Video      */

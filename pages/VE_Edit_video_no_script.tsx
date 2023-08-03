@@ -27,7 +27,7 @@ export default function VE_Edit_video() {
         if((token == "null") || (token == null) || (token == "undefined"))
         {
           console.log("useEffect triggered");
-          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+      //    router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
         }
       }, [])
 
@@ -144,7 +144,7 @@ export default function VE_Edit_video() {
                             language
                         </div>
                         <select 
-                            className={styles.select} 
+                            className={styles.no_script_select} 
                             ref={languageRef}
                             name="language"
                             onChange={get_language}
@@ -162,7 +162,7 @@ export default function VE_Edit_video() {
                         </div>
                         <div id="all" className={styles.all}>
                             <select
-                                className={styles.select}
+                                className={styles.no_script_select}
                                 ref={VoiceRef}
                                 name="Voice"
                             >

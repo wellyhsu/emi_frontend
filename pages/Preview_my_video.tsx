@@ -29,7 +29,7 @@ export default function Preview_my_video() {
     return (
         <>
            <main className={styles.main}>
-                <div className={styles.Start_making}>
+                <div className={styles.pop_Start_making}>
                     Preview my video
                 </div>
                 <div className={styles.no_padding_center}>

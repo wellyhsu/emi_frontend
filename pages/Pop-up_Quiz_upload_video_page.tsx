@@ -43,12 +43,10 @@ function upload(e) {
 export default function Popup_Quiz_upload_video_page() {
     const router = useRouter();
 
-
-
     return (
         <>
             <main className={styles.main}>
-                <div className={styles.upload_file_title}>
+                <div className={styles.pop_upload_file_title}>
                     Please paste the link of a Youtube video or upload your video. (It might take a few minutes.)
                 </div>
                 <div className={styles.no_padding_center}>
@@ -57,7 +55,7 @@ export default function Popup_Quiz_upload_video_page() {
 
                         </input>
                         <input id="customFileInput" className={styles.choose_file} type="file" accept="*.ppt, *.pptx, video/*"></input>
-                        <label htmlFor="customFileInput" className={styles.upload_block} onClick={upload}>
+                        <label htmlFor="customFileInput" className={styles.pop_upload_block} onClick={upload}>
                             <div className={styles.no_padding_center}>
                                 <div>
                                     <div className={styles.upload_image}>
@@ -69,23 +67,24 @@ export default function Popup_Quiz_upload_video_page() {
                                             priority
                                         />
                                     </div>
-                                      Click here to upload or drag your file here to upload file
+                                      Click here {/*to upload or drag your file here*/} to upload your file
                                 </div>
                             </div>
                         </label>
                     </div>
-                </div>    
-                <Link 
-                    href={{
-                        pathname: '/[page]',
-                        query: { page: process.env.NEXT_PUBLIC_PopUpQuiz_Preview_my_video }
-                        }}
-                >
-                    <button className={styles.CMV_Next_button}>
-                        Next
-                    </button>
-                </Link>
-
+                </div>   
+                <div className={styles.clearfix}>
+                    <Link 
+                        href={{
+                            pathname: '/[page]',
+                            query: { page: process.env.NEXT_PUBLIC_PopUpQuiz_Preview_my_video }
+                            }}
+                    >
+                        <button className={styles.CMV_Next_button}>
+                            Next
+                        </button>
+                    </Link>
+                </div>                 
             </main>
         </>
     )
