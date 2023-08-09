@@ -23,20 +23,21 @@ var Time="";
 
 const token =  Cookies.get('token');
 
+/*
 function gap_fill_question(){  
     document.getElementById("gap_fill_question").style = "display: flex";
 }
-
+*/
 function Multiple_choice_question(){  
     document.getElementById("Multiple_choice_question").style = "display: flex";
     console.log("Multiple");
 }
-
+/*
 function Scramble_task_question(){  
     document.getElementById("Scramble_task_question").style = "display: flex";
     Question_title = "Scramble task question";
 }
-
+*/
 
 function Click_add()
 {
@@ -56,13 +57,14 @@ function Click_add()
 
 export default function Pop_up_Quiz_Editing_my_video() {
     const router = useRouter();
+/*
     const Gap_fill_Question_Question_Ref = useRef(undefined);
     const Gap_fill_Question_Answer_Ref = useRef(undefined);
-
+*/
     const Multiple_choice_Question_Ref = useRef(undefined);
     const Multiple_choice_Choice_Ref = useRef(undefined);
     const Multiple_choice_Answer_Ref = useRef(undefined);
-
+/*
     const Scramble_task_Question_Ref = useRef(undefined);
     const Scramble_task_Choice_Ref = useRef(undefined);
     const Scramble_task_Answer_Ref = useRef(undefined);
@@ -93,7 +95,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         }
         
         var question_send_json = JSON.stringify(question_send);  //轉json格式
-        fetch(process.env.NEXT_PUBLIC_API_URL/* + process.env.NEXT_PUBLIC_API_login*/, {            
+        fetch(process.env.NEXT_PUBLIC_API_URL, {            
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json'
@@ -106,13 +108,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                 return information;
             })
             .then((data) => {
-/*                
-                token_DATA = data["token"];  
-                token_DATA = JSON.stringify(token_DATA);           
-                console.log('token_DATA=', Cookies.get('token'));
-
-        //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
-*/            })
+            })
             .catch((error) => console.log("error", error));
 
 
@@ -129,6 +125,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         console.log("Choice= ", Choice);
         console.log("Answer= ", Answer);
     }
+*/
 
     function Multiple_choice_close(){
         var information;
@@ -196,7 +193,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         console.log("Choice= ", Choice);
         console.log("Answer= ", Answer);
     }
-
+/*
     function Scramble_task_close(){
         document.getElementById("Scramble_task_question").style = "display: none";
     }
@@ -210,7 +207,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         console.log("Choice= ", Choice);
         console.log("Answer= ", Answer);
     }
-
+*/
     useLayoutEffect(() => {
 
         if((token == "null") || (token == null) || (token == "undefined"))
@@ -224,6 +221,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
     return (
         <>
            <main className={styles.main}>
+{/*
                 <div id="gap_fill_question" style={{height: "100%",display: "none"}}>
                     <div className={styles.question_background}>
                         <div className={styles.alert_question}>
@@ -255,6 +253,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                         </div>
                     </div>
                 </div>
+*/} 
                 <div id="Multiple_choice_question" style={{height: "100%",display: "none"}}>
                     <div className={styles.question_background}>
                         <div className={styles.alert_question}>
@@ -292,6 +291,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                         </div>
                     </div>
                 </div>
+{/* 
                 <div id="Scramble_task_question" style={{height: "100%",display: "none"}}>
                     <div className={styles.question_background}>
                         <div className={styles.alert_question}>
@@ -323,7 +323,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                         </div>
                     </div>
                 </div>
-
+*/}
                 <div className={styles.no_padding_center}>
                     <div>
                         <div className={styles.PopupQuiz_video_preview}>
@@ -346,7 +346,9 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                     priority
                                 />
                             </button>
+        
                             <div id="question_button" className={styles.question_button}>
+{/*
                                 <button className={styles.gap_fill_button} onClick={gap_fill_question}>
                                     <Image
                                         src="/Pop-up_gap_fill.svg"
@@ -356,6 +358,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                         priority
                                     />
                                 </button>
+*/} 
                                 <button className={styles.Multiple_choice_button} onClick={Multiple_choice_question}>
                                     <Image
                                         src="/Pop-up_Multiple_choice.svg"
@@ -365,6 +368,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                         priority
                                     />
                                 </button>
+{/*
                                 <button className={styles.Multiple_choice_button} onClick={Scramble_task_question}>
                                     <Image
                                         src="/Pop-up_Scramble_task.svg"
@@ -374,6 +378,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                         priority
                                     />
                                 </button>
+
                                 <button className={styles.Multiple_choice_button}>
                                     <Image
                                         src="/Pop-up_cut_video.svg"
@@ -383,6 +388,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                         priority
                                     />
                                 </button>
+*/}
                             </div>
                         </div> 
                     </div>
