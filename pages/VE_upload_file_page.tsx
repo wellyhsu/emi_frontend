@@ -205,7 +205,7 @@ function upload_file(e){
             noSlice_fd.append('Data', fileData);     //把每一個chunk插入fd中
       
             //fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
-            fetch(NEXT_PUBLIC_API_upload_video, {
+            fetch(process.env.NEXT_PUBLIC_API_upload_video, {
                 method: 'POST',
                 body: noSlice_fd,
             })
@@ -216,15 +216,7 @@ function upload_file(e){
                 })
                 .then((data) => {
                     var msg = data["message"];
-
                     console.log('msg=',msg);
-                    console.log('data=',data);
-                    alert(msg);
-            //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
-                    if(msg == "Login successful")
-                    {
-                        window.location.replace("/");
-                    }
                 })
                 .catch((error) => console.log("error", error));
 
@@ -337,7 +329,7 @@ export default function VE_upload_file_page() {
         if((token == "null") || (token == null) || (token == "undefined"))
         {
           console.log("useEffect triggered");
-          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+//          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
         }
       }, [])
     return (

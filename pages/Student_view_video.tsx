@@ -26,7 +26,28 @@ export default function Student_view_video() {
     const [isQuestionVisible, setIsQuestionVisible] = useState(false);
     const [Answer, setAnswer] = useState("");    //用於顯示回答正確或錯誤
     const videoRef = useRef(null);        //用於取得影片相關資訊
-    
+    var Question_time = [];
+
+/*
+    fetch("process.env.NEXT_PUBLIC_API_upload_video", {  //取得要插入影片的時間點資訊
+        method: 'GET',
+        body: "",
+    })
+        .then((response) => {
+            information = response.json();
+            console.log('info^^',information);
+            return information;
+        })
+        .then((data) => {
+            var msg = data["message"];
+
+            console.log('msg=',msg);
+            console.log('data=',data);
+            alert(msg);
+    //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
+        })
+        .catch((error) => console.log("error", error));
+*/
     useLayoutEffect(() => {
 
         if((token == "null") || (token == null) || (token == "undefined"))
@@ -34,58 +55,66 @@ export default function Student_view_video() {
           console.log("useEffect triggered");
 //          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
         }
+      
+        const intervalId = setInterval(() => {  //用於在一定的時間間隔内重複执行指定的函數
+            if(videoRef.current && !videoRef.current.paused)
+            {  
+                console.log("currentTime=",videoRef.current.currentTime); 
 
-        if(videoRef.current){
-            const handleTimeUpdate = () => {
-                setCurrentTime(videoRef.current.currentTime);   //取得影片目前播放時間
-            };
-
-            videoRef.current.addEventListener('timeupdate', handleTimeUpdate);
-
-            return () => {
-                videoRef.current.removeEventListener('timeupdate', handleTimeUpdate);
-            };
-        }
-    }, [videoRef.current])
-
-    useEffect(() => {      //假設題目彈出的時間為1秒的時候
-        if (currentTime >= 1 && currentTime <= 1.2) {
-            setIsQuestionVisible(true);
-            console.log(isQuestionVisible);
-            videoRef.current.pause();
-        }
-    }, [currentTime]);
-
-        function True_OR_False(event){
-            const buttonText = event.target.textContent;   //取得學生選擇的答案
-            if(answer_times == 1){   //若學生已經回答過，不反應
-                return false;
+                if (videoRef.current.currentTime >= 1 && videoRef.current.currentTime <= 2)  //假設題目彈出的時間為1秒的時候
+                {
+                    setIsQuestionVisible(true);
+                    console.log(isQuestionVisible);  //true or false
+                    videoRef.current.pause();
+                }
+                
+                return () => {
+                    clearInterval(intervalId); // 清除定时器
+                };
             }
-            document.getElementById(event.target.id).style = "color: rgba(255, 255, 255, 1); background-color: #38c18a;";
-        
-            console.log(buttonText);
-        
-            if(buttonText == Right_Answer)
+            while(videoRef.current.paused)
             {
-                console.log("Answer!!");
-                setAnswer("Right Answer!");
+                console.log("wait");
             }
-            else
-            {
-                console.log("X!!");
-                setAnswer("Wrong Answer!");
-            }
-            answer_times = 1;    //將學生回答過次數改為1
-        }
+        }, 1000);
 
-        const Continuous = () => {   //繼續觀看影片
-            answer_times = 0;   
-            setAnswer("");  
-            setIsQuestionVisible(false);
-            document.getElementById("choice1").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
-            document.getElementById("choice2").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
-            videoRef.current.play();
+
+        return () => {
+            clearInterval(intervalId); // 清除定时器
         };
+    }, [])
+
+
+    function True_OR_False(event){
+        const buttonText = event.target.textContent;   //取得學生選擇的答案
+        if(answer_times == 1){   //若學生已經回答過，不反應
+            return false;
+        }
+        document.getElementById(event.target.id).style = "color: rgba(255, 255, 255, 1); background-color: #38c18a;";
+    
+        console.log(buttonText);
+    
+        if(buttonText == Right_Answer)
+        {
+            console.log("Answer!!");
+            setAnswer("Right Answer!");
+        }
+        else
+        {
+            console.log("X!!");
+            setAnswer("Wrong Answer!");
+        }
+        answer_times = 1;    //將學生回答過次數改為1
+    }
+
+    const Continuous = () => {   //繼續觀看影片
+        answer_times = 0;   
+        setAnswer("");  
+        setIsQuestionVisible(false);
+        document.getElementById("choice1").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+        document.getElementById("choice2").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+        videoRef.current.play();
+    };
 
     return (
         <>
@@ -170,7 +199,7 @@ export default function Student_view_video() {
                         </video>
                     </div>
                 </div>
-                <p>Current Time: {currentTime.toFixed(0)} seconds</p>
+                <p>Current Time: {currentTime.toFixed(2)} seconds</p>
             </main>
         </>
     )
