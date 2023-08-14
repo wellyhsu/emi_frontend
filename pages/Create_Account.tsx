@@ -81,13 +81,9 @@ export default function Create_Account() {
       console.log('username=',data["username"]);
       console.log('email=',data["email"]);
       console.log('password=',data["password"]);
-      if(data["username"] == "user_table with this username already exists.")
+      if(data["username"] ==  "A user with that username already exists.")
       {
-        alert("This username is already exists.");
-      }
-      else if(data["username"] == "Invalid request data.")
-      {
-        alert("Invalid request data.");
+        alert(data["username"]);
       }
       else
       {
