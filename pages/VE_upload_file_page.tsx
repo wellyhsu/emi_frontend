@@ -89,7 +89,8 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
             const response = await fetch("http://34.142.145.187:30036/upload", {   //call後端的API
                 method: 'POST',
                 headers:{
-                    "file-name": fileName,
+//                    "Content-Type": 'multipart/form-data',
+                    "file-name": String(fileName),
                     "chunk-number": String(Chunk_Number),
                     "chunk-final": String(Chunk_Final), 
                 },
@@ -105,7 +106,8 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
             }
             
         } 
-        catch (err) {    //如果發生錯誤
+        catch (err)  {    //如果發生錯誤
+            console.error("Error occurred:", err);
             results.push(null);    //不放入資料 留空白
         }
         console.log('chunknumber=',Chunk_Number);
@@ -236,10 +238,6 @@ function upload_file(e){
         var upload_ppts_send_json = JSON.stringify(upload_ppts_send);  //轉json格式
         console.log("upload_ppts_send_json is " + upload_ppts_send_json);
         console.log('upload_ppts_send_json is ',typeof(upload_ppts_send_json));
-/*
-        fetch("http://127.0.0.1:8000/ppts/", {
-
-    */
     }
     else if(file_type == "")
     {
@@ -251,57 +249,6 @@ function upload_file(e){
         alert("The file type uncorrect!");
         return false
     }
-/*
-    xhr.onload = function () {
-        console.log("xhr.onload");
-        completed++; //完成上傳的計數器
-        if (completed === count) {
-            //當最後一個檔案成功上傳時，通知後端做檔案處理
-            uploadComplete(e.target.pid, fileName);
-            console.log("complete");
-        }
-    }
-    //如果檔案大於切割大小，代表檔案可以進行切割，就利用切割進行檔案上傳
-    if(fileSize > SPLIT_BYTES)
-    {
-        console.log("fileSize: ",fileSize);
-        console.log("SPLIT_BYTES: ",SPLIT_BYTES);
-        for (var i = 1; i <= count; i++) {
-            var chunk = fileData.slice(start, end); //利用slice來將檔案的位元組數做"分段(切割)"讀取
-//            var url = '/home/emi/emi_frontend/fileUpload/' + intIdentifier + '?name=' + e.target.pid + "&filename=" + fileName +"&cache="+Date.now();
-            var url = 'http://localhost:3000/api/hello/' + intIdentifier + '?name=' + e.target.pid + "&filename=" + fileName +"&cache="+Date.now();
-            xhr.open('POST', url, false);
-            xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-            xhr.send(chunk);
-            //因為我們是"分段(切割)"做處理，所以我們的start與end要跟著做移動
-            //更新切割的起始位置和結束位置
-            start = end; 
-            end = start + SPLIT_BYTES;
-            intIdentifier++;
-        }
-        console.log("end");
-    }
-    else  //直接上傳不切割
-    {
-        console.log("fileSize: ",fileSize);
-        //這裡就是一般的檔案上傳動作了
-        var url = 'http://localhost:3000/api/hello/' + intIdentifier + '?name=' + e.target.pid + "&filename=" + fileName + "&cache=" + Date.now();
-        xhr.open('POST', url, false);
-        xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-        xhr.send(fileData.slice(start, fileSize));
-    }
-   
-    function uploadComplete(id, name) {
-        var url1 = '/home/emi/emi_frontend/fileUpload/UploadComplete?id=' + id + "&filename=" + name + "&semesterID=" + e.data.semesterID + "&cache=" + Date.now();;
-        var xhr1 = new self.XMLHttpRequest();
-        xhr1.onload = function (e) {
-            var result = JSON.parse(xhr1.response);
-            self.postMessage(result);
-        }
-        xhr1.open('POST', url1, true);
-        xhr1.send(null);
-    }
-*/     
 
    // window.location.replace("/" + Next_Link);
 }

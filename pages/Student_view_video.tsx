@@ -5,7 +5,6 @@ import React, {useLayoutEffect, useRef, useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie'; 
 import Script from 'next/script';
-import pop_up_question from '../components/pop_up_question';
 import PopUpWindow from '../components/Pop_up_window';
 
 var fileData;
@@ -17,7 +16,7 @@ var fileTime;
 var Right_Answer="7";   //正確答案
 var answer_times=0;      //用來防止學生選擇兩次答案
 var Question_control=0;  //用來記錄此題目是某出現過
-
+var API=0;
 const token =  Cookies.get('token');
 
 
@@ -28,25 +27,33 @@ export default function Student_view_video() {
     const [Answer, setAnswer] = useState("");    //用於顯示回答正確或錯誤
     const videoRef = useRef(null);        //用於取得影片相關資訊
     var Question_time = [];
-/*
-    fetch("process.env.NEXT_PUBLIC_API_upload_video", {  //取得要插入影片的時間點資訊
-        method: 'GET',
-        body: "",
-    })
-        .then((response) => {
-            information = response.json();
-            console.log('info^^',information);
-            return information;
+    
+    if(API == 0)
+    {
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec, {  //取得要插入影片的時間點資訊
+            mode: 'cors',
+            method: 'GET',
+            headers:{
+                'video-path': "/video/test/test",
+            },
         })
-        .then((data) => {
-            var msg = data["message"];
+            .then((response) => {
+                information = response;
+                console.log('info^^',information);
+                return information;
+            })
+            .then((data) => {
+                var msg = data["message"];
+    
+                console.log('msg=',msg);
+                console.log('data=',data);
+                Question_time.push();
+            })
+            .catch((error) => console.log("error", error));
+        API = 1;
+    }
+    
 
-            console.log('msg=',msg);
-            console.log('data=',data);
-            Question_time.push();
-        })
-        .catch((error) => console.log("error", error));
-*/
     useLayoutEffect(() => {
 
         if((token == "null") || (token == null) || (token == "undefined"))
@@ -202,7 +209,7 @@ export default function Student_view_video() {
                             autoPlay={false}
                             controls={true} 
                         >
-                            <source src="TEST(1min30sec).mp4" type="video/mp4" />
+                            <source src="/api/video" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                     </div>

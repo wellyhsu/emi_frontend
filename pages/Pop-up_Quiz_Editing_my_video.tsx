@@ -17,7 +17,7 @@ var fileTime;
 var ADD_button=0;
 var Question_type="";
 var Question="";
-var Choice="";
+var Choice=[];
 var Answer="";
 var Time="";
 
@@ -135,30 +135,28 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
         Question_type = "Multiple_choice";  //插入影片中的題目類型
         Question = Multiple_choice_Question_Ref.current.value;   //使用者輸入的題目內容
-        Choice = Multiple_choice_Choice_Ref.current.value;      //多選題的選項
+        Choice.push(Multiple_choice_Choice_Ref.current.value);      //多選題的選項
         Answer = Multiple_choice_Answer_Ref.current.value;         //題目答案
         Time = String(Math.floor(selectVideo.currentTime));           //影片播放到的時間
 
         console.log("Question= ", Question);
         console.log("Choice= ", Choice);
         console.log("Answer= ", Answer);
-        console.log("Time= ", Time);
-
+        console.log("Time= ", Time);   //String
 
         const question_send =
         {
-            "Question_type": "Multiple_choice",
-            "Question": Question,
-            "Choice": Choice,  
-            "Answer": Answer,
-            "Time": Time,
+            "question": Question,
+            "options": Choice,  
+            "answer": Answer,
+            "explanation": "none",
         }
         
         var question_send_json = JSON.stringify(question_send);  //轉json格式
-        fetch(process.env.NEXT_PUBLIC_API_URL/* + process.env.NEXT_PUBLIC_API_login*/, {            
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
             method: 'POST',
             headers:{
-                'Content-Type': 'application/json'
+                'video-path': '/video/test/test',
             },
             body: question_send_json,
         })
@@ -173,7 +171,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
                 token_DATA = JSON.stringify(token_DATA);           
                 console.log('token_DATA=', Cookies.get('token'));
 
-        //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
 */            })
             .catch((error) => console.log("error", error));
 
