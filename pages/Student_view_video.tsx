@@ -15,42 +15,49 @@ var fileTime;
 
 var Right_Answer="7";   //正確答案
 var answer_times=0;      //用來防止學生選擇兩次答案
-var Question_control=0;  //用來記錄此題目是某出現過
+var Question_control=0;  //用來記錄此題目是否出現過
 var API=0;
+var Question_time = [];
+var i;
 const token =  Cookies.get('token');
-
+var sec=0;   //0~data長度，用來決定該出現第幾個問題
 
 export default function Student_view_video() {
+    var information;
     const router = useRouter();
     const [currentTime, setCurrentTime] = useState(0);  //用於顯示目前影片播放到的秒數
     const [isQuestionVisible, setIsQuestionVisible] = useState(false);
     const [Answer, setAnswer] = useState("");    //用於顯示回答正確或錯誤
     const videoRef = useRef(null);        //用於取得影片相關資訊
-    var Question_time = [];
+
     
     if(API == 0)
     {
+        API = 1;
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec, {  //取得要插入影片的時間點資訊
-            mode: 'cors',
             method: 'GET',
             headers:{
-                'video-path': "/video/test/test",
+                'video-path': '/video/test/test',
             },
         })
             .then((response) => {
-                information = response;
+                console.log('response=',response);
+                information = response.json();
                 console.log('info^^',information);
                 return information;
             })
             .then((data) => {
-                var msg = data["message"];
-    
-                console.log('msg=',msg);
-                console.log('data=',data);
-                Question_time.push();
+                console.log("data=",data);
+                console.log("data.length=",data.length);
+                for(i=0; i<data.length; i++)
+                {
+                    Question_time.push(data[i]);
+                    console.log('Question_time=',Question_time[i]);
+                    console.log('Question_time type=',typeof(Question_time[i])); //parseInt() 字串轉數字
+                }
+                    
             })
             .catch((error) => console.log("error", error));
-        API = 1;
     }
     
 
@@ -74,21 +81,32 @@ export default function Student_view_video() {
     }, []); // 仅在组件挂载和 videoRef.current 改变时添加监听器
 
     useEffect(() => {
+
         const intervalId = setInterval(() => {
             if(videoRef.current)
             {
                 console.log("Timer");
-                console.log(videoRef.current.currentTime.toFixed(2));
-                if(videoRef.current.currentTime > 1+0.5 || videoRef.current.currentTime < 1-0.5 )
+                console.log(Math.floor(videoRef.current.currentTime));
+                console.log("Question_time[0]=",Question_time[0]);
+                if(sec == Question_time.length - 1)
                 {
-                    Question_control = 0;   //沒有回答過
+                    sec=0;   //歸零
                 }
-                if(videoRef.current.currentTime.toFixed(0) == 1 && Question_control == 0)
+                else if(Math.floor(videoRef.current.currentTime) > Question_time[sec])
                 {
-                    Question_control = 1;   //回答過了
-                    setIsQuestionVisible(true);
-                    console.log(isQuestionVisible);
-                    videoRef.current.pause();
+                    sec++;  //換顯示下一個問題
+                }
+                switch(Math.floor(videoRef.current.currentTime))
+                {
+                    case Question_time[sec]:
+                        Question_control = 1;   //回答過了
+                        setIsQuestionVisible(true);
+                        console.log(isQuestionVisible);
+                        videoRef.current.pause();
+                    break;
+                    default:
+                        Question_control = 0;   //沒有回答過
+                    break;
                 }
             }
         }, 1000/videoRef.current.playbackRate);   //videoRef.current.playbackRate 影片播放速度
