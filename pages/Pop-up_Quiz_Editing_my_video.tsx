@@ -166,12 +166,10 @@ export default function Pop_up_Quiz_Editing_my_video() {
                 return information;
             })
             .then((data) => {
-/*                
-                token_DATA = data["token"];  
-                token_DATA = JSON.stringify(token_DATA);           
-                console.log('token_DATA=', Cookies.get('token'));
+       
+                console.log('data=', data);
 
-*/            })
+            })
             .catch((error) => console.log("error", error));
 
 

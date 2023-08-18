@@ -85,11 +85,10 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
             {
                 Chunk_Final = true;
             }
-            console.log("fileName==",fileName);
-            const response = await fetch("http://34.142.145.187:30036/upload", {   //call後端的API
+            console.log("fileName(.mp4)==",fileName);
+            const response = await fetch(process.env.NEXT_PUBLIC_API_upload_video, {   //call後端的API
                 method: 'POST',
                 headers:{
-//                    "Content-Type": 'multipart/form-data',
                     "file-name": String(fileName),
                     "chunk-number": String(Chunk_Number),
                     "chunk-final": String(Chunk_Final), 
@@ -98,18 +97,21 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
             });
   
             if (response.ok) {
+                console.log("response ok");
                 const data = await response.json();   //取得後端回傳的資料
                 results.push(data);    //將後端後端傳回的資料放到results
             } 
             else {
+                console.log("response not ok");
                 results.push(null);
             }
             
         } 
         catch (err)  {    //如果發生錯誤
-            console.error("Error occurred:", err);
+            console.log("Error occurred:");
             results.push(null);    //不放入資料 留空白
         }
+    
         console.log('chunknumber=',Chunk_Number);
         console.log('chunkfinal=',Chunk_Final);
     }
@@ -193,15 +195,15 @@ function upload_file(e){
                 })
                 .catch(error => {
                     // 处理错误
-                    console.error(error);
+                    console.log(error);
                 });
             })
             .catch(error => {
                 // 處理錯誤
-                console.error(error);
+                console.log(error);
             });
         }
-        else
+        else   //不切割直接上傳
         {
             const noSlice_fd = new FormData();   //宣告fd為FormData();
             noSlice_fd.append('Data', fileData);     //把每一個chunk插入fd中
