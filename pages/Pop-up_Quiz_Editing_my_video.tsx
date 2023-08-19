@@ -62,7 +62,11 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const Gap_fill_Question_Answer_Ref = useRef(undefined);
 */
     const Multiple_choice_Question_Ref = useRef(undefined);
-    const Multiple_choice_Choice_Ref = useRef(undefined);
+    const Multiple_choice_Choice_Ref_1 = useRef(undefined);
+    const Multiple_choice_Choice_Ref_2 = useRef(undefined);
+    const Multiple_choice_Choice_Ref_3 = useRef(undefined);
+    const Multiple_choice_Choice_Ref_4 = useRef(undefined);
+
     const Multiple_choice_Answer_Ref = useRef(undefined);
 /*
     const Scramble_task_Question_Ref = useRef(undefined);
@@ -135,7 +139,10 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
         Question_type = "Multiple_choice";  //插入影片中的題目類型
         Question = Multiple_choice_Question_Ref.current.value;   //使用者輸入的題目內容
-        Choice.push(Multiple_choice_Choice_Ref.current.value);      //多選題的選項
+        Choice.push(Multiple_choice_Choice_Ref_1.current.value);      //多選題的選項
+        Choice.push(Multiple_choice_Choice_Ref_2.current.value);      //多選題的選項
+        Choice.push(Multiple_choice_Choice_Ref_3.current.value);      //多選題的選項
+        Choice.push(Multiple_choice_Choice_Ref_4.current.value);      //多選題的選項
         Answer = Multiple_choice_Answer_Ref.current.value;         //題目答案
         Time = String(Math.floor(selectVideo.currentTime));           //影片播放到的時間
 
@@ -156,6 +163,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
             method: 'POST',
             headers:{
+                'Content-Type': 'application/json',
                 'video-path': '/video/test/test',
             },
             body: question_send_json,
@@ -174,8 +182,12 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
 
         Multiple_choice_Question_Ref.current.value = "";   //使用者輸入的題目內容
-        Multiple_choice_Choice_Ref.current.value = "";      //多選題的選項
+        Multiple_choice_Choice_Ref_1.current.value = "";      //多選題的選項
+        Multiple_choice_Choice_Ref_2.current.value = "";      //多選題的選項
+        Multiple_choice_Choice_Ref_3.current.value = "";      //多選題的選項
+        Multiple_choice_Choice_Ref_4.current.value = "";      //多選題的選項
         Multiple_choice_Answer_Ref.current.value = "";         //題目答案
+        Choice = [];
     }
     function Multiple_choice_ClearClose(){
         document.getElementById("Multiple_choice_question").style = "display: none";
@@ -264,7 +276,16 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                 </div>
                                 <div className={styles.content_title}>
                                     Choice
-                                    <textarea ref={Multiple_choice_Choice_Ref} id="Choice_content" className={styles.content_input} placeholder="Please input Choice">
+                                    <textarea ref={Multiple_choice_Choice_Ref_1} id="Choice_content_1" style={{marginBottom: "2vh"}} className={styles.content_input} placeholder="Please input Choice">
+                                        
+                                    </textarea>
+                                    <textarea ref={Multiple_choice_Choice_Ref_2} id="Choice_content_2" style={{marginBottom: "2vh"}} className={styles.content_input} placeholder="Please input Choice">
+                                        
+                                    </textarea>
+                                    <textarea ref={Multiple_choice_Choice_Ref_3} id="Choice_content_3" style={{marginBottom: "2vh"}} className={styles.content_input} placeholder="Please input Choice">
+                                        
+                                    </textarea>
+                                    <textarea ref={Multiple_choice_Choice_Ref_4} id="Choice_content_4" className={styles.content_input} placeholder="Please input Choice">
                                         
                                     </textarea>
                                 </div>
@@ -275,7 +296,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                     </textarea>
                                 </div>
                             </div>
-                            <div style={{float: "right"}}>
+                            <div style={{float: "right", marginBottom: "5vh"}}>
                                 <button className={styles.Cancel_button} onClick={Multiple_choice_ClearClose}>
                                     Cancel
                                 </button>

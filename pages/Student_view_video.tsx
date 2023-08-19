@@ -196,7 +196,7 @@ export default function Student_view_video() {
                                         Question
                                     </div>
                                     <div className={styles.content_title} style={{paddingLeft: "1.5vw"}}>
-                                        2+5=?
+                                        {Question}
                                     </div>
                                     <div className={styles.content_title}>
                                         Choice
@@ -206,6 +206,12 @@ export default function Student_view_video() {
                                             </button>
                                             <button id="choice2" className={styles.choice_button} onClick={True_OR_False}>
                                                 5
+                                            </button>
+                                            <button id="choice3" className={styles.choice_button} onClick={True_OR_False}>
+                                                2
+                                            </button>
+                                            <button id="choice4" className={styles.choice_button} onClick={True_OR_False}>
+                                                3
                                             </button>
                                         </div>
                                     </div>

@@ -125,3 +125,7 @@ a {
   }
 }
 
+/* 保留滾動功能 但隱藏滾動軸 */
+::-webkit-scrollbar{
+  display: none;
+}

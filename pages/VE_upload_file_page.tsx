@@ -1,12 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import React, {useLayoutEffect, useEffect, useState} from 'react';
 import Script from 'next/script'
-import Cookies from 'js-cookie'; 
-import { useRouter } from 'next/router';
-
-const token =  Cookies.get('token');
+//import upload from '../components/choose_file'
 var T=0;
 var Next_Link = process.env.NEXT_PUBLIC_VE_Create_no_script;
 var fileData;
@@ -30,7 +26,7 @@ function select_file(e) {
         fileData = e.target.files[0]; // 檔案資訊
         fileName = fileData.name; // 檔案名稱
         fileType = fileData.type; // 檔案類型
-        fileSize = Math.floor(fileData.size * 0.001); // 檔案大小轉成kb
+        fileSize = Math.ceil(fileData.size * 0.001); // 檔案大小轉成kb (無條件進位)
         fileTime = fileData.lastModifiedDate;   
 
         console.log("fileData=",fileData); // 用開發人員工具可看到資料
@@ -38,7 +34,6 @@ function select_file(e) {
         console.log("fileType=",fileType); // 用開發人員工具可看到資料
         console.log("fileSize=",fileSize); // 用開發人員工具可看到資料
         console.log("fileTime=",fileTime); // 用開發人員工具可看到資料
-        console.log("video_Data==",e.target.pid); // 用開發人員工具可看到資料
 
         if (!fileData) {
             return;
@@ -78,18 +73,17 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
     for (let chunk of chunks) {   //
         const fd = new FormData();   //宣告fd為FormData();
         fd.append('chunk', chunk);     //把每一個chunk插入fd中
-
         try {
             Chunk_Number = Chunk_Number + 1;
             if(Chunk_Number == chunks.length)
             {
                 Chunk_Final = true;
             }
-            console.log("fileName(.mp4)==",fileName);
+            console.log("fileName==",fileName);
             const response = await fetch(process.env.NEXT_PUBLIC_API_upload_video, {   //call後端的API
                 method: 'POST',
                 headers:{
-                    "file-name": String(fileName),
+                    "file-name": fileName,
                     "chunk-number": String(Chunk_Number),
                     "chunk-final": String(Chunk_Final), 
                 },
@@ -97,21 +91,17 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
             });
   
             if (response.ok) {
-                console.log("response ok");
                 const data = await response.json();   //取得後端回傳的資料
                 results.push(data);    //將後端後端傳回的資料放到results
             } 
             else {
-                console.log("response not ok");
                 results.push(null);
             }
             
         } 
-        catch (err)  {    //如果發生錯誤
-            console.log("Error occurred:");
+        catch (err) {    //如果發生錯誤
             results.push(null);    //不放入資料 留空白
         }
-    
         console.log('chunknumber=',Chunk_Number);
         console.log('chunkfinal=',Chunk_Final);
     }
@@ -172,7 +162,7 @@ function upload_file(e){
 
     var intIdentifier = 1;
     var completed = 0;
- //    var xhr = new self.XMLHttpRequest();
+//    var xhr = new self.XMLHttpRequest();
 
     file_type = fileName?.substring(fileName?.indexOf(".",0));  //取得副檔名
     
@@ -195,21 +185,21 @@ function upload_file(e){
                 })
                 .catch(error => {
                     // 处理错误
-                    console.log(error);
+                    console.error(error);
                 });
             })
             .catch(error => {
                 // 處理錯誤
-                console.log(error);
+                console.error(error);
             });
         }
-        else   //不切割直接上傳
+        else
         {
             const noSlice_fd = new FormData();   //宣告fd為FormData();
             noSlice_fd.append('Data', fileData);     //把每一個chunk插入fd中
       
             //fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
-            fetch(process.env.NEXT_PUBLIC_API_upload_video, {
+            fetch(NEXT_PUBLIC_API_upload_video, {
                 method: 'POST',
                 body: noSlice_fd,
             })
@@ -220,7 +210,15 @@ function upload_file(e){
                 })
                 .then((data) => {
                     var msg = data["message"];
+
                     console.log('msg=',msg);
+                    console.log('data=',data);
+                    alert(msg);
+            //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
+                    if(msg == "Login successful")
+                    {
+                        window.location.replace("/");
+                    }
                 })
                 .catch((error) => console.log("error", error));
 
@@ -240,6 +238,10 @@ function upload_file(e){
         var upload_ppts_send_json = JSON.stringify(upload_ppts_send);  //轉json格式
         console.log("upload_ppts_send_json is " + upload_ppts_send_json);
         console.log('upload_ppts_send_json is ',typeof(upload_ppts_send_json));
+/*
+        fetch("http://127.0.0.1:8000/ppts/", {
+
+    */
     }
     else if(file_type == "")
     {
@@ -251,8 +253,59 @@ function upload_file(e){
         alert("The file type uncorrect!");
         return false
     }
+/*
+    xhr.onload = function () {
+        console.log("xhr.onload");
+        completed++; //完成上傳的計數器
+        if (completed === count) {
+            //當最後一個檔案成功上傳時，通知後端做檔案處理
+            uploadComplete(e.target.pid, fileName);
+            console.log("complete");
+        }
+    }
+    //如果檔案大於切割大小，代表檔案可以進行切割，就利用切割進行檔案上傳
+    if(fileSize > SPLIT_BYTES)
+    {
+        console.log("fileSize: ",fileSize);
+        console.log("SPLIT_BYTES: ",SPLIT_BYTES);
+        for (var i = 1; i <= count; i++) {
+            var chunk = fileData.slice(start, end); //利用slice來將檔案的位元組數做"分段(切割)"讀取
+//            var url = '/home/emi/emi_frontend/fileUpload/' + intIdentifier + '?name=' + e.target.pid + "&filename=" + fileName +"&cache="+Date.now();
+            var url = 'http://localhost:3000/api/hello/' + intIdentifier + '?name=' + e.target.pid + "&filename=" + fileName +"&cache="+Date.now();
+            xhr.open('POST', url, false);
+            xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+            xhr.send(chunk);
+            //因為我們是"分段(切割)"做處理，所以我們的start與end要跟著做移動
+            //更新切割的起始位置和結束位置
+            start = end; 
+            end = start + SPLIT_BYTES;
+            intIdentifier++;
+        }
+        console.log("end");
+    }
+    else  //直接上傳不切割
+    {
+        console.log("fileSize: ",fileSize);
+        //這裡就是一般的檔案上傳動作了
+        var url = 'http://localhost:3000/api/hello/' + intIdentifier + '?name=' + e.target.pid + "&filename=" + fileName + "&cache=" + Date.now();
+        xhr.open('POST', url, false);
+        xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+        xhr.send(fileData.slice(start, fileSize));
+    }
+   
+    function uploadComplete(id, name) {
+        var url1 = '/home/emi/emi_frontend/fileUpload/UploadComplete?id=' + id + "&filename=" + name + "&semesterID=" + e.data.semesterID + "&cache=" + Date.now();;
+        var xhr1 = new self.XMLHttpRequest();
+        xhr1.onload = function (e) {
+            var result = JSON.parse(xhr1.response);
+            self.postMessage(result);
+        }
+        xhr1.open('POST', url1, true);
+        xhr1.send(null);
+    }
+*/     
 
-   // window.location.replace("/" + Next_Link);
+//    window.location.replace("/" + Next_Link);
 }
 
 function choose_upload_script(){
@@ -272,15 +325,6 @@ function choose_upload_script(){
 }
 
 export default function VE_upload_file_page() {
-    const router = useRouter();
-
-    useLayoutEffect(() => {
-        if((token == "null") || (token == null) || (token == "undefined"))
-        {
-          console.log("useEffect triggered");
-//          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
-        }
-      }, [])
     return (
         <div>
 {/*            <Script
