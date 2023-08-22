@@ -34,11 +34,12 @@ export default function Student_view_video() {
     const [Answer, setAnswer] = useState("");    //用於顯示回答正確或錯誤
     const videoRef = useRef(null);        //用於取得影片相關資訊
     const [Question, setQuestion] = useState(0);  //用於顯示目前影片播放到的秒數
-    const [Options, setOptions] = useState(0);  //用於顯示目前影片播放到的秒數
+    const [Options, setOptions] = useState([]);  //用於顯示目前影片播放到的秒數
 
     
     if(API == 0)
-    {
+    {   
+        console.log("Get Question!!");
         API = 1;
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec, {  //取得要插入影片的時間點資訊
             method: 'GET',
@@ -98,38 +99,49 @@ export default function Student_view_video() {
                 if(Question_control == 0)
                 {
                     sec = 0;
+                    console.log("Question_time length=",Question_time.length);
                     while(sec < Question_time.length)
                     {
                         console.log("sec=",sec);
                         switch(Math.floor(videoRef.current.currentTime))
                         {
                             case Question_time[sec]:
-                                Question_control = 1;   //回答過了
-                                setIsQuestionVisible(true);
-                                console.log(isQuestionVisible);
-                                videoRef.current.pause();
+                                if(videoRef.current.currentTime != 0)
+                                {
+                                    Question_control = 1;   //回答過了
+                                    setIsQuestionVisible(true);
+                                    console.log(isQuestionVisible);
+                                    videoRef.current.pause();
 
                                 //取得此時間點的題目資訊
-                                fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Question_time[sec], {  
-                                    method: 'GET',
-                                    headers:{
-                                        'video-path': '/video/test/test',
-                                    },
-                                })
-                                    .then((response) => {
-                                        information = response.json();
-                                        console.log('info^^',information);
-                                        return information;
+                                    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Question_time[sec], {  
+                                        method: 'GET',
+                                        headers:{
+                                            'video-path': '/video/test/test',
+                                        },
                                     })
-                                    .then((data) => {
-                                        console.log("data=",data);
-                                        console.log("data[question]=",data["question"])
-                                        console.log("data[options]=",data["options"][0])
-                                        console.log("data[answer]=",data["answer"])
-                                        console.log("data[explanation]",data["explanation"]);
-                                        console.log("data[video]",data["video"]);
-                                    })
-                                    .catch((error) => console.log("error", error));
+                                        .then((response) => {
+                                            information = response.json();
+                                            console.log('info^^',information);
+                                            return information;
+                                        })
+                                        .then((data) => {
+                                            console.log("data=",data);
+                                            console.log("data[question]=",data["question"])
+                                            console.log("data[options]=",data["options"][0])
+                                            console.log("data[answer]=",data["answer"])
+                                            console.log("data[explanation]",data["explanation"]);
+                                            console.log("data[video]",data["video"]);
+                                            setQuestion(data["question"]);
+                                            for(i=0; i<4; i++)
+                                            {
+                                                setOptions(data["options"][i]);
+                                                console.log("options",i,"=",Options[i]);
+                                            }
+
+                                        })
+                                        .catch((error) => console.log("error", error));
+                                }
                             break;
                             default:
                                 Question_control = 0;   //沒有回答過

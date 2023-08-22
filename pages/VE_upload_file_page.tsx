@@ -10,8 +10,8 @@ var fileName;
 var fileType;
 var fileSize;//檔案的大小
 var fileTime;
-const SPLIT_BYTES = 100*1024; //檔案以每100KB做切割
-const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
+const SPLIT_BYTES = 100*1024; //檔案以每1MB做切割
+const CHUNK_SIZE = 100*1024; //檔案以每1MKB做切割
 //var start = 0; //位元組數的開頭
 //var end = SPLIT_BYTES; //位元組數的結束
 //var count = fileSize % SPLIT_BYTES == 0 ? fileSize / SPLIT_BYTES : Math.floor(fileSize / SPLIT_BYTES) + 1;
@@ -80,27 +80,62 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
                 Chunk_Final = true;
             }
             console.log("fileName==",fileName);
-            const response = await fetch(process.env.NEXT_PUBLIC_API_upload_video, {   //call後端的API
+
+            //發送影片相關資訊到後端
+            const Video_Information_send =
+            {
+                "username": "test",
+                "file-name": fileName,
+                "chunk-number": String(Chunk_Number),
+                "chunk-final": String(Chunk_Final),  
+            }
+
+            var Video_Information_send_json = JSON.stringify(Video_Information_send);  //轉json格式
+            console.log("account_send_json is " + Video_Information_send_json);
+            console.log('account_send_json is ',typeof(Video_Information_send_json));
+
+            fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Question_time[sec], {  
                 method: 'POST',
                 headers:{
+                    'Content-Type': 'application/json',
+                },
+                body: Video_Information_send_json,
+            })
+                .then((response) => {
+                    information = response.json();
+                    console.log('info^^',information);
+                    return information;
+                })
+                .then((data) => {
+                    console.log("data=",data);
+                })
+                .catch((error) => console.log("error", error));
+
+            const response = await fetch(process.env.NEXT_PUBLIC_API_upload_video, {   //call後端的API
+                method: 'POST',
+/*                headers:{
+                    "username": "test",
                     "file-name": fileName,
                     "chunk-number": String(Chunk_Number),
                     "chunk-final": String(Chunk_Final), 
                 },
-                body: fd,    //傳送到後端的內容
+*/                body: fd,    //傳送到後端的內容
             });
   
             if (response.ok) {
+                console.log("response is ok!");
                 const data = await response.json();   //取得後端回傳的資料
                 results.push(data);    //將後端後端傳回的資料放到results
             } 
             else {
+                console.log("response not ok.");
                 results.push(null);
             }
             
         } 
         catch (err) {    //如果發生錯誤
             results.push(null);    //不放入資料 留空白
+            console.log("error=", err);
         }
         console.log('chunknumber=',Chunk_Number);
         console.log('chunkfinal=',Chunk_Final);
@@ -169,6 +204,7 @@ function upload_file(e){
     console.log("file_type=",file_type);
     if(file_type == ".mp4" || file_type == ".MOV") //如果檔案 
     {
+        //發送影片
         if(fileSize*1024 > SPLIT_BYTES)
         {
             slice(fileData, SPLIT_BYTES)

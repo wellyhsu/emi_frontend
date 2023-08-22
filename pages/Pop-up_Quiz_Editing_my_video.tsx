@@ -157,6 +157,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
             "options": Choice,  
             "answer": Answer,
             "explanation": "none",
+            'video-path': '/home/roy/test/video/test/uploads/',
         }
         
         var question_send_json = JSON.stringify(question_send);  //轉json格式
@@ -164,7 +165,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json',
-                'video-path': '/video/test/test',
             },
             body: question_send_json,
         })
