@@ -14,14 +14,12 @@ var fileSize;
 var fileTime;
 
 var Question="";
-var Choice=[];
+var Choice=[];   //儲存選項
 var Right_Answer="7";   //正確答案
 var answer_times=0;      //用來防止學生選擇兩次答案
 var Question_control=0;  //用來記錄此題目是否出現過
-var pop_quiz = 0;
-var API=0;
+var API=0;   //確保只取得一次有題目的時間點
 var Question_time = []; //儲存question要出現的時間
-var Question_sequence = [];
 var i;
 const token =  Cookies.get('token');
 var sec=0;   //0~data長度，用來決定該出現第幾個問題
@@ -34,8 +32,10 @@ export default function Student_view_video() {
     const [Answer, setAnswer] = useState("");    //用於顯示回答正確或錯誤
     const videoRef = useRef(null);        //用於取得影片相關資訊
     const [Question, setQuestion] = useState(0);  //用於顯示目前影片播放到的秒數
-    const [Options, setOptions] = useState([]);  //用於顯示目前影片播放到的秒數
-
+    const [Options1, setOptions1] = useState("");  //用於顯示目前影片播放到的秒數    
+    const [Options2, setOptions2] = useState("");  //用於顯示目前影片播放到的秒數
+    const [Options3, setOptions3] = useState("");  //用於顯示目前影片播放到的秒數
+    const [Options4, setOptions4] = useState("");  //用於顯示目前影片播放到的秒數
     
     if(API == 0)
     {   
@@ -44,7 +44,7 @@ export default function Student_view_video() {
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec, {  //取得要插入影片的時間點資訊
             method: 'GET',
             headers:{
-                'video-path': '/video/test/test',
+                'video-path': '/home/roy/test/video/test/uploads/TEST.mp4',
             },
         })
             .then((response) => {
@@ -96,28 +96,30 @@ export default function Student_view_video() {
                 console.log(Math.floor(videoRef.current.currentTime));
                 console.log("Question_time[sec]=",Question_time[sec]);
 
-                if(Question_control == 0)
+                sec = 0;
+                console.log("Question_time length=",Question_time.length);
+                
+                while(sec < Question_time.length)
                 {
-                    sec = 0;
-                    console.log("Question_time length=",Question_time.length);
-                    while(sec < Question_time.length)
+                    console.log("sec=",sec);
+                    switch(Math.floor(videoRef.current.currentTime))
                     {
-                        console.log("sec=",sec);
-                        switch(Math.floor(videoRef.current.currentTime))
-                        {
-                            case Question_time[sec]:
-                                if(videoRef.current.currentTime != 0)
+                        case Question_time[sec]:
+                            console.log("要出現題目");
+                            if(videoRef.current.currentTime != 0)  //現在是該出現題目的時間點
+                            {
+                                if(Question_control == 0)  //目前還未彈出題目框
                                 {
-                                    Question_control = 1;   //回答過了
+                                    Question_control = 1;   //題目已經彈出過了
                                     setIsQuestionVisible(true);
                                     console.log(isQuestionVisible);
-                                    videoRef.current.pause();
-
-                                //取得此時間點的題目資訊
+                                    videoRef.current.pause();  //影片暫停
+                                
+                                    //取得此時間點的題目資訊
                                     fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Question_time[sec], {  
                                         method: 'GET',
                                         headers:{
-                                            'video-path': '/video/test/test',
+                                            'video-path': '/home/roy/test/video/test/uploads/TEST.mp4',
                                         },
                                     })
                                         .then((response) => {
@@ -133,23 +135,25 @@ export default function Student_view_video() {
                                             console.log("data[explanation]",data["explanation"]);
                                             console.log("data[video]",data["video"]);
                                             setQuestion(data["question"]);
-                                            for(i=0; i<4; i++)
-                                            {
-                                                setOptions(data["options"][i]);
-                                                console.log("options",i,"=",Options[i]);
-                                            }
-
+                                            setOptions1(data["options"][0]);
+                                            setOptions2(data["options"][1]);
+                                            setOptions3(data["options"][2]);
+                                            setOptions4(data["options"][3]);                                            
+                                            console.log("options1=", Options1);
+                                            console.log("options2=", Options2);
+                                            console.log("options3=", Options3);
+                                            console.log("options4=", Options4);
                                         })
                                         .catch((error) => console.log("error", error));
                                 }
-                            break;
-                            default:
-                                Question_control = 0;   //沒有回答過
-                            break;
-                        }
-                        sec++;
+                            }
+                        break;
+                        default:
+                            console.log("不出現題目");
+                            Question_control = 0;   //沒有回答過
+                            sec++;   //現在不是該出現題目的時間點
+                        break;
                     }
-                    
                 }
             }
         }, 1000/videoRef.current.playbackRate);   //videoRef.current.playbackRate 影片播放速度
@@ -214,16 +218,16 @@ export default function Student_view_video() {
                                         Choice
                                         <div>
                                             <button id="choice1" className={styles.choice_button} onClick={True_OR_False}>
-                                                7
+                                                {Options1}
                                             </button>
                                             <button id="choice2" className={styles.choice_button} onClick={True_OR_False}>
-                                                5
+                                                {Options2}
                                             </button>
                                             <button id="choice3" className={styles.choice_button} onClick={True_OR_False}>
-                                                2
+                                                {Options3}
                                             </button>
                                             <button id="choice4" className={styles.choice_button} onClick={True_OR_False}>
-                                                3
+                                                {Options4}
                                             </button>
                                         </div>
                                     </div>

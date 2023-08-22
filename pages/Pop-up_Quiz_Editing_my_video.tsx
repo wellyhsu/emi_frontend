@@ -7,19 +7,13 @@ import Cookies from 'js-cookie';
 import Script from 'next/script';
 import pop_up_question from '../components/pop_up_question';
 import PopUpWindow from '../components/Pop_up_window';
+import Index from '../components/Progress_bar';
 
-var fileData;
-var fileName;
-var fileType;
-var fileSize;
-var fileTime;
-
-var ADD_button=0;
-var Question_type="";
-var Question="";
-var Choice=[];
-var Answer="";
-var Time="";
+var ADD_button=0;  //用於點擊ADD按鈕後，展開及收起add欄位
+var Question="";   //發送給後端的題目
+var Choice=[];     //發送給後端的題目選項
+var Answer="";     //發送給後端的答案
+var Time="";       //發送給後端的當前影片時間
 
 const token =  Cookies.get('token');
 
@@ -61,13 +55,13 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const Gap_fill_Question_Question_Ref = useRef(undefined);
     const Gap_fill_Question_Answer_Ref = useRef(undefined);
 */
-    const Multiple_choice_Question_Ref = useRef(undefined);
-    const Multiple_choice_Choice_Ref_1 = useRef(undefined);
-    const Multiple_choice_Choice_Ref_2 = useRef(undefined);
-    const Multiple_choice_Choice_Ref_3 = useRef(undefined);
-    const Multiple_choice_Choice_Ref_4 = useRef(undefined);
+    const Multiple_choice_Question_Ref = useRef(undefined);   //取得使用者輸入的Question欄位內容
+    const Multiple_choice_Choice_Ref_1 = useRef(undefined);   //取得使用者輸入的第一個Choice欄位內容
+    const Multiple_choice_Choice_Ref_2 = useRef(undefined);   //取得使用者輸入的第二個Choice欄位內容
+    const Multiple_choice_Choice_Ref_3 = useRef(undefined);   //取得使用者輸入的第三個Choice欄位內容
+    const Multiple_choice_Choice_Ref_4 = useRef(undefined);   //取得使用者輸入的第四個Choice欄位內容
 
-    const Multiple_choice_Answer_Ref = useRef(undefined);
+    const Multiple_choice_Answer_Ref = useRef(undefined);     //取得使用者輸入的Answer欄位內容
 /*
     const Scramble_task_Question_Ref = useRef(undefined);
     const Scramble_task_Choice_Ref = useRef(undefined);
@@ -227,6 +221,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
     return (
         <>
+
            <main className={styles.main}>
 {/*
                 <div id="gap_fill_question" style={{height: "100%",display: "none"}}>
@@ -351,6 +346,8 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                 <source src="TEST(1min30sec).mp4" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
+                            <div className= {styles.circle}>
+                            </div>
                         </div>
                         <div className={styles.Popup_add_block} >
                             <button className={styles.Popup_add_button} onClick={Click_add}>

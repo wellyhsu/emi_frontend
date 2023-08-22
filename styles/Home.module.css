@@ -2927,6 +2927,24 @@ select.option{
   transform: scale(1.02);  
 }
 
+.circle {
+  width: 1em;
+  height: 1em;
+  position: fixed;
+  z-index: 9;
+
+  background-color: rgb(255, 157, 0);
+  border-radius: 100%; /* 将边框半径设置为 50%，使元素呈现圆形 */
+
+  margin-top: 23.2em;
+  margin-left: 5em;
+}
+.circle:hover{
+  cursor: pointer;
+  background-color: rgba(255, 157, 0, 0.785);
+  transform: scale(1.05);
+}
+
 /* Student view page */
 .choice_button{
   display: block;

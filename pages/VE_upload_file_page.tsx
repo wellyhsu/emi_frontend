@@ -66,62 +66,55 @@ export const slice = (file, piece = CHUNK_SIZE) => {   //切割
 
 async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依據切割長度發送請求次數)
     const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
-    var Chunk_Number = 0;
+    var Chunk_Number = 1;
     var Chunk_Final = false;
+    var information;
     console.log('Length=',chunks.length);
 
     for (let chunk of chunks) {   //
         const fd = new FormData();   //宣告fd為FormData();
+
+        //發送影片相關資訊到後端
+        const Video_Information_send =
+        {
+            "username": "test",
+            "file-name": fileName,
+            "chunk-number": String(Chunk_Number),
+            "chunk-final": String(Chunk_Final),  
+        }
+
+        var Video_Information_send_json = JSON.stringify(Video_Information_send);  //轉json格式
+        console.log("account_send_json is " + Video_Information_send_json);
+        console.log('account_send_json is ',typeof(Video_Information_send_json));
+
+        fd.append('information', Video_Information_send_json);
         fd.append('chunk', chunk);     //把每一個chunk插入fd中
+//檢查FormData內的內容 - 方法一       
+        fd.forEach((key, value) => {
+            console.log("value(標題)=",value,"key(內容)=",key);
+        });
+//檢查FormData內的內容 - 方法二
+        for (const entry of fd.entries()) {
+            console.log("test=", entry[0],"內容=", entry[1]);
+          }
+
         try {
-            Chunk_Number = Chunk_Number + 1;
-            if(Chunk_Number == chunks.length)
+            if(Chunk_Number < chunks.length)
             {
-                Chunk_Final = true;
+                Chunk_Number = Chunk_Number + 1;
+                if(Chunk_Number == chunks.length)
+                {
+                    Chunk_Final = true;
+                }
             }
+
             console.log("fileName==",fileName);
-
-            //發送影片相關資訊到後端
-            const Video_Information_send =
-            {
-                "username": "test",
-                "file-name": fileName,
-                "chunk-number": String(Chunk_Number),
-                "chunk-final": String(Chunk_Final),  
-            }
-
-            var Video_Information_send_json = JSON.stringify(Video_Information_send);  //轉json格式
-            console.log("account_send_json is " + Video_Information_send_json);
-            console.log('account_send_json is ',typeof(Video_Information_send_json));
-
-            fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Question_time[sec], {  
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json',
-                },
-                body: Video_Information_send_json,
-            })
-                .then((response) => {
-                    information = response.json();
-                    console.log('info^^',information);
-                    return information;
-                })
-                .then((data) => {
-                    console.log("data=",data);
-                })
-                .catch((error) => console.log("error", error));
 
             const response = await fetch(process.env.NEXT_PUBLIC_API_upload_video, {   //call後端的API
                 method: 'POST',
-/*                headers:{
-                    "username": "test",
-                    "file-name": fileName,
-                    "chunk-number": String(Chunk_Number),
-                    "chunk-final": String(Chunk_Final), 
-                },
-*/                body: fd,    //傳送到後端的內容
+                body: fd,    //傳送到後端的內容
             });
-  
+
             if (response.ok) {
                 console.log("response is ok!");
                 const data = await response.json();   //取得後端回傳的資料
