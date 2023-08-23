@@ -131,7 +131,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
         
         document.getElementById("Multiple_choice_question").style = "display: none";
 
-        Question_type = "Multiple_choice";  //插入影片中的題目類型
         Question = Multiple_choice_Question_Ref.current.value;   //使用者輸入的題目內容
         Choice.push(Multiple_choice_Choice_Ref_1.current.value);      //多選題的選項
         Choice.push(Multiple_choice_Choice_Ref_2.current.value);      //多選題的選項
@@ -158,6 +157,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
             method: 'POST',
             headers:{
+                'video-path': '/home/roy/test/video/test/uploads/TEST.mp4',
                 'Content-Type': 'application/json',
             },
             body: question_send_json,
@@ -187,7 +187,11 @@ export default function Pop_up_Quiz_Editing_my_video() {
         document.getElementById("Multiple_choice_question").style = "display: none";
 
         Multiple_choice_Question_Ref.current.value = "";   //使用者輸入的題目內容
-        Multiple_choice_Choice_Ref.current.value = "";      //多選題的選項
+        Multiple_choice_Choice_Ref_1.current.value = "";      //多選題的選項
+        Multiple_choice_Choice_Ref_2.current.value = "";      //多選題的選項
+        Multiple_choice_Choice_Ref_3.current.value = "";      //多選題的選項
+        Multiple_choice_Choice_Ref_4.current.value = "";      //多選題的選項
+
         Multiple_choice_Answer_Ref.current.value = "";         //題目答案
 
         console.log("Question= ", Question);
@@ -346,8 +350,8 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                 <source src="TEST(1min30sec).mp4" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
-                            <div className= {styles.circle}>
-                            </div>
+                       {/*     <div className= {styles.circle}>
+                            </div>*/}
                         </div>
                         <div className={styles.Popup_add_block} >
                             <button className={styles.Popup_add_button} onClick={Click_add}>

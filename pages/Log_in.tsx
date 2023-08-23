@@ -44,8 +44,6 @@ export default function Home() {
 console.log("URL=",process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login);
  
 fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
-//    fetch("http://34.81.60.252:30031/api/user/login/", {
-
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'

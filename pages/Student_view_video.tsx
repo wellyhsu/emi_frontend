@@ -13,14 +13,15 @@ var fileType;
 var fileSize;
 var fileTime;
 
-var Question="";
-var Choice=[];   //儲存選項
-var Right_Answer="7";   //正確答案
+var Right_Answer="";   //正確答案
+
 var answer_times=0;      //用來防止學生選擇兩次答案
-var Question_control=0;  //用來記錄此題目是否出現過
+var Question_control=-1;  //用來防止同一時間的題目出現兩次，紀錄題目第一次出現的時間
 var API=0;   //確保只取得一次有題目的時間點
-var Question_time = []; //儲存question要出現的時間
+var Question_time = []; //打後端API後，儲存question要出現的時間
+
 var i;
+
 const token =  Cookies.get('token');
 var sec=0;   //0~data長度，用來決定該出現第幾個問題
 
@@ -31,12 +32,14 @@ export default function Student_view_video() {
     const [isQuestionVisible, setIsQuestionVisible] = useState(false);  //用於決定是否顯示題目視窗
     const [Answer, setAnswer] = useState("");    //用於顯示回答正確或錯誤
     const videoRef = useRef(null);        //用於取得影片相關資訊
-    const [Question, setQuestion] = useState(0);  //用於顯示目前影片播放到的秒數
-    const [Options1, setOptions1] = useState("");  //用於顯示目前影片播放到的秒數    
-    const [Options2, setOptions2] = useState("");  //用於顯示目前影片播放到的秒數
-    const [Options3, setOptions3] = useState("");  //用於顯示目前影片播放到的秒數
-    const [Options4, setOptions4] = useState("");  //用於顯示目前影片播放到的秒數
-    
+    const [Question, setQuestion] = useState(0);  //儲存影片題目
+
+    const [Options1, setOptions1] = useState("");  //儲存影片選項1
+    const [Options2, setOptions2] = useState("");  //儲存影片選項2
+    const [Options3, setOptions3] = useState("");  //儲存影片選項3
+    const [Options4, setOptions4] = useState("");  //儲存影片選項4
+
+
     if(API == 0)
     {   
         console.log("Get Question!!");
@@ -90,69 +93,75 @@ export default function Student_view_video() {
     useEffect(() => {
 
         const intervalId = setInterval(() => {
-            if(videoRef.current)
+            if(videoRef.current && !videoRef.current.paused)
             {
                 console.log("Timer");
                 console.log(Math.floor(videoRef.current.currentTime));
                 console.log("Question_time[sec]=",Question_time[sec]);
-
+    
                 sec = 0;
                 console.log("Question_time length=",Question_time.length);
-                
-                while(sec < Question_time.length)
+            
+                while(sec < Question_time.length)  //檢查是否為該彈出題目的時間點
                 {
                     console.log("sec=",sec);
-                    switch(Math.floor(videoRef.current.currentTime))
+                    if(Question_control != Math.floor(videoRef.current.currentTime)) //可以彈出題目
                     {
-                        case Question_time[sec]:
-                            console.log("要出現題目");
-                            if(videoRef.current.currentTime != 0)  //現在是該出現題目的時間點
-                            {
-                                if(Question_control == 0)  //目前還未彈出題目框
-                                {
-                                    Question_control = 1;   //題目已經彈出過了
-                                    setIsQuestionVisible(true);
-                                    console.log(isQuestionVisible);
-                                    videoRef.current.pause();  //影片暫停
-                                
-                                    //取得此時間點的題目資訊
-                                    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Question_time[sec], {  
-                                        method: 'GET',
-                                        headers:{
-                                            'video-path': '/home/roy/test/video/test/uploads/TEST.mp4',
-                                        },
+                        switch(Math.floor(videoRef.current.currentTime))  //判斷現在時間是否為要彈出題目的時間點
+                        {
+                            case Question_time[sec]:
+                                Question_control = Math.floor(videoRef.current.currentTime);  //紀錄跳出題目的時間
+                                setIsQuestionVisible(true);
+                                console.log(isQuestionVisible);
+                                videoRef.current.pause();
+
+                                //取得此時間點的題目資訊
+                                fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Question_time[sec], {  
+                                    method: 'GET',
+                                    headers:{
+                                        'video-path': '/home/roy/test/video/test/uploads/TEST.mp4',
+                                    },
+                                })
+                                    .then((response) => {
+                                        information = response.json();
+                                        console.log('info^^',information);
+                                        return information;
                                     })
-                                        .then((response) => {
-                                            information = response.json();
-                                            console.log('info^^',information);
-                                            return information;
-                                        })
-                                        .then((data) => {
-                                            console.log("data=",data);
-                                            console.log("data[question]=",data["question"])
-                                            console.log("data[options]=",data["options"][0])
-                                            console.log("data[answer]=",data["answer"])
-                                            console.log("data[explanation]",data["explanation"]);
-                                            console.log("data[video]",data["video"]);
-                                            setQuestion(data["question"]);
-                                            setOptions1(data["options"][0]);
-                                            setOptions2(data["options"][1]);
-                                            setOptions3(data["options"][2]);
-                                            setOptions4(data["options"][3]);                                            
-                                            console.log("options1=", Options1);
-                                            console.log("options2=", Options2);
-                                            console.log("options3=", Options3);
-                                            console.log("options4=", Options4);
-                                        })
-                                        .catch((error) => console.log("error", error));
-                                }
-                            }
-                        break;
-                        default:
-                            console.log("不出現題目");
-                            Question_control = 0;   //沒有回答過
-                            sec++;   //現在不是該出現題目的時間點
-                        break;
+                                    .then((data) => {
+                                        console.log("data=",data);
+                                        console.log("data[question]=",data["question"]);
+                                        console.log("data[options]=",data["options"][0]);
+                                        console.log("data[answer]=",data["answer"]);
+                                        console.log("data[explanation]",data["explanation"]);
+                                        console.log("data[video]",data["video"]);
+                                        
+                                        setQuestion(data["question"]);
+                                        setOptions1(data["options"][0]);
+                                        setOptions2(data["options"][1]);
+                                        setOptions3(data["options"][2]);
+                                        setOptions4(data["options"][3]);
+
+                                        console.log("options1=",Options1);
+                                        console.log("options2=",Options2);
+                                        console.log("options3=",Options3);
+                                        console.log("options4=",Options4);
+                                        Right_Answer = data["answer"]
+
+                                        console.log("Question=", Question);
+                                        console.log("Options(4)=", Options1);
+                                        console.log("Answer=", Right_Answer);
+                                    })
+                                    .catch((error) => console.log("error", error));
+                                sec = Question_time.length;                                    
+                            break;
+                            default:
+                                sec++;   //看現在是否為下一個題目的時間點
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        sec = Question_time.length;  
                     }
                 }
             }
@@ -189,7 +198,13 @@ export default function Student_view_video() {
 
         const Continuous = () => {   //繼續觀看影片
             answer_times = 0;   
-            setAnswer("");  
+            setAnswer("");   //清空使用者回答後的回覆
+            setQuestion("");
+            setOptions1("");
+            setOptions2("");
+            setOptions3("");
+            setOptions4("");
+
             setIsQuestionVisible(false);
             document.getElementById("choice1").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
             document.getElementById("choice2").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
@@ -212,7 +227,7 @@ export default function Student_view_video() {
                                         Question
                                     </div>
                                     <div className={styles.content_title} style={{paddingLeft: "1.5vw"}}>
-                                        {Question}
+                                     {Question}
                                     </div>
                                     <div className={styles.content_title}>
                                         Choice
@@ -243,35 +258,7 @@ export default function Student_view_video() {
                     </div>
                 </div>
             )}
-{/*
-                <div id="Gap_fill_question" style={{height: "100%",display: "none"}}>
-                    <div className={styles.question_background}>
-                        <div className={styles.alert_question}>
-                            <div className={styles.question_title}>
-                                Gap fill question
-                            </div>
-                            <div style={{display: "block", marginLeft: "5vw"}}>
-                                <div className={styles.content_title}>
-                                    Question
-                                    {}
-                                </div>
-                                <div className={styles.content_title}>
-                                    Answer
-                                    <textarea className={styles.gap_fill_student_answer}>
 
-                                    </textarea>
-                                </div>
-                                <div className={styles.content_title}>
-                                    {Answer}
-                                </div>
-                                <button className={styles.Continuous_button} style={{float: "right"}} onClick={Continuous}>
-                                    Continuous
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-*/}
                 <div className={styles.no_padding_center}>
                     <div className={styles.PopupQuiz_video_preview}>
                         <video 
