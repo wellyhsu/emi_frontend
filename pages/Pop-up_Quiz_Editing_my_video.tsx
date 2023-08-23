@@ -157,7 +157,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
             method: 'POST',
             headers:{
-                'video-path': '/home/roy/test/video/test/uploads/TEST.mp4',
+                'video-path': process.env.NEXT_PUBLIC_video_path,
                 'Content-Type': 'application/json',
             },
             body: question_send_json,

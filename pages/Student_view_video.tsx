@@ -39,6 +39,7 @@ export default function Student_view_video() {
     const [Options3, setOptions3] = useState("");  //儲存影片選項3
     const [Options4, setOptions4] = useState("");  //儲存影片選項4
 
+    console.log(process.env.NEXT_PUBLIC_video_path);
 
     if(API == 0)
     {   
@@ -47,7 +48,7 @@ export default function Student_view_video() {
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec, {  //取得要插入影片的時間點資訊
             method: 'GET',
             headers:{
-                'video-path': '/home/roy/test/video/test/uploads/TEST.mp4',
+                'video-path': process.env.NEXT_PUBLIC_video_path,
             },
         })
             .then((response) => {
@@ -119,7 +120,7 @@ export default function Student_view_video() {
                                 fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Question_time[sec], {  
                                     method: 'GET',
                                     headers:{
-                                        'video-path': '/home/roy/test/video/test/uploads/TEST.mp4',
+                                        'video-path': process.env.NEXT_PUBLIC_video_path,
                                     },
                                 })
                                     .then((response) => {

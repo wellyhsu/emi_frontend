@@ -12,8 +12,8 @@ var fileName;
 var fileType;
 var fileSize;//檔案的大小
 var fileTime;
-const SPLIT_BYTES = 100*1024; //檔案以每1MB做切割
-const CHUNK_SIZE = 100*1024; //檔案以每1MKB做切割
+const SPLIT_BYTES = 100*1024; //檔案以每100KB做切割
+const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 //var start = 0; //位元組數的開頭
 //var end = SPLIT_BYTES; //位元組數的結束
 //var count = fileSize % SPLIT_BYTES == 0 ? fileSize / SPLIT_BYTES : Math.floor(fileSize / SPLIT_BYTES) + 1;
