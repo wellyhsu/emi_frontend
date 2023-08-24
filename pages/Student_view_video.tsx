@@ -39,6 +39,8 @@ export default function Student_view_video() {
     const [Options3, setOptions3] = useState("");  //儲存影片選項3
     const [Options4, setOptions4] = useState("");  //儲存影片選項4
 
+
+
     if(API == 0)
     {   
         console.log("Get Question!!");
@@ -85,6 +87,11 @@ export default function Student_view_video() {
         {
           videoRef.current.addEventListener('timeupdate', () => {
             setCurrentTime(videoRef.current.currentTime); // 更新当前播放时间
+          });
+
+          videoRef.current.addEventListener('loadedmetadata', function() {
+            const videoDuration = Math.floor(videoRef.current.duration);  // 取得影片總長度
+            console.log('Video duration:', videoDuration, 'seconds');
           });
         }
     }, []); // 仅在组件挂载和 videoRef.current 改变时添加监听器

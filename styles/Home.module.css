@@ -2795,7 +2795,7 @@ select.option{
 .alert_question{
   display: inline;
   position: fixed;
-  z-index: 4;
+  z-index: 9;
 
   overflow-x: hidden;
 
@@ -2986,13 +2986,13 @@ select.option{
   width: 1em;
   height: 1em;
   position: fixed;
-  z-index: 9;
+  z-index: 1;
 
   background-color: rgb(255, 157, 0);
   border-radius: 100%; /* 将边框半径设置为 50%，使元素呈现圆形 */
 
   margin-top: 23.2em;
-  margin-left: 5em;
+  margin-left: 1em;
 }
 .circle:hover{
   cursor: pointer;

@@ -86,11 +86,11 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
         const Video_Information_send =
         {
             "username": UserName,
-            "file-name": fileName,
-            "file-type": fileType,
-            "file-size": fileSize + "KB",
-            "chunk-number": String(Chunk_Number),
-            "chunk-final": String(Chunk_Final),  
+            "video_name": fileName,
+//            "file-type": fileType,
+//            "file-size": fileSize + "KB",
+            "chunk_number": String(Chunk_Number),
+            "chunk_final": String(Chunk_Final),  
         }
 
         var Video_Information_send_json = JSON.stringify(Video_Information_send);  //轉json格式
@@ -127,8 +127,15 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
 
             if (response.ok) {
                 console.log("response is ok!");
-                const data = await response.json();   //取得後端回傳的資料
+//                const data = await response.json();   //取得後端回傳的資料
+                const data = await response.text();   //取得後端回傳的資料
+
                 results.push(data);    //將後端後端傳回的資料放到results
+                if(Chunk_Number == chunks.length)
+                {
+                    Cookies.set('video_path' ,data?.substring(12, data?.lastIndexOf("W")));
+                    console.log("video_path=", Cookies.get('video_path'));
+                }   
             } 
             else {
                 console.log("response not ok.");
@@ -160,6 +167,27 @@ function upload_file(e){
     file_type = fileName?.substring(fileName?.indexOf(".",0));  //取得副檔名
     
     console.log("file_type=",file_type);
+    //傳送metadata到後端
+/*    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
+        method: 'POST',
+        headers:{
+            'video-path': process.env.NEXT_PUBLIC_video_path,
+            'Content-Type': 'application/json',
+        },
+        body: question_send_json,
+    })
+        .then((response) => {
+            information = response.json();
+            console.log('info^^',information);
+            return information;
+        })
+        .then((data) => {
+   
+            console.log('data=', data);
+
+        })
+        .catch((error) => console.log("error", error));
+*/
     if(file_type == ".mp4" || file_type == ".MOV") //如果檔案 
     {
         //發送影片
@@ -267,71 +295,69 @@ function choose_upload_script(){
 
 export default function VE_upload_file_page() {
     return (
-        <div>
-{/*            <Script
-                src="../components/choose_file.js"
-            />
-*/}            <main className={styles.main}>
-                <div className={styles.Start_making}>
-                    Start making
-                </div>
-                <div className={styles.upload_script}>
-                    Please choose whether upload your script.
-                </div>
-                <div className={styles.transcript_block}>
-                    <button id="script_button" className={styles.checkbox} onClick={choose_upload_script}></button>
-                    Upload transcript
-                </div>
-                <div className={styles.upload_file_title}>
-                    Please upload your teaching material. (It might take a few minutes.)
-                </div>
-                <div className={styles.no_padding_center}>
-                    <div className={styles.file_Name}>
-                        Name:
-                        <input type="text" id="file_name" className={styles.file_input}>
+        <main className={styles.main}>
+            <div className={styles.Start_making}>
+                Start making
+            </div>
+            <div className={styles.upload_script}>
+                Please choose whether upload your script.
+            </div>
+            <div className={styles.transcript_block}>
+                <button id="script_button" className={styles.checkbox} onClick={choose_upload_script}></button>
+                Upload transcript
+            </div>
+            <div className={styles.upload_file_title}>
+                Please upload your teaching material. (It might take a few minutes.)
+            </div>
+            <div className={styles.no_padding_center}>
+                <div className={styles.file_Name}>
+                    Name:
+                    <input type="text" id="file_name" className={styles.file_input}>
 
-                        </input>
-                    </div>
-                </div>   
-                <div className={styles.no_padding_center}>
-                    <div className={styles.file}>
-                        file:                            
-                    </div>
-                        <input id="customFileInput" className={styles.choose_file} type="file" accept="*.ppt, *.pptx, video/*"></input>
-                        <label htmlFor="customFileInput" className={styles.upload_block} onClick={select_file}>
-                            <div className={styles.no_padding_center}>
-                                <div>
-                                    <div className={styles.upload_image}>
-                                        <Image
-                                            src="/Upload_cloud_image.svg"
-                                            alt="Upload cloud image"
-                                            fill={true}
-                                            priority
-                                        />
-                                    </div>
-                                      Click here to upload your file 
-                                </div>
-                            </div>
-                        </label>
+                    </input>
                 </div>
-                <div className={styles.upload_file_button}>
-                    <div style={{float: "right"}}>
-                        <Link 
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_VE_Create }
-                                }}
-                        >
-                            <button className={styles.UploadFile_Back_button}>
-                                Back
-                            </button>
-                        </Link>
-                        <button className={styles.UploadFile_Next_button} onClick={upload_file}>
-                            Next
+            </div>   
+            <div className={styles.no_padding_center}>
+                <div className={styles.file}>
+                    file:                            
+                </div>
+                    <input id="customFileInput" className={styles.choose_file} type="file" accept="*.ppt, *.pptx, video/*"></input>
+                    <label htmlFor="customFileInput" className={styles.upload_block} onClick={select_file}>
+                        <div className={styles.no_padding_center}>
+                            <div>
+                                <div className={styles.upload_image}>
+                                    <Image
+                                        src="/Upload_cloud_image.svg"
+                                        alt="Upload cloud image"
+                                        fill={true}
+                                        priority
+                                    />
+                                </div>
+                                    Click here to upload your file 
+                            </div>
+                        </div>
+                    </label>
+            </div>
+            <div className={styles.upload_file_button}>
+                <div style={{float: "right"}}>
+                    <Link 
+                        href={{
+                            pathname: '/[page]',
+                            query: { page: process.env.NEXT_PUBLIC_VE_Create }
+                            }}
+                    >
+                        <button className={styles.UploadFile_Back_button}>
+                            Back
                         </button>
-                    </div>
-                </div> 
-            </main>
-        </div>
+                    </Link>
+                    <button className={styles.UploadFile_Next_button} onClick={upload_file}>
+                        Next
+                    </button>
+                </div>
+            </div> 
+            <button >
+                Cancel
+            </button>
+        </main>
     )
 }
