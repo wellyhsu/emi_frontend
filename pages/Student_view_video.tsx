@@ -39,8 +39,6 @@ export default function Student_view_video() {
     const [Options3, setOptions3] = useState("");  //儲存影片選項3
     const [Options4, setOptions4] = useState("");  //儲存影片選項4
 
-    console.log(process.env.NEXT_PUBLIC_video_path);
-
     if(API == 0)
     {   
         console.log("Get Question!!");

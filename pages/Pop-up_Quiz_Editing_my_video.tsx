@@ -13,8 +13,8 @@ var ADD_button=0;  //用於點擊ADD按鈕後，展開及收起add欄位
 var Question="";   //發送給後端的題目
 var Choice=[];     //發送給後端的題目選項
 var Answer="";     //發送給後端的答案
-var Time="";       //發送給後端的當前影片時間
-
+var Time="0";       //發送給後端的當前影片時間
+var circle=[];     //儲存要出現題目的圓球component
 const token =  Cookies.get('token');
 
 /*
@@ -49,6 +49,32 @@ function Click_add()
     }    
 }
 
+function Delete_Question()
+{
+    /*
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
+        method: 'Delete',
+        headers:{
+            'video-path': process.env.NEXT_PUBLIC_video_path,
+            'Content-Type': 'application/json',
+        },
+        body: question_send_json,
+    })
+        .then((response) => {
+            information = response.json();
+            console.log('info^^',information);
+            return information;
+        })
+        .then((data) => {
+   
+            console.log('data=', data);
+
+        })
+        .catch((error) => console.log("error", error));
+*/
+    document.getElementById("Multiple_choice_question_modify").style = "display: none";
+}
+
 export default function Pop_up_Quiz_Editing_my_video() {
     const router = useRouter();
 /*
@@ -60,9 +86,17 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const Multiple_choice_Choice_Ref_2 = useRef(undefined);   //取得使用者輸入的第二個Choice欄位內容
     const Multiple_choice_Choice_Ref_3 = useRef(undefined);   //取得使用者輸入的第三個Choice欄位內容
     const Multiple_choice_Choice_Ref_4 = useRef(undefined);   //取得使用者輸入的第四個Choice欄位內容
-
     const Multiple_choice_Answer_Ref = useRef(undefined);     //取得使用者輸入的Answer欄位內容
-/*
+
+    const Modify_Question_Ref = useRef(undefined);   //取得使用者修改後的Question欄位內容
+    const Modify_Choice_Ref_1 = useRef(undefined);   //取得使用者修改後的第一個Choice欄位內容
+    const Modify_Choice_Ref_2 = useRef(undefined);   //取得使用者修改後的第二個Choice欄位內容
+    const Modify_Choice_Ref_3 = useRef(undefined);   //取得使用者修改後的第三個Choice欄位內容
+    const Modify_Choice_Ref_4 = useRef(undefined);   //取得使用者修改後的第四個Choice欄位內容
+
+    const Modify_Answer_Ref = useRef(undefined);  
+
+    /*
     const Scramble_task_Question_Ref = useRef(undefined);
     const Scramble_task_Choice_Ref = useRef(undefined);
     const Scramble_task_Answer_Ref = useRef(undefined);
@@ -124,6 +158,88 @@ export default function Pop_up_Quiz_Editing_my_video() {
         console.log("Answer= ", Answer);
     }
 */
+
+function Click_Circle()
+{
+    var information;
+    console.log("GET!");
+    document.getElementById("Multiple_choice_question_modify").style = "display: flex";
+
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
+        method: 'GET',
+        headers:{
+            'video-path': process.env.NEXT_PUBLIC_video_path,
+        },
+    })
+        .then((response) => {
+            information = response.json();
+            console.log('info^^',information);
+            return information;
+        })
+        .then((data) => {
+            console.log("data=",data);
+            console.log("data[question]=",data["question"]);
+            console.log("data[options]=",data["options"]);
+            console.log("data[answer]=",data["answer"]);
+            console.log("data[explanation]",data["explanation"]);
+            console.log("data[video]",data["video"]);
+            
+            document.getElementById("Modify_Question").value = data["question"];
+            document.getElementById("Modify_Choice_1").value = data["options"][0];
+            document.getElementById("Modify_Choice_2").value = data["options"][1];
+            document.getElementById("Modify_Choice_3").value = data["options"][2];
+            document.getElementById("Modify_Choice_4").value = data["options"][3];
+            document.getElementById("Modify_Answer").value = data["answer"];
+
+        })
+        .catch((error) => console.log("error", error));
+}
+
+function Close_Question()
+{   var information;
+
+    Choice = [];
+    Question = Modify_Question_Ref.current.value;
+    Choice.push(Modify_Choice_Ref_1.current.value);
+    Choice.push(Modify_Choice_Ref_2.current.value);
+    Choice.push(Modify_Choice_Ref_3.current.value);
+    Choice.push(Modify_Choice_Ref_4.current.value);
+    Answer = Modify_Answer_Ref.current.value;
+    
+    const modify_question_send =
+    {
+        "question": Question,
+        "options": Choice,  
+        "answer": Answer,
+        "explanation": "none",
+        'video-path': '/home/roy/test/video/roy/uploads/',
+    }
+    
+    var modify_question_send_json = JSON.stringify(modify_question_send);  //轉json格式
+    console.log("send data=",modify_question_send_json);
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
+        method: 'PUT',
+        headers:{
+            'video-path': process.env.NEXT_PUBLIC_video_path,
+            'Content-Type': 'application/json',
+        },
+        body: modify_question_send_json,
+    })
+        .then((response) => {
+            information = response.json();
+            console.log('info^^',information);
+            return information;
+        })
+        .then((data) => {
+   
+            console.log('data=', data);
+
+        })
+        .catch((error) => console.log("error", error));
+    document.getElementById("Multiple_choice_question_modify").style = "display: none";
+
+}
+
 
     function Multiple_choice_close(){
         var information;
@@ -227,6 +343,52 @@ export default function Pop_up_Quiz_Editing_my_video() {
         <>
 
            <main className={styles.main}>
+           <div id="Multiple_choice_question_modify" className={styles.Modify_Question} style={{height: "100%",display: "none"}}>
+                    <div className={styles.question_background}>
+                        <div className={styles.alert_question}>
+                            <div className={styles.question_title}>
+                                Multiple choice question
+                            </div>
+                            <div style={{display: "block", marginLeft: "5vw"}}>
+                                <div className={styles.content_title}>
+                                    Question
+                                    <textarea ref={Modify_Question_Ref} id="Modify_Question" className={styles.content_input} placeholder="Please input Question">
+
+                                    </textarea>
+                                </div>
+                                <div className={styles.content_title}>
+                                    Choice
+                                    <textarea ref={Modify_Choice_Ref_1} id="Modify_Choice_1" style={{marginBottom: "2vh"}} className={styles.content_input} placeholder="Please input Choice">
+                                        
+                                    </textarea>
+                                    <textarea ref={Modify_Choice_Ref_2} id="Modify_Choice_2" style={{marginBottom: "2vh"}} className={styles.content_input} placeholder="Please input Choice">
+                                        
+                                    </textarea>
+                                    <textarea ref={Modify_Choice_Ref_3} id="Modify_Choice_3" style={{marginBottom: "2vh"}} className={styles.content_input} placeholder="Please input Choice">
+                                        
+                                    </textarea>
+                                    <textarea ref={Modify_Choice_Ref_4} id="Modify_Choice_4" className={styles.content_input} placeholder="Please input Choice">
+                                        
+                                    </textarea>
+                                </div>
+                                <div className={styles.content_title}>
+                                    Answer and explain
+                                    <textarea ref={Modify_Answer_Ref} id="Modify_Answer" className={styles.content_input} placeholder="Please input Answer">
+                                        
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div style={{float: "right", marginBottom: "5vh"}}>
+                                <button className={styles.Cancel_button} onClick={Delete_Question}>
+                                    Delete
+                                </button>
+                                <button className={styles.Continuous_button} onClick={Close_Question}>
+                                    Continuous
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 {/*
                 <div id="gap_fill_question" style={{height: "100%",display: "none"}}>
                     <div className={styles.question_background}>
@@ -350,8 +512,8 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                 <source src="TEST(1min30sec).mp4" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
-                       {/*     <div className= {styles.circle}>
-                            </div>*/}
+                            <div className= {styles.circle} onClick={Click_Circle}>
+                            </div>
                         </div>
                         <div className={styles.Popup_add_block} >
                             <button className={styles.Popup_add_button} onClick={Click_add}>
@@ -410,9 +572,10 @@ export default function Pop_up_Quiz_Editing_my_video() {
                         </div> 
                     </div>
                 </div> 
-                
-                
-                
+                <div id="Circle">
+                    <PopUpWindow/>
+                </div>
+  
             </main>
             
         </>
