@@ -7,12 +7,6 @@ import Cookies from 'js-cookie';
 import Script from 'next/script';
 import PopUpWindow from '../components/Pop_up_window';
 
-var fileData;
-var fileName;
-var fileType;
-var fileSize;
-var fileTime;
-
 var Right_Answer="";   //正確答案
 
 var answer_times=0;      //用來防止學生選擇兩次答案
@@ -22,7 +16,8 @@ var Question_time = []; //打後端API後，儲存question要出現的時間
 
 var i;
 
-const token =  Cookies.get('token');
+const token = Cookies.get('token');
+const Video_path = Cookies.get('video_path');
 var sec=0;   //0~data長度，用來決定該出現第幾個問題
 
 export default function Student_view_video() {
@@ -39,10 +34,32 @@ export default function Student_view_video() {
     const [Options3, setOptions3] = useState("");  //儲存影片選項3
     const [Options4, setOptions4] = useState("");  //儲存影片選項4
 
-
-
     if(API == 0)
     {   
+        console.log("Cookies= ", Video_path);
+        console.log("GET Video path");
+
+        const video_path_send =
+        {
+            "video_path": Video_path,
+        }
+
+        var video_path_send_json = JSON.stringify(video_path_send);
+        fetch(process.env.NEXT_PUBLIC_GET_video, {  //取得要插入影片的時間點資訊
+            method: 'POST',
+            body: video_path_send_json,
+        })
+            .then((response) => {
+                console.log('response=',response);
+                information = response;
+                return information;
+            })
+            .then((data) => {
+                console.log("data=",data);
+                console.log("data.length=",data.length);
+            })
+            .catch((error) => console.log("error", error));
+
         console.log("Get Question!!");
         API = 1;
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec, {  //取得要插入影片的時間點資訊

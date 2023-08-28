@@ -1,18 +1,16 @@
 // pages/api/video.js
 import fs from 'fs';
-import path from 'path';
-/*
-export default function handler(req, res) {
-//  const videoPath = process.env.NEXT_PUBLIC_video_path;
-  const videoPath = req.body;
+import { NextApiRequest, NextApiResponse } from 'next';
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  const videoPath = req.body.video_path; // 注意字段名应该是 video_path，和前端发送的 JSON 对象中的字段名一致
   const videoStream = fs.createReadStream(videoPath);
- 
-  console.log("req.body=", req.body);
- 
+
   res.setHeader('Content-Type', 'video/mp4');
   videoStream.pipe(res);
 }
-*/
+
+/*
 async function fetchData() {
   try {
     const response = await fetch('your-backend-api-url');
@@ -35,3 +33,4 @@ async function yourFunction() {
   }
 }
 
+*/

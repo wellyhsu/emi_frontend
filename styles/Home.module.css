@@ -1599,7 +1599,7 @@ ul.Layerout ul li:hover {
 
 /* upload teaching material page*/
 .Start_making{
-  font-size: 2.6vw;
+  font-size: 2.5vw;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 600;
@@ -1607,8 +1607,8 @@ ul.Layerout ul li:hover {
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 10vh;
-  margin-left: 7.7vw;
+  margin-top: 5vh;
+  margin-left: 7vw;
   margin-bottom: -6.5vh;
 }
 
@@ -1621,7 +1621,7 @@ ul.Layerout ul li:hover {
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 8vh;
+  margin-top: 6.5vh;
   margin-left: 9vw;
   margin-bottom: -5vh;
 }
@@ -1637,7 +1637,7 @@ ul.Layerout ul li:hover {
   text-align: center;
   color: rgba(0, 0, 0, 1);
 
-  margin-top: 9vh;
+  margin-top: 7vh;
   margin-left: 12vw;
 }
 
@@ -1690,7 +1690,7 @@ ul.Layerout ul li:hover {
 .upload_block{
   display: block;
   width: 62vw;
-  height: 52vh;
+  height: 45vh;
   cursor: pointer;
 
   font-size: 2.2vw;
@@ -1819,7 +1819,7 @@ ul.Layerout ul li:hover {
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 5vh;
+  margin-top: 3vh;
   margin-left: 9vw;
   margin-bottom: 3vh;
 }

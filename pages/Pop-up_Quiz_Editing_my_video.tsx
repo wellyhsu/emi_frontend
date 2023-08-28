@@ -89,7 +89,8 @@ export default function Pop_up_Quiz_Editing_my_video() {
     }
 
     var video_path_send_json = JSON.stringify(video_path_send);  //轉json格式
-
+    console.log("video path=", video_path_send_json);
+    
     fetch( process.env.NEXT_PUBLIC_GET_video, {            
         method: 'POST',
         headers:{
