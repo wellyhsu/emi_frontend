@@ -19,6 +19,7 @@ var CircleNumber = 1;    //用於標記每個circle的ID
 var marginLeftValue = 1;   //用於更改每個circle的位置
 
 const token =  Cookies.get('token');
+const videoPath = "/home/welly/emi_frontend/public/TEST(1min30sec).mp4";//Cookies.get('video_path');
 
 /*
 function gap_fill_question(){  
@@ -83,32 +84,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const circle=[];     //儲存要出現題目的圓球component
     var information;
 
-    const video_path_send =
-    {
-        "video_path": Cookies.get('video_path'),
-    }
-
-    var video_path_send_json = JSON.stringify(video_path_send);  //轉json格式
-    console.log("video path=", video_path_send_json);
-    
-    fetch( process.env.NEXT_PUBLIC_GET_video, {            
-        method: 'POST',
-        headers:{
-            'Content-Type': 'application/json',
-        },
-        body: video_path_send_json,
-    })
-        .then((response) => {
-            information = response.json();
-            console.log('info^^',information);
-            return information;
-        })
-        .then((data) => {
-            console.log('data=', data);
-        })
-        .catch((error) => console.log("error", error));
-    
-
     const Multiple_choice_Question_Ref = useRef(undefined);   //取得使用者輸入的Question欄位內容
     const Multiple_choice_Choice_Ref_1 = useRef(undefined);   //取得使用者輸入的第一個Choice欄位內容
     const Multiple_choice_Choice_Ref_2 = useRef(undefined);   //取得使用者輸入的第二個Choice欄位內容
@@ -126,17 +101,14 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
     const [ShowCircle, setShowCircle] = useState([]);
 
-    function Click_Circle()
+    function Click_Circle()   //Modify Question -> 顯示題目
     {
         var information;
         console.log("GET!");
         document.getElementById("Multiple_choice_question_modify").style = "display: flex";
 
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
             method: 'GET',
-            headers:{
-                'video-path': process.env.NEXT_PUBLIC_video_path,
-            },
         })
             .then((response) => {
                 information = response.json();
@@ -162,7 +134,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
             .catch((error) => console.log("error", error));
     }
 
-    function Close_Question()
+    function Close_Question()  //Modify Question -> 關閉並且保存修改
     {   var information;
 
         Choice = [];
@@ -184,7 +156,8 @@ export default function Pop_up_Quiz_Editing_my_video() {
         
         var modify_question_send_json = JSON.stringify(modify_question_send);  //轉json格式
         console.log("send data=",modify_question_send_json);
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
+        
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
             method: 'PUT',
             headers:{
                 'video-path': process.env.NEXT_PUBLIC_video_path,
@@ -254,7 +227,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         console.log("Answer= ", Answer);
         console.log("Time= ", Time);   //String
 
-        const question_send =
+        const question_send =    //新增題目
         {
             "question": Question,
             "options": Choice,  
@@ -264,10 +237,9 @@ export default function Pop_up_Quiz_Editing_my_video() {
         }
         
         var question_send_json = JSON.stringify(question_send);  //轉json格式
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
             method: 'POST',
             headers:{
-                'video-path': process.env.NEXT_PUBLIC_video_path,
                 'Content-Type': 'application/json',
             },
             body: question_send_json,

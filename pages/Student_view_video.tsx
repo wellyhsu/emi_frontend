@@ -17,7 +17,7 @@ var Question_time = []; //打後端API後，儲存question要出現的時間
 var i;
 
 const token = Cookies.get('token');
-const Video_path = Cookies.get('video_path');
+const videoPath = "/home/welly/emi_frontend/public/TEST(1min30sec).mp4";//Cookies.get('video_path');
 var sec=0;   //0~data長度，用來決定該出現第幾個問題
 
 export default function Student_view_video() {
@@ -36,37 +36,12 @@ export default function Student_view_video() {
 
     if(API == 0)
     {   
-        console.log("Cookies= ", Video_path);
-        console.log("GET Video path");
-
-        const video_path_send =
-        {
-            "video_path": Video_path,
-        }
-
-        var video_path_send_json = JSON.stringify(video_path_send);
-        fetch(process.env.NEXT_PUBLIC_GET_video, {  //取得要插入影片的時間點資訊
-            method: 'POST',
-            body: video_path_send_json,
-        })
-            .then((response) => {
-                console.log('response=',response);
-                information = response;
-                return information;
-            })
-            .then((data) => {
-                console.log("data=",data);
-                console.log("data.length=",data.length);
-            })
-            .catch((error) => console.log("error", error));
+        console.log("Cookies= ", videoPath);
 
         console.log("Get Question!!");
-        API = 1;
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec, {  //取得要插入影片的時間點資訊
+        API = 1;                                                                                //videoPath
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + "/home/roy/video.mp4", {  //取得要插入影片的時間點資訊
             method: 'GET',
-            headers:{
-                'video-path': process.env.NEXT_PUBLIC_video_path,
-            },
         })
             .then((response) => {
                 console.log('response=',response);
@@ -138,12 +113,9 @@ export default function Student_view_video() {
                                 console.log(isQuestionVisible);
                                 videoRef.current.pause();
 
-                                //取得此時間點的題目資訊
-                                fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Question_time[sec], {  
+                                //取得此時間點的題目資訊                                                             videoPath
+                                fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + "/home/roy/video.mp4" + "/" + Question_time[sec], {  
                                     method: 'GET',
-                                    headers:{
-                                        'video-path': process.env.NEXT_PUBLIC_video_path,
-                                    },
                                 })
                                     .then((response) => {
                                         information = response.json();
@@ -290,7 +262,7 @@ export default function Student_view_video() {
                             autoPlay={false}
                             controls={true} 
                         >
-                            <source src="/api/video" type="video/mp4" />
+                            <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                     </div>
