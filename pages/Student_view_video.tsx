@@ -17,7 +17,7 @@ var Question_time = []; //打後端API後，儲存question要出現的時間
 var i;
 
 const token = Cookies.get('token');
-const videoPath = "/home/welly/emi_frontend/public/TEST(1min30sec).mp4";//Cookies.get('video_path');
+const videoPath = "/home/roy/test/video/roy/uploads/test2.mp4";//Cookies.get('video_path');
 var sec=0;   //0~data長度，用來決定該出現第幾個問題
 
 export default function Student_view_video() {
@@ -39,8 +39,8 @@ export default function Student_view_video() {
         console.log("Cookies= ", videoPath);
 
         console.log("Get Question!!");
-        API = 1;                                                                                //videoPath
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + "/home/roy/video.mp4", {  //取得要插入影片的時間點資訊
+        API = 1;                                                                                
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + videoPath, {  //取得要插入影片的時間點資訊
             method: 'GET',
         })
             .then((response) => {
@@ -113,8 +113,8 @@ export default function Student_view_video() {
                                 console.log(isQuestionVisible);
                                 videoRef.current.pause();
 
-                                //取得此時間點的題目資訊                                                             videoPath
-                                fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + "/home/roy/video.mp4" + "/" + Question_time[sec], {  
+                                //取得此時間點的題目資訊                                                             
+                                fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Question_time[sec], {  
                                     method: 'GET',
                                 })
                                     .then((response) => {

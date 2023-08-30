@@ -19,7 +19,7 @@ var CircleNumber = 1;    //用於標記每個circle的ID
 var marginLeftValue = 1;   //用於更改每個circle的位置
 
 const token =  Cookies.get('token');
-const videoPath = "/home/welly/emi_frontend/public/TEST(1min30sec).mp4";//Cookies.get('video_path');
+const videoPath = "/home/roy/test/video/roy/uploads/test2.mp4";//Cookies.get('video_path');
 
 /*
 function gap_fill_question(){  
@@ -106,7 +106,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         var information;
         console.log("GET!");
         document.getElementById("Multiple_choice_question_modify").style = "display: flex";
-
+                                                                                        
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
             method: 'GET',
         })
@@ -156,7 +156,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         
         var modify_question_send_json = JSON.stringify(modify_question_send);  //轉json格式
         console.log("send data=",modify_question_send_json);
-        
+                                                                                        
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
             method: 'PUT',
             headers:{
@@ -186,7 +186,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         var selectVideo = document.querySelector('video');
         console.log("video length= ",Math.floor(selectVideo.duration));  //影片總長度
         
-        marginLeftValue = 1 + Math.floor(selectVideo.currentTime) * (42/Math.floor(selectVideo.duration));
+        marginLeftValue = 13 + (selectVideo.currentTime * ((710.98)/Math.floor(selectVideo.duration)));
         marginLeftValue = parseInt(marginLeftValue.toFixed(2));
         console.log("marginLeftValue= ", marginLeftValue);  //circle需位移距離
 
@@ -195,7 +195,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                 key={"Circle" + String(CircleNumber)}
                 id={"Circle" + String(CircleNumber)}
                 className={styles.circle}
-                style={{marginLeft: String(marginLeftValue)+"em"}}
+                style={{marginLeft: String(marginLeftValue)+"px"}}
                 onClick={Click_Circle}
             >
                 
@@ -236,7 +236,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
             'video-path': '/home/roy/test/video/test/uploads/',
         }
         
-        var question_send_json = JSON.stringify(question_send);  //轉json格式
+        var question_send_json = JSON.stringify(question_send);  //轉json格式           
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
             method: 'POST',
             headers:{
@@ -252,6 +252,11 @@ export default function Pop_up_Quiz_Editing_my_video() {
             .then((data) => {
        
                 console.log('data=', data);
+                console.log("data['error']=", data['error']);
+                if(data['error'] == "Quiz with same quiz_time already exists.")
+                {
+                    alert(data['error']);
+                }
 
             })
             .catch((error) => console.log("error", error));
@@ -397,7 +402,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                 autoPlay={false}
                                 controls={true} 
                             >
-                                <source src="TEST(1min30sec).mp4" type="video/mp4" />
+                                <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                             {ShowCircle}

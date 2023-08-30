@@ -99,7 +99,7 @@ export default function Create_Account() {
       <main className={styles.main}>
         
         <div className={styles.center}>
-          <div style={{marginLeft: "0em"}}>
+          <div style={{marginTop: "-5em"}}>
             <Image
               src="/Create_Account_image.svg"
               alt="Create Account image"

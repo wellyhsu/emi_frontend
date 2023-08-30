@@ -1040,6 +1040,7 @@ ul.Layerout ul li:hover {
 {
   .CreateAccount_block{
     display: inline-block;
+    margin-top: -5vh;
   }
 }
 /*寬度小於1200px時，適用此格式。*/
@@ -1050,6 +1051,7 @@ ul.Layerout ul li:hover {
     max-width: 100%;
     margin-right: 10vw;
     margin-left: -10vw;
+    margin-top: -5vh;
   }
 }
 

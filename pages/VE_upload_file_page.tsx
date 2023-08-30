@@ -124,7 +124,6 @@ async function sendMetadata()
     const Video_metadata_send =
     {
         "username": UserName,
-        "video_name": fileName,
         "video_type": fileType,
         "video_size": fileSize,
         "video_length": videolength,
@@ -236,6 +235,10 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
         {
             "username": UserName,
             "video_name": fileName,
+            "video_description": "none",
+            "video_length": videolength,
+            "video_size": fileSize,
+            "video_format": "video/mp4",
             "chunk_number": String(Chunk_Number),
             "chunk_final": String(Chunk_Final),  
         }
@@ -275,7 +278,7 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
                 const response = await fetch(process.env.NEXT_PUBLIC_API_upload_video, {   //call後端的API
                     method: 'POST',
                     headers:{
-                        "Metadata_Token": Metadata_token,
+                        "Metadata-Token": Metadata_token,
                     },
                     body: fd,    //傳送到後端的內容
                 });
@@ -287,42 +290,9 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
     
                     results.push(data);    //將後端後端傳回的資料放到results
                     if(Chunk_Number == chunks.length)
-                    {
+                    {                                  //取得video_path
                         Cookies.set('video_path' ,data?.substring(12, data?.lastIndexOf("W")));
                         console.log("video_path=", Cookies.get('video_path'));
-                    
-                        const Video_CreateData_send =
-                        {
-                            "username": UserName,
-                            "video_name": fileName,
-                            "video_description": "none",
-                            "video_path": Cookies.get('video_path'),
-                            "video_format": fileType,
-                            "video_size": fileSize,
-                            "video_length": videolength,
-                        }
-
-                        var Video_CreateData_send_json = JSON.stringify(Video_CreateData_send);  //轉json格式
-                        console.log("Video_CreateData_send_json is " + Video_CreateData_send_json);
-
-                        //傳送影片完整資訊到後端
-                        console.log("Create DATA!!");
-                        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_Create_data_video, {            
-                            method: 'POST',
-                            headers:{
-                                'Content-Type': 'application/json',
-                            },
-                            body: Video_CreateData_send_json,
-                        })
-                            .then((response) => {
-                                information = response.json();
-                                console.log('info^^',information);
-                                return information;
-                            })
-                            .then((data) => {
-                                console.log('data=', data);
-                            })
-                            .catch((error) => console.log("error", error));
                     }   
                 } 
                 else {

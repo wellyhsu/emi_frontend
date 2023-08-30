@@ -4,7 +4,6 @@ import path from 'path';
 
 export default function handler(req, res) {
   const videoPath = req.query.videoPath;
-//  const videoPath = req.body;
   const videoStream = fs.createReadStream(videoPath);
  
   console.log("req.body=", req.body);
