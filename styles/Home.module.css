@@ -1521,19 +1521,19 @@ ul.Layerout ul li:hover {
 }
 
 .checkbox{
-  width: 2.8vw;
-  height: 2.8vw;
+  width: 2em;
+  height: 2em;
   cursor: pointer;
   position: relative;
   z-index: 1;
 
   border-style: solid;
-  border-width: 0.5vw;
+  border-width: 0.4em;
   border-radius: 100%;
   border-color: rgba(217, 217, 217, 1);
   background-color: rgba(243, 241, 241, 1);
 
-  margin-right: 1vw;
+  margin-right: 0.8em;
 }
 
 .select_content_PPT{
@@ -1601,21 +1601,20 @@ ul.Layerout ul li:hover {
 
 /* upload teaching material page*/
 .Start_making{
-  font-size: 2.5vw;
+  font-size: 1.5em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 600;
-  line-height: 7vh;
+  line-height: 1.5em;
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 5vh;
-  margin-left: 7vw;
-  margin-bottom: -6.5vh;
+  margin-top: 1.5em;
+  margin-left: 3em;
 }
 
 .upload_script{
-  font-size: 2.2vw;
+  font-size: 1.2em;
   font-family: 'Poppins',Arial;
   font-style: normal;
   font-weight: 500;
@@ -1623,9 +1622,8 @@ ul.Layerout ul li:hover {
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 6.5vh;
-  margin-left: 9vw;
-  margin-bottom: -5vh;
+  margin-top: 0.2em;
+  margin-left: 5em;
 }
 
 .transcript_block{
@@ -1634,36 +1632,39 @@ ul.Layerout ul li:hover {
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  font-size: 2vw;
+  font-size: 1.2em;
   line-height: 2vh;
   text-align: center;
   color: rgba(0, 0, 0, 1);
 
-  margin-top: 7vh;
-  margin-left: 12vw;
+  margin-top: 0.4em;
+  margin-left: 5em;
 }
 
 .file_Name{
   display: inline-block;
 
-  font-size: 2.3vw;
+  font-size: 1.2em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 3vh;
+  line-height: 1.2em;
   color: rgba(0, 0, 0, 1);
+
+  margin-top: 0em;
+  margin-left: 8em;
 }
 
 .file_input{
   display: inline-block;
-  width: 62vw;
-  height: 7vh;
+  width: 22em;
+  height: 2em;
 
-  font-size: 2vw;
+  font-size: 0.8em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 3vh;
+  line-height: 1.5em;
 
   border: none;
   border-radius: 1vh;
@@ -1671,43 +1672,43 @@ ul.Layerout ul li:hover {
   color: rgba(0, 0, 0, 1);
   background-color: rgba(243, 241, 241, 1);
 
-  margin-left: 1vw;
-  padding-left: 1vw;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 .file{
-  display: inline-block;  
+  display: flex;  
 
-  font-size: 2.2vw;
+  font-size: 1.2em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 3vh;
+  line-height: 1.5em;
   color: rgba(0, 0, 0, 1);
 
-  margin-top: -41vh;
-  margin-left: 3vw;
+  margin-top: 1em;
+  margin-left: -3.2em;
 }
 
 .upload_block{
-  display: block;
-  width: 62vw;
-  height: 45vh;
+  display: inline-block;
+  width: 18em;
+  height: 10em;
   cursor: pointer;
 
-  font-size: 2.2vw;
+  font-size: 1.2em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 5vh;
+  line-height: 1.5em;
   color: rgba(0, 0, 0, 1);
 
   border: none;
   border-radius: 1vh;
 
   background-color: rgba(243, 241, 241, 1);
-  margin-top: 4vh;
-  margin-left: 1.5vw;
+  margin-top: -1.3em;
+  margin-left: -0.5em;
 }
 
 .choose_file {
@@ -1717,13 +1718,13 @@ ul.Layerout ul li:hover {
 .upload_image{
   display: flex;
   position: relative;
-  width: 20vw;
-  height: 20vh;
+  width: 5em;
+  height: 5em;
   
   justify-content: center;
   align-items: center;
 
-  margin-top: 9vh;
+  margin-top: 1em;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1752,22 +1753,22 @@ ul.Layerout ul li:hover {
 
 .UploadFile_Back_button{
   display: inline-block;
-  width: 24vw;
-  height: 10vh;
+  width: 7em;
+  height: 2em;
   cursor: pointer;
 
   text-align: center;
-  font-size: 2vw;
+  font-size: 1.5vw;
   font-family: 'Poppins',Arial;
 
   color: rgba(255, 255, 255, 1);
   background-color: rgba(87, 196, 157, 1);
 
   border: none;
-  border-radius: 3vw;
+  border-radius: 3em;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-right: 3vw;
+  margin-right: 1.5em;
 }
 .UploadFile_Back_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -1775,22 +1776,22 @@ ul.Layerout ul li:hover {
 
 .UploadFile_Next_button{
   display: inline-block;
-  width: 24vw;
-  height: 10vh;
+  width: 7em;
+  height: 2em;
   cursor: pointer;
 
   text-align: center;
-  font-size: 2vw;
+  font-size: 1.2em;
   font-family: 'Poppins',Arial;
 
   color: rgba(255, 255, 255, 1);
   background-color: rgba(87, 196, 157, 1);
 
   border: none;
-  border-radius: 3vw;
+  border-radius: 3em;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-right: 3.5vw;
+  margin-right: 10em;
 }
 .UploadFile_Next_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -1813,16 +1814,16 @@ ul.Layerout ul li:hover {
 }
 
 .upload_file_title{
-  font-size: 2.2vw;
+  font-size: 1.2em;
   font-family: 'Poppins',Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 5vh;
+  line-height: 1.6em;
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 3vh;
-  margin-left: 9vw;
+  margin-top: 0.5em;
+  margin-left: 5em;
   margin-bottom: 3vh;
 }
 

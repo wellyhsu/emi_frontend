@@ -447,18 +447,18 @@ export default function VE_upload_file_page() {
             <div className={styles.upload_file_title}>
                 Please upload your teaching material. (It might take a few minutes.)
             </div>
-            <div className={styles.no_padding_center}>
+{/*          <div className={styles.no_padding_center}>*/}   
                 <div className={styles.file_Name}>
                     Name:
                     <input type="text" id="file_name" className={styles.file_input}>
 
                     </input>
                 </div>
-            </div>   
-            <div className={styles.no_padding_center}>
-                <div className={styles.file}>
-                    file:                            
-                </div>
+{/*            </div>   */}   
+           <div style={{marginLeft: "15em"}}/* className={styles.no_padding_center}*/  > 
+                    <div className={styles.file}>
+                        file:                            
+                    </div>  
                     <input id="customFileInput" className={styles.choose_file} type="file" accept="*.ppt, *.pptx, video/*"></input>
                     <label htmlFor="customFileInput" className={styles.upload_block} onClick={select_file}>
                         <div className={styles.no_padding_center}>
@@ -486,7 +486,7 @@ export default function VE_upload_file_page() {
                             </div>
                         </div>
                     </label>
-            </div>
+            </div>  
             <div className={styles.upload_file_button}>
                 <div style={{float: "right"}}>
                     <Link 
