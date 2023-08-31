@@ -1609,7 +1609,7 @@ ul.Layerout ul li:hover {
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 1.5em;
+  margin-top: 0.7em;
   margin-left: 3em;
 }
 
@@ -1657,7 +1657,7 @@ ul.Layerout ul li:hover {
 
 .file_input{
   display: inline-block;
-  width: 22em;
+  width: 28em;
   height: 2em;
 
   font-size: 0.8em;
@@ -1692,7 +1692,7 @@ ul.Layerout ul li:hover {
 
 .upload_block{
   display: inline-block;
-  width: 18em;
+  width: 22em;
   height: 10em;
   cursor: pointer;
 
@@ -1732,7 +1732,7 @@ ul.Layerout ul li:hover {
 .upload_file_button_no_script{
   display: inline-block;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 30px;
 
   margin-bottom: 4vh;
 }
@@ -1741,24 +1741,19 @@ ul.Layerout ul li:hover {
   display: inline-block;
   height: 11vh;
   width: 100%;
-
-  margin-top: 5.5vh;
-  margin-bottom: 5vh;
-}
-.upload_file_button::after {
-  content: "";
-  display: table;
-  clear: both;
+ 
+  margin-top: 1em;
+  margin-bottom: -1em;
 }
 
 .UploadFile_Back_button{
   display: inline-block;
-  width: 7em;
+  width: 6em;
   height: 2em;
   cursor: pointer;
 
   text-align: center;
-  font-size: 1.5vw;
+  font-size: 1.1em;
   font-family: 'Poppins',Arial;
 
   color: rgba(255, 255, 255, 1);
@@ -1776,12 +1771,12 @@ ul.Layerout ul li:hover {
 
 .UploadFile_Next_button{
   display: inline-block;
-  width: 7em;
+  width: 6em;
   height: 2em;
   cursor: pointer;
 
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-family: 'Poppins',Arial;
 
   color: rgba(255, 255, 255, 1);
@@ -1791,11 +1786,153 @@ ul.Layerout ul li:hover {
   border-radius: 3em;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-right: 10em;
+  margin-right: 20em;
 }
 .UploadFile_Next_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
 }
+
+.pop_up_loading_window{
+  display: inline;
+  position: fixed;
+  z-index: 9;
+
+  height: 20em;
+  width: 25em;
+
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 1vw;
+
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
+.uploading_text{
+  height: 2.5em;
+
+  font-size: 1.5em;
+  font-family: 'Poppins',Arial;
+  text-align: center;
+
+  justify-content: center;
+  align-items: center;
+
+  padding-top: 1em;
+}
+
+.Circle_bottom{
+  position: relative;
+  width: 10em;
+  height: 10em;
+  z-index: 1;
+
+  border: 1em solid rgba(179, 180, 189, 0.8);
+  border-radius : 100%;
+
+  justify-content: center;
+  align-items: center;
+
+  margin-top: -0em;
+  margin-left: auto;
+  margin-right: auto;
+
+  overflow: hidden;
+}
+
+.right{
+  position: absolute;
+  top: 0em;
+  left: 0em;
+  z-index: 2;
+
+  width: 50%;
+  height: 100%;
+  overflow: hidden; 
+}
+
+.Circle_up{
+  position: absolute;
+  width: 10em;
+  height: 10em;
+  z-index: 3;
+
+  border: 1em solid transparent;
+  border-top: 1em solid rgba(28, 111, 180, 0.8);
+  border-right: 1em solid rgba(28, 111, 180, 0.8);
+  border-radius : 100%;
+
+  margin-top: 3.75em;
+  margin-left: 7.5em;
+  margin-right: auto;
+
+  transform: rotate(45deg);
+  animation: circle__up 4s linear infinite;
+  animation-delay: 2s;
+}
+@keyframes circle__up {
+  50% {
+    transform: rotate(225deg);
+  }
+  100% {
+    transform: rotate(225deg);
+  }
+}
+
+.left{
+  position: absolute;
+  top: 0;
+  right: 0em;
+  z-index: 4;
+
+  width: 50%;
+  height: 100%;
+  overflow: hidden; 
+}
+
+.Circle_up_L{
+  position: relative;
+  width: 10em;
+  height: 10em;
+  z-index: 5;
+
+  border: 1em solid transparent;
+  border-top: 1em solid rgba(28, 111, 180, 0.8);
+  border-right: 1em solid rgba(28, 111, 180, 0.8);
+  border-radius : 100%;
+
+  margin-top: 3.75em;
+  margin-left: -5em;
+  margin-right: auto;
+
+  transform: rotate(-135deg);
+  animation: circle__up_L 4s linear infinite;
+}
+@keyframes circle__up_L {
+  50% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(45deg);
+  }
+}
+
+
+.uploading_Cancel_button{
+  display: inline-block;
+  width: 10vw;
+  height: 6vh;
+  cursor: pointer;
+  position: relative;
+  z-index: 9;
+
+  border-radius: 0.6vw;
+  border-width: 0.3vh;
+  box-shadow: rgba(0, 0, 0, 0.2);
+
+  margin-top: 3vh;
+  margin-right: 6vw;
+}
+
 
 /*    VE Edit Page     */
 
@@ -2791,7 +2928,8 @@ select.option{
 
   background-color: rgba(75, 75, 75, 0.471);
 
-  padding-top: 5vh;
+  margin-top: -0.5em;
+  padding-top: 0.5em;
   padding-bottom: 18vh;
 }
 

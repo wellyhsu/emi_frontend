@@ -27,6 +27,8 @@ var cancel = 0;
 function cancel_upload()
 {
     var information;
+
+    document.getElementById("uploading").style = "display: none";
     cancel = 1;
 
     const Cancel = new FormData();   //宣告fd為FormData();
@@ -328,6 +330,7 @@ function upload_file(e){
     var completed = 0;
 //    var xhr = new self.XMLHttpRequest();
 
+    document.getElementById('uploading').style = "display: flex";
 
     file_type = fileName?.substring(fileName?.indexOf(".",0));  //取得副檔名
     console.log("file_type=",file_type); 
@@ -434,59 +437,88 @@ function choose_upload_script(){
 export default function VE_upload_file_page() {
     return (
         <main className={styles.main}>
-            <div className={styles.Start_making}>
-                Start making
-            </div>
-            <div className={styles.upload_script}>
-                Please choose whether upload your script.
-            </div>
-            <div className={styles.transcript_block}>
-                <button id="script_button" className={styles.checkbox} onClick={choose_upload_script}></button>
-                Upload transcript
-            </div>
-            <div className={styles.upload_file_title}>
-                Please upload your teaching material. (It might take a few minutes.)
-            </div>
-{/*          <div className={styles.no_padding_center}>*/}   
-                <div className={styles.file_Name}>
-                    Name:
-                    <input type="text" id="file_name" className={styles.file_input}>
-
-                    </input>
-                </div>
-{/*            </div>   */}   
-           <div style={{marginLeft: "15em"}}/* className={styles.no_padding_center}*/  > 
-                    <div className={styles.file}>
-                        file:                            
-                    </div>  
-                    <input id="customFileInput" className={styles.choose_file} type="file" accept="*.ppt, *.pptx, video/*"></input>
-                    <label htmlFor="customFileInput" className={styles.upload_block} onClick={select_file}>
-                        <div className={styles.no_padding_center}>
-                            <div>
-                                <div>
-                                    <video 
-                                        id="video"
-                                        poster=""
-                                        autoPlay={false}
-                                        controls={true} 
-                                        style={{display: "none"}}
-                                    >
-                                        Your browser does not support the video tag.
-                                    </video>
-                                </div>
-                                <div className={styles.upload_image}>
-                                    <Image
-                                        src="/Upload_cloud_image.svg"
-                                        alt="Upload cloud image"
-                                        fill={true}
-                                        priority
-                                    />
-                                </div>
-                                    Click here to upload your file 
+            <div id="uploading" style={{height: "100%"/*,display: "none"*/}}>
+                <div className={styles.question_background}>
+                    <div className={styles.pop_up_loading_window}>
+                        <div className={styles.uploading_text} >
+                            uploading...
+                        </div>
+                        <div className={styles.Circle_bottom}>
+                        </div>
+                        
+                        <div className={styles.right}>
+                            <div className={styles.Circle_up}>
                             </div>
                         </div>
-                    </label>
-            </div>  
+                        <div className={styles.left}>
+                            <div className={styles.Circle_up_L}>
+                            </div>
+                        </div>
+                        <div style={{float: "right", marginBottom: "5vh"}}>
+                            <button className={styles.uploading_Cancel_button} onClick={cancel_upload}>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className={styles.no_padding_center}>
+                <div>
+                    <div className={styles.Start_making}>
+                        Start making
+                    </div>
+                    <div className={styles.upload_script}>
+                        Please choose whether upload your script.
+                    </div>
+                    <div className={styles.transcript_block}>
+                        <button id="script_button" className={styles.checkbox} onClick={choose_upload_script}></button>
+                        Upload transcript
+                    </div>
+                    <div className={styles.upload_file_title}>
+                        Please upload your teaching material. (It might take a few minutes.)
+                    </div>
+                    <div className={styles.file_Name}>
+                        Name:
+                        <input type="text" id="file_name" className={styles.file_input}>
+
+                        </input>
+                    </div>
+ 
+                    <div style={{marginLeft: "15em"}}/* className={styles.no_padding_center}*/  > 
+                        <div className={styles.file}>
+                            file:                            
+                        </div>  
+                        <input id="customFileInput" className={styles.choose_file} type="file" accept="*.ppt, *.pptx, video/*"></input>
+                        <label htmlFor="customFileInput" className={styles.upload_block} onClick={select_file}>
+                            <div className={styles.no_padding_center}>
+                                <div>
+                                    <div>
+                                        <video 
+                                            id="video"
+                                            poster=""
+                                            autoPlay={false}
+                                            controls={true} 
+                                            style={{display: "none"}}
+                                        >
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                    <div className={styles.upload_image}>
+                                        <Image
+                                            src="/Upload_cloud_image.svg"
+                                            alt="Upload cloud image"
+                                            fill={true}
+                                            priority
+                                        />
+                                    </div>
+                                    Click here to upload your file 
+                                </div>
+                            </div>
+                        </label>
+                    </div>  
+                </div>
+            </div>
             <div className={styles.upload_file_button}>
                 <div style={{float: "right"}}>
                     <Link 
@@ -503,10 +535,7 @@ export default function VE_upload_file_page() {
                         Next
                     </button>
                 </div>
-            </div> 
-            <button onClick={cancel_upload}>
-                Cancel
-            </button>
+            </div>  
         </main>
     )
 }
