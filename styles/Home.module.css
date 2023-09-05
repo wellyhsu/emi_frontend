@@ -1820,6 +1820,7 @@ ul.Layerout ul li:hover {
   padding-top: 1em;
 }
 
+/* 等待上傳的圈圈 */
 .Circle_bottom{
   position: relative;
   width: 10em;
@@ -2903,6 +2904,7 @@ select.option{
 .PopupQuiz_video_preview{
   display: flex;
   height: 70vh;
+  width: 70%;
 
   margin-top: 3vh;
   margin-bottom: 10vh;
@@ -3053,12 +3055,16 @@ select.option{
 }
 
 .Popup_add_block{
-  margin-top: -35vh;
-  margin-left: 2.5vw;
+  display: fixed;
+  position: absolute;
+
+  margin-top: 16em;
+  margin-left: 1em;
 }
 
 .Popup_add_button{
-  position: absolute;
+  display: fixed;
+  position: relative;
   z-index: 1;
   cursor: pointer;
 
@@ -3079,8 +3085,8 @@ select.option{
   position: absolute;
   z-index: 1;
 
-  margin-top: 1.1em;
-  margin-left: 6em;
+  margin-top: -3.5em;
+  margin-left: 5em;
 }
 
 .gap_fill_button{
@@ -3140,6 +3146,69 @@ select.option{
   background-color: rgba(255, 157, 0, 0.785);
   transform: scale(1.05);
 }
+
+.video{
+  height: 90%;
+}
+
+/* 影片控制板 */
+.video_control{
+  width: 40.4em;
+  height: 4em;
+  display: fixed;
+  position: absolute;
+  z-index: 1;
+
+  margin-top: -0.29em;
+  background-color: rgba(0, 0, 0, 0.783);
+}
+
+.video_control_progress{
+  width: 100%;
+  height: 0.5em;
+  display: flex;
+  cursor: pointer;
+
+  background-color: rgba(128, 128, 128, 0.8);
+}
+
+.video_control_progress_fill{
+  width: 1%;
+  height: 0.5em; 
+  display: flex;
+  cursor: pointer;
+
+  background-color: rgb(50, 93, 209);
+}
+
+.video_control_play_button{
+  width: 2em;
+  height: 1.9em;
+  cursor: pointer;
+
+  background-color: rgba(210, 48, 48, 0.8);
+  margin-left: 0.5em;  
+  margin-right: 0.5em;
+}
+
+.video_control_mute_button{
+  width: 2em;
+  height: 1.9em;
+  cursor: pointer;
+
+  background-color: rgba(51, 48, 210, 0.8);
+  margin-right: 0.5em;
+}
+
+.video_control_volume_slide{
+  width: 8em;
+  height: 1em;
+  cursor: pointer;
+
+  margin-top: 0.5em;
+}
+
+
 
 
 /* Student view page */

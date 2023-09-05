@@ -22,6 +22,9 @@ const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 //上述為計算一共會切出幾份檔案 
 
 var UserName;
+UserName = Cookies.get('userName');
+UserName = UserName?.substring(1, UserName?.lastIndexOf(`"`));  //" "中間字串
+
 var cancel = 0;
 
 function cancel_upload()
@@ -33,7 +36,7 @@ function cancel_upload()
 
     const Cancel = new FormData();   //宣告fd為FormData();
     Cancel.append('cancel', "true");
-    Cancel.append('username', Cookies.get('username'));     //把每一個chunk插入fd中
+    Cancel.append('username', UserName);     //把每一個chunk插入fd中
     Cancel.append('video_name', fileName);     //把每一個chunk插入fd中
 
     //檢查FormData內的內容 - 方法一       
@@ -41,21 +44,21 @@ function cancel_upload()
         console.log("value(標題)=",value,"key(內容)=",key);
     });
 
-    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_Cancel_upload, {            
+    fetch("http://34.142.145.187:30036/api/video/cancel"/*process.env.NEXT_Cancel_upload*/, {            
         method: 'POST',
         headers:{
-            'Content-Type': 'application/json',
+            "Metadata-Token": Metadata_token,
         },
         body: Cancel,
     })
         .then((response) => {
-            information = response.json();
+            information = response.text();
             console.log('info^^',information);
             return information;
         })
         .then((data) => {
             console.log('data=', data);
-            console.log('data["message"]=', data["message"]);
+            console.log('data[message"]=', data["message"]);
         })
         .catch((error) => console.log("error", error));
 
@@ -64,8 +67,6 @@ function cancel_upload()
 function select_file(e) {
     cancel = 0;
     console.log("press button");
-    UserName = Cookies.get('userName');
-    UserName = UserName?.substring(1, UserName?.lastIndexOf(`"`));  //" "中間字串
 
     console.log("UserName=", UserName);
     var inputFile = document.getElementById('customFileInput');
@@ -228,6 +229,9 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
     var Chunk_Final = false;
     var information;
     console.log('Length=',chunks.length);
+    console.log("fileName==",fileName);
+    console.log("GET MetaDataToken", JSON.stringify(Metadata_token));
+
 
     for (let chunk of chunks) {   //
         const fd = new FormData();   //宣告fd為FormData();
@@ -270,9 +274,6 @@ async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依
                     Chunk_Final = true;
                 }
             }
-
-            console.log("fileName==",fileName);
-            console.log("GET MetaDataToken", JSON.stringify(Metadata_token));
 
             if(cancel == 0)
             {
@@ -437,7 +438,7 @@ function choose_upload_script(){
 export default function VE_upload_file_page() {
     return (
         <main className={styles.main}>
-            <div id="uploading" style={{height: "100%"/*,display: "none"*/}}>
+            <div id="uploading" style={{height: "100%",display: "none"}}>
                 <div className={styles.question_background}>
                     <div className={styles.pop_up_loading_window}>
                         <div className={styles.uploading_text} >
@@ -464,7 +465,7 @@ export default function VE_upload_file_page() {
             </div>
 
             <div className={styles.no_padding_center}>
-                <div>
+                <div style={{marginLeft: "-6em"}}>
                     <div className={styles.Start_making}>
                         Start making
                     </div>
