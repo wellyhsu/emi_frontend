@@ -7,8 +7,6 @@ import Cookies from 'js-cookie';
 import Script from 'next/script';
 import PopUpWindow from '../components/Pop_up_window';
 
-var Right_Answer="";   //正確答案
-
 var answer_times=0;      //用來防止學生選擇兩次答案
 var Question_control=-1;  //用來防止同一時間的題目出現兩次，紀錄題目第一次出現的時間
 var API=0;   //確保只取得一次有題目的時間點
@@ -25,7 +23,8 @@ export default function Student_view_video() {
     const router = useRouter();
     const [currentTime, setCurrentTime] = useState(0);  //用於顯示目前影片播放到的秒數
     const [isQuestionVisible, setIsQuestionVisible] = useState(false);  //用於決定是否顯示題目視窗
-    const [Answer, setAnswer] = useState("");    //用於顯示回答正確或錯誤
+    const [Answer, ShowAnswer] = useState("");    //用於顯示回答正確或錯誤
+    const [RightAnswer, setRightAnswer] = useState("");  //顯示正確答案
     const videoRef = useRef(null);        //用於取得影片相關資訊
     const [Question, setQuestion] = useState(0);  //儲存影片題目
 
@@ -140,11 +139,11 @@ export default function Student_view_video() {
                                         console.log("options2=",Options2);
                                         console.log("options3=",Options3);
                                         console.log("options4=",Options4);
-                                        Right_Answer = data["answer"]
+                                        setRightAnswer(data["answer"]);
 
                                         console.log("Question=", Question);
                                         console.log("Options(4)=", Options1);
-                                        console.log("Answer=", Right_Answer);
+                                        console.log("Answer=", RightAnswer);
                                     })
                                     .catch((error) => console.log("error", error));
                                 sec = Question_time.length;                                    
@@ -171,29 +170,73 @@ export default function Student_view_video() {
 
         function True_OR_False(event){
             const buttonText = event.target.textContent;   //取得學生選擇的答案
-            if(answer_times == 1){   //若學生已經回答過，不反應
+            if(answer_times == 1)   //若學生已經回答過，不反應
+            {
                 return false;
             }
             document.getElementById(event.target.id).style = "color: rgba(255, 255, 255, 1); background-color: #38c18a;";
         
             console.log(buttonText);
         
-            if(buttonText == Right_Answer)
+            if(buttonText == RightAnswer)
             {
                 console.log("Answer!!");
-                setAnswer("Right Answer!");
+                ShowAnswer("Right Answer!");
             }
             else
             {
                 console.log("X!!");
-                setAnswer("Wrong Answer!");
+                ShowAnswer("Wrong Answer!");
+                document.getElementById('button_block').style = "float: none, align-items: center";
+                document.getElementById('Show_Right_Answer').style = "display: inline-block";
+                document.getElementById('back_to_video').style = "display: inline-block";
             }
             answer_times = 1;    //將學生回答過次數改為1
         }
 
-        const Continuous = () => {   //繼續觀看影片
+        function Show_Answer()
+        {
+            document.getElementById('True_answer_block').style = "display: inline-block";
+        }
+
+        function Review_video()
+        {
+            Question_control = -1;
+            console.log("Question_time=", Question_time);
+            console.log("Math.ceil(videoRef.current.currentTime=", Math.floor(videoRef.current.currentTime));
+            console.log("Question_time.indexOf=", Question_time.indexOf(Math.floor(videoRef.current.currentTime)));
+
+            if(Question_time.indexOf(Math.floor(videoRef.current.currentTime)) == 0)
+            {
+                console.log("第一個題目");
+                videoRef.current.currentTime = 0;
+                answer_times = 0;   
+                ShowAnswer("");   //清空使用者回答後的回覆
+                setQuestion("");
+                setOptions1("");
+                setOptions2("");
+                setOptions3("");
+                setOptions4("");
+    
+                setIsQuestionVisible(false);
+                document.getElementById("choice1").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+                document.getElementById("choice2").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+                document.getElementById("choice3").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+                document.getElementById("choice4").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+            }
+            else
+            {
+                let Quiz_index = Question_time.indexOf(Math.floor(videoRef.current.currentTime))
+                videoRef.current.currentTime =Question_time[Quiz_index-1] + 0.01;
+                console.log("Question_time[Quiz_index-1]=", Question_time[Quiz_index-1]);
+            }
+        }
+
+        const Continuous = () =>    //繼續觀看影片
+        {
             answer_times = 0;   
-            setAnswer("");   //清空使用者回答後的回覆
+            Question_control = -1;
+            ShowAnswer("");   //清空使用者回答後的回覆
             setQuestion("");
             setOptions1("");
             setOptions2("");
@@ -203,6 +246,8 @@ export default function Student_view_video() {
             setIsQuestionVisible(false);
             document.getElementById("choice1").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
             document.getElementById("choice2").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+            document.getElementById("choice3").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+            document.getElementById("choice4").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
             videoRef.current.play();
         };
 
@@ -244,9 +289,20 @@ export default function Student_view_video() {
                                     <div className={styles.content_title}>
                                         {Answer}
                                     </div>
-                                    <button className={styles.Continuous_button} style={{float: "right"}} onClick={Continuous}>
-                                        Continuous
-                                    </button>
+                                    <div id='True_answer_block' style={{display: "none"}} className={styles.content_title}>
+                                        The answer is {RightAnswer}
+                                    </div>
+                                    <div id='button_block' style={{float: "right"}}>
+                                        <button id='back_to_video' style={{display: "none", marginRight: "1em", marginLeft: "-3em"}} className={styles.Continuous_button} onClick={Review_video}>
+                                            Review video
+                                        </button>
+                                        <button id='Show_Right_Answer' style={{display: "none", marginRight: "1em"}} className={styles.Continuous_button} onClick={Show_Answer}>
+                                            Show Right Answer
+                                        </button>
+                                        <button style={{marginRight: "1em"}} className={styles.Continuous_button} onClick={Continuous}>
+                                            Continuous
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

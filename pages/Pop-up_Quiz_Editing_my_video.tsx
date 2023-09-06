@@ -23,10 +23,15 @@ var inputItem;
 //var skipButton;
 var progressBarOut;
 var progressBarIn;   
-var conditionValue = 0.5;
-var video_current_volume;
-var image_Source="../istockphoto-sound.svg";
+
+var currentPosition;   //影片進度條的位置
+var conditionValue = 0.5;   //影片初始音量大小
+var video_current_volume;  //紀錄靜音前的音量
+
+var changeInput;    //取得觸發事件的input元素
+var conditionName;  //取得input元素的name屬性
 var image_sound_alt="sound"
+var mute_button=0;   
 
 var videoDuration;
 
@@ -112,6 +117,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const Modify_Answer_Ref = useRef(undefined);  
 
     const [ShowCircle, setShowCircle] = useState([]);
+    const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
 
     useLayoutEffect(() => {
         selectVideo = document.getElementById('video');
@@ -169,19 +175,31 @@ export default function Pop_up_Quiz_Editing_my_video() {
     //調整音量
     function changeCondition (event) {
         //取得觸發事件的input元素
-        let changeInput = event.target;
+        changeInput = event.target;
         //取得input元素的name屬性
-        let conditionName = changeInput.name;
+        conditionName = changeInput.name;
         //取得input元素的值   
         conditionValue = changeInput.value;
         //將影片屬性值改為input元素的值
         selectVideo[conditionName] = conditionValue; 
+        mute_button = 0;
+        console.log("I_mute_button= ",mute_button);
         if(conditionValue != 0)
+        {
             video_current_volume = conditionValue;
+            if(mute_button == 0)
+                setSound_image_path("/istockphoto_sound.png");
+            console.log("image_Source=",Sound_image_path);
+        }
         else
-            video_current_volume = 0.1;        
+        { 
+            if(mute_button == 0)
+                setSound_image_path("/istockphoto_mute.png");
+            console.log("image_Source=",Sound_image_path);
+        }
         //將畫面上的音量軸調到正確位置
         changeInput.value = conditionValue;
+        console.log("changeInput.value= ",changeInput.value);
     };
 
     //影片播放時的時間軸
@@ -192,7 +210,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         let currentTime = selectVideo.currentTime;
         console.log("P_currentTime= ", currentTime);
         //換算成比例
-        let currentPosition = (currentTime / videoDuration) * 100;
+        currentPosition = (currentTime / videoDuration) * 100;
         console.log("currentPosition=",currentPosition);
         //將算出來的比例加到該元素的CSS屬性上
         progressBarIn.style.flexBasis = `${currentPosition}%`;
@@ -228,22 +246,44 @@ export default function Pop_up_Quiz_Editing_my_video() {
         console.log("newPosition=", newPosition);
         
         //將計算出來的影片時間指定為目前播放時間
-        selectVideo.currentTime = newPosition;
+        document.getElementById('video').currentTime = newPosition;
+        console.log("selectVideo= ",selectVideo);
         console.log("selectVideo.currentTime=",selectVideo.currentTime);
     };
 
     function mute_control()
     {
-        if(selectVideo[conditionName] != 0)
+        mute_button = 1;
+        if(document.getElementById('input').value != 0)  //執行靜音動作
         {
-            video_current_volume = selectVideo[conditionName];
-            selectVideo[conditionName] = 0;
-            image_Source="/istockphoto-mute.jpg";
+            console.log("mute!"); 
+            setSound_image_path("/istockphoto_mute.png");
+
+            //紀錄靜音前的音量大小
+            video_current_volume = document.getElementById('input').value;  
+            //音量歸零
+            selectVideo[document.getElementById('input').name] = 0;
+
+            //將畫面上的音量軸調到正確位置
+            document.getElementById('input').value = 0;   //音量歸零
+    
+
+            console.log("input= ",document.getElementById('input'));
+            console.log("mute_button= ",mute_button);
         }
-        else
+        else  //回復靜音前的音量
         {
-            selectVideo[conditionName] = video_current_volume;
-            image_Source="/istockphoto-sound.svg";
+            console.log("sound!!");
+            setSound_image_path("/istockphoto_sound.png");
+
+            //回復靜音前的音量
+            selectVideo[document.getElementById('input').name] = video_current_volume;
+            //將畫面上的音量軸調到正確位置
+            document.getElementById('input').value = video_current_volume;   //音量歸零
+
+
+            console.log("input= ",document.getElementById('input'));
+            console.log("mute_button= ",mute_button);
         }
     }
 
@@ -334,16 +374,12 @@ export default function Pop_up_Quiz_Editing_my_video() {
         var selectVideo = document.querySelector('video');
         console.log("video length= ",Math.floor(selectVideo.duration));  //影片總長度
         
-        marginLeftValue = 13 + (selectVideo.currentTime * ((710.98)/Math.floor(selectVideo.duration)));
-        marginLeftValue = parseInt(marginLeftValue.toFixed(2));
-        console.log("marginLeftValue= ", marginLeftValue);  //circle需位移距離
-
         const circleElement = (
             <div
                 key={"Circle" + String(CircleNumber)}
                 id={"Circle" + String(CircleNumber)}
-                className={styles.circle}
-                style={{marginLeft: String(marginLeftValue)+"px"}}
+                className={styles.circle}                 //circle需位移距離
+                style={{marginLeft: String(currentPosition*(76/100))+"%"}}
                 onClick={Click_Circle}
             >
                 
@@ -566,13 +602,15 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                     <button id="playbutton" className={styles.video_control_play_button}>
                                         ►
                                     </button>
-                                    <button id="mute_Control" className={styles.video_control_mute_button} onClick={mute_control}>
+                                    <button id="mute_Control" className={styles.video_control_mute_button} onClick={mute_control}>                                            
                                         <Image
-                                            src={image_Source}
+                                            src={Sound_image_path}
                                             alt={image_sound_alt}
-                                            fill={true}
+                                            //fill={true}
+                                            width= {20}
+                                            height= {20}
                                             priority
-                                        />
+                                        />   
                                     </button>
                                     <input 
                                         id="input"
@@ -582,6 +620,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                         min="0" max="1" 
                                         step="0.05" 
                                         value={conditionValue}
+                                        onChange={changeCondition}
                                     >
                                     </input>
                                 </div>

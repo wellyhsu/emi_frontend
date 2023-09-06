@@ -3138,8 +3138,8 @@ select.option{
   background-color: rgb(255, 157, 0);
   border-radius: 100%; /* 将边框半径设置为 50%，使元素呈现圆形 */
 
-  margin-top: 23.2em;
-  margin-left: 1em;
+  margin-top: -0.55em;
+  margin-left: 10em;
 }
 .circle:hover{
   cursor: pointer;
@@ -3196,8 +3196,15 @@ select.option{
   height: 1.9em;
   cursor: pointer;
 
-  background-color: rgba(51, 48, 210, 0.8);
+  background-color: rgba(242, 242, 64, 0.975);
   margin-right: 0.5em;
+}
+
+.sound{
+  display: flex;
+  width: 0.5em;
+  height: 0.5em;
+
 }
 
 .video_control_volume_slide{
