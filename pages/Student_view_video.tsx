@@ -97,6 +97,7 @@ export default function Student_view_video() {
                 console.log("Question_time[sec]=",Question_time[sec]);
     
                 sec = 0;
+
                 console.log("Question_time length=",Question_time.length);
             
                 while(sec < Question_time.length)  //檢查是否為該彈出題目的時間點
@@ -235,7 +236,6 @@ export default function Student_view_video() {
         const Continuous = () =>    //繼續觀看影片
         {
             answer_times = 0;   
-            Question_control = -1;
             ShowAnswer("");   //清空使用者回答後的回覆
             setQuestion("");
             setOptions1("");
