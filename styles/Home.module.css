@@ -1840,7 +1840,7 @@ ul.Layerout ul li:hover {
   overflow: hidden;
 }
 
-.right{
+.left{
   position: absolute;
   top: 0em;
   left: 0em;
@@ -1851,7 +1851,7 @@ ul.Layerout ul li:hover {
   overflow: hidden; 
 }
 
-.Circle_up{
+.Circle_up_L{
   position: absolute;
   width: 10em;
   height: 10em;
@@ -1867,10 +1867,11 @@ ul.Layerout ul li:hover {
   margin-right: auto;
 
   transform: rotate(45deg);
-  animation: circle__up 4s linear infinite;
+  animation: circle_up_L 4s linear infinite;
   animation-delay: 2s;
 }
-@keyframes circle__up {
+/*
+@keyframes circle_up_L {
   50% {
     transform: rotate(225deg);
   }
@@ -1878,8 +1879,8 @@ ul.Layerout ul li:hover {
     transform: rotate(225deg);
   }
 }
-
-.left{
+*/
+.right{
   position: absolute;
   top: 0;
   right: 0em;
@@ -1890,7 +1891,7 @@ ul.Layerout ul li:hover {
   overflow: hidden; 
 }
 
-.Circle_up_L{
+.Circle_up_R{
   position: relative;
   width: 10em;
   height: 10em;
@@ -1906,17 +1907,22 @@ ul.Layerout ul li:hover {
   margin-right: auto;
 
   transform: rotate(-135deg);
-  animation: circle__up_L 4s linear infinite;
+
+  animation-name: circle_up_R;
+  animation-duration: 4s;
+  animation-timing-function: linear;
+  animation-iteration-count: unset;
 }
-@keyframes circle__up_L {
+/*
+@keyframes circle_up_R {
   50% {
-    transform: rotate(45deg);
+    transform: rotate(3.6deg);
   }
   100% {
-    transform: rotate(45deg);
+    transform: rotate(3.6deg);
   }
 }
-
+*/
 
 .uploading_Cancel_button{
   display: inline-block;
@@ -2983,7 +2989,7 @@ select.option{
   width: 30vw;
   height: 8vh;
 
-  font-size: 1.4vw;
+  font-size: 1em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 600;
@@ -2999,7 +3005,7 @@ select.option{
   width: 30vw;
   height: 6vh;
 
-  font-size: 1.3vw;
+  font-size: 1em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 600;
@@ -3018,6 +3024,33 @@ select.option{
 
   padding-top: 0.3vw;
   padding-left: 0.7vw;
+}
+
+.button_block{
+  width: 100%;
+  float: right;
+
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 1em;
+}
+
+.Review_video_button{
+  display: inline-block;
+  width: 10vw;
+  height: 6vh;
+  cursor: pointer;
+
+  border-radius: 0.6vw;
+  border-width: 0.3vh;
+  box-shadow: rgba(0, 0, 0, 0.2);
+
+  margin-top: 3vh;
+  margin-right: 1em;
+}
+.Review_video_button:hover{
+  transform: scale(1.02);
 }
 
 .Continuous_button{
@@ -3132,14 +3165,14 @@ select.option{
 .circle {
   width: 1em;
   height: 1em;
-  position: fixed;
+  position: absolute;
   z-index: 1;
 
   background-color: rgb(255, 157, 0);
   border-radius: 100%; /* 将边框半径设置为 50%，使元素呈现圆形 */
 
-  margin-top: -0.55em;
-  margin-left: 10em;
+  margin-top: -2.7em;
+  margin-left: 0em;
 }
 .circle:hover{
   cursor: pointer;

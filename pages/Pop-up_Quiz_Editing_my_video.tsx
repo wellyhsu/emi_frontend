@@ -13,6 +13,8 @@ var ADD_button=0;  //用於點擊ADD按鈕後，展開及收起add欄位
 var Question="";   //發送給後端的題目
 var Choice=[];     //發送給後端的題目選項
 var Answer="";     //發送給後端的答案
+var Explain="";     //發送給後端的答案詳解
+
 var Time="0";       //發送給後端的當前影片時間
 
 var CircleNumber = 1;    //用於標記每個circle的ID
@@ -107,6 +109,8 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const Multiple_choice_Choice_Ref_3 = useRef(undefined);   //取得使用者輸入的第三個Choice欄位內容
     const Multiple_choice_Choice_Ref_4 = useRef(undefined);   //取得使用者輸入的第四個Choice欄位內容
     const Multiple_choice_Answer_Ref = useRef(undefined);     //取得使用者輸入的Answer欄位內容
+    const Multiple_choice_Explain_Ref = useRef(undefined);     //取得使用者輸入的Answer欄位內容
+
 
     const Modify_Question_Ref = useRef(undefined);   //取得使用者修改後的Question欄位內容
     const Modify_Choice_Ref_1 = useRef(undefined);   //取得使用者修改後的第一個Choice欄位內容
@@ -115,6 +119,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const Modify_Choice_Ref_4 = useRef(undefined);   //取得使用者修改後的第四個Choice欄位內容
 
     const Modify_Answer_Ref = useRef(undefined);  
+    const Modify_Explain_Ref = useRef(undefined);
 
     const [ShowCircle, setShowCircle] = useState([]);
     const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
@@ -231,6 +236,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
     function dragProgressBar (e) {
         //取得影片總長度
         videoDuration = selectVideo.duration;
+        console.log("videoDuration= ",videoDuration);
         //取得按下按鍵時的滑鼠在該元素的X軸座標
         let mouseX = e.offsetX;
         console.log("mouseX=", mouseX);
@@ -332,14 +338,15 @@ export default function Pop_up_Quiz_Editing_my_video() {
         Choice.push(Modify_Choice_Ref_3.current.value);
         Choice.push(Modify_Choice_Ref_4.current.value);
         Answer = Modify_Answer_Ref.current.value;
+        Explain = Modify_Explain_Ref.current.value;
         
         const modify_question_send =
         {
             "question": Question,
             "options": Choice,  
             "answer": Answer,
-            "explanation": "none",
-            'video-path': '/home/roy/test/video/roy/uploads/',
+            "explanation": Explain,
+            'video-path': videoPath?.substring(0, videoPath?.lastIndexOf("/")+1),
         }
         
         var modify_question_send_json = JSON.stringify(modify_question_send);  //轉json格式
@@ -379,7 +386,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                 key={"Circle" + String(CircleNumber)}
                 id={"Circle" + String(CircleNumber)}
                 className={styles.circle}                 //circle需位移距離
-                style={{marginLeft: String(currentPosition*(76/100))+"%"}}
+                style={{marginLeft: String(currentPosition*(98/100))+"%"}}
                 onClick={Click_Circle}
             >
                 
@@ -404,6 +411,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         Choice.push(Multiple_choice_Choice_Ref_3.current.value);      //多選題的選項
         Choice.push(Multiple_choice_Choice_Ref_4.current.value);      //多選題的選項
         Answer = Multiple_choice_Answer_Ref.current.value;         //題目答案
+        Explain = Multiple_choice_Explain_Ref.current.value;
         Time = String(Math.floor(selectVideo.currentTime));           //影片播放到的時間
 
         console.log("Question= ", Question);
@@ -452,6 +460,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         Multiple_choice_Choice_Ref_3.current.value = "";      //多選題的選項
         Multiple_choice_Choice_Ref_4.current.value = "";      //多選題的選項
         Multiple_choice_Answer_Ref.current.value = "";         //題目答案
+        Multiple_choice_Explain_Ref.current.value = "";        //題目的詳解
         Choice = [];
     }
 
@@ -465,6 +474,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         Multiple_choice_Choice_Ref_4.current.value = "";      //多選題的選項
 
         Multiple_choice_Answer_Ref.current.value = "";         //題目答案
+        Multiple_choice_Explain_Ref.current.value = "";        //題目的詳解
 
         console.log("Question= ", Question);
         console.log("Choice= ", Choice);
@@ -513,8 +523,14 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                     </textarea>
                                 </div>
                                 <div className={styles.content_title}>
-                                    Answer and explain
+                                    Answer
                                     <textarea ref={Modify_Answer_Ref} id="Modify_Answer" className={styles.content_input} placeholder="Please input Answer">
+                                        
+                                    </textarea>
+                                </div>
+                                <div className={styles.content_title}>
+                                    Explain
+                                    <textarea ref={Modify_Explain_Ref} id="Modify_Answer" className={styles.content_input} placeholder="Please input Answer">
                                         
                                     </textarea>
                                 </div>
@@ -560,8 +576,14 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                     </textarea>
                                 </div>
                                 <div className={styles.content_title}>
-                                    Answer and explain
+                                    Answer
                                     <textarea ref={Multiple_choice_Answer_Ref} id="Answer_content" className={styles.content_input} placeholder="Please input Answer">
+                                        
+                                    </textarea>
+                                </div>
+                                <div className={styles.content_title}>
+                                    Explain
+                                    <textarea ref={Multiple_choice_Explain_Ref} id="Modify_Answer" className={styles.content_input} placeholder="Please input Answer">
                                         
                                     </textarea>
                                 </div>
@@ -624,8 +646,8 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                     >
                                     </input>
                                 </div>
+                                {ShowCircle}
                             </div>
-                            {ShowCircle}
                         </div>
                         <div className={styles.Popup_add_block} >
                             <button className={styles.Popup_add_button} onClick={Click_add}>

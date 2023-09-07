@@ -99,10 +99,11 @@ export default function Student_view_video() {
                 sec = 0;
 
                 console.log("Question_time length=",Question_time.length);
-            
+                
                 while(sec < Question_time.length)  //檢查是否為該彈出題目的時間點
                 {
                     console.log("sec=",sec);
+                    console.log("Question_control= ",Question_control);
                     if(Question_control != Math.floor(videoRef.current.currentTime)) //可以彈出題目
                     {
                         switch(Math.floor(videoRef.current.currentTime))  //判斷現在時間是否為要彈出題目的時間點
@@ -150,6 +151,7 @@ export default function Student_view_video() {
                                 sec = Question_time.length;                                    
                             break;
                             default:
+                                Question_control = -1;
                                 sec++;   //看現在是否為下一個題目的時間點
                             break;
                         }
@@ -188,9 +190,10 @@ export default function Student_view_video() {
             {
                 console.log("X!!");
                 ShowAnswer("Wrong Answer!");
-                document.getElementById('button_block').style = "float: none, align-items: center";
-                document.getElementById('Show_Right_Answer').style = "display: inline-block";
+            //    document.getElementById('button_block').style = "float: none; align-items: center;";
+                document.getElementById('Continuous').style = "margin-right: 1em";
                 document.getElementById('back_to_video').style = "display: inline-block";
+                document.getElementById('Show_Right_Answer').style = "display: inline-block";
             }
             answer_times = 1;    //將學生回答過次數改為1
         }
@@ -198,6 +201,7 @@ export default function Student_view_video() {
         function Show_Answer()
         {
             document.getElementById('True_answer_block').style = "display: inline-block";
+            document.getElementById('button_block').style = "margin-top: -1em";
         }
 
         function Review_video()
@@ -228,8 +232,22 @@ export default function Student_view_video() {
             else
             {
                 let Quiz_index = Question_time.indexOf(Math.floor(videoRef.current.currentTime))
-                videoRef.current.currentTime =Question_time[Quiz_index-1] + 0.01;
+                videoRef.current.currentTime =Question_time[Quiz_index-1] + 1;
                 console.log("Question_time[Quiz_index-1]=", Question_time[Quiz_index-1]);
+            
+                answer_times = 0;   
+                ShowAnswer("");   //清空使用者回答後的回覆
+                setQuestion("");
+                setOptions1("");
+                setOptions2("");
+                setOptions3("");
+                setOptions4("");
+    
+                setIsQuestionVisible(false);
+                document.getElementById("choice1").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+                document.getElementById("choice2").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+                document.getElementById("choice3").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
+                document.getElementById("choice4").style = "color: rgba(0, 0, 0, 1); background-color: #ffffff;";
             }
         }
 
@@ -289,17 +307,17 @@ export default function Student_view_video() {
                                     <div className={styles.content_title}>
                                         {Answer}
                                     </div>
-                                    <div id='True_answer_block' style={{display: "none"}} className={styles.content_title}>
+                                    <div id='True_answer_block' style={{display: "none",marginTop: "-1em"}} className={styles.content_title}>
                                         The answer is {RightAnswer}
                                     </div>
-                                    <div id='button_block' style={{float: "right"}}>
-                                        <button id='back_to_video' style={{display: "none", marginRight: "1em", marginLeft: "-3em"}} className={styles.Continuous_button} onClick={Review_video}>
+                                    <div id='button_block' className={styles.button_block}>
+                                        <button id='back_to_video' style={{display: "none"}} className={styles.Review_video_button} onClick={Review_video}>
                                             Review video
                                         </button>
-                                        <button id='Show_Right_Answer' style={{display: "none", marginRight: "1em"}} className={styles.Continuous_button} onClick={Show_Answer}>
-                                            Show Right Answer
+                                        <button id='Show_Right_Answer' style={{display: "none"}} className={styles.Review_video_button} onClick={Show_Answer}>
+                                            Show Answer
                                         </button>
-                                        <button style={{marginRight: "1em"}} className={styles.Continuous_button} onClick={Continuous}>
+                                        <button id='Continuous' className={styles.Continuous_button} onClick={Continuous}>
                                             Continuous
                                         </button>
                                     </div>
