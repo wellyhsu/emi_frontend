@@ -22,10 +22,10 @@ class Archive_video extends React.Component {
                 <div className={styles.preview_video_window}>
                     <div className={styles.preview_video}>
                         <video 
-                            src="video_preview.svg"
+                            src={this.props.videoPath}
                             poster=""
-                            autoplay="false" 
-                            controls="true" 
+                            autoPlay={false}
+                            controls={true} 
                         />
                     </div>
                     <div style={{display: "flex", justifyContent: "center"}}>

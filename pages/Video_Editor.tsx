@@ -60,7 +60,7 @@ export default function Home() {
               <Link 
                 href={{
                   pathname: '/[page]',
-                  query: { page: process.env.NEXT_PUBLIC_VE_Create }
+                  query: { page: process.env.NEXT_PUBLIC_VE_Create_step2 }
                   }}
               >
                 Create My Video
