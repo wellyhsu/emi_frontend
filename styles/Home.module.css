@@ -1333,7 +1333,7 @@ ul.Layerout ul li:hover {
 .VideoEditor_image{
   display: flex;
   
-  justify-content: right;
+  justify-content: center;
   align-items: center;
   position: relative;
 
@@ -2776,7 +2776,7 @@ select.option{
 
 /*  Pop-up Quiz  Upload PPT page */
 .pop_upload_file_title{
-  font-size: 2vw;
+  font-size: 1.3em;
   font-family: 'Poppins',Arial;
   font-style: normal;
   font-weight: 500;
@@ -2784,17 +2784,17 @@ select.option{
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 5vh;
+  margin-top: 1em;
   margin-left: 9vw;
   margin-bottom: 3vh;
 }
 
 .Youtube_link_input{
   display: inline-block;
-  width: 50vw;
-  height: 8vh;
+  width: 31.6em;
+  height: 2.7em;
 
-  font-size: 1.6vw;
+  font-size: 1em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
@@ -2810,23 +2810,23 @@ select.option{
 
 .pop_upload_block{
   display: block;
-  width: 50vw;
-  height: 52vh;
+  width: 26em;
+  height: 12em;
   cursor: pointer;
 
-  font-size: 2.2vw;
+  font-size: 1.2em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
-  line-height: 5vh;
+  line-height: 3em;
 
   border: none;
   border-radius: 1vh;
 
   color: rgba(0, 0, 0, 1);
   background-color: rgba(243, 241, 241, 1);
-  margin-top: 4vh;
-  margin-left: 0.5vw;
+  margin-top: 0.5em;
+  margin-left: 0.2em;
 }
 
 .clearfix{
@@ -2842,26 +2842,36 @@ select.option{
 
 .pop_Start_making{
   display: inline-block;
-  height: 8vh;
+  height: 2em;
 
-  font-size: 2.6vw;
+  font-size: 1.5em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 600;
-  line-height: 7vh;
+  line-height: 2em;
 
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: 10vh;
-  margin-left: 7.7vw;
-  margin-bottom: 2vh;
+  margin-top: 1em;
+  margin-left: 5em;
+  margin-bottom: -1em;
+}
+
+.pop_upload_file_button{
+  display: flex;
+  height: 11vh;
+  width: 100%;
+
+  align-items: center;
+ 
+  margin-top: 2em;
 }
 
 .Reselect_video{
   display: inline-block;
 
-  width: 250px;
-  height: 55px;
+  width: 10em;
+  height: 2.7em;
   cursor: pointer;
 
   text-align: center;
@@ -2875,8 +2885,8 @@ select.option{
   border-radius: 5px;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-left: 25%;
-  margin-bottom: 50px;
+  margin-left: 0;
+  margin-bottom: 1em;
 }
 .Reselect_video:hover{
   transform: scale(1.02);
@@ -2885,8 +2895,8 @@ select.option{
 .Start_editing{
   display: inline-block;
 
-  width: 250px;
-  height: 55px;
+  width: 10em;
+  height: 2.7em;
   cursor: pointer;
 
   text-align: center;
@@ -2900,8 +2910,8 @@ select.option{
   border-radius: 5px;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-left: 130px;
-  margin-bottom: 50px;
+  margin-left: 8em;
+  margin-bottom: 1em;
 }
 .Start_editing:hover{
   transform: scale(1.02);

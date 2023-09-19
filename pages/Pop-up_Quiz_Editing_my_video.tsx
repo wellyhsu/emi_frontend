@@ -33,7 +33,6 @@ var video_current_volume;  //紀錄靜音前的音量
 var changeInput;    //取得觸發事件的input元素
 var conditionName;  //取得input元素的name屬性
 var image_sound_alt="sound"
-var mute_button=0;   
 
 var videoDuration;
 
@@ -103,23 +102,23 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const circle=[];     //儲存要出現題目的圓球component
     var information;
 
-    const Multiple_choice_Question_Ref = useRef(undefined);   //取得使用者輸入的Question欄位內容
-    const Multiple_choice_Choice_Ref_1 = useRef(undefined);   //取得使用者輸入的第一個Choice欄位內容
-    const Multiple_choice_Choice_Ref_2 = useRef(undefined);   //取得使用者輸入的第二個Choice欄位內容
-    const Multiple_choice_Choice_Ref_3 = useRef(undefined);   //取得使用者輸入的第三個Choice欄位內容
-    const Multiple_choice_Choice_Ref_4 = useRef(undefined);   //取得使用者輸入的第四個Choice欄位內容
-    const Multiple_choice_Answer_Ref = useRef(undefined);     //取得使用者輸入的Answer欄位內容
-    const Multiple_choice_Explain_Ref = useRef(undefined);     //取得使用者輸入的Answer欄位內容
+    const Multiple_choice_Question_Ref = useRef("");   //取得使用者輸入的Question欄位內容
+    const Multiple_choice_Choice_Ref_1 = useRef("");   //取得使用者輸入的第一個Choice欄位內容
+    const Multiple_choice_Choice_Ref_2 = useRef("");   //取得使用者輸入的第二個Choice欄位內容
+    const Multiple_choice_Choice_Ref_3 = useRef("");   //取得使用者輸入的第三個Choice欄位內容
+    const Multiple_choice_Choice_Ref_4 = useRef("");   //取得使用者輸入的第四個Choice欄位內容
+    const Multiple_choice_Answer_Ref = useRef("");     //取得使用者輸入的Answer欄位內容
+    const Multiple_choice_Explain_Ref = useRef("");     //取得使用者輸入的Answer欄位內容
 
 
-    const Modify_Question_Ref = useRef(undefined);   //取得使用者修改後的Question欄位內容
-    const Modify_Choice_Ref_1 = useRef(undefined);   //取得使用者修改後的第一個Choice欄位內容
-    const Modify_Choice_Ref_2 = useRef(undefined);   //取得使用者修改後的第二個Choice欄位內容
-    const Modify_Choice_Ref_3 = useRef(undefined);   //取得使用者修改後的第三個Choice欄位內容
-    const Modify_Choice_Ref_4 = useRef(undefined);   //取得使用者修改後的第四個Choice欄位內容
+    const Modify_Question_Ref = useRef("");   //取得使用者修改後的Question欄位內容
+    const Modify_Choice_Ref_1 = useRef("");   //取得使用者修改後的第一個Choice欄位內容
+    const Modify_Choice_Ref_2 = useRef("");   //取得使用者修改後的第二個Choice欄位內容
+    const Modify_Choice_Ref_3 = useRef("");   //取得使用者修改後的第三個Choice欄位內容
+    const Modify_Choice_Ref_4 = useRef("");   //取得使用者修改後的第四個Choice欄位內容
 
-    const Modify_Answer_Ref = useRef(undefined);  
-    const Modify_Explain_Ref = useRef(undefined);
+    const Modify_Answer_Ref = useRef("");  
+    const Modify_Explain_Ref = useRef("");
 
     const [ShowCircle, setShowCircle] = useState([]);
     const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
@@ -177,7 +176,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         };
     };
 
-    //調整音量
+    //調整音量滑軸
     function changeCondition (event) {
         //取得觸發事件的input元素
         changeInput = event.target;
@@ -187,19 +186,16 @@ export default function Pop_up_Quiz_Editing_my_video() {
         conditionValue = changeInput.value;
         //將影片屬性值改為input元素的值
         selectVideo[conditionName] = conditionValue; 
-        mute_button = 0;
-        console.log("I_mute_button= ",mute_button);
+
         if(conditionValue != 0)
         {
             video_current_volume = conditionValue;
-            if(mute_button == 0)
-                setSound_image_path("/istockphoto_sound.png");
+            setSound_image_path("/istockphoto_sound.png");
             console.log("image_Source=",Sound_image_path);
         }
         else
         { 
-            if(mute_button == 0)
-                setSound_image_path("/istockphoto_mute.png");
+            setSound_image_path("/istockphoto_mute.png");
             console.log("image_Source=",Sound_image_path);
         }
         //將畫面上的音量軸調到正確位置
@@ -259,7 +255,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
     function mute_control()
     {
-        mute_button = 1;
+        console.log("mute_coontrol");
         if(document.getElementById('input').value != 0)  //執行靜音動作
         {
             console.log("mute!"); 
@@ -267,15 +263,17 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
             //紀錄靜音前的音量大小
             video_current_volume = document.getElementById('input').value;  
+            
             //音量歸零
-            selectVideo[document.getElementById('input').name] = 0;
+            var ZERO=0;
+            selectVideo[document.getElementById('input').name] = ZERO;
 
             //將畫面上的音量軸調到正確位置
-            document.getElementById('input').value = 0;   //音量歸零
+            document.getElementById('input').value = ZERO;   //音量歸零
     
+            console.log("input= ",document.getElementById('input').value);
+            setSound_image_path("/istockphoto_mute.png");
 
-            console.log("input= ",document.getElementById('input'));
-            console.log("mute_button= ",mute_button);
         }
         else  //回復靜音前的音量
         {
@@ -285,11 +283,10 @@ export default function Pop_up_Quiz_Editing_my_video() {
             //回復靜音前的音量
             selectVideo[document.getElementById('input').name] = video_current_volume;
             //將畫面上的音量軸調到正確位置
-            document.getElementById('input').value = video_current_volume;   //音量歸零
+            document.getElementById('input').value = video_current_volume;   //音量回歸
 
 
-            console.log("input= ",document.getElementById('input'));
-            console.log("mute_button= ",mute_button);
+            console.log("input= ",document.getElementById('input').value);
         }
     }
 
@@ -602,7 +599,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
                 <div className={styles.no_padding_center}>
                     <div className={styles.PopupQuiz_video_preview}>
-                        <div style={{ height: "100%",width: "100%"}}>
+                        <div style={{ height: "100%",width: "100%", marginLeft: "auto", marginRight:"auto"}}>
                             <video 
                                 id='video'
                                 poster=""

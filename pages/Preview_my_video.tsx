@@ -13,6 +13,7 @@ var fileType;
 var fileSize;
 var fileTime;
 const token =  Cookies.get('token');
+const videoPath = "/home/roy/test/video/roy/uploads/test1.mp4"; //Cookies.get('video_path');
 
 export default function Preview_my_video() {
     const router = useRouter();
@@ -34,7 +35,7 @@ export default function Preview_my_video() {
                 </div>
                 <div className={styles.no_padding_center}>
                     <video 
-                        src="video_preview.svg"
+                        src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`}
                         poster=""
                         width="500" 
                         height="348" 
@@ -42,27 +43,29 @@ export default function Preview_my_video() {
                         controls="true" 
                     />
                 </div>   
-                <div className={styles.upload_file_button}>
-                    <Link 
-                        href={{
-                            pathname: '/[page]',
-                            query: { page: process.env.NEXT_PUBLIC_PopUpQuiz_upload_video }
-                            }}
-                    >
-                        <button className={styles.Reselect_video}>
-                            Reselect a video
-                        </button>
-                    </Link>
-                    <Link 
-                        href={{
-                            pathname: '/[page]',
-                            query: { page: process.env.NEXT_PUBLIC_up_Quiz_Editing_my_video }
-                            }}
-                    >
-                        <button className={styles.Start_editing}>
-                            Start editing
-                        </button>
-                    </Link>
+                <div className={styles.pop_upload_file_button}>
+                    <div style={{marginLeft:"auto", marginRight: "auto"}}>
+                        <Link 
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_PopUpQuiz_upload_video }
+                                }}
+                        >
+                            <button className={styles.Reselect_video}>
+                                Reselect a video
+                            </button>
+                        </Link>
+                        <Link 
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_up_Quiz_Editing_my_video }
+                                }}
+                        >
+                            <button className={styles.Start_editing}>
+                                Start editing
+                            </button>
+                        </Link>
+                    </div>
                 </div> 
                 
 
