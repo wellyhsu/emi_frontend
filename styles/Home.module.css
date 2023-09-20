@@ -3620,6 +3620,9 @@ select.option{
 
   height: 80vh;
   width: 70vw;
+
+  align-items: center;
+
   background-color: rgba(255, 255, 255, 0.81);
 
   border: #a9c4df;
@@ -3634,12 +3637,13 @@ select.option{
 .preview_video{
   display: flex;
   position: relative;
+
   align-items: center;
   justify-content: center;
 
   width: 100%;
 
-  margin-top: 3vh;
+  margin-top: 1.5em;
   margin-right: auto;
   margin-left: auto;
 }
@@ -3670,24 +3674,24 @@ select.option{
   display: inline-block;
   cursor: pointer;
 
-  width: 11vw;
-  height: 8vh;
-  font-size: 1.8vw;
+  width: 11em;
+  height: 3.5em;
+  font-size: 1em;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 600;
-  line-height: 8vh;
+  line-height: 1.2em;
 
   text-align: center;
   color: rgba(255, 255, 255,1);
   background-color: rgba(87, 196, 157, 1);
   
   border: none;
-  border-radius: 3vw;
+  border-radius: 2em;
 
-  margin-left: 5vw;
-  margin-right: 5vw;
-  margin-top: 3vh;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 1em;
 }
 .preview_video_button:hover{
   transform: scale(1.02);

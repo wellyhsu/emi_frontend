@@ -54,52 +54,62 @@ export default function Home() {
           console.log("data=",typeof(data));  
           setVideo_Number(parseInt(data));
           console.log("video_number=", video_number);  
+          API=2;
         })
         .catch((error) => console.log("error", error));
     }
   }, [])
 
-  useLayoutEffect(() => {
-    console.log("video_number=", video_number);
-    //取得使用者影片路徑、檔名
-    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + UserName, {  
-      method: 'GET',
-    })
-      .then((response) => {
-          console.log('response=',response);
-          var information = response.json();
-          console.log('info^^',information);
-          return information;
+  useLayoutEffect(() => {   //當取得影片總數後 影片有增加或是減少時
+    if(API == 2)
+    {
+      console.log("C_video_number=", video_number);
+      //取得使用者影片路徑、檔名
+      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + UserName, {  
+        method: 'GET',
       })
-      .then((data) => {
-        console.log("data=",data[0]);  
-        for(i=0; i<video_number; i++)    
-        {
-          data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
-          Video_Name_array.push(data_video_name);
-          Video_array.push(
-            <div>
-              <Archive_video
-                videoName={Video_Name_array[i]}
-                videoPath={`/api/video?videoPath=${encodeURIComponent(data[i])}`}
-                key={i}
-              />
-            </div>
-          )
-        }
-        const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
-        send_Video_Name.push(Video_Name_array);
-        setVideoNameArray(send_Video_Name);
+        .then((response) => {
+            console.log('response=',response);
+            var information = response.json();
+            console.log('info^^',information);
+            return information;
+        })
+        .then((data) => {
+          console.log("data=",data[0]);  
+          console.log("Video_Number=", video_number);
+          for(i=0; i<video_number; i++)    
+          {
+            console.log("key=", i);
+            data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
+            Video_Name_array.push(data_video_name);
+            Video_array.push(
+              <div 
+               key={"video" + i}
+              >
+                <Archive_video
+                  videoName={Video_Name_array[i]}
+                  videoPath={`/api/video?videoPath=${encodeURIComponent(data[i])}`}
+                  
+                />
+              </div>
+            )
+          }
+          setVideoNameArray(Video_Name_array);
+          const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
+          send_Video_Name.push(Video_Name_array);
+          setVideoNameArray(send_Video_Name);
 
-        const send_Video = [...video_array];    //用於建立副本，渲染畫面
-        send_Video.push(Video_array);
-        setVideoArray(send_Video);
+          setVideoArray(Video_array);
+          const send_Video = [...video_array];    //用於建立副本，渲染畫面
+          send_Video.push(Video_array);
+          setVideoArray(send_Video);
 
-        console.log("F_Video_Name=", video_name_array);
-        console.log("F_video_array=", video_array);
+          console.log("F_Video_Name=", video_name_array);
+          console.log("F_video_array=", video_array);
 
-      })
-      .catch((error) => console.log("error", error));
+        })
+        .catch((error) => console.log("error", error));
+    }
   }, [video_number]);
 
   console.log("video_array=", video_array);
@@ -148,13 +158,6 @@ export default function Home() {
 
         <div className={styles.Account_grid}>
             {video_array}
-            <div>
-              <Archive_video
-                videoName="dynamicsClass02.mp4"
-                videoPath={`/api/video?videoPath=${encodeURIComponent("/home/roy/test/video/roy/uploads/test1.mp4")}`}
-              />
-            </div>
-
         </div>
 
       </main>

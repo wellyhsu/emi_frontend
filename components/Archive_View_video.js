@@ -6,23 +6,17 @@ function preview_video(){
     document.getElementById("preview_video").style= "display : flex;" ;
 }
 
-function OK(){
+function View(){
+    window.location.replace(process.env.NEXT_PUBLIC_View_video);
     document.getElementById("preview_video").style= "display : none;" ;
 }
 
-function add_quiz(){
-    window.location.replace(process.env.NEXT_PUBLIC_PoPup_Quiz_Modify_video);
-}
 
-function video_optimize(){
-    window.location.replace(process.env.NEXT_PUBLIC_PoPup_Quiz_Modify_video);
-}
-
-function Delete(){
+function Cancel(){
     document.getElementById("preview_video").style= "display : none;" ;
 }
 
-class Archive_video extends React.Component {
+class Archive_View_video extends React.Component {
     render() { 
         return (
             <>
@@ -41,18 +35,14 @@ class Archive_video extends React.Component {
                         </div>
                     </div>
                     <div style={{display: "flex", justifyContent: "center"}}>
+                        <button className={styles.preview_video_button} onClick={Cancel}>
+                            Cancel 
+                        </button>
                         <button id={this.props.button_id} className={styles.preview_video_button} onClick={this.props.Deletefunction}>
                             Delete 
                         </button>
-                        <button className={styles.preview_video_button} onClick={add_quiz}>
-                            add quiz 
-                        </button>
-                        <button className={styles.preview_video_button} onClick={video_optimize}>
-                            Voice<br/>
-                            optimization
-                        </button>
-                        <button className={styles.preview_video_button} onClick={OK}>
-                            Ok 
+                        <button className={styles.preview_video_button} onClick={View}>
+                            View 
                         </button>
                     </div>
                 </div>
@@ -80,4 +70,4 @@ class Archive_video extends React.Component {
     }
 }
 
-export default Archive_video
+export default Archive_View_video
