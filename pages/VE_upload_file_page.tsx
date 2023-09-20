@@ -65,6 +65,11 @@ function cancel_upload()
 
 }
 
+function Finish()
+{
+    window.location.replace(process.env.NEXT_PUBLIC_VE_Create_no_script);
+}
+
 function select_file(e) {
     cancel = 0;
     console.log("press button");
@@ -217,6 +222,7 @@ export default function VE_upload_file_page() {
                         {                                  //取得video_path
                             Cookies.set('video_path' ,data?.substring(12, data?.lastIndexOf("W")));
                             console.log("video_path=", Cookies.get('video_path'));
+                            document.getElementById('Finish').style = "display: inline-block";
                         }   
     
                         Set_transform_degree(transform_degree + 360/chunks.length);
@@ -415,6 +421,9 @@ export default function VE_upload_file_page() {
                             </div>
                         </div>
                         <div style={{float: "right", marginBottom: "5vh"}}>
+                            <button id="Finish" className={styles.uploading_Cancel_button} onClick={Finish}>
+                                Finish
+                            </button>
                             <button className={styles.uploading_Cancel_button} onClick={cancel_upload}>
                                 Cancel
                             </button>

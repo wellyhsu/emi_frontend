@@ -290,8 +290,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
         }
     }
 
-
-
     function Click_Circle()   //Modify Question -> 顯示題目
     {
         var information;
@@ -425,7 +423,9 @@ export default function Pop_up_Quiz_Editing_my_video() {
             'video-path': '/home/roy/test/video/test/uploads/',
         }
         
-        var question_send_json = JSON.stringify(question_send);  //轉json格式           
+        var question_send_json = JSON.stringify(question_send);  //轉json格式
+        
+        //在資料庫新增題目
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
             method: 'POST',
             headers:{
