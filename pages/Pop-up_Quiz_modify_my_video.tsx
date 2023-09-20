@@ -35,6 +35,11 @@ var conditionName;  //取得input元素的name屬性
 var image_sound_alt="sound"
 
 var videoDuration;
+var API=0;  //確保只取得一次有題目的時間點
+var Question_time = []; //打後端API後，儲存question要出現的時間
+var Question_number;
+
+var i;
 
 const token =  Cookies.get('token');
 const videoPath = "/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
@@ -122,6 +127,58 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
     const [ShowCircle, setShowCircle] = useState([]);
     const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
+
+    if(API == 0)
+    {   
+        console.log("Cookies= ", videoPath);
+
+        console.log("Get Question!!");
+        API = 1;                 
+        //取得要插入影片的時間點資訊                                                               
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + videoPath, {  
+            method: 'GET',
+        })
+            .then((response) => {
+                console.log('response=',response);
+                information = response.json();
+                console.log('info^^',information);
+                return information;
+            })
+            .then((data) => {
+                console.log("data=",data);
+                Question_number = data.length;
+                console.log("data.length=", data.length);
+                console.log("data.length=", Question_number);
+                
+                for(i=0; i<data.length; i++)
+                {
+                    Question_time.push(data[i]);
+                    console.log('Question_time=',Question_time[i]);
+                    console.log('Question_time type=',typeof(Question_time[i])); //parseInt() 字串轉數字
+                }
+                    
+            })
+            .catch((error) => console.log("error", error));
+    
+        var selectVideo = document.querySelector('video');
+        console.log("video length= ",Math.floor(selectVideo.duration));  //影片總長度
+        
+        for(i=0; i< Question_number;i++)
+        {
+            const circleElement = (
+                <div
+                    key={"Circle" + String(CircleNumber)}
+                    id={"Circle" + String(CircleNumber)}
+                    className={styles.circle}                 //circle需位移距離
+                    style={{marginLeft: String((Question_time[i]/ videoDuration) * 100 *(98/100))+"%"}}
+                    onClick={Click_Circle}
+                >
+                        
+                </div>
+            );
+        }
+    
+        }
 
     useLayoutEffect(() => {
         selectVideo = document.getElementById('video');
@@ -290,8 +347,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
         }
     }
 
-
-
     function Click_Circle()   //Modify Question -> 顯示題目
     {
         var information;
@@ -388,7 +443,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
             >
                 
             </div>
-        );
+        );//(Qtime / videoDuration) * 100
                 
         const send_circle = [...ShowCircle];    //用於建立副本，渲染畫面
         send_circle.push(circleElement);

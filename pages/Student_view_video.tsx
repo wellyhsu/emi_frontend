@@ -38,8 +38,9 @@ export default function Student_view_video() {
         console.log("Cookies= ", videoPath);
 
         console.log("Get Question!!");
-        API = 1;                                                                                
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + videoPath, {  //取得要插入影片的時間點資訊
+        API = 1;                 
+        //取得要插入影片的時間點資訊                                                               
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + videoPath, {  
             method: 'GET',
         })
             .then((response) => {
