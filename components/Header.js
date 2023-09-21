@@ -33,10 +33,6 @@ function link_click(){
 
 
 export const Header = () => {
-/*    var token_DATA;
-    token_DATA = JSON.stringify("12wf3fgwf456");
-    Cookies.set('token', token_DATA);  /////////////////
-*/
     const router = useRouter();
     const [token, setToken] = useState('null');
 
@@ -45,7 +41,6 @@ export const Header = () => {
         const storedToken = Cookies.get('token');
         setToken(storedToken);
     }, [])
-//    const token = Cookies.get('token');
 
     console.log("~~token~~", Cookies.get('token'));
     console.log("storageValue type ->", typeof(token));

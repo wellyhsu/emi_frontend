@@ -37,7 +37,8 @@ var image_sound_alt="sound"
 var videoDuration;
 
 const token =  Cookies.get('token');
-const videoPath = "/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
+const videoPath = "home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
+console.log("video_path=", videoPath);
 
 /*
 function gap_fill_question(){  

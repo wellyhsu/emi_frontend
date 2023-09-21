@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import Cookies from 'js-cookie'; 
-import { useLayoutEffect, useEffect } from 'react';
+import { useLayoutEffect, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 var fileData;
@@ -65,7 +65,7 @@ function cancel_upload()
 
 function Finish()
 {
-    window.location.replace(process.env.Preview_my_video);
+    window.location.replace(process.env.NEXT_PUBLIC_PopUpQuiz_Preview_my_video);
 }
 
 function select_file(e) {
@@ -141,6 +141,7 @@ function choose_upload_script(){
 
 export default function Popup_Quiz_upload_video_page() {
     const router = useRouter();
+    const [Progress_Number, SetProgress_Number] = useState(0);
 
     async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依據切割長度發送請求次數)
         const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
@@ -208,6 +209,7 @@ export default function Popup_Quiz_upload_video_page() {
                     });
     
                     if (response.ok) {
+                        SetProgress_Number(((100/chunks.length) * Chunk_Number).toFixed(0));
                         console.log("response is ok!");
                         //const data = await response.json();   //取得後端回傳的資料
                         const data = await response.text();   //取得後端回傳的資料
@@ -407,6 +409,9 @@ export default function Popup_Quiz_upload_video_page() {
                                 uploading...
                             </div>
                             <div className={styles.Circle_bottom}>
+                                <div className={styles.Number}>
+                                    {Progress_Number}%
+                                </div>
                             </div>
                             
                             <div className={styles.right}>
@@ -417,12 +422,12 @@ export default function Popup_Quiz_upload_video_page() {
                                 <div className={styles.Circle_up_L}>
                                 </div>
                             </div>
-                            <div style={{float: "right", marginBottom: "5vh"}}>
-                                <div>
-                                    <button id="Finish" className={styles.uploading_Cancel_button} onClick={Finish}>
+                            <div style={{display: "flex", marginTop: "1em"}}>
+                                <div style={{marginLeft: "auto", marginRight: "auto"}}>
+                                    <button id="Finish" style={{display: "none"}} className={styles.uploading_Cancel_button} onClick={Finish}>
                                         Finish
                                     </button>
-                                    <button className={styles.uploading_Cancel_button} onClick={cancel_upload}>
+                                    <button style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_upload}>
                                         Cancel
                                     </button>
                                 </div>

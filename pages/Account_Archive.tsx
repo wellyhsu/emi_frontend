@@ -21,11 +21,15 @@ var Video_array=[];
 
 var i=0;
 
+const videoPath = Cookies.get('video_path');  //"/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
+console.log("video_path=", videoPath);
+
 export default function Account_Archive() {
   const router = useRouter();
   const [video_number, setVideo_Number] = useState(0);
   const [video_name_array, setVideoNameArray] = useState([]);
   const [video_array, setVideoArray] = useState([]);
+
 
   function alert_message(){
     router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
@@ -49,8 +53,7 @@ export default function Account_Archive() {
       console.log("username!!", UserName);
 
       //取得使用者影片總數
-      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + UserName + "/number", { 
-        method: 'GET',
+      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video
       })
         .then((response) => {
             console.log('response=',response);
@@ -271,10 +274,11 @@ export default function Account_Archive() {
                   Deletefunction={delete_vedio}
                 />
               </div>
-
+{/*
               <button  onClick={add_video_block}>
                 add
               </button>
+                */}
             </div>
           </div>
 

@@ -15,9 +15,10 @@ var Question_time = []; //打後端API後，儲存question要出現的時間
 var i;
 
 const token = Cookies.get('token');
-const videoPath = "/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
+const videoPath = Cookies.get('video_path');  //"/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
 var sec=0;   //0~data長度，用來決定該出現第幾個問題
 
+console.log("videoPath=", videoPath);
 export default function Student_view_video() {
     var information;
     const router = useRouter();

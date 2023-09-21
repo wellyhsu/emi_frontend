@@ -1763,7 +1763,8 @@ ul.Layerout ul li:hover {
   border-radius: 3em;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-right: 1.5em;
+  margin-left: 6em;
+  margin-right: 8em;
 }
 .UploadFile_Back_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -1786,7 +1787,6 @@ ul.Layerout ul li:hover {
   border-radius: 3em;
   border-color: rgba(87, 196, 157, 1);
 
-  margin-right: 20em;
 }
 .UploadFile_Next_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -1838,6 +1838,14 @@ ul.Layerout ul li:hover {
   margin-right: auto;
 
   overflow: hidden;
+}
+
+.Number{
+  font-size: 2.6em;
+  font-family: 'Poppins',Arial;
+  text-align: center;
+
+  padding-top: 1em;
 }
 
 .left{
@@ -1926,18 +1934,15 @@ ul.Layerout ul li:hover {
 
 .uploading_Cancel_button{
   display: inline-block;
-  width: 10vw;
-  height: 6vh;
+  width: 5em;
+  height: 2.6em;
   cursor: pointer;
   position: relative;
   z-index: 9;
 
-  border-radius: 0.6vw;
-  border-width: 0.3vh;
+  border-radius: 0.8em;
+  border-width: 0.1em;
   box-shadow: rgba(0, 0, 0, 0.2);
-
-  margin-top: 3vh;
-  margin-right: 6vw;
 }
 
 
@@ -2859,7 +2864,7 @@ select.option{
 
 .pop_upload_file_button{
   display: flex;
-  height: 11vh;
+  height: 8em;
   width: 100%;
 
   align-items: center;

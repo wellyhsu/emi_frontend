@@ -146,6 +146,7 @@ function choose_upload_script(){
 
 export default function VE_upload_file_page() {
     const [transform_degree, Set_transform_degree] = useState(0);
+    const [Progress_Number, SetProgress_Number] = useState(0);
 
     async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依據切割長度發送請求次數)
         const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
@@ -213,6 +214,7 @@ export default function VE_upload_file_page() {
                     });
     
                     if (response.ok) {
+                        SetProgress_Number(((100/chunks.length) * Chunk_Number).toFixed(0));
                         console.log("response is ok!");
                         //const data = await response.json();   //取得後端回傳的資料
                         const data = await response.text();   //取得後端回傳的資料
@@ -410,6 +412,9 @@ export default function VE_upload_file_page() {
                             uploading...
                         </div>
                         <div className={styles.Circle_bottom}>
+                            <div className={styles.Number}>
+                                {Progress_Number}%
+                            </div>
                         </div>
                         
                         <div className={styles.right}>
@@ -420,13 +425,15 @@ export default function VE_upload_file_page() {
                             <div className={styles.Circle_up_L}>
                             </div>
                         </div>
-                        <div style={{float: "right", marginBottom: "5vh"}}>
-                            <button id="Finish" className={styles.uploading_Cancel_button} onClick={Finish}>
-                                Finish
-                            </button>
-                            <button className={styles.uploading_Cancel_button} onClick={cancel_upload}>
-                                Cancel
-                            </button>
+                        <div style={{display: "flex", marginTop: "1em"}}>
+                            <div style={{marginLeft: "auto", marginRight: "auto"}}>
+                                <button id="Finish" style={{display: "none"}} className={styles.uploading_Cancel_button} onClick={Finish}>
+                                    Finish
+                                </button>
+                                <button style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_upload}>
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -489,20 +496,22 @@ export default function VE_upload_file_page() {
                 </div>
             </div>
             <div className={styles.upload_file_button}>
-                <div style={{float: "right"}}>
-                    <Link 
-                        href={{
-                            pathname: '/[page]',
-                            query: { page: process.env.NEXT_PUBLIC_VE_Create }
-                            }}
-                    >
-                        <button className={styles.UploadFile_Back_button}>
-                            Back
+                <div style={{display: "flex", width: "100%"}}>
+                    <div style={{marginLeft: "auto", marginRight: "auto"}}>
+                        <Link 
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_VE_Create }
+                                }}
+                        >
+                            <button className={styles.UploadFile_Back_button}>
+                                Back
+                            </button>
+                        </Link>
+                        <button className={styles.UploadFile_Next_button} onClick={upload_file}>
+                            Next
                         </button>
-                    </Link>
-                    <button className={styles.UploadFile_Next_button} onClick={upload_file}>
-                        Next
-                    </button>
+                    </div>
                 </div>
             </div>  
         </main>
