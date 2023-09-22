@@ -37,7 +37,7 @@ var image_sound_alt="sound"
 var videoDuration;
 
 const token =  Cookies.get('token');
-const videoPath = "home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
+const videoPath = "/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
 console.log("video_path=", videoPath);
 
 /*
@@ -291,10 +291,14 @@ export default function Pop_up_Quiz_Editing_my_video() {
         }
     }
 
-    function Click_Circle()   //Modify Question -> 顯示題目
+    function Click_Circle(event)   //Modify Question -> 顯示題目
     {
         var information;
+        var Circle_Time;
+
         console.log("GET!");
+        console.log("event=", event);
+        
         document.getElementById("Multiple_choice_question_modify").style = "display: flex";
                                                                                         
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            

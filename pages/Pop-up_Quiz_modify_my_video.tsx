@@ -35,13 +35,13 @@ var conditionName;  //取得input元素的name屬性
 var image_sound_alt="sound"
 
 var videoDuration;
+
 var API=0;  //確保只取得一次有題目的時間點
 var Question_time = []; //打後端API後，儲存question要出現的時間
-
 var i;
 
 const token =  Cookies.get('token');
-const videoPath = Cookies.get('video_path');  //"/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
+const videoPath = "/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
 console.log("video_path=", videoPath);
 
 /*
@@ -163,15 +163,20 @@ export default function Pop_up_Quiz_Editing_my_video() {
         //監聽 當滑鼠被放開時，執行removeDragProgress函式
         progressBarOut.addEventListener('mouseup', removeDragProgress);
         
+    }, [])
+
+    useLayoutEffect(() => {
         if(API == 0)
         {   
             console.log("Cookies= ", videoPath);
             console.log("Get Question!!");
 
             var selectVideo = document.querySelector('video');
-            console.log("video length= ",Math.floor(selectVideo.duration));  //影片總長度
+            videoDuration = selectVideo.duration;
+            console.log("video length= ", selectVideo.duration);  //影片總長度
 
-            API = 1;                 
+            API = 1;     
+                    
             //取得要插入影片的時間點資訊                                                               
             fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + videoPath, {  
                 method: 'GET',
@@ -209,16 +214,12 @@ export default function Pop_up_Quiz_Editing_my_video() {
                     }
                     setShowCircle(send_circle);
                     console.log("send_circle=",send_circle);
-  
+                    console.log("ShowCircle=", ShowCircle);
                 })
                 .catch((error) => console.log("error", error));
-     
-            console.log("CircleNumber=",CircleNumber);
-            console.log('ShowCircle:', ShowCircle);
-        
+        } 
 
-        }
-}, [])
+   }, [])
 
     //播放或暫停按鍵
     function playToggle() {
@@ -354,7 +355,12 @@ export default function Pop_up_Quiz_Editing_my_video() {
     function Click_Circle()   //Modify Question -> 顯示題目
     {
         var information;
+        var Circle_Time;
+
         console.log("GET!");
+        console.log("event=", event);
+        console.log("event.key=", event.target.id); //取得該物件ID再送進Qtime然後取得時間       
+
         document.getElementById("Multiple_choice_question_modify").style = "display: flex";
                                                                                         
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
@@ -547,6 +553,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
       }, [])
 
+    console.log('E_ShowCircle:', ShowCircle);
     return (
         <>
             <main className={styles.main}>
