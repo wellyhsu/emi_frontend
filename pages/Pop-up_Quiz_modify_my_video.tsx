@@ -18,7 +18,6 @@ var Explain="";     //發送給後端的答案詳解
 var Time="0";       //發送給後端的當前影片時間
 var Circle_Time;    //儲存該圓點的題目時間
 
-var CircleNumber = 1;    //用於標記每個circle的ID
 var marginLeftValue = 1;   //用於更改每個circle的位置
 var selectVideo;
 var playButton;
@@ -40,6 +39,10 @@ var videoDuration;
 var API=0;  //確保只取得一次有題目的時間點
 var Question_time = []; //打後端API後，儲存question要出現的時間
 var Circle_ID;
+var Circle_index = 1;   //用於標記每個circle的ID
+var circleID_array=[];    //儲存題目的ID
+var circleID_index;       //儲存被點擊的圓點在circleID_array的index
+
 var i;
 
 const token =  Cookies.get('token');
@@ -105,7 +108,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
     const [ShowCircle, setShowCircle] = useState([]);
     const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
-    var circle_array=[];
 
     useLayoutEffect(() => {
         selectVideo = document.getElementById('video');
@@ -146,7 +148,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
     useLayoutEffect(() => {
         if(API == 0)
         {   
-            var Circle_index = 1;
             console.log("Cookies= ", videoPath);
             console.log("Get Question!!");
 
@@ -189,9 +190,9 @@ export default function Pop_up_Quiz_Editing_my_video() {
                             </div>
                         );
                         send_circle.push(circleElement); 
-                        circle_array.push(Circle_index);
+                        circleID_array.push(Circle_index);
+
                         Circle_index++; //用於給圓點編號
-                        CircleNumber++;
                     }
                     setShowCircle(send_circle);
                     console.log("send_circle=",send_circle);
@@ -201,17 +202,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
         } 
 
    }, [])
-
-   useLayoutEffect(() => {
-    // 在组件渲染之后，可以读取 ShowCircle 的值
-    console.log("U_ShowCircle:", ShowCircle);
-
-    console.log("U_circle_array=", circle_array);
-    Circle_Time = Question_time[circle_array.indexOf(parseInt(Circle_ID)-1)];  //將ID丟入 取得對應的題目時間點
-    console.log("send_circle.index=", circle_array.indexOf(parseInt(Circle_ID)-1));
-
-    // 你可以在这里执行其他操作，或者订阅一些事件
-  }, [ShowCircle]); // 当 ShowCircle 发生变化时执行
 
 
     //播放或暫停按鍵
@@ -348,21 +338,27 @@ export default function Pop_up_Quiz_Editing_my_video() {
     function Click_Circle()   //Modify Question -> 顯示題目
     {
         var information;
-        var circle_array;
 
         console.log("GET!");
         console.log("event=", event);
         console.log("event.key=", event.target.id); //取得該物件ID再送進Qtime然後取得時間       
         console.log("ShowCircle=", ShowCircle);
-        console.log("CC_send_circle=", circle_array);
-        
+        console.log("CC_send_circle=", circleID_array);
+
         Circle_ID = String(event.target.id);   //把ID轉成字串
         Circle_ID = Circle_ID.substring(Circle_ID.lastIndexOf("e")+1);  //取得ID數字的部分
+        circleID_index = circleID_array.indexOf(parseInt(Circle_ID));
+
+        console.log("circleID=", Circle_ID); //String
+        console.log("circleID_array==", circleID_array);        
+        console.log("circleID_index", circleID_index);
+
+        Circle_Time = Question_time[circleID_index];
         
-        console.log("Circle_index", parseInt(Circle_ID)-1);
-        console.log("Circle_Time=", Circle_Time);
+        console.log("C_Circle_Time=", Circle_Time);
         document.getElementById("Multiple_choice_question_modify").style = "display: flex";
-                                                                                        
+            
+        //取得該點的題目
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Circle_Time, {            
             method: 'GET',
         })
@@ -413,7 +409,8 @@ export default function Pop_up_Quiz_Editing_my_video() {
         
         var modify_question_send_json = JSON.stringify(modify_question_send);  //轉json格式
         console.log("send data=",modify_question_send_json);
-                                                                                        
+                      
+        //儲存修改之後的題目
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Circle_Time, {            
             method: 'PUT',
             headers:{
@@ -439,6 +436,25 @@ export default function Pop_up_Quiz_Editing_my_video() {
     function Delete_Question()  //Modify Question -> 刪除該時間點的題目
     {
         //點擊圓點後就會得到該點的時間 Circle_Time
+        console.log("D_circleID=", Circle_ID);
+        console.log("D_circleID_index=", circleID_index);
+        document.getElementById("Multiple_choice_question_modify").style = "display: none";
+    
+        const send_circle = [...ShowCircle];    //用於建立副本，渲染畫面
+        console.log("copy_send_circle=",send_circle);
+
+        var Delete = circleID_index;  //取得要刪除的點的ID並轉成字串
+        send_circle.splice(Delete, 1);   //將數字ID轉換成數字格式
+        circleID_array.splice(Delete, 1);   //將數字ID轉換成數字格式
+        
+        console.log("Delete_index=", Delete);
+
+        setShowCircle(send_circle);
+        console.log("D_send_circle=",send_circle);
+        console.log("D_ShowCircle=", ShowCircle);
+        console.log("D_circleID_array=",circleID_array);
+    
+        //通知後端刪除此題目
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Circle_Time, {            
             method: 'Delete',
             headers:{
@@ -454,21 +470,10 @@ export default function Pop_up_Quiz_Editing_my_video() {
                 console.log('data=', data);
             })
             .catch((error) => console.log("error", error));
-    
-        document.getElementById("Multiple_choice_question_modify").style = "display: none";
-    
-        const send_circle = [...ShowCircle];    //用於建立副本，渲染畫面
-        CircleNumber--;
 
-        var Delete = parseInt(Circle_ID);  //取得要刪除的點的ID並轉成字串
-        send_circle.splice(parseInt(Delete) - 1);   //將數字ID轉換成數字格式
-        console.log("Delete_index=", parseInt(Delete) - 1);
-
-        setShowCircle(send_circle);
-        console.log("D_send_circle=",send_circle);
-        console.log("D_ShowCircle=", ShowCircle);
     }
 
+    //新增題目
     function Multiple_choice_close()
     {
         var information;
@@ -478,25 +483,25 @@ export default function Pop_up_Quiz_Editing_my_video() {
         
         const circleElement = (
             <div
-                key={"Circle" + String(CircleNumber)}
-                id={"Circle" + String(CircleNumber)}
+                key={"Circle" + String(Circle_index)}
+                id={"Circle" + String(Circle_index)}
                 className={styles.circle}                 //circle需位移距離
                 style={{marginLeft: String(currentPosition*(98/100))+"%"}}
                 onClick={Click_Circle}
-            >
-                
+            >   
             </div>
         );
                 
         const send_circle = [...ShowCircle];    //用於建立副本，渲染畫面
         send_circle.push(circleElement);
+        circleID_array.push(Circle_index);   //將新增的圓點ID放入陣列
+        Question_time.push(String(Math.floor(selectVideo.currentTime)));   //將此點時間點加入 儲存出現題目的時間陣列
 
         setShowCircle(send_circle);
         console.log("send_circle=",send_circle);
-        console.log("CircleNumber=",CircleNumber);
         console.log('ShowCircle:', ShowCircle);
 
-        CircleNumber++;
+        Circle_index++;  //Circle編號 + 1
 
         document.getElementById("Multiple_choice_question").style = "display: none";
 
@@ -559,6 +564,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         Choice = [];
     }
 
+    //點擊取消後 刪除所有內容
     function Multiple_choice_ClearClose()
     {
         document.getElementById("Multiple_choice_question").style = "display: none";
