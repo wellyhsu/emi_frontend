@@ -15,10 +15,6 @@ function video_optimize(){
     window.location.replace(process.env.NEXT_PUBLIC_PoPup_Quiz_Modify_video);
 }
 
-function Delete(){
-    document.getElementById("preview_video").style= "display : none;" ;
-}
-
 class Archive_video extends React.Component {
     render() { 
         return (

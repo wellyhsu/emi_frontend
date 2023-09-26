@@ -3527,17 +3527,68 @@ select.option{
   color: rgba(0, 0, 0, 0.5);
 }
 
-.Account_grid{
-  display: flex;
-  justify-content: space-around;
+/* 媒體查詢：當視窗寬度小於 950px 時，調整影片的寬高比為 4:3 */
+@media screen and (max-width: 950px) {
+  .Account_grid{
+    display: grid;
+    justify-content: space-evenly;
+  
+    grid-template-columns: repeat(2, 1em);
+    row-gap: 1em;
+    column-gap: 20px;
+  
+    min-width: 700px;
+    width: 100%;
+  
+    overflow-wrap: break-word;
+  
+    margin-top: 40px;
+    margin-bottom: 3em;
+    margin-left: -8em;
+    margin-right: 0em;
+  }
+}
 
-  width: 100%;
+/* 媒體查詢：當視窗寬度小於 768px 時，調整影片的寬高比為 4:3 */
+@media screen and (max-width: 1200px) and (min-width: 950px) {
+  .Account_grid{
+    display: grid;
+    justify-content: space-evenly;
+  
+    grid-template-columns: repeat(3, 1em);
+    row-gap: 1em;
+    column-gap: 20px;
+  
+    width: 100%;
+  
+    overflow-wrap: break-word;
+  
+    margin-top: 40px;
+    margin-bottom: 3em;
+    margin-left: -5em;
+    margin-right: 0em;
+  }
+}
 
-  overflow-wrap: break-word;
+/* 媒體查詢：當視窗寬度小於 768px 時，調整影片的寬高比為 4:3 */
+@media screen and (min-width: 1200px) {
+  .Account_grid{
+    display: grid;
+    justify-content: space-evenly;
 
-  margin-top: 40px;
-  margin-bottom: 3em;
+    grid-template-columns: repeat(4, 1em);
+    row-gap: 1em;
+    column-gap: 20px;
 
+    width: 100%;
+
+    overflow-wrap: break-word;
+
+    margin-top: 40px;
+    margin-bottom: 3em;
+    margin-left: -5em;
+    margin-right: 0em;
+  }
 }
 
 .Account_grid2{
@@ -3701,6 +3752,9 @@ select.option{
 .preview_video_button:hover{
   transform: scale(1.02);
 }
+
+
+
 
 /* User Setting */
 

@@ -23,12 +23,15 @@ var i=0;
 function preview_video()
 {
   document.getElementById("preview_video").style= "display : flex;" ;
-  video_ID = event.target.id;
+  video_ID = event.target;
 
+  console.log("p_video_ID=", video_ID);
+  console.log("tagName", event.target.tagName);
 }
 
 function Delete()
 {
+  document.getElementById("preview_video").style= "display : none;" ;
 
 
   console.log("video_ID=", video_ID);
@@ -99,12 +102,15 @@ export default function Home() {
           for(i=0; i<video_number; i++)    
           {
             console.log("key=", i);
+            console.log("video_path=",data[i]); 
             data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
             Video_Name_array.push(data_video_name);
+
             Video_array.push(
               <div 
                key={"video" + index}
                id={"video" + index}
+               style={{width: "100%"}}
               >
                 <Archive_video
                   videoName={Video_Name_array[i]}
