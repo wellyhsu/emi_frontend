@@ -13,8 +13,27 @@ var data_video_name;
 var Video_Name_array=[];
 var Video_array=[];
 
+var video_ID;  //點擊影片時，取得片ID
+var video_ID_array=[];  //用於儲存影片ID的順序
+var video_index;    //取得被點擊影片在影片陣列中的index
+var index=0;  //用於編碼影片id
+
 var i=0;
 
+function preview_video()
+{
+  document.getElementById("preview_video").style= "display : flex;" ;
+  video_ID = event.target.id;
+
+}
+
+function Delete()
+{
+
+
+  console.log("video_ID=", video_ID);
+  console.log("Video_array=", Video_array);
+}
 
 export default function Home() {
   const router = useRouter();
@@ -41,7 +60,7 @@ export default function Home() {
       console.log("username!!", UserName);
 
       //取得使用者影片總數
-      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + UserName + "/number", { 
+      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName + "/number", { 
         method: 'GET',
       })
         .then((response) => {
@@ -65,7 +84,7 @@ export default function Home() {
     {
       console.log("C_video_number=", video_number);
       //取得使用者影片路徑、檔名
-      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + UserName, {  
+      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName, {  
         method: 'GET',
       })
         .then((response) => {
@@ -84,15 +103,19 @@ export default function Home() {
             Video_Name_array.push(data_video_name);
             Video_array.push(
               <div 
-               key={"video" + i}
+               key={"video" + index}
+               id={"video" + index}
               >
                 <Archive_video
                   videoName={Video_Name_array[i]}
                   videoPath={`/api/video?videoPath=${encodeURIComponent(data[i])}`}
-                  
+                  view_video={preview_video}
+                  Deletefunction={Delete}
                 />
               </div>
             )
+            index++;
+            video_ID_array.push(index);
           }
           setVideoNameArray(Video_Name_array);
           const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面

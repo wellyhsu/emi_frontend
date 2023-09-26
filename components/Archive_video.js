@@ -2,9 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 
-function preview_video(){
-    document.getElementById("preview_video").style= "display : flex;" ;
-}
 
 function OK(){
     document.getElementById("preview_video").style= "display : none;" ;
@@ -58,7 +55,7 @@ class Archive_video extends React.Component {
                 </div>
             </div>
 
-            <button className={styles.Drafts_block} onClick={preview_video}>
+            <button className={styles.Drafts_block} onClick={this.props.view_video}>
                 <>
                     <div className={styles.Drafts_play_button}>
                         <Image

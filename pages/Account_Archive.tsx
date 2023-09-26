@@ -53,7 +53,8 @@ export default function Account_Archive() {
       console.log("username!!", UserName);
 
       //取得使用者影片總數
-      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video
+      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName + "/number", { 
+        method: 'GET',
       })
         .then((response) => {
             console.log('response=',response);
