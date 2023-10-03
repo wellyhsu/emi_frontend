@@ -12,6 +12,8 @@ var UserName;
 var data_video_name;
 var Video_Name_array=[];
 var Video_array=[];
+var video_path;
+var video_path_array=[];
 
 var video_ID;  //點擊影片時，取得片ID
 var video_ID_array=[];  //用於儲存影片ID的順序
@@ -20,13 +22,8 @@ var index=0;  //用於編碼影片id
 
 var i=0;
 
-function preview_video()
-{
-  document.getElementById("preview_video").style= "display : flex;" ;
-  video_ID = event.target;
-
-  console.log("p_video_ID=", video_ID);
-  console.log("tagName", event.target.tagName);
+function OK(){
+  document.getElementById("preview_video").style= "display : none;" ;
 }
 
 function Delete()
@@ -38,11 +35,38 @@ function Delete()
   console.log("Video_array=", Video_array);
 }
 
+
 export default function Home() {
   const router = useRouter();
   const [video_number, setVideo_Number] = useState(0);
   const [video_name_array, setVideoNameArray] = useState([]);
   const [video_array, setVideoArray] = useState([]);
+  const [view_video_URL, set_View_video_URL] = useState("");
+
+  function add_quiz(){
+    Cookies.set('video_path', view_video_URL);   //紀錄目前點擊的影片的URL
+    window.location.replace(process.env.NEXT_PUBLIC_PoPup_Quiz_Modify_video);
+  }
+  
+  function video_optimize(){
+    Cookies.set('video_path', view_video_URL);  //紀錄目前點擊的影片的URL
+    window.location.replace(process.env.NEXT_PUBLIC_PoPup_Quiz_Modify_video);
+  }
+
+  function preview_video(clickID)
+  {
+    document.getElementById("preview_video").style= "display : flex;" ;
+    video_ID = String(clickID.target.id);
+    video_ID = video_ID?.substring(video_ID?.indexOf(`o`)+1);  //" "中間字串
+  
+    video_path = video_path_array[video_ID];
+    set_View_video_URL(video_path);
+    console.log("__video_path=",video_path);
+  
+    console.log("p_video_ID=", video_ID);
+    console.log("video_path_array=",video_path_array);
+    console.log("tagName", event.target.tagName);
+  }
 
   useLayoutEffect(() => {
 
@@ -102,23 +126,19 @@ export default function Home() {
           for(i=0; i<video_number; i++)    
           {
             console.log("key=", i);
-            console.log("video_path=",data[i]); 
+            video_path = data[i];
+            video_path_array.push(video_path);
+            console.log("A_video_path=",video_path); 
             data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
             Video_Name_array.push(data_video_name);
 
             Video_array.push(
-              <div 
-               key={"video" + index}
-               id={"video" + index}
-               style={{width: "100%"}}
-              >
-                <Archive_video
-                  videoName={Video_Name_array[i]}
-                  videoPath={`/api/video?videoPath=${encodeURIComponent(data[i])}`}
-                  view_video={preview_video}
-                  Deletefunction={Delete}
-                />
-              </div>
+              <Archive_video
+                key={"video" + index}
+                button_id={"video" + index}
+                videoName={Video_Name_array[i]}
+                view_video={preview_video}
+              />
             )
             index++;
             video_ID_array.push(index);
@@ -146,6 +166,38 @@ export default function Home() {
 
   return (
       <main className={styles.main}>
+        <div id="preview_video" className={styles.preview_video_background}>
+          <div className={styles.preview_video_window}>
+            <div className={styles.preview_video}>
+              <div>
+                <video 
+                    src={`/api/video?videoPath=${encodeURIComponent(view_video_URL)}`}
+                    poster=""
+                    autoPlay={false}
+                    controls={true} 
+                    width="500em"
+                    height="auto"
+                />
+              </div>
+            </div>
+            <div style={{display: "flex", justifyContent: "center"}}>
+              <button className={styles.preview_video_button} onClick={Delete}>
+                  Delete 
+              </button>
+              <button className={styles.preview_video_button} onClick={add_quiz}>
+                  add quiz 
+              </button>
+              <button className={styles.preview_video_button} onClick={video_optimize}>
+                  Voice<br/>
+                  optimization
+              </button>
+              <button className={styles.preview_video_button} onClick={OK}>
+                  Ok 
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div className={styles.Account_My_Creations}>
           My Creations
             <Link 

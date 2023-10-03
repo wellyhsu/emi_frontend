@@ -3620,6 +3620,7 @@ select.option{
 
 .Drafts_play_button{
   position: relative;
+  pointer-events: none;
 
   width: 30px;
   height: 30px;
@@ -3630,6 +3631,8 @@ select.option{
 
 .Drafts_title{
   display: inline-block;
+  pointer-events: none;  /* 取消元素被點擊的功能 */
+
   width: 13em;
   height: 28px;
 

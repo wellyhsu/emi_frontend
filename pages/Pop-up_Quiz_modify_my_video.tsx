@@ -46,8 +46,9 @@ var circleID_index;       //儲存被點擊的圓點在circleID_array的index
 var i;
 
 const token =  Cookies.get('token');
-const videoPath = "/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
-console.log("video_path=", videoPath);
+const videoPath = Cookies.get('video_path');
+
+console.log("!!!video_path=", videoPath);
 
 /*
 function gap_fill_question(){  
@@ -108,8 +109,22 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
     const [ShowCircle, setShowCircle] = useState([]);
     const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
+    const [play_video, SetPlayVideo] = useState("");
+    
+
+    useEffect(() => {
+        // 从 Cookies 中获取 videoPath
+        const storedVideoPath = Cookies.get('video_path');
+    
+        // 如果成功获取到 videoPath，则设置状态
+        if (storedVideoPath) {
+            SetPlayVideo(storedVideoPath);
+        }
+      }, []);
+    console.log("videoPath~~",videoPath);
 
     useLayoutEffect(() => {
+
         selectVideo = document.getElementById('video');
         playButton = document.getElementById('playbutton');
         inputItem = document.querySelectorAll('input');
@@ -157,7 +172,9 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
             API = 1;     
                     
-            //取得要插入影片的時間點資訊                                                               
+            //取得要插入影片的時間點資訊  
+            console.log("取得要插入影片的時間點資訊 -",videoPath);
+                                                             
             fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + videoPath, {  
                 method: 'GET',
             })
@@ -359,6 +376,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         document.getElementById("Multiple_choice_question_modify").style = "display: flex";
             
         //取得該點的題目
+        console.log("取得該點的題目-",videoPath);
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Circle_Time, {            
             method: 'GET',
         })
@@ -713,7 +731,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                 controls={false} 
                                 className={styles.video}
                             >
-                                <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
+                                <source src={`/api/video?videoPath=${encodeURIComponent(play_video)}`} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         
