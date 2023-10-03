@@ -3630,21 +3630,25 @@ select.option{
 
 .Drafts_title{
   display: inline-block;
-  width: 80%;
+  width: 13em;
   height: 28px;
 
   vertical-align:middle;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   font-size: 16px;
   font-family: 'Poppins', Arial;
   font-style: normal;
   font-weight: 500;
   line-height: 30px;
-  text-align: center;
+  text-align: left;
   color: rgba(0, 0, 0, 1);
 
   margin-top: -5vh;
-  margin-left: 1.3vw;
+  padding-left: 2.4em;
 }
 
 
