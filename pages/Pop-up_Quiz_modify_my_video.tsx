@@ -111,7 +111,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
 
     useLayoutEffect(() => {
-
         selectVideo = document.getElementById('video');
         playButton = document.getElementById('playbutton');
         inputItem = document.querySelectorAll('input');
@@ -145,7 +144,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
         //監聽 當滑鼠被放開時，執行removeDragProgress函式
         progressBarOut.addEventListener('mouseup', removeDragProgress);
         
-    }, [])
+    }, [videoPath])
 
     useLayoutEffect(() => {
         if(API == 0)
@@ -711,16 +710,18 @@ export default function Pop_up_Quiz_Editing_my_video() {
                 <div className={styles.no_padding_center}>
                     <div className={styles.PopupQuiz_video_preview}>
                         <div style={{ height: "100%",width: "100%", marginLeft: "auto", marginRight:"auto"}}>
-                            <video 
-                                id='video'
-                                poster=""
-                                autoPlay={false}
-                                controls={false} 
-                                className={styles.video}
-                            >
-                                <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>
+                            {videoPath && 
+                                <video 
+                                    id='video'
+                                    poster=""
+                                    autoPlay={false}
+                                    controls={false} 
+                                    className={styles.video}
+                                >
+                                    <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            }
                         
                             <div id="video_control" className={styles.video_control}>
                                 <div id='progress' className={styles.video_control_progress}>

@@ -12,7 +12,7 @@ var UserName;
 var data_video_name;
 var Video_Name_array=[];
 var Video_array=[];
-var video_path;
+var video_path=null;
 var video_path_array=[];
 
 var video_ID;  //點擊影片時，取得片ID
@@ -208,14 +208,15 @@ export default function Home() {
           <div className={styles.preview_video_window}>
             <div className={styles.preview_video}>
               <div>
+              {video_path && 
                 <video 
-                    src={`/api/video?videoPath=${encodeURIComponent(view_video_URL)}`}
+                    src={`/api/video?videoPath=${encodeURIComponent(video_path)}`}
                     poster=""
                     autoPlay={false}
                     controls={true} 
                     width="500em"
                     height="auto"
-                />
+                />}
               </div>
             </div>
             <div style={{display: "flex", justifyContent: "center"}}>
