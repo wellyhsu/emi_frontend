@@ -109,19 +109,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
     const [ShowCircle, setShowCircle] = useState([]);
     const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
-    const [play_video, SetPlayVideo] = useState("");
-    
-
-    useEffect(() => {
-        // 从 Cookies 中获取 videoPath
-        const storedVideoPath = Cookies.get('video_path');
-    
-        // 如果成功获取到 videoPath，则设置状态
-        if (storedVideoPath) {
-            SetPlayVideo(storedVideoPath);
-        }
-      }, []);
-    console.log("videoPath~~",videoPath);
 
     useLayoutEffect(() => {
 
@@ -731,7 +718,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                 controls={false} 
                                 className={styles.video}
                             >
-                                <source src={`/api/video?videoPath=${encodeURIComponent(play_video)}`} type="video/mp4" />
+                                <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         
