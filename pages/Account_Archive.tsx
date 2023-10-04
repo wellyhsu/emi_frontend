@@ -183,6 +183,7 @@ export default function Account_Archive() {
           console.log("components=",components);
       }
   }
+  
   console.log("F-index_number=", index_number);
 
   console.log("remove_number=",remove_number);

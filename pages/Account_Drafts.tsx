@@ -26,15 +26,6 @@ function OK(){
   document.getElementById("preview_video").style= "display : none;" ;
 }
 
-function Delete()
-{
-  document.getElementById("preview_video").style= "display : none;" ;
-
-
-  console.log("video_ID=", video_ID);
-  console.log("Video_array=", Video_array);
-}
-
 
 export default function Home() {
   const router = useRouter();
@@ -42,6 +33,7 @@ export default function Home() {
   const [video_name_array, setVideoNameArray] = useState([]);
   const [video_array, setVideoArray] = useState([]);
   const [view_video_URL, set_View_video_URL] = useState("");
+
 
   function add_quiz(){
     Cookies.set('video_path', view_video_URL);   //紀錄目前點擊的影片的URL
@@ -67,6 +59,39 @@ export default function Home() {
     console.log("video_path_array=",video_path_array);
     console.log("tagName", event.target.tagName);
   }
+
+  function Delete()
+  {
+    document.getElementById("preview_video").style= "display : none;" ;
+  
+    console.log("video_ID=", video_ID);
+    console.log("Video_array=", Video_array);
+    console.log("video_ID_array=", video_ID_array)
+    console.log("video_ID_array.indexOf(video_ID)=",video_ID_array.indexOf(parseInt(video_ID)));
+
+    Video_array.splice(video_ID_array.indexOf(parseInt(video_ID)), 1);
+    Video_Name_array.splice(video_ID_array.indexOf(parseInt(video_ID)), 1);
+  
+      setVideoNameArray([]);
+/*
+      const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
+      send_Video_Name.splice(video_ID_array.indexOf(parseInt(video_ID)), 1);
+      setVideoNameArray(send_Video_Name);
+*/
+      setVideoArray([]);
+/*      
+      const send_Video = [...video_array];    //用於建立副本，渲染畫面
+      send_Video.splice(video_ID_array.indexOf(parseInt(video_ID)), 1);
+      setVideoArray(send_Video);
+*/
+      console.log("D_Video_Name_array=", Video_Name_array);
+      console.log("D_Video_array=", Video_array);  
+     
+      console.log("D_video_Name=", video_name_array);
+      console.log("D_video_array=", video_array);
+      
+      setVideo_Number(video_number-1);
+    }
 
   useLayoutEffect(() => {
 
@@ -132,16 +157,18 @@ export default function Home() {
             data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
             Video_Name_array.push(data_video_name);
 
-            Video_array.push(
+            const VideoElement = (
               <Archive_video
                 key={"video" + index}
                 button_id={"video" + index}
                 videoName={Video_Name_array[i]}
                 view_video={preview_video}
               />
-            )
-            index++;
+            );
+
+            Video_array.push(VideoElement);
             video_ID_array.push(index);
+            index++;
           }
           setVideoNameArray(Video_Name_array);
           const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
@@ -155,7 +182,7 @@ export default function Home() {
 
           console.log("F_Video_Name=", video_name_array);
           console.log("F_video_array=", video_array);
-
+          API = 3;   只執行一次 
         })
         .catch((error) => console.log("error", error));
     }
@@ -236,7 +263,6 @@ export default function Home() {
             </Link> 
         </div>
         
-
         <div className={styles.Account_grid}>
             {video_array}
         </div>
