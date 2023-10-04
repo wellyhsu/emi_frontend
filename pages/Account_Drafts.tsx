@@ -66,24 +66,19 @@ export default function Home() {
   
     console.log("video_ID=", video_ID);
     console.log("Video_array=", Video_array);
-    console.log("video_ID_array=", video_ID_array)
     console.log("video_ID_array.indexOf(video_ID)=",video_ID_array.indexOf(parseInt(video_ID)));
 
     Video_array.splice(video_ID_array.indexOf(parseInt(video_ID)), 1);
     Video_Name_array.splice(video_ID_array.indexOf(parseInt(video_ID)), 1);
-  
+    video_ID_array.splice(video_ID_array.indexOf(parseInt(video_ID)), 1);
+    console.log("video_ID_array=", video_ID_array)
+
       setVideoNameArray([]);
-/*
-      const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
-      send_Video_Name.splice(video_ID_array.indexOf(parseInt(video_ID)), 1);
-      setVideoNameArray(send_Video_Name);
-*/
       setVideoArray([]);
-/*      
-      const send_Video = [...video_array];    //用於建立副本，渲染畫面
-      send_Video.splice(video_ID_array.indexOf(parseInt(video_ID)), 1);
-      setVideoArray(send_Video);
-*/
+
+      console.log("F_Video_Name=", video_name_array);
+      console.log("F_video_array=", video_array);
+
       console.log("D_Video_Name_array=", Video_Name_array);
       console.log("D_Video_array=", Video_array);  
      
@@ -151,9 +146,10 @@ export default function Home() {
           for(i=0; i<video_number; i++)    
           {
             console.log("key=", i);
-            video_path = data[i];
+            video_path = data[i];  //把每個影片URL存下來
             video_path_array.push(video_path);
             console.log("A_video_path=",video_path); 
+            
             data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
             Video_Name_array.push(data_video_name);
 
@@ -182,9 +178,24 @@ export default function Home() {
 
           console.log("F_Video_Name=", video_name_array);
           console.log("F_video_array=", video_array);
-          API = 3;   只執行一次 
+          API = 3;   //只執行一次 
         })
         .catch((error) => console.log("error", error));
+    }
+  }, [video_number]);
+
+  useLayoutEffect(() => {   //影片有增加或是減少時
+    if(API ==3)
+    {
+      setVideoNameArray([]);
+      const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
+      send_Video_Name.push(Video_Name_array);
+      setVideoNameArray(send_Video_Name);
+
+      setVideoArray([]);
+      const send_Video = [...video_array];    //用於建立副本，渲染畫面
+      send_Video.push(Video_array);
+      setVideoArray(send_Video);
     }
   }, [video_number]);
 
