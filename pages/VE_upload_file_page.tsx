@@ -422,7 +422,7 @@ export default function VE_upload_file_page() {
                             </div>
                         </div>
                         <div className={styles.left}>
-                            <div className={styles.Circle_up_L}>
+                            <div id='Circle_up_L' className={styles.Circle_up_L}>
                             </div>
                         </div>
                         <div style={{display: "flex", marginTop: "1em"}}>

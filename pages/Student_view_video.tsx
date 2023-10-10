@@ -33,6 +33,18 @@ export default function Student_view_video() {
     const [Options2, setOptions2] = useState("");  //儲存影片選項2
     const [Options3, setOptions3] = useState("");  //儲存影片選項3
     const [Options4, setOptions4] = useState("");  //儲存影片選項4
+    const [VideoPath, SetvideoPath] = useState("");
+
+    useLayoutEffect(() => {
+        const storedVideoPath = Cookies.get('video_path');
+
+        if (storedVideoPath) 
+        {
+            // 如果从 Cookie 中成功获取到影片路径，将其设置到状态变量中
+            SetvideoPath(storedVideoPath);
+            console.log("成功！");
+        }
+    }, [VideoPath])        
 
     if(API == 0)
     {   
@@ -338,8 +350,12 @@ export default function Student_view_video() {
                             autoPlay={false}
                             controls={true} 
                         >
-                            <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
-                            Your browser does not support the video tag.
+                            {VideoPath&&
+                                <>
+                                    <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </>
+                            }
                         </video>
                     </div>
                 </div>
