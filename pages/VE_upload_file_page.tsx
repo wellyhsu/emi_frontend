@@ -374,11 +374,11 @@ export default function VE_upload_file_page() {
     
         document.getElementById('uploading').style = "display: flex";
     
-        file_type = fileName?.substring(fileName?.indexOf(".",0));  //取得副檔名
+        file_type = fileName?.substring(fileName?.lastindexOf(".",0));  //取得副檔名
         console.log("file_type=",file_type); 
     
     
-        if(file_type == ".mp4" || file_type == ".MOV") //如果檔案 
+        if(file_type == ".mp4" || file_type == ".MP4" || file_type == "video/mp4" || file_type == ".MOV") //如果檔案 
         {
             sendMetadata();    //發送MetaData到後端
         }

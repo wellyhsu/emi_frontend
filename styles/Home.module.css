@@ -1175,6 +1175,7 @@ ul.Layerout ul li:hover {
   text-decoration: underline;
   color: rgba(0, 0, 0, 0.5);
   margin-left: 18.3em;
+  margin-bottom: 0.5em;
 }
 
 .Reset_password{
@@ -1538,7 +1539,7 @@ ul.Layerout ul li:hover {
 
 .select_content_PPT{
   display: block;
-  width: 30vw;
+  width: 10em;
 
   font-size: 2vw;
   font-family: 'Poppins', Arial;
@@ -1547,8 +1548,8 @@ ul.Layerout ul li:hover {
   line-height: 40px;
   color: rgba(0, 0, 0, 0.5);
 
-  margin-top: -9vh;
-  padding-left: 4vw;
+  margin-top: 0.5em;
+  padding-left: 1em;
 }
 
 .select_content_video{
@@ -3290,6 +3291,47 @@ select.option{
   background-color: #38c18a;
 }
 
+.Search{
+  display: block;
+  width: 50em;
+  height: 2.7em;
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 1);
+
+  border-radius: 1.2em;
+  border: none;
+  background-color: rgba(243, 241, 241, 1);
+
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 2em;
+}
+
+.AllVideo{
+  display: block;
+  width: 5em;
+  height: 2.5em;
+  cursor: pointer;
+
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 1);
+
+  border-radius: 1.2em;
+  border: none;
+  background-color: rgba(243, 241, 241, 1);
+
+  margin-left: 2em;
+}
 
 /*        Customized Video      */
 .CV_Write_down_needs{

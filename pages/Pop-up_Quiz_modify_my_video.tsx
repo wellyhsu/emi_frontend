@@ -46,6 +46,7 @@ var circleID_index;       //儲存被點擊的圓點在circleID_array的index
 var i;
 
 const token =  Cookies.get('token');
+const videoPath = Cookies.get('video_path');
 
 console.log("!!!video_path=", Cookies.get('video_path'));
  
@@ -152,8 +153,8 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
             progressBarOut.addEventListener('mousedown', addDragProgress);
             //監聽 當滑鼠被放開時，執行removeDragProgress函式
             progressBarOut.addEventListener('mouseup', removeDragProgress);
-        }while(!storedVideoPath);
-    }, [VideoPath])
+        }while(!videoPath);
+    }, [])
 
     useLayoutEffect(() => {
         if(API == 0)
@@ -168,7 +169,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
             API = 1;     
                     
             //取得要插入影片的時間點資訊  
-            console.log("取得要插入影片的時間點資訊 -",VideoPath);
+            console.log("取得要插入影片的時間點資訊 -",videoPath);
                                                              
             fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + Cookies.get('video_path'), {  
                 method: 'GET',
@@ -371,7 +372,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
         document.getElementById("Multiple_choice_question_modify").style = "display: flex";
             
         //取得該點的題目
-        console.log("取得該點的題目-",VideoPath);
+        console.log("取得該點的題目-",videoPath);
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Cookies.get('video_path') + "/" + Circle_Time, {            
             method: 'GET',
         })
@@ -417,15 +418,15 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
             "options": Choice,  
             "answer": Answer,
             "explanation": Explain,
-            'video-path': VideoPath?.substring(0, VideoPath?.lastIndexOf("/")+1),
+            'video-path': videoPath?.substring(0, videoPath?.lastIndexOf("/")+1),
         }
         
         var modify_question_send_json = JSON.stringify(modify_question_send);  //轉json格式
         console.log("send data=",modify_question_send_json);
                       
-        console.log('fetch=',VideoPath,"/",Circle_Time);
+        console.log('fetch=',videoPath,"/",Circle_Time);
         //儲存修改之後的題目
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + VideoPath + "/" + Circle_Time, {            
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Circle_Time, {            
             method: 'PUT',
             headers:{
                 'Content-Type': 'application/json',
@@ -469,7 +470,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
         console.log("D_circleID_array=",circleID_array);
     
         //通知後端刪除此題目
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + VideoPath + "/" + Circle_Time, {            
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Circle_Time, {            
             method: 'Delete',
             headers:{
                 'Content-Type': 'application/json',
@@ -543,7 +544,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
         }
         
         var question_send_json = JSON.stringify(question_send);  //轉json格式           
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + VideoPath + "/" + Time, {            
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json',
@@ -727,9 +728,9 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
                                     controls={false} 
                                     className={styles.video}
                                 >
-                                    {VideoPath&&
+                                    {videoPath&&
                                         <>
-                                            <source src={`/api/video?videoPath=${encodeURIComponent(Cookies.get('video_path'))}`} type="video/mp4" />
+                                            <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
                                             Your browser does not support the video tag.
                                         </>
                                     }

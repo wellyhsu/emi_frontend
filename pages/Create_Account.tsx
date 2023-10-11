@@ -5,14 +5,28 @@ import styles from '@/styles/Home.module.css'
 import React, {useRef} from "react";
 import {useEffect, useState} from 'react';
 
+var type;
+
+function choose_type_Teacher(){
+  document.getElementById("Teacher_button").style = "  background-color: rgba(255,0 ,0 , 1);";
+  document.getElementById("Student_button").style = "  background-color: rgba(243, 241, 241, 1);";
+  type = true;  //"Teacher";
+
+}
+
+function choose_type_Student(){
+  document.getElementById("Teacher_button").style = "  background-color: rgba(243, 241, 241, 1);";
+  document.getElementById("Student_button").style = "  background-color: rgba(255,0 ,0 , 1);";
+  type = false;  //"Student";
+}
 
 export default function Create_Account() {
   const nameRef = useRef(undefined);
   const EmailRef = useRef(undefined);
   const passwordRef = useRef(undefined);
-  const comfirm_passwordRef = useRef(undefined);
+  const confirm_passwordRef = useRef(undefined);
   // 為了方便操作，建立一個array來管理這些ref
-  const refArr = useRef([nameRef, EmailRef, passwordRef, comfirm_passwordRef]);
+  const refArr = useRef([nameRef, EmailRef, passwordRef, confirm_passwordRef]);
 
   function Singn_up() {    //註冊按鈕
     var information;
@@ -26,19 +40,14 @@ export default function Create_Account() {
     console.log(nameRef.current.name +" is "+ nameRef.current.value);
     console.log(EmailRef.current.name +" is "+ EmailRef.current.value);
     console.log(passwordRef.current.name +" is "+ passwordRef.current.value);
-    console.log(comfirm_passwordRef.current.name +" is "+ comfirm_passwordRef.current.value);
- 
-    if(comfirm_passwordRef.current.value != passwordRef.current.value)
-    {
-      alert("Comfirm password doesn't mach password.");
-      return false
-    }
+    console.log(confirm_passwordRef.current.name +" is "+ confirm_passwordRef.current.value);
 
     const Create_account_send =
     {
       "username": nameRef.current.value,
       "email": EmailRef.current.value,
       "password": passwordRef.current.value,  //轉json格式
+      "is_stuff": type,
     }
   
     var Create_account_send_json = JSON.stringify(Create_account_send);  //轉json格式
@@ -61,6 +70,11 @@ export default function Create_Account() {
       window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
     }
 */
+    if(passwordRef.current.value != confirm_passwordRef.current.value)
+    {
+      alert("password error!");
+    }
+
     fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_signup, {
       method: 'POST',
       headers:{
@@ -134,10 +148,21 @@ export default function Create_Account() {
             <input
               type="password"
               placeholder="Comfirm password"
-              ref={comfirm_passwordRef}
+              ref={confirm_passwordRef}
               className={styles.password}
             >
             </input>
+            <div style={{display: "flex"}}>
+              <div className={styles.select_content_PPT}>
+                  <button id="Teacher_button" className={styles.checkbox} onClick={choose_type_Teacher}></button>
+                  Teacher
+              </div>
+              <div className={styles.select_content_PPT}>
+                  <button id="Student_button" className={styles.checkbox} onClick={choose_type_Student}></button>
+                  Student
+              </div>
+            </div>
+            
 
             <button className={styles.CreateAccount_button} onClick={Singn_up}>
               Create an account
