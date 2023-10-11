@@ -48,8 +48,7 @@ var i;
 const token =  Cookies.get('token');
 
 console.log("!!!video_path=", Cookies.get('video_path'));
-
-
+ 
 
 /*
 function gap_fill_question(){  
@@ -111,53 +110,53 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
     const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
     const [VideoPath, SetvideoPath] = useState("");
 
+
     useLayoutEffect(() => {
         const storedVideoPath = Cookies.get('video_path');
 
-        if (storedVideoPath) 
-        {
+        do {
             // 如果从 Cookie 中成功获取到影片路径，将其设置到状态变量中
             SetvideoPath(storedVideoPath);
             console.log("成功！");
-        }
+            console.log("VideoPath=", VideoPath);
 
-        selectVideo = document.getElementById('video');
-        playButton = document.getElementById('playbutton');
-        inputItem = document.querySelectorAll('input');
-//        skipButton = document.querySelectorAll('.player__button[data-skip]');
-        progressBarOut = document.getElementById('progress');
-        progressBarIn = document.getElementById('progress_fill');    
-        document.getElementById('video_control').style = "width: selectVideo.videoWidth";
+            selectVideo = document.getElementById('video');
+            playButton = document.getElementById('playbutton');
+            inputItem = document.querySelectorAll('input');
+    //        skipButton = document.querySelectorAll('.player__button[data-skip]');
+            progressBarOut = document.getElementById('progress');
+            progressBarIn = document.getElementById('progress_fill');    
+            document.getElementById('video_control').style = "width: selectVideo.videoWidth";
 
-        console.log("selectVideo=", selectVideo);
-        console.log("videoWidth=", selectVideo.videoWidth);
-        console.log("playButton=", playButton);
-        console.log("inputItem=", inputItem);
-//        console.log("skipButton=", skipButton);
-        console.log("progressBarOut=", progressBarOut);
-        console.log("progressBarIn=", progressBarIn);
+            console.log("selectVideo=", selectVideo);
+            console.log("videoWidth=", selectVideo.videoWidth);
+            console.log("playButton=", playButton);
+            console.log("inputItem=", inputItem);
+    //        console.log("skipButton=", skipButton);
+            console.log("progressBarOut=", progressBarOut);
+            console.log("progressBarIn=", progressBarIn);
 
-        //播放及暫停按鈕
-        playButton.addEventListener('click', playToggle);
-        selectVideo.addEventListener('click', playToggle);
-       
-        //調整音量  利用forEach()方法將選到的每個input元素加上監聽事件
-        inputItem.forEach(function(item){
-            item.addEventListener('input', changeCondition);
-        });
-
-        //將影片加上監聽事件以及觸發函示
-        selectVideo.addEventListener('timeupdate', progressing);
-
-        //監聽 當滑鼠被按下時，執行addDragProgress函式
-        progressBarOut.addEventListener('mousedown', addDragProgress);
-        //監聽 當滑鼠被放開時，執行removeDragProgress函式
-        progressBarOut.addEventListener('mouseup', removeDragProgress);
+            //播放及暫停按鈕
+            playButton.addEventListener('click', playToggle);
+            selectVideo.addEventListener('click', playToggle);
         
+            //調整音量  利用forEach()方法將選到的每個input元素加上監聽事件
+            inputItem.forEach(function(item){
+                item.addEventListener('input', changeCondition);
+            });
+
+            //將影片加上監聽事件以及觸發函示
+            selectVideo.addEventListener('timeupdate', progressing);
+
+            //監聽 當滑鼠被按下時，執行addDragProgress函式
+            progressBarOut.addEventListener('mousedown', addDragProgress);
+            //監聽 當滑鼠被放開時，執行removeDragProgress函式
+            progressBarOut.addEventListener('mouseup', removeDragProgress);
+        }while(!storedVideoPath);
     }, [VideoPath])
 
     useLayoutEffect(() => {
-        if(API == 0 && VideoPath)
+        if(API == 0)
         {   
             console.log("Cookies= ", Cookies.get('video_path'));
             console.log("Get Question!!");
@@ -373,7 +372,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
             
         //取得該點的題目
         console.log("取得該點的題目-",VideoPath);
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + VideoPath + "/" + Circle_Time, {            
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Cookies.get('video_path') + "/" + Circle_Time, {            
             method: 'GET',
         })
             .then((response) => {
@@ -424,6 +423,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
         var modify_question_send_json = JSON.stringify(modify_question_send);  //轉json格式
         console.log("send data=",modify_question_send_json);
                       
+        console.log('fetch=',VideoPath,"/",Circle_Time);
         //儲存修改之後的題目
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + VideoPath + "/" + Circle_Time, {            
             method: 'PUT',
@@ -729,7 +729,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
                                 >
                                     {VideoPath&&
                                         <>
-                                            <source src={`/api/video?videoPath=${encodeURIComponent(VideoPath)}`} type="video/mp4" />
+                                            <source src={`/api/video?videoPath=${encodeURIComponent(Cookies.get('video_path'))}`} type="video/mp4" />
                                             Your browser does not support the video tag.
                                         </>
                                     }
