@@ -374,7 +374,7 @@ export default function VE_upload_file_page() {
     
         document.getElementById('uploading').style = "display: flex";
     
-        file_type = fileName?.substring(fileName?.lastindexOf(".",0));  //取得副檔名
+        file_type = fileName?.substring(fileName?.lastIndexOf(`.`));  //取得副檔名
         console.log("file_type=",file_type); 
     
     
