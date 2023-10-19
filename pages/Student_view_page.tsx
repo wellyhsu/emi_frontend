@@ -98,6 +98,114 @@ export default function Account_Archive() {
       setVideo_Number(video_number-1);
   }
 
+  function Search()
+  {
+    //取得使用者搜尋之 影片路徑、檔名
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName, {  
+      method: 'GET',
+    })
+      .then((response) => {
+          console.log('response=',response);
+          var information = response.json();
+          console.log('info^^',information);
+          return information;
+      })
+      .then((data) => {
+        console.log("data=",data[0]);  
+        console.log("Video_Number=", video_number);
+        for(i=0; i<video_number; i++)    
+        {
+          console.log("key=", index);
+          video_path = data[index];  //把每個影片URL存下來
+          video_path_array.push(video_path);
+          console.log("A_video_path=",video_path); 
+          
+          data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
+          Video_Name_array.push(data_video_name);
+          
+          const VideoElement = (
+            <Archive_View_video
+              key={"video" + index}
+              button_id={"video" + index}
+              videoName={Video_Name_array[i]}
+              view_video={preview_video}              />
+          );
+
+          Video_array.push(VideoElement);
+          video_ID_array.push(index);
+          index++;
+        }
+        
+        setVideoNameArray([]);
+        const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
+        send_Video_Name.push(Video_Name_array);
+        setVideoNameArray(send_Video_Name);
+
+        setVideoArray([]);
+        const send_Video = [...video_array];    //用於建立副本，渲染畫面
+        send_Video.push(Video_array);
+        setVideoArray(send_Video);
+
+        console.log("F_Video_Name=", video_name_array);
+        console.log("F_video_array=", video_array);
+      })
+      .catch((error) => console.log("error", error));
+  }
+
+  function ShowAllVideo()
+  {
+    //取得使用者影片路徑、檔名
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName, {  
+      method: 'GET',
+    })
+      .then((response) => {
+          console.log('response=',response);
+          var information = response.json();
+          console.log('info^^',information);
+          return information;
+      })
+      .then((data) => {
+        console.log("data=",data[0]);  
+        console.log("Video_Number=", video_number);
+        for(i=0; i<video_number; i++)    
+        {
+          console.log("key=", index);
+          video_path = data[index];  //把每個影片URL存下來
+          video_path_array.push(video_path);
+          console.log("A_video_path=",video_path); 
+          
+          data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
+          Video_Name_array.push(data_video_name);
+          
+          const VideoElement = (
+            <Archive_View_video
+              key={"video" + index}
+              button_id={"video" + index}
+              videoName={Video_Name_array[i]}
+              view_video={preview_video}              />
+          );
+
+          Video_array.push(VideoElement);
+          video_ID_array.push(index);
+          index++;
+        }
+        
+        setVideoNameArray([]);
+        const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
+        send_Video_Name.push(Video_Name_array);
+        setVideoNameArray(send_Video_Name);
+
+        setVideoArray([]);
+        const send_Video = [...video_array];    //用於建立副本，渲染畫面
+        send_Video.push(Video_array);
+        setVideoArray(send_Video);
+
+        console.log("F_Video_Name=", video_name_array);
+        console.log("F_video_array=", video_array);
+      })
+      .catch((error) => console.log("error", error));
+  }
+
   useLayoutEffect(() => {
     if((token == "null") || (token == null) || (token == "undefined"))
     {
@@ -239,18 +347,22 @@ export default function Account_Archive() {
             </div>
           </div>
 
-          <div className={styles.Account_My_Creations}>
+          <div style={{width:"100%"}} className={styles.Account_My_Creations}>
             Welcome~
-            <input
-              type="text" 
-              name='Search'
-              placeholder="Search" 
-              ref={videoRef}
-              className={styles.Search}
-            >
-
-            </input>
-            <button className={styles.AllVideo}>
+            <div style={{width:"100%",display: "flex"}}>
+              <input
+                type="text" 
+                name='Search'
+                placeholder="Search" 
+                ref={videoRef}
+                className={styles.Search}
+              >
+              </input>
+              <button className={styles.SearchButton} onClick={Search}>
+                Search
+              </button>
+            </div>
+            <button className={styles.AllVideo} onClick={ShowAllVideo}>
               All
             </button>
           </div>

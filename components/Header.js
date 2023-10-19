@@ -35,15 +35,17 @@ function link_click(){
 export const Header = () => {
     const router = useRouter();
     const [token, setToken] = useState('null');
+    const [User, setUser] = useState('null');
 
     useEffect(() => {
         console.log("Header Trigger");
-        const storedToken = Cookies.get('token');
-        setToken(storedToken);
-    }, [])
+        setToken(Cookies.get('token'));                   //" "中間字串
+        setUser(Cookies.get('userName')?.substring(1, Cookies.get('userName').lastIndexOf(`"`))); 
+    },[])
 
     console.log("~~token~~", Cookies.get('token'));
-    console.log("storageValue type ->", typeof(token));
+    console.log("~~User~~", Cookies.get('userName'));
+    console.log("storedToken ->", token);
 
     if ((token == "null") || (token == null) || (token == "undefined")){    //未登入
         console.log("router.pathname=",router.pathname);
@@ -200,7 +202,7 @@ export const Header = () => {
     }
     else {
         console.log("login!!");
-        const User = Cookies.get('username');
+        console.log("~~User~~", User);
         return (
             <header style={{position: "relative",zIndex: "4"}}>
                 <li className={styles.Home_Logo}>
@@ -347,13 +349,8 @@ export const Header = () => {
                                     />
                                 </div>
                                 <div id="UserName" className={styles.user_button_word}>
-                                    User01
-                                </div>
-{/* 
-                               <Script>
-                                    document.getElementById("UserName").innerHTML = User;
-                                </Script>
-*/}                                 
+                                    {User}
+                                </div>                             
                             </button>
                         </Link>
                     </li>
@@ -362,5 +359,6 @@ export const Header = () => {
         )
         
     }
+
 
 }

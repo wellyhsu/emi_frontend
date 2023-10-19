@@ -227,6 +227,10 @@ ul.Layerout ul li:hover {
   top: 0.1em;
   left: -1.5em;
 
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
   text-align: center;
   font-size: 1.4vw;
   font-weight: 500;
@@ -3293,7 +3297,7 @@ select.option{
 
 .Search{
   display: block;
-  width: 50em;
+  width: 38em;
   height: 2.7em;
   font-size: 20px;
   font-family: 'Poppins',Arial;
@@ -3305,11 +3309,40 @@ select.option{
 
   border-radius: 1.2em;
   border: none;
+
   background-color: rgba(243, 241, 241, 1);
 
   margin-top: 1em;
   margin-bottom: 1em;
   margin-left: 2em;
+}
+
+.SearchButton{
+  display: inline-block;
+  width: 6em;
+  height: 2.5em;
+  cursor: pointer;
+
+  font-size: 20px;
+  font-family: 'Poppins',Arial;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 1);
+
+  border-radius: 1.2em;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgba(70, 66, 66, 0.961);
+  
+  background-color: rgba(243, 241, 241, 1);
+
+  margin-top: 1em;
+  margin-left: 2em;
+}
+.SearchButton:hover{
+  transform: scale(1.02);
 }
 
 .AllVideo{
@@ -3327,7 +3360,10 @@ select.option{
   color: rgba(0, 0, 0, 1);
 
   border-radius: 1.2em;
-  border: none;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgba(70, 66, 66, 0.961);
+
   background-color: rgba(243, 241, 241, 1);
 
   margin-left: 2em;

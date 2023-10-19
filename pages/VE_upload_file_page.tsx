@@ -222,6 +222,7 @@ export default function VE_upload_file_page() {
                         results.push(data);    //將後端後端傳回的資料放到results
                         if(Chunk_Number == chunks.length)
                         {                                  //取得video_path
+                            console.log("data=", data);
                             Cookies.set('video_path' ,data?.substring(12, data?.lastIndexOf("W")));
                             console.log("video_path=", Cookies.get('video_path'));
                             document.getElementById('Finish').style = "display: inline-block";
