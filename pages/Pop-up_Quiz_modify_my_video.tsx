@@ -109,19 +109,22 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
 
     const [ShowCircle, setShowCircle] = useState([]);
     const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
-    const [VideoPath, SetvideoPath] = useState("");
 
 
     useLayoutEffect(() => {
-        const storedVideoPath = Cookies.get('video_path');
 
-        do {
             // 如果从 Cookie 中成功获取到影片路径，将其设置到状态变量中
-            SetvideoPath(storedVideoPath);
+            console.log("Cookies.get('video_path')=", Cookies.get('video_path'));
+
+            const sourceElement = document.createElement('source');
+            sourceElement.src = `/api/video?videoPath=${encodeURIComponent(Cookies.get('video_path'))}`;
+            sourceElement.type = 'video/mp4';
+
             console.log("成功！");
-            console.log("VideoPath=", VideoPath);
 
             selectVideo = document.getElementById('video');
+            selectVideo?.appendChild(sourceElement);
+
             playButton = document.getElementById('playbutton');
             inputItem = document.querySelectorAll('input');
     //        skipButton = document.querySelectorAll('.player__button[data-skip]');
@@ -130,6 +133,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
             document.getElementById('video_control').style = "width: selectVideo.videoWidth";
 
             console.log("selectVideo=", selectVideo);
+
             console.log("videoWidth=", selectVideo.videoWidth);
             console.log("playButton=", playButton);
             console.log("inputItem=", inputItem);
@@ -153,7 +157,6 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
             progressBarOut.addEventListener('mousedown', addDragProgress);
             //監聽 當滑鼠被放開時，執行removeDragProgress函式
             progressBarOut.addEventListener('mouseup', removeDragProgress);
-        }while(!videoPath);
     }, [])
 
     useLayoutEffect(() => {
@@ -162,56 +165,57 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
             console.log("Cookies= ", Cookies.get('video_path'));
             console.log("Get Question!!");
 
-            var selectVideo = document.querySelector('video');
-            videoDuration = selectVideo.duration;
-            console.log("video length= ", selectVideo.duration);  //影片總長度
+            selectVideo.addEventListener('loadedmetadata', () => {
+                videoDuration = selectVideo.duration;
+                console.log("video length= ", selectVideo.duration);  //影片總長度console.log('Video width:', selectVideo.videoWidth);
 
-            API = 1;     
-                    
-            //取得要插入影片的時間點資訊  
-            console.log("取得要插入影片的時間點資訊 -",videoPath);
-                                                             
-            fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + Cookies.get('video_path'), {  
-                method: 'GET',
-            })
-                .then((response) => {
-                    console.log('response=',response);
-                    information = response.json();
-                    console.log('info^^',information);
-                    return information;
+                API = 1;     
+                        
+                //取得要插入影片的時間點資訊  
+                console.log("取得要插入影片的時間點資訊 -",videoPath);
+                                                                
+                fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + Cookies.get('video_path'), {  
+                    method: 'GET',
                 })
-                .then((data) => {
-                    console.log("data=",data);
-                    console.log("data.length=", data.length);
-                    
-                    const send_circle = [...ShowCircle];    //用於建立副本，渲染畫面
+                    .then((response) => {
+                        console.log('response=',response);
+                        information = response.json();
+                        console.log('info^^',information);
+                        return information;
+                    })
+                    .then((data) => {
+                        console.log("data=",data);
+                        console.log("data.length=", data.length);
+                        
+                        const send_circle = [...ShowCircle];    //用於建立副本，渲染畫面
 
-                    for(i=0; i<data.length; i++)
-                    {
-                        Question_time.push(data[i]);
-                        console.log('Question_time=',Question_time[i]);
-                    
-                        const circleElement = (
-                            <div
-                                key={"Modify_Circle" + String(Circle_index)}
-                                id={"Circle" + String(Circle_index)}
-                                className={styles.circle}                 //circle需位移距離
-                                style={{marginLeft: String((Question_time[i]/ videoDuration) * 100 *(98/100))+"%"}}
-                                onClick={Click_Circle}
-                            >
-                                    
-                            </div>
-                        );
-                        send_circle.push(circleElement); 
-                        circleID_array.push(Circle_index);
+                        for(i=0; i<data.length; i++)
+                        {
+                            Question_time.push(data[i]);
+                            console.log('Question_time=',Question_time[i]);
+                        
+                            const circleElement = (
+                                <div
+                                    key={"Modify_Circle" + String(Circle_index)}
+                                    id={"Circle" + String(Circle_index)}
+                                    className={styles.circle}                 //circle需位移距離
+                                    style={{marginLeft: String((Question_time[i]/ videoDuration) * 100 *(98/100))+"%"}}
+                                    onClick={Click_Circle}
+                                >
+                                        
+                                </div>
+                            );
+                            send_circle.push(circleElement); 
+                            circleID_array.push(Circle_index);
 
-                        Circle_index++; //用於給圓點編號
-                    }
-                    setShowCircle(send_circle);
-                    console.log("send_circle=",send_circle);
-                    console.log("ShowCircle=", ShowCircle);
-                })
-                .catch((error) => console.log("error", error));
+                            Circle_index++; //用於給圓點編號
+                        }
+                        setShowCircle(send_circle);
+                        console.log("send_circle=",send_circle);
+                        console.log("ShowCircle=", ShowCircle);
+                    })
+                    .catch((error) => console.log("error", error));
+            });
         } 
 
    }, [])
@@ -720,7 +724,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
 
                 <div className={styles.no_padding_center}>
                     <div className={styles.PopupQuiz_video_preview}>
-                        <div style={{ height: "100%",width: "100%", marginLeft: "auto", marginRight:"auto"}}>
+                        <div style={{ height: "100%",width: "100%", justifyContent: "center", marginLeft: "auto", marginRight:"auto"}}>
                                 <video 
                                     id='video'
                                     poster=""
@@ -728,13 +732,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
                                     controls={false} 
                                     className={styles.video}
                                 >
-                                    {videoPath&&
-                                        <>
-                                            <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
-                                            Your browser does not support the video tag.
-                                        </>
-                                    }
-                                    </video>
+                                </video>
                         
                             <div id="video_control" className={styles.video_control}>
                                 <div id='progress' className={styles.video_control_progress}>

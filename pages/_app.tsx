@@ -7,6 +7,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Cookies from 'js-cookie'; 
 import styles from '@/styles/Home.module.css'
 import {Header} from '../components/Header'
+import {Header_student} from '../components/Header'
 //import '../styles/style.css';
 //import '../styles/tailwind.min.css';
 
@@ -47,7 +48,7 @@ export default function App({ Component, pageProps }: AppProps) {
       .catch((error) => console.log("error", error));
     }
   }, []);
-
+  
   return (
     <>
       <Head>
@@ -56,6 +57,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      
         <Header/>
           <Component {...pageProps} />
         <footer className={styles.editor}>

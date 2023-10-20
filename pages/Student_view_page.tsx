@@ -23,6 +23,8 @@ var video_index;    //取得被點擊影片在影片陣列中的index
 var index=0;  //用於編碼影片id
 
 var i=0;
+var Video_height;
+var Video_width;
 
 const videoPath = Cookies.get('video_path');  //"/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
 console.log("video_path=", videoPath);
@@ -41,7 +43,7 @@ export default function Account_Archive() {
   const [video_array, setVideoArray] = useState([]);
   const [view_video_URL, set_View_video_URL] = useState("");
  
-  const videoRef = useRef(undefined);
+  const searchRef = useRef(undefined);
   // 為了方便操作，建立一個array來管理這些ref
 
 
@@ -62,6 +64,7 @@ export default function Account_Archive() {
     console.log("p_video_ID=", video_ID);
     console.log("video_path_array=",video_path_array);
     console.log("tagName", event.target.tagName);
+
   }
 
   function View(){
@@ -100,8 +103,14 @@ export default function Account_Archive() {
 
   function Search()
   {
+    console.log("searchRef.current.value=", searchRef.current.value);
+    Video_array=[];
+    video_ID_array=[];
+    video_path_array=[];
+    Video_Name_array=[];
+
     //取得使用者搜尋之 影片路徑、檔名
-    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName, {  
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_video_search + "?search=" + searchRef.current.value, {  
       method: 'GET',
     })
       .then((response) => {
@@ -111,17 +120,21 @@ export default function Account_Archive() {
           return information;
       })
       .then((data) => {
-        console.log("data=",data[0]);  
+        console.log("data.length=", data.length);  
+        console.log("data=",data);  
         console.log("Video_Number=", video_number);
-        for(i=0; i<video_number; i++)    
+        setVideo_Number(data.length);
+
+        for(i=0; i<data.length; i++)    
         {
           console.log("key=", index);
-          video_path = data[index];  //把每個影片URL存下來
+          video_path = data[i].video_path;  //把每個影片URL存下來
           video_path_array.push(video_path);
           console.log("A_video_path=",video_path); 
           
-          data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
+          data_video_name = String(data[i].video_name);
           Video_Name_array.push(data_video_name);
+          console.log("A_video_name", data_video_name);
           
           const VideoElement = (
             <Archive_View_video
@@ -137,14 +150,8 @@ export default function Account_Archive() {
         }
         
         setVideoNameArray([]);
-        const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
-        send_Video_Name.push(Video_Name_array);
-        setVideoNameArray(send_Video_Name);
-
         setVideoArray([]);
-        const send_Video = [...video_array];    //用於建立副本，渲染畫面
-        send_Video.push(Video_array);
-        setVideoArray(send_Video);
+
 
         console.log("F_Video_Name=", video_name_array);
         console.log("F_video_array=", video_array);
@@ -154,6 +161,27 @@ export default function Account_Archive() {
 
   function ShowAllVideo()
   {
+    Video_array=[];
+    video_ID_array=[];
+    video_path_array=[];
+    Video_Name_array=[];
+    //取得使用者影片總數
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName + "/number", { 
+      method: 'GET',
+    })
+      .then((response) => {
+          console.log('response=',response);
+          var information = response.text();
+          console.log('info^^',information);
+          return information;
+      })
+      .then((data) => {
+        console.log("data=",typeof(data));  
+        setVideo_Number(parseInt(data));
+        console.log("video_number=", video_number);  
+      })
+      .catch((error) => console.log("error", error));
+
     //取得使用者影片路徑、檔名
     fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName, {  
       method: 'GET',
@@ -200,11 +228,14 @@ export default function Account_Archive() {
         send_Video.push(Video_array);
         setVideoArray(send_Video);
 
+
         console.log("F_Video_Name=", video_name_array);
         console.log("F_video_array=", video_array);
       })
       .catch((error) => console.log("error", error));
   }
+
+
 
   useLayoutEffect(() => {
     if((token == "null") || (token == null) || (token == "undefined"))
@@ -322,16 +353,14 @@ export default function Account_Archive() {
           <div id="preview_video" className={styles.preview_video_background}>
             <div className={styles.preview_video_window}>
               <div className={styles.preview_video}>
-                <div>
                   <video 
+                    id='video'
                     src={`/api/video?videoPath=${encodeURIComponent(view_video_URL)}`}
                     poster=""
                     autoPlay={false}
                     controls={true} 
-                    width="500em"
-                    height="auto"
+                    className={styles.video}
                   />
-                </div>
               </div>
               <div style={{display: "flex", justifyContent: "center"}}>
                 <button className={styles.preview_video_button} onClick={Cancel}>
@@ -354,7 +383,7 @@ export default function Account_Archive() {
                 type="text" 
                 name='Search'
                 placeholder="Search" 
-                ref={videoRef}
+                ref={searchRef}
                 className={styles.Search}
               >
               </input>

@@ -17,6 +17,7 @@ export default function Home() {
     var token_DATA;
     var status_code;
     var msg;
+    var identity;
     var userName;
 
 	  console.log('press Log_in')
@@ -59,6 +60,7 @@ fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
         token_DATA = data["token"];
         status_code = data["code"];
         msg = data["message"];
+        identity = data["is_stuff"];
 
         token_DATA = JSON.stringify(token_DATA);
         userName = JSON.stringify(nameRef.current.value);
@@ -68,12 +70,20 @@ fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
         
         console.log('token_DATA=', Cookies.get('token'));
         console.log('userName=', Cookies.get('userName'));
+        console.log("data=", data);
         console.log('msg=',msg);
         alert(msg);
 //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
         if(msg == "Login successful")
         {
-          window.location.replace("/");
+          if(identity == true)
+          {
+            window.location.replace("/");
+          }
+          else
+          {
+            window.location.replace("/" + process.env.NEXT_PUBLIC_Student_videos);
+          }
         }
       })
       .catch((error) => console.log("error", error));

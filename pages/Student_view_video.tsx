@@ -349,6 +349,8 @@ export default function Student_view_video() {
                             poster=""
                             autoPlay={false}
                             controls={true} 
+                            width="auto"
+                            height="450em"
                         >
                             {VideoPath&&
                                 <>

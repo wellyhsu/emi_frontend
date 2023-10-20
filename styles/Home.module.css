@@ -2932,8 +2932,11 @@ select.option{
   height: 70vh;
   width: 70%;
 
+  justify-content: center;
+
   margin-top: 3vh;
   margin-bottom: 10vh;
+
   margin-left: auto;
   margin-right: auto;
 }
@@ -3108,15 +3111,15 @@ select.option{
 }
 
 .Popup_add_block{
-  display: fixed;
+  display: flex;
   position: absolute;
 
-  margin-top: 16em;
-  margin-left: 1em;
+  margin-top: 17em;
+  margin-left: -31em;
 }
 
 .Popup_add_button{
-  display: fixed;
+  display: flex;
   position: relative;
   z-index: 1;
   cursor: pointer;
@@ -3298,6 +3301,7 @@ select.option{
 .Search{
   display: block;
   width: 38em;
+
   height: 2.7em;
   font-size: 20px;
   font-family: 'Poppins',Arial;
@@ -3787,6 +3791,20 @@ select.option{
   margin-top: 1.5em;
   margin-right: auto;
   margin-left: auto;
+}
+
+.video{
+  display: flex;
+  position: relative;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  max-height: 20em;
+
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 .video-container {

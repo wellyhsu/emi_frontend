@@ -214,8 +214,7 @@ export default function Home() {
                     poster=""
                     autoPlay={false}
                     controls={true} 
-                    width="500em"
-                    height="auto"
+                    className={styles.video}
                 />}
               </div>
             </div>

@@ -237,8 +237,7 @@ export default function Account_Archive() {
                     poster=""
                     autoPlay={false}
                     controls={true} 
-                    width="500em"
-                    height="auto"
+                    className={styles.video}
                   />
                 </div>
               </div>
