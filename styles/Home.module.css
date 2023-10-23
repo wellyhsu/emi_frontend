@@ -368,14 +368,14 @@ ul.Layerout ul li:hover {
 /*  Home page   */
 .homepage_grid2 {
   display: grid;
-  grid-template-columns: 30vw 20vw;
 
-  gap: 0.01vw;
+  width: 80%;
+  grid-template-columns: 40vw 10vw;
 }
 
 .introduction
 {
-  font-size: 1.8vw;
+  font-size: 1.6em;
   font-weight: 600;
   font-family: '微軟正黑體', Arial;
   line-height: 2em;
@@ -384,7 +384,7 @@ ul.Layerout ul li:hover {
 }
 
 .Elearning{
-  font-size: 3.7vw;
+  font-size: 3em;
   font-weight: 900;
   font-family: '微軟正黑體', Arial;
 
@@ -393,7 +393,7 @@ ul.Layerout ul li:hover {
 }
 
 .introduction_content{
-  font-size: 1.2vw;
+  font-size: 1.2em;
   font-weight: 600;
   font-family: '微軟正黑體', Arial;
   line-height: 2em;
@@ -404,11 +404,12 @@ ul.Layerout ul li:hover {
 @media screen and (min-width: 930px) 
 {
   .homepage_picture{
-    width: 50vw;
-    height: 65vh;
-    float: right;
-    position: relative;
-    right: 6vw;
+    display: flex;
+
+    width: 20vw;
+    height: 50vh;
+
+    margin-left: 20em;
   }
 }
 
@@ -424,18 +425,18 @@ ul.Layerout ul li:hover {
 }
 
 .View_more{
-  width: 18vw;
-  height: 8vh;
+  width: 12em;
+  height: 3em;
   cursor: pointer;
 
   padding-top: 1px;
   text-align: center;
-  font-size: 1.5vw;
+  font-size: 1.5em;
   font-family: 'Poppins', Arial, '微軟正黑體';
   color: rgba(255,255,255,1);
 
   border: none;
-  border-radius: 2vw;
+  border-radius: 2em;
   background-color: rgba(87, 196, 157, 1);
 
   margin-top: 0.6em;
@@ -454,13 +455,13 @@ ul.Layerout ul li:hover {
 
 .Bpartword_title{
   color: rgba(0, 0, 0, 1);
-  font-size: 1.7vw;
+  font-size: 1.6em;
   font-weight: 600;
   line-height: 3em;
 }
 
 .fivefeatures_introduce{
-  font-size: 1.3vw;
+  font-size: 1.3em;
   color: rgba(128,128,128,1);
   margin-bottom: 1em;
 }
@@ -606,13 +607,13 @@ ul.Layerout ul li:hover {
 }
 
 .Subscribe_button{
-  width: 16vw;
-  height: 7vh; 
+  width: 15em;
+  height: 2.5em; 
 
   max-width: 16vw;
   cursor: pointer;
 
-  font-size: 1.6vw;
+  font-size: 1em;
   font-weight: 600;
   font-family: Arial, 微軟正黑體;
   text-align: center;
@@ -621,8 +622,8 @@ ul.Layerout ul li:hover {
   color: rgba(87,196,157,1);
   background-color: rgb(255,255,255);
   border: none;
-  border-radius: 1.2vw;
-  margin-top: 2em;
+  border-radius: 1em;
+  margin-top: 0em;
 }
 .Subscribe_button:hover { /*:hover代表滑鼠移到元素上時的狀態*/ 
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -630,11 +631,11 @@ ul.Layerout ul li:hover {
 
 .Contact_us_button{
   width: 16vw;
-  height: 7vh; 
+  height: 2.5em; 
   max-width: 16vw;
   cursor: pointer;
 
-  font-size: 1.6vw;
+  font-size: 1em;
   font-weight: 600;
   font-family: Arial, 微軟正黑體;
   text-align: center;
@@ -645,9 +646,9 @@ ul.Layerout ul li:hover {
   border-width: 3px;
   border-style: solid;
   border-color: rgb(255,255,255);
-  border-radius: 1.2vw;
+  border-radius: 1em;
 
-  margin-top: 2em;
+  margin-top: 0.5em;
   margin-left: 1em;
 }
 .Contact_us_button:hover { /*:hover代表滑鼠移到元素上時的狀態*/ 
@@ -3964,9 +3965,11 @@ select.option{
 
 .center {
   display: flex;
+
   justify-content: center;
   align-items: center;
   position: relative;
+
   padding-top: 5vw;
 }
 
