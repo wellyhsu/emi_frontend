@@ -34,8 +34,8 @@
 }
 
 .Home_Logo{
-  width: 20vw;
-  height: 10vh;
+  width: 18em;
+  height: 5em;
 
   list-style: none;
   z-index: 3;
@@ -46,12 +46,12 @@
 }
 
 .Features_button{
-  width: 2vw;
+  width: 1.5em;
   height: 30px;
   display: inline-block;
   cursor: pointer;
 
-  font-size: 1.6vw;
+  font-size: 1.6em;
   font-family: 'Poppins', Arial, '微軟正黑體';
 
   color: rgba(255,255,255,1);
@@ -62,12 +62,12 @@
 }
 
 .layerbutton{
-  width: 2vw;
+  width: 1.5em;
   height: 30px;
   display: inline-block;
   cursor: pointer;
 
-  font-size: 1.6vw;
+  font-size: 1.6em;
   font-family: 'Poppins', Arial, '微軟正黑體';
 
   color: rgba(255,255,255,1);
@@ -83,27 +83,40 @@
 /*  list-style: none; */
 }
 
-.Li_Feature{
-  margin-left: 35vw;
-}
+
 
 /*寬度大於1200px時，適用此格式。*/
 @media screen and (min-width: 1200px) 
 {
-  .Features_button{
+  .Li_Feature{
+    margin-top: 0px;
+    margin-left: -9vw;
+  }
+  
+  .Feature_Button_block{
+    display: grid;
+    width: 50vw;
+    grid-template-columns: repeat(5, 9vw);
+    gap: 1em;
+    margin-top: 1.3em;
+    margin-right: 5em;
+  }
+
+  .Features_button{ 
+    display: inline-block;
     width: 2vw;
     height: 30px;
-    display: inline-block;
+   
     cursor: pointer;
   
-    font-size: 1.6vw;
+    font-size: 1.6em;
     font-family: 'Poppins', Arial, '微軟正黑體';
   
     color: rgba(255,255,255,1);
     border: none;
     background-color: #15b47f;
   
-    margin-top: 0.4em;
+    margin-top: 0.6em;
     margin-left: 7vw;
   }
 
@@ -111,7 +124,7 @@
     position: fixed;
     z-index: 2;
     width: 100vw;
-    height: 13vh;
+    height: 6em;
     display: inline-block;
     background-color: #15b47f;
   }
@@ -165,22 +178,22 @@ ul.Layerout ul li:hover {
 }
 
 .login_button{
-  width: 15vw;
-  height: 10vh;
+  width: 7.5em;
+  height: 3em;
   display: inline-block;
   cursor: pointer;
 
   text-align: center;
-  font-size: 1.6vw;
+  font-size: 1.5em;
   font-family: 'Poppins', Arial, '微軟正黑體';
 
   color: rgba(0,0,0,1);
   border: none;
-  border-radius: 3vw;
+  border-radius: 2em;
   background-color: rgba(255, 193, 7, 1);
 
-  padding-top: 0.4vh;
-  margin-top: -1.4vh;
+  padding-top: -0.3em;
+  margin-top: -0.5em;
 }
 .login_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/
@@ -301,10 +314,10 @@ ul.Layerout ul li:hover {
   /*  選單開合  */
   input:checked ~ ul.Layerout {
     width: 100vw;
-    height: 400px;   /* 選單展開後的高度 */
+    height: 25em;   /* 選單展開後的高度 */
   }
   
-  /* 選單展開後顯示功能 */
+  /* 漢堡選單展開後顯示功能 */
   input:checked ~ ul.Layerout li{
     display: block;
     width: 100vw;
@@ -315,13 +328,13 @@ ul.Layerout ul li:hover {
   }
 
   .Li_Feature{
-    margin-top: 80px;
-    margin-left: -20px;
+    margin-top: 5.5em;
+    padding-left: 1em;
   }
 
-  ul.Layerout {
+  ul.Layerout {    /* 漢堡選單綠底*/
     width: 100vw;
-    height: 80px;
+    height: 6em;
     position: fixed;
     z-index: 2;
     transition: all .6s;
@@ -333,6 +346,8 @@ ul.Layerout ul li:hover {
     position: relative;
     white-space: nowrap;
     list-style: none;
+
+    padding-left: 1em;
   }
 
   ul.Layerout ul {
@@ -358,6 +373,7 @@ ul.Layerout ul li:hover {
     margin-left: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+    
     line-height: 1.5em;
   }
 
@@ -400,29 +416,52 @@ ul.Layerout ul li:hover {
   color: rgba(0, 0, 0, 1);
 }
 
-/*寬度大於930px時，適用此格式。*/
-@media screen and (min-width: 930px) 
+/*寬度大於1150px時，適用此格式。*/
+@media screen and (min-width: 1150px) 
 {
   .homepage_picture{
     display: flex;
+    position: relative;
+    object-fit: cover;
 
-    width: 20vw;
+    width: 80vw;
     height: 50vh;
 
-    margin-left: 20em;
+    margin-top: -4.5em;
+    margin-left: -25em;
   }
 }
 
-/*寬度小於930px時，適用此格式。*/
-@media screen and (max-width: 930px) 
+/*寬度小於1150px時，適用此格式。*/
+@media screen and (max-width: 1600px) 
 {
   .homepage_picture{
-    width: 50vw;
-    height: 65vh;
-    float: right;
+    display: flex;
     position: relative;
+    object-fit: cover;
+
+    width: 60vw;
+    height: auto;
+
+    margin-left: -5em;
   }
 }
+
+/*寬度小於970px時，適用此格式。*/
+@media screen and (max-width: 970px) 
+{
+  .homepage_picture{
+    display: flex;
+    position: relative;
+    object-fit: cover;
+
+    width: 40vw;
+    height: auto;
+
+    margin-left: 2em;
+  }
+}
+
 
 .View_more{
   width: 12em;

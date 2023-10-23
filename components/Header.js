@@ -71,7 +71,8 @@ export const Header = () => {
                     <div className={styles.menu}></div>    
                 </label>
 
-                <ul className={styles.Layerout}> 
+                <ul className={styles.Layerout} > 
+                    <div className={styles.Feature_Button_block} style={{ float: "right"}}>
                     <li className={styles.Li_Feature}>
                     
                         <button id='Features' className={styles.Features_button} onClick={Feature_button}> {/**/}
@@ -188,13 +189,14 @@ export const Header = () => {
                                 <div>
                                     Log in
                                 </div>
-                                <div style={{fontSize: "1.2vw", lineHeight: "1.4em"}}>
+                                <div style={{fontSize: "0.8em", lineHeight: "1.4em"}}>
                                     Create an Account
                                 </div>
                             </button>
             
                         </Link>
                     </li>
+                    </div>
                 </ul>
 
             </header>
