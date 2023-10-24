@@ -23,7 +23,6 @@
   padding-top: 14vh;
   padding-bottom: 0px;
 
-
 }
 
 .no_padding_center {
@@ -548,13 +547,26 @@ ul.Layerout ul li:hover {
 }
 
 .information_picture{
+  display: flex;
   position: relative;
   width:22vw;
-  height: 40vh;
+  height: 20vh;
+
+  align-content: center;
+  justify-content: center;
 
   margin-top: 12px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.B_part_picture{
+  display: flex;
+  position: relative;
+  object-fit: cover;
+
+  width:20vw;
+  height: 20vh;
 }
 
 /*寬度大於700px時，適用此格式。*/
@@ -796,6 +808,15 @@ ul.Layerout ul li:hover {
 }
 
 /*   Contact us   */
+.Contact_us_image{
+  display: flex;
+  position: relative;
+  object-fit: cover;
+
+  width: 20vw;
+  height: 15vh;
+}
+
 .Contact_us_grid{
   display: flex;
   justify-content: center;  
@@ -826,13 +847,13 @@ ul.Layerout ul li:hover {
   grid-template-columns: repeat(3, 28%);
   width: var(--max-width);
   max-width: 100%;
-  gap: 3em;
+  gap: 5vw;
   margin-left: 3%;
 }
 
 .Contact_us_information{
-  width: 300px;
-  height: 393px;
+  width: 28vw;
+  height: 26em;
   background-color: rgba(243, 241, 241, 1);
   
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
@@ -841,7 +862,7 @@ ul.Layerout ul li:hover {
 }
 
 .Contact_us_introduction_title{
-  font-size: 20px;
+  font-size: 2vw;
   font-style: normal;
   font-weight: 600;
   font-family: 'Poppins', Arial, '微軟正黑體';
@@ -853,7 +874,7 @@ ul.Layerout ul li:hover {
 }
 
 .Contact_us_introduction_content{
-  font-size: 16px;
+  font-size: 1.8vw;
   font-style: normal;
   font-weight: 500;
   font-family: 'Poppins', Arial, '微軟正黑體';
@@ -1093,27 +1114,34 @@ ul.Layerout ul li:hover {
   .CreateAccount_block{
     display: inline-block;
     max-width: 100%;
-    margin-right: 10vw;
-    margin-left: -10vw;
-    margin-top: -5vh;
+    width: 50vw;
+
+    margin-right: 0vw;
+    margin-left: 0vw;
+    margin-top: -0.5em;
   }
 }
 
-/*寬度小於1200px時，適用此格式。*/
-@media screen and (max-width: 1000px) 
-{
-  .CreateAccount_block{
-    display: inline-block;
-    max-width: 100%;
-    margin-right: calc(var(--max-width) * 2vw);
-    margin-left: -15vw;
-  }
+
+
+.Create_Account_image{
+  display: flex;
+  position: relative;
+  object-fit: cover;
+
+  width: 50vw;
+  height: 70vh;
+
+  margin-top: -5vh;
+  margin-left: 0vw;
+  margin-right: 6vw;
 }
 
 .Name{
   display: block;
-  width: 411px;
-  height: 60px;
+  width: 42vw;
+  height: 10vh;
+
   font-size: 20px;
   font-family: 'Poppins',Arial;
   font-style: normal;
@@ -1122,7 +1150,7 @@ ul.Layerout ul li:hover {
   line-height: 28px;
   color: rgba(0, 0, 0, 1);
 
-  border-radius: 30px;
+  border-radius: 2em;
   border: none;
   background-color: rgba(243, 241, 241, 1);
   margin-bottom: 1em;
@@ -1130,8 +1158,9 @@ ul.Layerout ul li:hover {
 
 .password{
   display: block;
-  width: 411px;
-  height: 60px;
+  width: 42vw;
+  height: 10vh;
+
   font-size: 20px;
   font-family: 'Poppins',Arial;
   font-style: normal;
@@ -1140,7 +1169,7 @@ ul.Layerout ul li:hover {
   line-height: 28px;
   color: rgba(0, 0, 0, 1);
 
-  border-radius: 30px;
+  border-radius: 2em;
   border-color: rgba(243, 241, 241, 0);
   background-color: rgba(243, 241, 241, 1);
   margin-top: 1em;
@@ -1150,12 +1179,12 @@ ul.Layerout ul li:hover {
   font-size: 15px;
   font-family: 'Poppins',Arial;
   color: rgba(0, 0, 0, 0.5);
-  margin-left: 20em;
-  margin-top: 0.5em;
+
+  margin-left: 24vw;
 }
 
 .rigister_button{
-  width: 250px;
+  width: 20vw;
   height: 55px;
   cursor: pointer;
 
@@ -1185,13 +1214,13 @@ ul.Layerout ul li:hover {
   text-decoration: underline;
   color: rgba(0, 0, 0, 0.5);
 
-  margin-left: 12.5em;
+  margin-left: 20vw;
   margin-top: 0.5em;
 }
 
 .CreateAccount_button{
-  width: 250px;
-  height: 55px;
+  width: 20vw;
+  height: 10vh;
   cursor: pointer;
 
   text-align: center;
@@ -1218,7 +1247,7 @@ ul.Layerout ul li:hover {
   font-family: 'Poppins',Arial;
   text-decoration: underline;
   color: rgba(0, 0, 0, 0.5);
-  margin-left: 18.3em;
+  margin-left: 25vw;
   margin-bottom: 0.5em;
 }
 
@@ -1229,12 +1258,13 @@ ul.Layerout ul li:hover {
   font-style: normal;
   font-weight: 600;
   line-height: 28px;
-  color: rgba(0, 0, 0, 0.5);;
+  color: rgba(0, 0, 0, 0.5);
+  padding-left: 5vw;
 }
 
 .Reset_content{
-  display: block;
-  width: 100%;
+  display: inline-block;
+
   font-size: 20px;
   font-family: 'Poppins', Arial;
   font-style: normal;
@@ -1249,8 +1279,9 @@ ul.Layerout ul li:hover {
 
 .Forgot_Email{
   display: inline-block;
-  width: 600px;
-  height: 60px;
+  width: 60vw;
+  height: 2.6em;
+
   font-size: 20px;
   font-family: 'Poppins',Arial;
   font-style: normal;
@@ -1316,7 +1347,7 @@ ul.Layerout ul li:hover {
 
 .Forgot_Send_button{
   display: inline-block;
-  width: 250px;
+  width: 22vw;
   height: 55px;
   cursor: pointer;
 
@@ -1338,8 +1369,27 @@ ul.Layerout ul li:hover {
 }
 
 .Forgot_image{
-  margin-top: 10em;
+  display: flex;
+  float: right;
+  position: relative;
+  object-fit: cover;
+
+  width: 40vw;
+  height: 50vh;
+
+  margin-top: -22vh;
 }
+
+/* Log in Page*/
+.Log_in_image{
+  display: flex;
+  position: relative;
+  object-fit: cover;
+
+  width: 90vw;
+  height: 60vh;
+}
+
 
 /*Video Editor*/
 
@@ -1402,7 +1452,7 @@ ul.Layerout ul li:hover {
   color: rgba(255, 255, 255, 1);
   background-color: rgba(87, 196, 157, 1);
 
-  border-radius: 4vw;
+  border-radius: 2em;
   border: none;
 
   margin-left: 4.6em;
@@ -1594,6 +1644,7 @@ ul.Layerout ul li:hover {
 
   margin-top: 0.5em;
   padding-left: 1em;
+  margin-right: 2vw;
 }
 
 .select_content_video{
@@ -2971,7 +3022,10 @@ select.option{
   display: flex;
   height: 70vh;
   width: 70%;
+  
+  min-width: 720px;
 
+  overflow-x: scroll;
   justify-content: center;
 
   margin-top: 3vh;
@@ -2980,6 +3034,8 @@ select.option{
   margin-left: auto;
   margin-right: auto;
 }
+
+
 
 /* Pop-up editing video*/
 
@@ -3154,13 +3210,13 @@ select.option{
   display: flex;
   position: absolute;
 
-  margin-top: 17em;
-  margin-left: -31em;
+  margin-top: -5.3em;
+  margin-left: 1em;
 }
 
 .Popup_add_button{
   display: flex;
-  position: relative;
+  position: absolute;
   z-index: 1;
   cursor: pointer;
 
@@ -3181,7 +3237,7 @@ select.option{
   position: absolute;
   z-index: 1;
 
-  margin-top: -3.5em;
+  margin-top: 1em;
   margin-left: 5em;
 }
 

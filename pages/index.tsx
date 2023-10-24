@@ -84,12 +84,14 @@ export default function Home() {
             >
               <div className={styles.Information}>
                 <div className={styles.information_picture}>
-                  <Image
-                    src="/voice-message.svg"
-                    alt="Text-to-Speech_Audio image"
-                    fill={true}
-                    priority
-                  />
+                  <div className={styles.B_part_picture}>
+                    <Image
+                      src="/voice-message.svg"
+                      alt="Text-to-Speech_Audio image"
+                      fill={true}
+                      priority
+                    />
+                  </div>
                 </div>
                 <Information 
                   title={'Text-to-Speech Audio'}

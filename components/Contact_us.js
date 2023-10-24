@@ -7,14 +7,15 @@ class Contact_us extends React.Component {
     render() { 
         return (
             <div>
-                <div style={{paddingLeft: "38%",width: "100%"}}>
-                    <Image
-                        src={this.props.image}
-                        alt={this.props.image_alt}
-                        width={80}
-                        height={80}
-                        priority
-                    />
+                <div style={{display: "flex", width: "100%", justifyContent: "center"}}>
+                    <div className={styles.Contact_us_image}>
+                        <Image
+                            src={this.props.image}
+                            alt={this.props.image_alt}
+                            fill={true}
+                            priority
+                        />
+                    </div>
                 </div>
                 <div className={styles.Contact_us_introduction_title}>
                     <b>{this.props.title}</b>

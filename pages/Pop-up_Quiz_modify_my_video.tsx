@@ -724,15 +724,15 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
 
                 <div className={styles.no_padding_center}>
                     <div className={styles.PopupQuiz_video_preview}>
-                        <div style={{ height: "100%",width: "100%", justifyContent: "center", marginLeft: "auto", marginRight:"auto"}}>
-                                <video 
-                                    id='video'
-                                    poster=""
-                                    autoPlay={false}
-                                    controls={false} 
-                                    className={styles.video}
-                                >
-                                </video>
+                        <div style={{ height: "100%",width: "100%", justifyContent: "center"}}>
+                            <video 
+                                id='video'
+                                poster=""
+                                autoPlay={false}
+                                controls={false} 
+                                className={styles.video}
+                            >
+                            </video>
                         
                             <div id="video_control" className={styles.video_control}>
                                 <div id='progress' className={styles.video_control_progress}>
@@ -768,28 +768,28 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
                                 </div>
                                 {ShowCircle}
                             </div>
-                        </div>
-                        <div className={styles.Popup_add_block} >
-                            <button className={styles.Popup_add_button} onClick={Click_add}>
-                                <Image
-                                    src="/Pop-upQuiz_add.svg"
-                                    alt="Add new question"
-                                    width={70}
-                                    height={70}
-                                    priority
-                                />
-                            </button>
-                            <div id="question_button" className={styles.question_button}>
-                                <button className={styles.Multiple_choice_button} onClick={Multiple_choice_question}>
+                            <div className={styles.Popup_add_block} >
+                                <button className={styles.Popup_add_button} onClick={Click_add}>
                                     <Image
-                                        src="/Pop-up_Multiple_choice.svg"
-                                        alt="Add Multiple choice question"
-                                        width={30}
-                                        height={20}
+                                        src="/Pop-upQuiz_add.svg"
+                                        alt="Add new question"
+                                        width={70}
+                                        height={70}
                                         priority
                                     />
                                 </button>
-                            </div>
+                                <div id="question_button" className={styles.question_button}>
+                                    <button className={styles.Multiple_choice_button} onClick={Multiple_choice_question}>
+                                        <Image
+                                            src="/Pop-up_Multiple_choice.svg"
+                                            alt="Add Multiple choice question"
+                                            width={30}
+                                            height={20}
+                                            priority
+                                        />
+                                    </button>
+                                </div>
+                            </div> 
                         </div> 
                     </div>
                 </div>   

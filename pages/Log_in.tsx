@@ -94,12 +94,11 @@ fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
       <main className={styles.main}>
 
         <div className={styles.center}>
-          <div style={{marginLeft: "0em"}}>
+          <div className={styles.Log_in_image}>
             <Image
               src="/Log_in_image.svg"
               alt="Log in image"
-              width={742}
-              height={383}
+              fill={true}
               priority
             />
           </div>

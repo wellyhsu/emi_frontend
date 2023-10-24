@@ -113,70 +113,71 @@ export default function Create_Account() {
       <main className={styles.main}>
         
         <div className={styles.center}>
-          <div style={{marginTop: "-5em"}}>
-            <Image
-              src="/Create_Account_image.svg"
-              alt="Create Account image"
-              width={742}
-              height={383}
-              priority
-            />
-          </div>
-          
-          <div className={styles.CreateAccount_block}>
-            <input 
-              type="text" 
-              placeholder="Name" 
-              ref={nameRef}
-              className={styles.Name}
-            >
-            </input>
-            <input 
-              type="text" 
-              placeholder="E-mail" 
-              ref={EmailRef}
-              className={styles.Name}
-            >
-            </input>
-            <input
-              type="password" 
-              placeholder="Password" 
-              ref={passwordRef}
-              className={styles.password}
-            >
-            </input>
-            <input
-              type="password"
-              placeholder="Comfirm password"
-              ref={confirm_passwordRef}
-              className={styles.password}
-            >
-            </input>
-            <div style={{display: "flex"}}>
-              <div className={styles.select_content_PPT}>
-                  <button id="Teacher_button" className={styles.checkbox} onClick={choose_type_Teacher}></button>
-                  Teacher
-              </div>
-              <div className={styles.select_content_PPT}>
-                  <button id="Student_button" className={styles.checkbox} onClick={choose_type_Student}></button>
-                  Student
-              </div>
+          <div style={{display: "flex", width: "100%"}}>
+            <div className={styles.Create_Account_image}>
+              <Image
+                src="/Create_Account_image.svg"
+                alt="Create Account image"
+                fill={true}
+                priority
+              />
             </div>
-            
-
-            <button className={styles.CreateAccount_button} onClick={Singn_up}>
-              Create an account
-            </button>
-            <Link 
-              href={{
-              pathname: '/[page]',
-              query: {page: process.env.NEXT_PUBLIC_Log_in}
-              }}
-              className={styles.LoginLink}
-            >
-              Log in
-            </Link>
+          
+            <div className={styles.CreateAccount_block}>
+              <input 
+                type="text" 
+                placeholder="Name" 
+                ref={nameRef}
+                className={styles.Name}
+              >
+              </input>
+              <input 
+                type="text" 
+                placeholder="E-mail" 
+                ref={EmailRef}
+                className={styles.Name}
+              >
+              </input>
+              <input
+                type="password" 
+                placeholder="Password" 
+                ref={passwordRef}
+                className={styles.password}
+              >
+              </input>
+              <input
+                type="password"
+                placeholder="Comfirm password"
+                ref={confirm_passwordRef}
+                className={styles.password}
+              >
+              </input>
+              <div style={{display: "flex", width: "100%"}}>
+                <div className={styles.select_content_PPT}>
+                    <button id="Teacher_button" className={styles.checkbox} onClick={choose_type_Teacher}></button>
+                    Teacher
+                </div>
+                <div className={styles.select_content_PPT}>
+                    <button id="Student_button" className={styles.checkbox} onClick={choose_type_Student}></button>
+                    Student
+                </div>
+              </div>
               
+
+              <button className={styles.CreateAccount_button} onClick={Singn_up}>
+                Create an account
+              </button>
+              <Link 
+                href={{
+                pathname: '/[page]',
+                query: {page: process.env.NEXT_PUBLIC_Log_in}
+                }}
+                className={styles.LoginLink}
+              >
+                Log in
+              </Link>
+                
+            </div>
           </div>
         </div>
       </main>
