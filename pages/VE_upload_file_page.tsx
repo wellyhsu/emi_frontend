@@ -148,24 +148,13 @@ export default function VE_upload_file_page() {
     const [transform_degree, Set_transform_degree] = useState(0);
     const [Progress_Number, SetProgress_Number] = useState(0);
 
-    function checkProcessingStatus() {
-        const statusCheckRequest = new XMLHttpRequest();
-        statusCheckRequest.open('GET', 'your_backend_url', true);
-      
-        statusCheckRequest.onreadystatechange = function () {
-          if (statusCheckRequest.readyState === 4 && statusCheckRequest.status === 200) {
-            const response = JSON.parse(statusCheckRequest.responseText); //把一個JSON 字串轉換成JavaScript 的數值或是物件。
-            if (response.status === 'done') {
-              // 處理已完成，執行相應的動作
-              console.log('Video processing is done.');
-            } else {
-              // 處理未完成，繼續等待
-              setTimeout(checkProcessingStatus, 1000); // 1秒後再次檢查
-            }
-          }
-        };
-      
-        statusCheckRequest.send();
+    async function checkProcessingStatus() {
+        const response = await fetch('api/video/status');  //打API取得影片後端傳來的路徑
+        const data = await response.text();   //取得影片後端傳來的路徑資料
+
+        console.log('Status data= ',data);  //顯示取得的data
+        Cookies.set('video_path' ,data);
+
     }
 
     async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依據切割長度發送請求次數)
@@ -243,12 +232,15 @@ export default function VE_upload_file_page() {
                         if(Chunk_Number == chunks.length)
                         {                                  //取得video_path
                             console.log("data=", data);
-                            Cookies.set('video_path' ,data?.substring(12, data?.lastIndexOf("W")));
+                            
+                            document.getElementById('video_processing').style = "display: inline-block";
+
+                            // 開始檢查後端影片處理狀態
+                            checkProcessingStatus();
+                            
                             console.log("video_path=", Cookies.get('video_path'));
                             document.getElementById('Finish').style = "display: inline-block";
-                              
-                            // 開始檢查處理狀態
-                            checkProcessingStatus();
+                            
                         }   
     
                         Set_transform_degree(transform_degree + 360/chunks.length);
@@ -450,6 +442,30 @@ export default function VE_upload_file_page() {
                             </div>
                         </div>
                         <div style={{display: "flex", marginTop: "1em"}}>
+                            <div style={{marginLeft: "auto", marginRight: "auto"}}>
+                                <button id="Finish" style={{display: "none"}} className={styles.uploading_Cancel_button} onClick={Finish}>
+                                    Finish
+                                </button>
+                                <button style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_upload}>
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="video_processing" style={{height: "100%",display: "none"}}>
+                <div className={styles.question_background}>
+                    <div className={styles.pop_up_loading_window}>
+                        <div className={styles.upload_finish} >
+                            video upload finish
+                        </div>
+                        <div className={styles.video_processing}>
+                            video processing...
+                        </div>
+                        
+                        <div style={{display: "flex", marginTop: "4em"}}>
                             <div style={{marginLeft: "auto", marginRight: "auto"}}>
                                 <button id="Finish" style={{display: "none"}} className={styles.uploading_Cancel_button} onClick={Finish}>
                                     Finish

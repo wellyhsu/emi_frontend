@@ -14,5 +14,8 @@ export default function handler(
   const video_id = req.query.video_id;  //影片ID
   const processed_video_path = req.query.processed_video_path;
 
-  res.status(200).json({ video_path: 'videoPath' });
-}
+  if(status == 'completed')
+    res.status(200).json({ video_id: 'video_id', status: status, video_path: 'videoPath' });
+/*  else
+    res.status(200).json({ video_id: 'video_id' ,status: status});
+*/  }
