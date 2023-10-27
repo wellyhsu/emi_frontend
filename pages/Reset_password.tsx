@@ -58,7 +58,7 @@ export default function Reset_password() {
       <main className={styles.main}>
 
         <div className={styles.center}>
-          <div style={{paddingLeft: "5em", marginTop: "-15em", width: "800px"}}>
+          <div style={{display:"inline-block", marginTop: "1em", width: "100%"}}>
             <div className={styles.Reset_password}>
                 Reset your password
             </div>
@@ -98,19 +98,16 @@ export default function Reset_password() {
               </button>
             </div>
           </div>
-
-          <div className={styles.Forgot_image}>
-            <Image
-            src="/Forget_password_image.svg"
-            alt="Log in image"
-            width={485}
-            height={340}
-            priority
-            />
-          </div>
-          
         </div>
 
+        <div className={styles.Forgot_image}>
+          <Image
+          src="/Forget_password_image.svg"
+          alt="Log in image"
+          fill={true}
+          priority
+          />
+        </div>
       </main>
     </>
   )

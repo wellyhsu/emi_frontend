@@ -376,9 +376,9 @@ export default function Account_Archive() {
             </div>
           </div>
 
-          <div style={{width:"100%"}} className={styles.Account_My_Creations}>
+          <div className={styles.Account_My_Creations}>
             Welcome~
-            <div style={{width:"100%",display: "flex"}}>
+            <div style={{width:"100%", display: "flex", alignContent: "center"}}>
               <input
                 type="text" 
                 name='Search'
@@ -387,9 +387,9 @@ export default function Account_Archive() {
                 className={styles.Search}
               >
               </input>
-              <button className={styles.SearchButton} onClick={Search}>
-                Search
-              </button>
+                <button className={styles.SearchButton} onClick={Search}>
+                  Search
+                </button>
             </div>
             <button className={styles.AllVideo} onClick={ShowAllVideo}>
               All

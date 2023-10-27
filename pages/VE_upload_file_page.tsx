@@ -148,6 +148,26 @@ export default function VE_upload_file_page() {
     const [transform_degree, Set_transform_degree] = useState(0);
     const [Progress_Number, SetProgress_Number] = useState(0);
 
+    function checkProcessingStatus() {
+        const statusCheckRequest = new XMLHttpRequest();
+        statusCheckRequest.open('GET', 'your_backend_url', true);
+      
+        statusCheckRequest.onreadystatechange = function () {
+          if (statusCheckRequest.readyState === 4 && statusCheckRequest.status === 200) {
+            const response = JSON.parse(statusCheckRequest.responseText); //把一個JSON 字串轉換成JavaScript 的數值或是物件。
+            if (response.status === 'done') {
+              // 處理已完成，執行相應的動作
+              console.log('Video processing is done.');
+            } else {
+              // 處理未完成，繼續等待
+              setTimeout(checkProcessingStatus, 1000); // 1秒後再次檢查
+            }
+          }
+        };
+      
+        statusCheckRequest.send();
+    }
+
     async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依據切割長度發送請求次數)
         const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
         var Chunk_Number = 1;
@@ -226,6 +246,9 @@ export default function VE_upload_file_page() {
                             Cookies.set('video_path' ,data?.substring(12, data?.lastIndexOf("W")));
                             console.log("video_path=", Cookies.get('video_path'));
                             document.getElementById('Finish').style = "display: inline-block";
+                              
+                            // 開始檢查處理狀態
+                            checkProcessingStatus();
                         }   
     
                         Set_transform_degree(transform_degree + 360/chunks.length);

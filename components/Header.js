@@ -73,7 +73,7 @@ export const Header = () => {
 
                 <ul className={styles.Layerout} > 
                     <div className={styles.Feature_Button_block} style={{ float: "right"}}>
-                    <li className={styles.Li_Feature}>
+                        <li className={styles.Li_Feature}>
                     
                         <button id='Features' className={styles.Features_button} onClick={Feature_button}> {/**/}
                             Features
@@ -136,66 +136,66 @@ export const Header = () => {
                                 </Link>
                             </li>
                         </ul>
-                    </li>
+                        </li>
 
-                    <li>
-                    <Link
-                        href={{
-                            pathname: '/[page]',
-                            query: { page: process.env.NEXT_PUBLIC_Tutorials }
-                            }}
-                        className={styles.layerbutton}
-                        onClick={link_click}
-                    >
-                        Tutorials
-                    </Link>
-                    </li>
-
-                    <li>
+                        <li>
                         <Link
                             href={{
                                 pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Pricing }
+                                query: { page: process.env.NEXT_PUBLIC_Tutorials }
                                 }}
                             className={styles.layerbutton}
                             onClick={link_click}
                         >
-                            Pricing
+                            Tutorials
                         </Link>
-                    </li>
+                        </li>
 
-                    <li>
-                        <Link
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Contact_us }
-                                }}
-                            className={styles.layerbutton}
-                            onClick={link_click}
-                        >
-                            Contact us
-                        </Link>
-                    </li>
+                        <li>
+                            <Link
+                                href={{
+                                    pathname: '/[page]',
+                                    query: { page: process.env.NEXT_PUBLIC_Pricing }
+                                    }}
+                                className={styles.layerbutton}
+                                onClick={link_click}
+                            >
+                                Pricing
+                            </Link>
+                        </li>
 
-                    <li>
-                        <Link
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Log_in }
-                                }}
-                            onClick={link_click}
-                        >
-                            <button className={styles.login_button}>
-                                <div>
-                                    Log in
-                                </div>
-                                <div style={{fontSize: "0.8em", lineHeight: "1.4em"}}>
-                                    Create an Account
-                                </div>
-                            </button>
-            
-                        </Link>
-                    </li>
+                        <li>
+                            <Link
+                                href={{
+                                    pathname: '/[page]',
+                                    query: { page: process.env.NEXT_PUBLIC_Contact_us }
+                                    }}
+                                className={styles.layerbutton}
+                                onClick={link_click}
+                            >
+                                Contact us
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link
+                                href={{
+                                    pathname: '/[page]',
+                                    query: { page: process.env.NEXT_PUBLIC_Log_in }
+                                    }}
+                                onClick={link_click}
+                            >
+                                <button className={styles.login_button}>
+                                    <div>
+                                        Log in
+                                    </div>
+                                    <div style={{fontSize: "0.8em", lineHeight: "1.4em"}}>
+                                        Create an Account
+                                    </div>
+                                </button>
+                
+                            </Link>
+                        </li>
                     </div>
                 </ul>
 
@@ -228,134 +228,135 @@ export const Header = () => {
                 </label>
 
                 <ul className={styles.Layerout}>
-                    
-                    <li className={styles.Li_Feature}>
-                    
-                        <button id='Features' className={styles.Features_button} onClick={Feature_button}> 
-                            Features
-                        </button>
-
-                        <ul id='Features_container'>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Video_Editor }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Video Editor
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_TextToSpeech_Audio }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Text-to-Speech Audio
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Pop-up Quiz Setting
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Slide_Template }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Slide Template
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Customized_Video }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Customized Video
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                    <Link
-                        href={{
-                            pathname: '/[page]',
-                            query: { page: process.env.NEXT_PUBLIC_Tutorials }
-                            }}
-                        className={styles.layerbutton}
-                        onClick={link_click}
-                    >
-                        Tutorials
-                    </Link>
-                    </li>
-
-                    <li>
-                        <Link
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Pricing }
-                                }}
-                            className={styles.layerbutton}
-                            onClick={link_click}
-                        >
-                            Pricing
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Contact_us }
-                                }}
-                            className={styles.layerbutton}
-                            onClick={link_click}
-                        >
-                            Contact us
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link 
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Account_Drafts }
-                                }}
-                            onClick={link_click}
-                        >
-                            <button className={styles.user_button}>
-                                <div className={styles.user_image}>
-                                    <Image
-                                        src="/user.svg"
-                                        alt="user image"
-                                        fill={true}
-                                        priority
-                                    />
-                                </div>
-                                <div id="UserName" className={styles.user_button_word}>
-                                    {User}
-                                </div>                             
+                    <div className={styles.Feature_Button_block} style={{ float: "right"}}>
+                        <li className={styles.Li_Feature}>
+                        
+                            <button id='Features' className={styles.Features_button} onClick={Feature_button}> 
+                                Features
                             </button>
+
+                            <ul id='Features_container'>
+                                <li>
+                                    <Link
+                                        href={{
+                                            pathname: '/[page]',
+                                            query: { page: process.env.NEXT_PUBLIC_Video_Editor }
+                                            }}
+                                        onClick={link_click}
+                                    >
+                                        Video Editor
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href={{
+                                            pathname: '/[page]',
+                                            query: { page: process.env.NEXT_PUBLIC_TextToSpeech_Audio }
+                                            }}
+                                        onClick={link_click}
+                                    >
+                                        Text-to-Speech Audio
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href={{
+                                            pathname: '/[page]',
+                                            query: { page: process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting }
+                                            }}
+                                        onClick={link_click}
+                                    >
+                                        Pop-up Quiz Setting
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href={{
+                                            pathname: '/[page]',
+                                            query: { page: process.env.NEXT_PUBLIC_Slide_Template }
+                                            }}
+                                        onClick={link_click}
+                                    >
+                                        Slide Template
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href={{
+                                            pathname: '/[page]',
+                                            query: { page: process.env.NEXT_PUBLIC_Customized_Video }
+                                            }}
+                                        onClick={link_click}
+                                    >
+                                        Customized Video
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                        <Link
+                            href={{
+                                pathname: '/[page]',
+                                query: { page: process.env.NEXT_PUBLIC_Tutorials }
+                                }}
+                            className={styles.layerbutton}
+                            onClick={link_click}
+                        >
+                            Tutorials
                         </Link>
-                    </li>
+                        </li>
+
+                        <li>
+                            <Link
+                                href={{
+                                    pathname: '/[page]',
+                                    query: { page: process.env.NEXT_PUBLIC_Pricing }
+                                    }}
+                                className={styles.layerbutton}
+                                onClick={link_click}
+                            >
+                                Pricing
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link
+                                href={{
+                                    pathname: '/[page]',
+                                    query: { page: process.env.NEXT_PUBLIC_Contact_us }
+                                    }}
+                                className={styles.layerbutton}
+                                onClick={link_click}
+                            >
+                                Contact us
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link 
+                                href={{
+                                    pathname: '/[page]',
+                                    query: { page: process.env.NEXT_PUBLIC_Account_Drafts }
+                                    }}
+                                onClick={link_click}
+                            >
+                                <button className={styles.user_button}>
+                                    <div className={styles.user_image}>
+                                        <Image
+                                            src="/user.svg"
+                                            alt="user image"
+                                            fill={true}
+                                            priority
+                                        />
+                                    </div>
+                                    <div id="UserName" className={styles.user_button_word}>
+                                        {User}
+                                    </div>                             
+                                </button>
+                            </Link>
+                        </li>
+                    </div>
                 </ul>
             </header>
         )
