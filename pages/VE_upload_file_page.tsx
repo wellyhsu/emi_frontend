@@ -65,6 +65,12 @@ function cancel_upload()
 
 }
 
+function cancel_video_processing()
+{
+    document.getElementById("video_processing").style = "display: none";
+
+}
+
 function Finish()
 {
     window.location.replace(process.env.NEXT_PUBLIC_VE_Create_no_script);
@@ -149,11 +155,16 @@ export default function VE_upload_file_page() {
     const [Progress_Number, SetProgress_Number] = useState(0);
 
     async function checkProcessingStatus() {
-        const response = await fetch('api/video/status');  //打API取得影片後端傳來的路徑
+        console.log("打API!!");
+  /*      const response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL);  //打API取得影片後端傳來的路徑
         const data = await response.text();   //取得影片後端傳來的路徑資料
 
         console.log('Status data= ',data);  //顯示取得的data
-        Cookies.set('video_path' ,data);
+*/        
+        if(Cookies.get('Get_video_path') == "true")
+        {
+            console.log('Status data= ', Cookies.get('video_path'));  //顯示取得的data
+        }
 
     }
 
@@ -238,7 +249,7 @@ export default function VE_upload_file_page() {
                             // 開始檢查後端影片處理狀態
                             checkProcessingStatus();
                             
-                            console.log("video_path=", Cookies.get('video_path'));
+                            console.log("??video_path=", Cookies.get('video_path'));
                             document.getElementById('Finish').style = "display: inline-block";
                             
                         }   
@@ -387,7 +398,7 @@ export default function VE_upload_file_page() {
         var file_type;
         var upload=0;
     
-    
+        Cookies.set('Get_video_path', "false");
         document.getElementById('uploading').style = "display: flex";
     
         file_type = fileName?.substring(fileName?.lastIndexOf(`.`));  //取得副檔名
@@ -470,7 +481,7 @@ export default function VE_upload_file_page() {
                                 <button id="Finish" style={{display: "none"}} className={styles.uploading_Cancel_button} onClick={Finish}>
                                     Finish
                                 </button>
-                                <button style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_upload}>
+                                <button style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_video_processing}>
                                     Cancel
                                 </button>
                             </div>
