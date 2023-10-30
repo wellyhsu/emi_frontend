@@ -73,7 +73,7 @@ function cancel_video_processing()
 
 function Finish()
 {
-    window.location.replace(process.env.NEXT_PUBLIC_VE_Create_no_script);
+    window.location.replace(process.env.NEXT_PUBLIC_Teacher_view_video);
 }
 
 function select_file(e) {
@@ -156,15 +156,38 @@ export default function VE_upload_file_page() {
 
     async function checkProcessingStatus() {
         console.log("打API!!");
-  /*      const response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL);  //打API取得影片後端傳來的路徑
-        const data = await response.text();   //取得影片後端傳來的路徑資料
 
-        console.log('Status data= ',data);  //顯示取得的data
-*/        
-        if(Cookies.get('Get_video_path') == "true")
+/*  前端測試API        
+        const TTfrontend =
         {
-            console.log('Status data= ', Cookies.get('video_path'));  //顯示取得的data
+            "video_id": "UserName",
+            "status": "completed",
+            "processed_video_path": "/home/shared/unprocessed_videos/output.mp4",
         }
+    
+        var TTfrontend_json = JSON.stringify(TTfrontend);  //轉json格式
+
+        const response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL, {   //call後端的API
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: TTfrontend_json,    //傳送到後端的內容
+        });
+
+        const T_data = await response.text();
+        console.log('module Status data= ',T_data);  //顯示取得的data
+*/
+
+        //GET 打後端Next.js API
+        const Response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL);  //打API取得影片後端傳來的路徑
+        const data = await Response.json();   //取得影片後端傳來的路徑資料
+ 
+        console.log('complete Status data= ',data);  //顯示取得的data
+        console.log('video_path Status data= ',data["video_path"]);  //顯示取得的data
+
+        Cookies.set('video_path', data["video_path"]);
+        console.log('back_Cookies=', Cookies.get('video_path'));
 
     }
 
@@ -397,7 +420,10 @@ export default function VE_upload_file_page() {
         var title;
         var file_type;
         var upload=0;
-    
+/*  TEST
+        checkProcessingStatus();
+    TEST
+*/
         Cookies.set('Get_video_path', "false");
         document.getElementById('uploading').style = "display: flex";
     
@@ -454,9 +480,6 @@ export default function VE_upload_file_page() {
                         </div>
                         <div style={{display: "flex", marginTop: "1em"}}>
                             <div style={{marginLeft: "auto", marginRight: "auto"}}>
-                                <button id="Finish" style={{display: "none"}} className={styles.uploading_Cancel_button} onClick={Finish}>
-                                    Finish
-                                </button>
                                 <button style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_upload}>
                                     Cancel
                                 </button>

@@ -24,7 +24,6 @@ function Back_to_videos()
 }
 
 console.log("videoPath=", videoPath);
-
 export default function Student_view_video() {
     var information;
     const router = useRouter();
@@ -349,14 +348,13 @@ export default function Student_view_video() {
             )}
 
                 <div className={styles.no_padding_center}>
-                    <div className={styles.PopupQuiz_video_preview}>
+                    <div style={{marginTop: "2em"}}>
                         <video 
                             ref={videoRef}
                             poster=""
                             autoPlay={false}
                             controls={true} 
-                            width="auto"
-                            height="450em"
+                            className={styles.video}
                         >
                             {VideoPath&&
                                 <>
@@ -368,8 +366,9 @@ export default function Student_view_video() {
                     </div>
                 </div>
                 <button className={styles.Back_to_videos_page} onClick={Back_to_videos}>
-                    back to videos            
+                    back to my videos            
                 </button>
+                
             </main>
         </>
     )
