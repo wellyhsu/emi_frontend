@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 var status;
 var video_id;
 var processed_video_path;
-
+var control;
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,39 +16,40 @@ export default async function handler(
 { 
   if (req.method === 'POST') 
   {   
+    console.log("POST API");
     status = req.body.status;  //影片處理狀態
     video_id = req.body.video_id;  //影片ID
     processed_video_path = req.body.processed_video_path;
      console.log(
                 "PPvideo_id:", video_id, 
                 "status:", status, 
-                "video_path:", processed_video_path
+                "processed_video_path:", processed_video_path
               );
 
     if(status == "completed")
     { 
       console.log("CC_processed_video_path: ",processed_video_path);
       
-      res.status(200).json({ video_id: video_id, status: status, video_path: processed_video_path });
+      res.status(200).json({ video_id: video_id, status: status, processed_video_path: processed_video_path });
     }
     else
-      res.status(200).json({ video_id: video_id, status: status, video_path: "Still not get." });
+      res.status(200).json({ video_id: video_id, status: status, processed_video_path: "Still not get." });
   }
   else  //GET
   {
     try {
       // 等待異步操作完成
-      while(status != "completed");
+      console.log("GET status=", status);        
 
       console.log("video_id:", video_id, 
                   "status:", status, 
-                  "video_path:", processed_video_path
+                  "processed_video_path:", processed_video_path
                 );
 
       if(status == 'completed')
-        res.status(200).json({ video_id: video_id, status: status, video_path: processed_video_path });
+        res.status(200).json({ video_id: video_id, status: status, processed_video_path: processed_video_path });
       else
-        res.status(100).json({ video_id: video_id ,status: status, video_path: "Still not get." });
+        res.status(200).json({ video_id: video_id ,status: status, processed_video_path: "Still not get." });
     } 
     catch (error) 
     {
@@ -60,6 +61,6 @@ export default async function handler(
               "data==", 
               "video_id:", video_id, 
               "status:", status, 
-              "video_path:", processed_video_path
+              "processed_video_path:", processed_video_path
             );
 }

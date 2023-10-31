@@ -4,6 +4,7 @@ import styles from '@/styles/Home.module.css'
 import Script from 'next/script'
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import { CLIENT_STATIC_FILES_PATH } from 'next/dist/shared/lib/constants';
 //import upload from '../components/choose_file'
 
 var T=0;
@@ -25,8 +26,11 @@ const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 var UserName;
 UserName = Cookies.get('userName');
 UserName = UserName?.substring(1, UserName?.lastIndexOf(`"`));  //" "中間字串
-
 var cancel = 0;
+
+var status;
+var video_path;
+var video_id;
 
 function cancel_upload()
 {
@@ -73,6 +77,7 @@ function cancel_video_processing()
 
 function Finish()
 {
+    console.log("Now Cookies =", Cookies.get('video_path'))
     window.location.replace(process.env.NEXT_PUBLIC_Teacher_view_video);
 }
 
@@ -154,8 +159,19 @@ export default function VE_upload_file_page() {
     const [transform_degree, Set_transform_degree] = useState(0);
     const [Progress_Number, SetProgress_Number] = useState(0);
 
+    async function performSomeAsyncOperation() {
+        // 執行需要等待的異步操作
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve('資料處理中');
+          }, 2000); // 這裡模擬等待 2 秒      
+        });
+      }
+
     async function checkProcessingStatus() {
         console.log("打API!!");
+        document.getElementById('uploading').style = "display: none";
+
 
 /*  前端測試API        
         const TTfrontend =
@@ -180,13 +196,26 @@ export default function VE_upload_file_page() {
 */
 
         //GET 打後端Next.js API
-        const Response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL);  //打API取得影片後端傳來的路徑
-        const data = await Response.json();   //取得影片後端傳來的路徑資料
- 
-        console.log('complete Status data= ',data);  //顯示取得的data
-        console.log('video_path Status data= ',data["video_path"]);  //顯示取得的data
+        do
+        {
+            const Response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL);  //打API取得影片後端傳來的路徑
+            const data = await Response.json();   //取得影片後端傳來的路徑資料
+            status = data["status"];
+            video_path = data["processed_video_path"];
+            video_id = data["video_id"];
+            console.log("Wvideo_path=",video_path,
+                        "Wvideo_id", video_id,
+                        "Wstatus", status
+                        );
+            performSomeAsyncOperation();
 
-        Cookies.set('video_path', data["video_path"]);
+        }while(status != "completed");
+
+        document.getElementById('Finish').style = "display: inline-block";
+
+        console.log('video_path Status data= ', video_path);  //顯示取得的data
+
+        Cookies.set('video_path', video_path);
         console.log('back_Cookies=', Cookies.get('video_path'));
 
     }
@@ -272,9 +301,7 @@ export default function VE_upload_file_page() {
                             // 開始檢查後端影片處理狀態
                             checkProcessingStatus();
                             
-                            console.log("??video_path=", Cookies.get('video_path'));
-                            document.getElementById('Finish').style = "display: inline-block";
-                            
+                            console.log("??video_path=", Cookies.get('video_path'));                            
                         }   
     
                         Set_transform_degree(transform_degree + 360/chunks.length);
