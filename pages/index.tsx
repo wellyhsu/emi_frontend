@@ -34,12 +34,13 @@ export default function Home() {
             </div>
 
             <div className={styles.homepage_picture}>
-            <Image
-              src="/E-learning_image.svg"
-              alt="E-learning Logo"
-              fill={true}
-              priority
-            /></div>
+              <Image
+                src="/E-learning_image.svg"
+                alt="E-learning Logo"
+                fill={true}
+                priority
+              />
+            </div>
 
           </div>
         </div>

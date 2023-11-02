@@ -40,7 +40,6 @@ function cancel_upload()
     cancel = 1;
 
     const Cancel = new FormData();   //宣告fd為FormData();
-    Cancel.append('cancel', "true");
     Cancel.append('username', UserName);     //把每一個chunk插入fd中
     Cancel.append('video_name', fileName);     //把每一個chunk插入fd中
 
@@ -49,7 +48,7 @@ function cancel_upload()
         console.log("value(標題)=",value,"key(內容)=",key);
     });
 
-    fetch("http://34.142.145.187:30036/api/video/cancel"/*process.env.NEXT_Cancel_upload*/, {            
+    fetch(process.env.NEXT_Cancel_upload, {            
         method: 'POST',
         headers:{
             "Metadata-Token": Metadata_token,
@@ -66,13 +65,43 @@ function cancel_upload()
             console.log('data[message"]=', data["message"]);
         })
         .catch((error) => console.log("error", error));
-
 }
 
 function cancel_video_processing()
 {
-    document.getElementById("video_processing").style = "display: none";
+    var information;
 
+    document.getElementById("video_processing").style = "display: none";
+    
+    cancel = 1;
+
+    const Cancel = new FormData();   //宣告fd為FormData();
+    Cancel.append('username', UserName);     //把每一個chunk插入fd中
+    Cancel.append('video_name', fileName);     //把每一個chunk插入fd中
+
+    //檢查FormData內的內容 - 方法一       
+    Cancel.forEach((key, value) => {
+        console.log("value(標題)=",value,"key(內容)=",key);
+    });
+
+    //打取消上傳影片的API
+    fetch(process.env.NEXT_Cancel_upload, {            
+        method: 'POST',
+        headers:{
+            "Metadata-Token": Metadata_token,
+        },
+        body: Cancel,
+    })
+        .then((response) => {
+            information = response.text();
+            console.log('info^^',information);
+            return information;
+        })
+        .then((data) => {
+            console.log('data=', data);
+            console.log('data[message"]=', data["message"]);
+        })
+        .catch((error) => console.log("error", error));
 }
 
 function Finish()
@@ -161,39 +190,19 @@ export default function VE_upload_file_page() {
 
     async function performSomeAsyncOperation() {
         // 執行需要等待的異步操作
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve('資料處理中');
-          }, 2000); // 這裡模擬等待 2 秒      
-        });
+        if( cancel == 0)
+        {
+            return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve('資料處理中');
+            }, 2000); // 這裡模擬等待 2 秒      
+            });
+        }
       }
 
     async function checkProcessingStatus() {
         console.log("打API!!");
         document.getElementById('uploading').style = "display: none";
-
-
-/*  前端測試API        
-        const TTfrontend =
-        {
-            "video_id": "UserName",
-            "status": "completed",
-            "processed_video_path": "/home/shared/unprocessed_videos/output.mp4",
-        }
-    
-        var TTfrontend_json = JSON.stringify(TTfrontend);  //轉json格式
-
-        const response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL, {   //call後端的API
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json',
-            },
-            body: TTfrontend_json,    //傳送到後端的內容
-        });
-
-        const T_data = await response.text();
-        console.log('module Status data= ',T_data);  //顯示取得的data
-*/
 
         //GET 打後端Next.js API
         do
@@ -348,6 +357,7 @@ export default function VE_upload_file_page() {
             "video_type": fileType,
             "video_size": fileSize,
             "video_length": videolength,
+            "video_name": fileName,
         }
     
         var Video_metadata_send_json = JSON.stringify(Video_metadata_send);  //轉json格式
@@ -368,6 +378,7 @@ export default function VE_upload_file_page() {
             {
                 const data = await metadata_response.text();
                 console.log('data=', data);
+                console.log("data['message']",JSON.parse(data).message);
                 console.log("data['message']",JSON.parse(data).message);
                 console.log("data['Metadata_Token']",JSON.parse(data).Metadata_Token);
                 Cookies.set('Metadata_Token',JSON.parse(data).Metadata_Token);
@@ -545,6 +556,7 @@ export default function VE_upload_file_page() {
                     <div className={styles.Start_making}>
                         Start making
                     </div>
+{/*                    
                     <div className={styles.upload_script}>
                         Please choose whether upload your script.
                     </div>
@@ -552,8 +564,15 @@ export default function VE_upload_file_page() {
                         <button id="script_button" className={styles.checkbox} onClick={choose_upload_script}></button>
                         Upload transcript
                     </div>
+*/} 
                     <div className={styles.upload_file_title}>
                         Please upload your teaching material. (It might take a few minutes.)
+                    </div>
+                    <div className={styles.file_Name} style={{marginLeft: "6em"}}>
+                        Video Type:
+                        <input type="text" id="file_name" className={styles.file_input}>
+
+                        </input>
                     </div>
                     <div className={styles.file_Name}>
                         Name:

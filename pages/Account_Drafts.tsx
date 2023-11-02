@@ -86,6 +86,24 @@ export default function Home() {
       console.log("D_video_array=", video_array);
       
       setVideo_Number(video_number-1);
+
+      fetch(process.env.NEXT_Cancel_upload, {            
+          method: 'POST',
+          headers:{
+              "Metadata-Token": Metadata_token,
+          },
+          body: Cancel,
+      })
+          .then((response) => {
+            information = response.text();
+            console.log('info^^',information);
+            return information;
+          })
+          .then((data) => {
+              console.log('data=', data);
+              console.log('data[message"]=', data["message"]);
+          })
+          .catch((error) => console.log("error", error));
     }
 
   useLayoutEffect(() => {
@@ -246,7 +264,7 @@ export default function Home() {
               style={{color: "rgba(0, 0, 0, 1)"}}
               className={styles.Account_Drafts}
             >
-              Drafts
+              Add quiz
             </Link>
             <div className={styles.Account_dash}>
               |
@@ -258,7 +276,7 @@ export default function Home() {
                 }}
               className={styles.Account_Title_Gray}
             >
-              Archive
+              View Archive videos
             </Link> 
             <div className={styles.Account_dash}>
               |

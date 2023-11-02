@@ -427,11 +427,9 @@ ul.Layerout ul li:hover {
     position: relative;
     object-fit: cover;
 
-    width: 80vw;
+    width: 100%;
     height: 50vh;
 
-    margin-top: -4.5em;
-    margin-left: -25em;
   }
 }
 
@@ -446,7 +444,8 @@ ul.Layerout ul li:hover {
     width: 60vw;
     height: auto;
 
-    margin-left: -5em;
+    margin-right: 1em;
+
   }
 }
 
@@ -461,7 +460,6 @@ ul.Layerout ul li:hover {
     width: 40vw;
     height: auto;
 
-    margin-left: 2em;
   }
 }
 
@@ -511,7 +509,6 @@ ul.Layerout ul li:hover {
 .grid{
   display: flex;
   justify-content: center;  
-  width: 100%;
 }
 
 .grid3 {
@@ -1775,7 +1772,7 @@ ul.Layerout ul li:hover {
 }
 
 .file_Name{
-  display: inline-block;
+  display: block;
 
   font-size: 1.2em;
   font-family: 'Poppins', Arial;
@@ -1784,7 +1781,7 @@ ul.Layerout ul li:hover {
   line-height: 1.2em;
   color: rgba(0, 0, 0, 1);
 
-  margin-top: 0em;
+  margin-top: 1em;
   margin-left: 8em;
 }
 
@@ -3741,7 +3738,7 @@ select.option{
 
 .Account_Drafts{
   display: inline-block;
-  width: 85px;
+  width: 5em;
   height: 28px;
 
   font-size: 20px;
@@ -3758,7 +3755,7 @@ select.option{
 
 .Account_Title_Black{
   display: inline-block;
-  width: 85px;
+  width: auto;
   height: 28px;
 
   font-size: 20px;
@@ -3769,11 +3766,12 @@ select.option{
   text-align: center;
 
   color: rgba(0, 0, 0, 1);
+  margin-left: 0.5em;
 }
 
 .Account_Title_Gray{
   display: inline-block;
-  width: 85px;
+  width: auto;
   height: 28px;
 
   font-size: 20px;
@@ -3784,6 +3782,7 @@ select.option{
   text-align: center;
 
   color: rgba(0, 0, 0, 0.5);
+  margin-left: 0.5em;
 }
 
 .Account_dash{

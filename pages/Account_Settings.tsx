@@ -76,7 +76,7 @@ export default function Account_Settings() {
                   }}
                 className={styles.Account_Drafts}
               >
-                Drafts
+                Add quiz
               </Link>
               <div className={styles.Account_dash}>
                 |
@@ -88,7 +88,7 @@ export default function Account_Settings() {
                   }}
                 className={styles.Account_Title_Gray}
               >
-                Archive
+                View Archive videos
               </Link> 
               <div className={styles.Account_dash}>
                 |

@@ -27,15 +27,9 @@ var i=0;
 const videoPath = Cookies.get('video_path');  //"/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
 console.log("video_path=", videoPath);
 
-function View(){
-  window.location.replace(process.env.NEXT_PUBLIC_View_video);
-  document.getElementById("preview_video").style= "display : none;" ;
-}
-
 function Cancel(){
   document.getElementById("preview_video").style= "display : none;" ;
 }
-
 
 export default function Account_Archive() {
   const router = useRouter();
@@ -44,6 +38,12 @@ export default function Account_Archive() {
   const [video_array, setVideoArray] = useState([]);
   const [view_video_URL, set_View_video_URL] = useState("");
 
+  function View(){
+    //等等要處理取得該影片的路徑
+    Cookies.set('video_path', view_video_URL);
+    window.location.replace(process.env.NEXT_PUBLIC_View_video);
+    document.getElementById("preview_video").style= "display : none;" ;
+  }
 
   function alert_message(){
     router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
@@ -90,6 +90,25 @@ export default function Account_Archive() {
       console.log("D_video_array=", video_array);
       
       setVideo_Number(video_number-1);
+
+      fetch(process.env.NEXT_Cancel_upload, {            
+        method: 'POST',
+        headers:{
+            "Metadata-Token": Metadata_token,
+        },
+        body: Cancel,
+      })
+        .then((response) => {
+            information = response.text();
+            console.log('info^^',information);
+            return information;
+        })
+        .then((data) => {
+            console.log('data=', data);
+            console.log('data[message"]=', data["message"]);
+        })
+        .catch((error) => console.log("error", error));
+
   }
 
   useLayoutEffect(() => {
@@ -264,7 +283,7 @@ export default function Account_Archive() {
                 }}
               className={styles.Account_Drafts}
             >
-              Drafts
+            Add quiz
             </Link>
             <div className={styles.Account_dash}>
               |
@@ -276,7 +295,7 @@ export default function Account_Archive() {
                 }}
               className={styles.Account_Title_Black}
             >
-              Archive
+              View Archive videos
             </Link> 
             <div className={styles.Account_dash}>
               |
