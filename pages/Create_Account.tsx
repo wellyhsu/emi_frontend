@@ -102,7 +102,7 @@ export default function Create_Account() {
       else
       {
         alert("Create account sucessfully.");
-        window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
+        window.location.assign("/" + process.env.NEXT_PUBLIC_Log_in);
       }
     })
     .catch((error) => console.log("error", error));

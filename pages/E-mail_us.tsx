@@ -3,7 +3,6 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 
 
-
 function Male_button(){
   document.getElementById("Male").style = "border-bottom-color: rgba(87, 196, 157, 1);";
   document.getElementById("Female").style = "border-bottom-color: rgba(217, 217, 217, 1);";

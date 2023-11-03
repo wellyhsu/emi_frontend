@@ -607,7 +607,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
         if((token == "null") || (token == null) || (token == "undefined"))
         {
           console.log("useEffect triggered");
-//          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in); //無法返回上一頁
         }
 
       }, [])

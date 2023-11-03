@@ -33,7 +33,7 @@ export default function How_to_Make_video() {
         if(token == null || token == "null")
         {
           NO_logibn();
-          window.location.replace("/"+ process.env.NEXT_PUBLIC_Log_in);
+          window.location.assign("/"+ process.env.NEXT_PUBLIC_Log_in);
         }
       }, [])
 

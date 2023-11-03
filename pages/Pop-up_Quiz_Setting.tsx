@@ -49,20 +49,23 @@ export default function Home() {
               <Link
                 href={{
                   pathname: '/[page]',
-                  query: { page: process.env.NEXT_PUBLIC_PopUpQuiz_upload_video }
+                  query: { page: Draft_href }
                   }}
               >
-                Create My Quiz
+                view the upload videos
               </Link>
             </button>
+            <div className={styles.message_word} >
+              Still no have videos? Upload one and try it!
+            </div>
             <button className={styles.VideoEditor_button}>
               <Link
                 href={{
                   pathname: '/[page]',
-                  query: { page: Draft_href }
+                  query: { page: process.env.NEXT_PUBLIC_PopUpQuiz_upload_video }
                   }}
               >
-                Drafts
+                upload video and add quizs
               </Link>
             </button>
           </div>

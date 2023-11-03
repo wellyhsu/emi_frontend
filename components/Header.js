@@ -31,11 +31,22 @@ function link_click(){
   document.getElementById("Features_container").style = "display: none;";
 }
 
+function go_to_acount(){
+//    console.log("useRouter= ", router.route);
+    window.location.replace("/" + process.env.NEXT_PUBLIC_Account_Drafts);
+}
+
+function go_to_LogIn(){
+//    console.log("useRouter= ", router.route);
+    window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
+}
 
 export const Header = () => {
     const router = useRouter();
     const [token, setToken] = useState('null');
     const [User, setUser] = useState('null');
+
+
 
     useEffect(() => {
         console.log("Header Trigger");
@@ -178,23 +189,14 @@ export const Header = () => {
                         </li>
 
                         <li>
-                            <Link
-                                href={{
-                                    pathname: '/[page]',
-                                    query: { page: process.env.NEXT_PUBLIC_Log_in }
-                                    }}
-                                onClick={link_click}
-                            >
-                                <button className={styles.login_button}>
-                                    <div>
-                                        Log in
-                                    </div>
-                                    <div style={{fontSize: "0.8em", lineHeight: "1.4em"}}>
-                                        Create an Account
-                                    </div>
-                                </button>
-                
-                            </Link>
+                            <button className={styles.login_button} onClick={go_to_LogIn}>
+                                <div>
+                                    Log in
+                                </div>
+                                <div style={{fontSize: "0.8em", lineHeight: "1.4em"}}>
+                                    Create an Account
+                                </div>
+                            </button>
                         </li>
                     </div>
                 </ul>
@@ -334,27 +336,19 @@ export const Header = () => {
                         </li>
 
                         <li>
-                            <Link 
-                                href={{
-                                    pathname: '/[page]',
-                                    query: { page: process.env.NEXT_PUBLIC_Account_Drafts }
-                                    }}
-                                onClick={link_click}
-                            >
-                                <button className={styles.user_button}>
-                                    <div className={styles.user_image}>
-                                        <Image
-                                            src="/user.svg"
-                                            alt="user image"
-                                            fill={true}
-                                            priority
-                                        />
-                                    </div>
-                                    <div id="UserName" className={styles.user_button_word}>
-                                        {User}
-                                    </div>                             
-                                </button>
-                            </Link>
+                            <button className={styles.user_button} onClick={go_to_acount}>
+                                <div className={styles.user_image}>
+                                    <Image
+                                        src="/user.svg"
+                                        alt="user image"
+                                        fill={true}
+                                        priority
+                                    />
+                                </div>
+                                <div id="UserName" className={styles.user_button_word}>
+                                    {User}
+                                </div>                             
+                            </button>
                         </li>
                     </div>
                 </ul>

@@ -7,13 +7,15 @@ import React, {useEffect, useRef, useState} from "react";
 import Cookies from 'js-cookie'; 
 import styles from '@/styles/Home.module.css'
 import {Header} from '../components/Header'
-import {Header_student} from '../components/Header'
+import {Header_student} from '../components/Header_student'
 //import '../styles/style.css';
 //import '../styles/tailwind.min.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   var information;
   var acapela_token;
+
+  const [Change_header, setHeader] = useState(<Header/>);
 
   const Acapela_login_send =
   {
@@ -47,8 +49,16 @@ export default function App({ Component, pageProps }: AppProps) {
       })
       .catch((error) => console.log("error", error));
     }
+
+    
+    if( Cookies.get('identity') == 'Student')
+    {
+      console.log("identity=", Cookies.get('identity')); 
+      setHeader(<Header_student/>)
+    }
+
   }, []);
-  
+
   return (
     <>
       <Head>
@@ -57,12 +67,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
-        <Header/>
-          <Component {...pageProps} />
-        <footer className={styles.editor}>
-            Work | 2022 All Rights Reserved
-        </footer>
+
+      {Change_header}
+
+      <Component {...pageProps} />
+      <footer className={styles.editor}>
+          Work | 2022 All Rights Reserved
+      </footer>
     </>
   )
 }

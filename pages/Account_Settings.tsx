@@ -48,7 +48,7 @@ export default function Account_Settings() {
         if(success == "Logout successful") //成功登出 Successfully logged out.
         {
           Cookies.set('token', "null");
-          window.location.replace("/");
+          window.location.assign("/");
         }
       })
       .catch((error) => console.log("error", error));

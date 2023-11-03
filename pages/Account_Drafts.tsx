@@ -37,12 +37,12 @@ export default function Home() {
 
   function add_quiz(){
     Cookies.set('video_path', view_video_URL);   //紀錄目前點擊的影片的URL
-    window.location.replace(process.env.NEXT_PUBLIC_PoPup_Quiz_Modify_video);
+    window.location.assign(process.env.NEXT_PUBLIC_PoPup_Quiz_Modify_video);
   }
   
   function video_optimize(){
     Cookies.set('video_path', view_video_URL);  //紀錄目前點擊的影片的URL
-    window.location.replace(process.env.NEXT_PUBLIC_PoPup_Quiz_Modify_video);
+    window.location.assign(process.env.NEXT_PUBLIC_PoPup_Quiz_Modify_video);
   }
 
   function preview_video(clickID)

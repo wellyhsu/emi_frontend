@@ -65,7 +65,7 @@ function cancel_upload()
 
 function Finish()
 {
-    window.location.replace(process.env.NEXT_PUBLIC_PopUpQuiz_Preview_my_video);
+    window.location.assign(process.env.NEXT_PUBLIC_PopUpQuiz_Preview_my_video);
 }
 
 function select_file(e) {
@@ -333,16 +333,8 @@ export default function Popup_Quiz_upload_video_page() {
                             return information;
                         })
                         .then((data) => {
-                            var msg = data["message"];
-    
-                            console.log('msg=',msg);
                             console.log('data=',data);
                             alert(msg);
-                    //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
-                            if(msg == "Login successful")
-                            {
-                                window.location.replace("/");
-                            }
                         })
                         .catch((error) => console.log("error", error));
     

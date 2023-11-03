@@ -7,14 +7,22 @@ import styles from '@/styles/Home.module.css'
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 
-var F_button=0;
 
 function link_click(){
   F_button=0;
   document.getElementById("Features").style = "color: white;";
   document.getElementById("Features_container").style = "display: none;";
 }
+  
+function go_to_acount(){
+    //console.log("useRouter= ", router.route);
+    window.location.replace("/" + process.env.NEXT_PUBLIC_Account_Drafts);
+}
 
+function go_to_LogIn(){
+   // console.log("useRouter= ", router.route);
+    window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
+}
 
 export const Header_student = () => {
     const router = useRouter();
@@ -50,34 +58,16 @@ export const Header_student = () => {
                     </Link>
                 </li>
 
-                <input type="checkbox" id="menu" style={{display: "none"}}></input>
-                <label htmlFor="menu" className={styles.line}>
-                    <div className={styles.menu}></div>    
-                </label>
-
-                <ul className={styles.Layerout}> 
-
-                    <li>
-                        <Link
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Log_in }
-                                }}
-                            onClick={link_click}
-                        >
-                            <button className={styles.login_button}>
-                                <div>
-                                    Log in
-                                </div>
-                                <div style={{fontSize: "1.2vw", lineHeight: "1.4em"}}>
-                                    Create an Account
-                                </div>
-                            </button>
-            
-                        </Link>
-                    </li>
+                <ul className={styles.Student_Layerout}> 
+                    <button className={styles.login_button} onClick={go_to_LogIn}>
+                        <div>
+                            Log in
+                        </div>
+                        <div style={{fontSize: "1.2vw", lineHeight: "1.4em"}}>
+                            Create an Account
+                        </div>
+                    </button>
                 </ul>
-
             </header>
         )   
     }
@@ -101,34 +91,21 @@ export const Header_student = () => {
                     </Link>
                 </li>
 
-                <input type="checkbox" id="menu" style={{display: "none"}}></input>
-                <label htmlFor="menu" className={styles.line}>
-                    <div className={styles.menu}></div>    
-                </label>
-
-                <ul className={styles.Layerout}>
+                <ul className={styles.Student_Layerout}>
                     <li>
-                        <Link 
-                            href={{
-                                pathname: '/[page]',
-                                query: { page: process.env.NEXT_PUBLIC_Account_Drafts }
-                                }}
-                            onClick={link_click}
-                        >
-                            <button className={styles.user_button}>
-                                <div className={styles.user_image}>
-                                    <Image
-                                        src="/user.svg"
-                                        alt="user image"
-                                        fill={true}
-                                        priority
-                                    />
-                                </div>
-                                <div id="UserName" className={styles.user_button_word}>
-                                    {User}
-                                </div>                             
-                            </button>
-                        </Link>
+                        <button className={styles.user_button} onClick={go_to_acount}>
+                            <div className={styles.user_image}>
+                                <Image
+                                    src="/user.svg"
+                                    alt="user image"
+                                    fill={true}
+                                    priority
+                                />
+                            </div>
+                            <div id="UserName" className={styles.user_button_word}>
+                                {User}
+                            </div>                             
+                        </button>
                     </li>
                 </ul>
             </header>

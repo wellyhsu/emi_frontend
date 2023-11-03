@@ -20,7 +20,7 @@ var sec=0;   //0~data長度，用來決定該出現第幾個問題
 
 function Back_to_videos()
 {
-    window.location.replace(process.env.NEXT_PUBLIC_Account_Drafts);
+    window.location.assign(process.env.NEXT_PUBLIC_Account_Drafts);
 }
 
 console.log("videoPath=", videoPath);

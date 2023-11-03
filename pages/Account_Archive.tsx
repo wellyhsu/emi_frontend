@@ -41,7 +41,7 @@ export default function Account_Archive() {
   function View(){
     //等等要處理取得該影片的路徑
     Cookies.set('video_path', view_video_URL);
-    window.location.replace(process.env.NEXT_PUBLIC_View_video);
+    window.location.href(process.env.NEXT_PUBLIC_View_video);
     document.getElementById("preview_video").style= "display : none;" ;
   }
 

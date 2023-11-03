@@ -78,11 +78,13 @@ fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
         {
           if(identity == true)
           {
-            window.location.replace("/");
+            Cookies.set('identity', 'Teacher');
+            window.location.assign("/");
           }
           else
           {
-            window.location.replace("/" + process.env.NEXT_PUBLIC_Student_videos);
+            Cookies.set('identity', 'Student');
+            window.location.assign("/" + process.env.NEXT_PUBLIC_Student_videos);
           }
         }
       })

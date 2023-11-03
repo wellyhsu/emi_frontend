@@ -63,7 +63,7 @@ export default function Home() {
                   query: { page: process.env.NEXT_PUBLIC_VE_Create_step2 }
                   }}
               >
-                Create My Video
+                upload video and optimize pronounce
               </Link>
             </button>
             <button className={styles.VideoEditor_button}>
@@ -73,7 +73,7 @@ export default function Home() {
                   query: { page: Draft_href }
                   }}
               >
-                Drafts
+                view the upload videos
               </Link>
             </button> 
           </div>

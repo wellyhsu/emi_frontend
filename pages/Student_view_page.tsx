@@ -70,7 +70,7 @@ export default function Account_Archive() {
   function View(){
     document.getElementById("preview_video").style= "display : none;" ;
     Cookies.set('video_path', video_path);
-    window.location.replace(process.env.NEXT_PUBLIC_View_video);
+    window.location.assign(process.env.NEXT_PUBLIC_View_video);
   }
 
   function Delete()

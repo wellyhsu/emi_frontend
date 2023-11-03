@@ -3,7 +3,7 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import Script from 'next/script'
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { CLIENT_STATIC_FILES_PATH } from 'next/dist/shared/lib/constants';
 //import upload from '../components/choose_file'
 
@@ -32,6 +32,7 @@ var status;
 var video_path;
 var video_id;
 
+//上傳影片到資料庫後端的取消功能
 function cancel_upload()
 {
     var information;
@@ -67,13 +68,15 @@ function cancel_upload()
         .catch((error) => console.log("error", error));
 }
 
+//影片進行優化處理時的取消
 function cancel_video_processing()
 {
     var information;
 
     document.getElementById("video_processing").style = "display: none";
     
-    cancel = 1;
+    cancel = 1;   //代表不繼續上傳
+    console.log("processing_cancel=", cancel);
 
     const Cancel = new FormData();   //宣告fd為FormData();
     Cancel.append('username', UserName);     //把每一個chunk插入fd中
@@ -104,12 +107,14 @@ function cancel_video_processing()
         .catch((error) => console.log("error", error));
 }
 
+//影片上傳完 優化處理也結束
 function Finish()
 {
     console.log("Now Cookies =", Cookies.get('video_path'))
-    window.location.replace(process.env.NEXT_PUBLIC_Teacher_view_video);
+    window.location.assign(process.env.NEXT_PUBLIC_Teacher_view_video);
 }
 
+//選擇要上傳的檔案
 function select_file(e) {
     cancel = 0;
     console.log("press button");
@@ -144,6 +149,7 @@ function select_file(e) {
     })   
 }  
 
+//將影片分割
 export const slice = (file, piece = CHUNK_SIZE) => {   //切割
     return new Promise((resolve, reject) => {
         let totalSize = file.size;  //取得檔案大小
@@ -166,8 +172,7 @@ export const slice = (file, piece = CHUNK_SIZE) => {   //切割
 };
 
 /*
-
-*/
+//選擇是否上傳文字腳本檔
 function choose_upload_script(){
     if(T==0)
     {
@@ -183,32 +188,37 @@ function choose_upload_script(){
     }
     console.log("T=",T);
 }
+*/
 
 export default function VE_upload_file_page() {
     const [transform_degree, Set_transform_degree] = useState(0);
     const [Progress_Number, SetProgress_Number] = useState(0);
+    const videoTypeRef = useRef(undefined);
 
+    //每兩秒打一次後端 看後端任務結束了嗎？
     async function performSomeAsyncOperation() {
         // 執行需要等待的異步操作
-        if( cancel == 0)
-        {
-            return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve('資料處理中');
-            }, 2000); // 這裡模擬等待 2 秒      
-            });
-        }
-      }
+
+        return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve('資料處理中');
+        }, 2000); // 這裡模擬等待 2 秒      
+        });
+    }
 
     async function checkProcessingStatus() {
         console.log("打API!!");
         document.getElementById('uploading').style = "display: none";
 
         //GET 打後端Next.js API
+
         do
         {
+            if(cancel == 1)
+                break;
             const Response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL);  //打API取得影片後端傳來的路徑
             const data = await Response.json();   //取得影片後端傳來的路徑資料
+            
             status = data["status"];
             video_path = data["processed_video_path"];
             video_id = data["video_id"];
@@ -220,16 +230,19 @@ export default function VE_upload_file_page() {
 
         }while(status != "completed");
 
-        document.getElementById('Finish').style = "display: inline-block";
+        if( cancel == 0 )  //若點擊了取消按鈕 不繼續打API
+        {
+            document.getElementById('Finish').style = "display: inline-block";
 
-        console.log('video_path Status data= ', video_path);  //顯示取得的data
+            console.log('video_path Status data= ', video_path);  //顯示取得的data
 
-        Cookies.set('video_path', video_path);
-        console.log('back_Cookies=', Cookies.get('video_path'));
-
+            Cookies.set('video_path', video_path);
+            console.log('back_Cookies=', Cookies.get('video_path'));
+        }
     }
 
-    async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依據切割長度發送請求次數)
+    //上傳分割好的小段影片(依據切割長度發送請求次數)
+    async function _chunkUploadTask(chunks) {   
         const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
         var Chunk_Number = 1;
         var Chunk_Final = false;
@@ -248,6 +261,7 @@ export default function VE_upload_file_page() {
             const Video_Information_send =
             {
                 "username": UserName,
+                "video_type": videoTypeRef.current.value,
                 "video_name": fileName,
                 "video_description": "none",
                 "video_length": videolength,
@@ -309,8 +323,6 @@ export default function VE_upload_file_page() {
 
                             // 開始檢查後端影片處理狀態
                             checkProcessingStatus();
-                            
-                            console.log("??video_path=", Cookies.get('video_path'));                            
                         }   
     
                         Set_transform_degree(transform_degree + 360/chunks.length);
@@ -425,19 +437,9 @@ export default function VE_upload_file_page() {
                             return information;
                         })
                         .then((data) => {
-                            var msg = data["message"];
-    
-                            console.log('msg=',msg);
                             console.log('data=',data);
-                            alert(msg);
-                    //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
-                            if(msg == "Login successful")
-                            {
-                                window.location.replace("/");
-                            }
                         })
                         .catch((error) => console.log("error", error));
-    
                 }
             }
             else 
@@ -570,7 +572,7 @@ export default function VE_upload_file_page() {
                     </div>
                     <div className={styles.file_Name} style={{marginLeft: "6em"}}>
                         Video Type:
-                        <input type="text" id="file_name" className={styles.file_input}>
+                        <input type="text" id="file_name" ref={videoTypeRef} className={styles.file_input}>
 
                         </input>
                     </div>

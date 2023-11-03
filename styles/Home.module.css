@@ -234,6 +234,18 @@ ul.Layerout ul li:hover {
   top: -1.3vh;
   left: -4vw;
 */
+}
+
+.Student_Layerout {
+  display: flex;
+  float: right;
+  position: fixed;
+  z-index: 2;
+
+  width: 100vw;
+  height: 6em;
+  
+  background-color: #15b47f;
 
 }
 
@@ -1490,10 +1502,21 @@ ul.Layerout ul li:hover {
   border: none;
 
   margin-left: 4.6em;
-  margin-top: 0.8em;
+  margin-top: 0.5em;
   margin-bottom: 0.3em;
 }
 
+.message_word{
+
+  text-align: center;
+  font-size: 1vw;
+  font-family: 'Poppins',Arial;
+
+  color: rgba(0, 0, 0, 1);
+
+  margin-left: 6em
+
+}
 
 /* How_make_Video */
 .How_make_Video_title{

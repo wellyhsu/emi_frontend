@@ -44,7 +44,7 @@ export default function Forgot_password() {
         console.log('user=',data["user"]);
         prompt("your token is" , data["token"]);  
               
-        window.location.replace("/" + process.env.NEXT_PUBLIC_Reset_password);
+        window.location.assign("/" + process.env.NEXT_PUBLIC_Reset_password);
       })
       .catch((error) => console.log("error", error));
   }
