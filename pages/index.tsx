@@ -4,6 +4,11 @@ import styles from '@/styles/Home.module.css'
 
 import Information from '../components/information';
 
+function try_it()
+{
+  window.location.assign("/" + process.env.NEXT_PUBLIC_VE_Create_step2);
+}
+
 export default function Home() {
   return (
     <div>
@@ -26,8 +31,8 @@ export default function Home() {
               </div>
               <div>
                 {/*<a href="#Bpart">*/}
-                <button className={styles.View_more}>
-                  View more
+                <button className={styles.View_more} onClick={try_it}>
+                  Try it !
                 </button>
                 {/*</a>  */}
               </div>
@@ -118,50 +123,6 @@ export default function Home() {
                 <Information 
                   title={'Pop-up Quiz Setting'}
                   content={"Insert pop-up quiz in your teaching videos to assess student's understanding."} />
-              </div>
-            </a>
-          </div>
-        </div>
-        
-        <div className={styles.grid}>
-          <div className={styles.grid2}>
-            <a
-              href={process.env.NEXT_PUBLIC_Slide_Template}
-              className={styles.card}
-              rel="noopener noreferrer"
-            >
-              <div className={styles.Information}>
-                <div className={styles.information_picture}>
-                  <Image
-                    src="/slide.svg"
-                    alt="Slide_Template image"
-                    fill={true}
-                    priority
-                  />
-                </div>
-                <Information 
-                  title={'Slide Template'}
-                  content={"Provide different templates to create your teaching styles and help your students learn better."} />
-              </div>
-            </a>
-
-            <a
-              href={process.env.NEXT_PUBLIC_Customized_Video}
-              className={styles.card}
-              rel="noopener noreferrer"
-            >
-              <div className={styles.Information}>
-                <div className={styles.information_picture}>
-                  <Image
-                    src="/clapboard.svg"
-                    alt="Customized_Video image"
-                    fill={true}
-                    priority
-                  />
-                </div>
-                <Information
-                  title={'Customized Video'}
-                  content={"We will make the video for you a simple click and you are ready for EMI courses!"} />
               </div>
             </a>
           </div>

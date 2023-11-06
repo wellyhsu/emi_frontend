@@ -571,14 +571,14 @@ export default function VE_upload_file_page() {
                         Please upload your teaching material. (It might take a few minutes.)
                     </div>
                     <div className={styles.file_Name} style={{marginLeft: "6em"}}>
-                        Video Type:
-                        <input type="text" id="file_name" ref={videoTypeRef} className={styles.file_input}>
+                        Video Name:
+                        <input type="text" id="video_name" ref={videoTypeRef} className={styles.file_input}>
 
                         </input>
                     </div>
                     <div className={styles.file_Name}>
-                        Name:
-                        <input type="text" id="file_name" className={styles.file_input}>
+                        File Name:
+                        <input type="text"  readonly="readonly" id="file_name" className={styles.file_input}>
 
                         </input>
                     </div>
