@@ -158,7 +158,7 @@ export const Header_student = () => {
                             {User}
                         </div>                             
                     </button>
-                    <button id='student_log_out' className={styles.student_log_out} onCLick={Log_out}>
+                    <button id='student_log_out' className={styles.student_log_out} onClick={Log_out}>
                         Log out
                     </button>
                 </div>

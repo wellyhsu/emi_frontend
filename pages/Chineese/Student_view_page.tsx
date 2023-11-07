@@ -25,7 +25,6 @@ var index=0;  //用於編碼影片id
 var i=0;
 var Video_height;
 var Video_width;
-var Search_before="";
 
 const videoPath = Cookies.get('video_path');  //"/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
 console.log("video_path=", videoPath);
@@ -110,8 +109,6 @@ export default function Account_Archive() {
     video_path_array=[];
     Video_Name_array=[];
 
-    if(Search_before != searchRef.current.value)
-    {
     //取得使用者搜尋之 影片路徑、檔名
     fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_video_search + "?search=" + searchRef.current.value, {  
       method: 'GET',
@@ -160,8 +157,6 @@ export default function Account_Archive() {
         console.log("F_video_array=", video_array);
       })
       .catch((error) => console.log("error", error));
-    }
-    Search_before = searchRef.current.value; //紀錄上次搜尋的內容
   }
 
   function ShowAllVideo()
@@ -171,7 +166,6 @@ export default function Account_Archive() {
     video_path_array=[];
     Video_Name_array=[];
 
-/*    
 //取得使用者影片總數
     fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_all_videos, { 
       method: 'GET',
@@ -183,65 +177,66 @@ export default function Account_Archive() {
           return information;
       })
       .then((data) => {
-        console.log("data=",data);  
-        console.log("data=",data["video_number"]); 
-        setVideo_Number(parseInt(data["video_number"]));
+        console.log("data=",typeof(data));  
+        console.log("data=",data); 
+        setVideo_Number(parseInt(data.length));
         console.log("video_number=", video_number);  
       })
       .catch((error) => console.log("error", error));
-*/
+
     //取得使用者影片路徑、檔名
-      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_all_videos, {  
-        method: 'GET',
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_all_videos, {  
+      method: 'GET',
+    })
+      .then((response) => {
+          console.log('response=',response);
+          var information = response.json();
+          console.log('info^^',information);
+          return information;
       })
-        .then((response) => {
-            console.log('response=',response);
-            var information = response.json();
-            console.log('info^^',information);
-            return information;
-        })
-        .then((data) => {
-          console.log("data=", data);  
-          setVideo_Number(data['videos'].length);
-          console.log("Video_Number=", video_number);
-          for(i=0; i<video_number; i++)    
-          {
-            console.log("key=", index);
-            video_path = data['videos'][index]['video_path'];  //把每個影片URL存下來
-            video_path_array.push(video_path);
-            console.log("A_video_path=",video_path); 
-            
-            data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
-            Video_Name_array.push(data_video_name);
-            
-            const VideoElement = (
-              <Archive_View_video
-                key={"video" + index}
-                button_id={"video" + index}
-                videoName={Video_Name_array[i]}
-                view_video={preview_video}              />
-            );
-
-            Video_array.push(VideoElement);
-            video_ID_array.push(index);
-            index++;
-          }
+      .then((data) => {
+        console.log("data=", data);  
+        console.log("Video_Number=", video_number);
+        for(i=0; i<video_number; i++)    
+        {
+          console.log("key=", index);
+          video_path = data[index];  //把每個影片URL存下來
+          video_path_array.push(video_path);
+          console.log("A_video_path=",video_path); 
           
-          setVideoNameArray([]);
-          const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
-          send_Video_Name.push(Video_Name_array);
-          setVideoNameArray(send_Video_Name);
+          data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
+          Video_Name_array.push(data_video_name);
+          
+          const VideoElement = (
+            <Archive_View_video
+              key={"video" + index}
+              button_id={"video" + index}
+              videoName={Video_Name_array[i]}
+              view_video={preview_video}              />
+          );
 
-          setVideoArray([]);
-          const send_Video = [...video_array];    //用於建立副本，渲染畫面
-          send_Video.push(Video_array);
-          setVideoArray(send_Video);
+          Video_array.push(VideoElement);
+          video_ID_array.push(index);
+          index++;
+        }
+        
+        setVideoNameArray([]);
+        const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
+        send_Video_Name.push(Video_Name_array);
+        setVideoNameArray(send_Video_Name);
 
-          console.log("F_Video_Name=", video_name_array);
-          console.log("F_video_array=", video_array);
-        })
-        .catch((error) => console.log("error", error));
+        setVideoArray([]);
+        const send_Video = [...video_array];    //用於建立副本，渲染畫面
+        send_Video.push(Video_array);
+        setVideoArray(send_Video);
+
+
+        console.log("F_Video_Name=", video_name_array);
+        console.log("F_video_array=", video_array);
+      })
+      .catch((error) => console.log("error", error));
   }
+
 
 
   useLayoutEffect(() => {
@@ -260,23 +255,24 @@ export default function Account_Archive() {
       UserName = UserName?.substring(1, UserName?.lastIndexOf(`"`));  //" "中間字串
       console.log("username!!", UserName);
 
-      //取得使用者影片總數
-      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_all_videos, { 
+/*      //取得使用者影片總數
+      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName + "/number", { 
         method: 'GET',
       })
         .then((response) => {
             console.log('response=',response);
-            var information = response.json();
+            var information = response.text();
             console.log('info^^',information);
             return information;
         })
         .then((data) => {
           console.log("data=",typeof(data));  
-          setVideo_Number(parseInt(data['video_number']));
+          setVideo_Number(parseInt(data));
           console.log("video_number=", video_number);  
           API=2;
         })
-        .catch((error) => console.log("error", error));    
+        .catch((error) => console.log("error", error));
+*/    
     }
   }, [])
 
@@ -296,17 +292,16 @@ export default function Account_Archive() {
         })
         .then((data) => {
           console.log("data=",data);  
-          setVideo_Number(20);//data['videos'].length);
+          setVideo_Number(data.length);
           console.log("Video_Number=", video_number);
           for(i=0; i<video_number; i++)    
           {
             console.log("key=", index);
-            video_path = data['videos'][index]['video_path'];  //把每個影片URL存下來
+            video_path = data[index];  //把每個影片URL存下來
             video_path_array.push(video_path);
             console.log("A_video_path=",video_path); 
             
-//            data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
-            data_video_name = data['videos'][index]['video_name'];
+            data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
             Video_Name_array.push(data_video_name);
             
             const VideoElement = (
@@ -340,7 +335,6 @@ export default function Account_Archive() {
     }
   }, [video_number]);
 
-  
   useLayoutEffect(() => {   //影片有增加或是減少時
     if(API ==3)
     {
@@ -355,6 +349,7 @@ export default function Account_Archive() {
       setVideoArray(send_Video);
     }
   }, [video_number]);
+
 
     return (
       <>

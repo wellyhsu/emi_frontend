@@ -16,8 +16,8 @@ var Answer="";     //發送給後端的答案
 var Explain="";     //發送給後端的答案詳解
 
 var Time="0";       //發送給後端的當前影片時間
+var Circle_Time;    //儲存該圓點的題目時間
 
-var CircleNumber = 1;    //用於標記每個circle的ID
 var marginLeftValue = 1;   //用於更改每個circle的位置
 var selectVideo;
 var playButton;
@@ -36,9 +36,24 @@ var image_sound_alt="sound"
 
 var videoDuration;
 
+var API=0;  //確保只取得一次有題目的時間點
+var Question_time = []; //打後端API後，儲存question要出現的時間
+var Circle_ID;
+var Circle_index = 1;   //用於標記每個circle的ID
+var circleID_array=[];    //儲存題目的ID
+var circleID_index;       //儲存被點擊的圓點在circleID_array的index
+
+var i;
+
 const token =  Cookies.get('token');
-const videoPath = "/home/roy/test/video/roy/uploads/test1.mp4";//Cookies.get('video_path');
-console.log("video_path=", videoPath);
+const videoPath = Cookies.get('video_path');
+
+console.log("!!!video_path=", Cookies.get('video_path'));
+ 
+function View_video(){
+//    Cookies.set('video_path', view_video_URL);  //紀錄目前點擊的影片的URL
+    window.location.assign(process.env.NEXT_PUBLIC_Teacher_view_video);
+}
 
 /*
 function gap_fill_question(){  
@@ -72,33 +87,8 @@ function Click_add()
     }    
 }
 
-function Delete_Question()
-{
-    /*
-    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Time, {            
-        method: 'Delete',
-        headers:{
-            'video-path': process.env.NEXT_PUBLIC_video_path,
-            'Content-Type': 'application/json',
-        },
-        body: question_send_json,
-    })
-        .then((response) => {
-            information = response.json();
-            console.log('info^^',information);
-            return information;
-        })
-        .then((data) => {
-   
-            console.log('data=', data);
 
-        })
-        .catch((error) => console.log("error", error));
-*/
-    document.getElementById("Multiple_choice_question_modify").style = "display: none";
-}
-
-export default function Pop_up_Quiz_Editing_my_video() {
+export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
     const router = useRouter();
     const circle=[];     //儲存要出現題目的圓球component
     var information;
@@ -124,41 +114,116 @@ export default function Pop_up_Quiz_Editing_my_video() {
     const [ShowCircle, setShowCircle] = useState([]);
     const [Sound_image_path, setSound_image_path] = useState("/istockphoto_sound.png");
 
+
     useLayoutEffect(() => {
-        selectVideo = document.getElementById('video');
-        playButton = document.getElementById('playbutton');
-        inputItem = document.querySelectorAll('input');
-//        skipButton = document.querySelectorAll('.player__button[data-skip]');
-        progressBarOut = document.getElementById('progress');
-        progressBarIn = document.getElementById('progress_fill');    
-        document.getElementById('video_control').style = "width: selectVideo.videoWidth";
 
-        console.log("selectVideo=", selectVideo);
-        console.log("videoWidth=", selectVideo.videoWidth);
-        console.log("playButton=", playButton);
-        console.log("inputItem=", inputItem);
-//        console.log("skipButton=", skipButton);
-        console.log("progressBarOut=", progressBarOut);
-        console.log("progressBarIn=", progressBarIn);
+            // 如果从 Cookie 中成功获取到影片路径，将其设置到状态变量中
+            console.log("Cookies.get('video_path')=", Cookies.get('video_path'));
 
-        //播放及暫停按鈕
-        playButton.addEventListener('click', playToggle);
-        selectVideo.addEventListener('click', playToggle);
-       
-        //調整音量  利用forEach()方法將選到的每個input元素加上監聽事件
-        inputItem.forEach(function(item){
-            item.addEventListener('input', changeCondition);
-        });
+            const sourceElement = document.createElement('source');
+            sourceElement.src = `/api/video?videoPath=${encodeURIComponent(Cookies.get('video_path'))}`;
+            sourceElement.type = 'video/mp4';
 
-        //將影片加上監聽事件以及觸發函示
-        selectVideo.addEventListener('timeupdate', progressing);
+            console.log("成功！");
 
-        //監聽 當滑鼠被按下時，執行addDragProgress函式
-        progressBarOut.addEventListener('mousedown', addDragProgress);
-        //監聽 當滑鼠被放開時，執行removeDragProgress函式
-        progressBarOut.addEventListener('mouseup', removeDragProgress);
+            selectVideo = document.getElementById('video');
+            selectVideo?.appendChild(sourceElement);
+
+            playButton = document.getElementById('playbutton');
+            inputItem = document.querySelectorAll('input');
+    //        skipButton = document.querySelectorAll('.player__button[data-skip]');
+            progressBarOut = document.getElementById('progress');
+            progressBarIn = document.getElementById('progress_fill');    
+            document.getElementById('video_control').style = "width: selectVideo.videoWidth";
+
+            console.log("selectVideo=", selectVideo);
+
+            console.log("videoWidth=", selectVideo.videoWidth);
+            console.log("playButton=", playButton);
+            console.log("inputItem=", inputItem);
+    //        console.log("skipButton=", skipButton);
+            console.log("progressBarOut=", progressBarOut);
+            console.log("progressBarIn=", progressBarIn);
+
+            //播放及暫停按鈕
+            playButton.addEventListener('click', playToggle);
+            selectVideo.addEventListener('click', playToggle);
         
-}, [])
+            //調整音量  利用forEach()方法將選到的每個input元素加上監聽事件
+            inputItem.forEach(function(item){
+                item.addEventListener('input', changeCondition);
+            });
+
+            //將影片加上監聽事件以及觸發函示
+            selectVideo.addEventListener('timeupdate', progressing);
+
+            //監聽 當滑鼠被按下時，執行addDragProgress函式
+            progressBarOut.addEventListener('mousedown', addDragProgress);
+            //監聽 當滑鼠被放開時，執行removeDragProgress函式
+            progressBarOut.addEventListener('mouseup', removeDragProgress);
+    }, [])
+
+    useLayoutEffect(() => {
+        if(API == 0)
+        {   
+            console.log("Cookies= ", Cookies.get('video_path'));
+            console.log("Get Question!!");
+
+            selectVideo.addEventListener('loadedmetadata', () => {
+                videoDuration = selectVideo.duration;
+                console.log("video length= ", selectVideo.duration);  //影片總長度console.log('Video width:', selectVideo.videoWidth);
+
+                API = 1;     
+                        
+                //取得要插入影片的時間點資訊  
+                console.log("取得要插入影片的時間點資訊 -",videoPath);
+                                                                
+                fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz_sec + Cookies.get('video_path'), {  
+                    method: 'GET',
+                })
+                    .then((response) => {
+                        console.log('response=',response);
+                        information = response.json();
+                        console.log('info^^',information);
+                        return information;
+                    })
+                    .then((data) => {
+                        console.log("data=",data);
+                        console.log("data.length=", data.length);
+                        
+                        const send_circle = [...ShowCircle];    //用於建立副本，渲染畫面
+
+                        for(i=0; i<data.length; i++)
+                        {
+                            Question_time.push(data[i]);
+                            console.log('Question_time=',Question_time[i]);
+                        
+                            const circleElement = (
+                                <div
+                                    key={"Modify_Circle" + String(Circle_index)}
+                                    id={"Circle" + String(Circle_index)}
+                                    className={styles.circle}                 //circle需位移距離
+                                    style={{marginLeft: String((Question_time[i]/ videoDuration) * 100 *(98/100))+"%"}}
+                                    onClick={Click_Circle}
+                                >
+                                        
+                                </div>
+                            );
+                            send_circle.push(circleElement); 
+                            circleID_array.push(Circle_index);
+
+                            Circle_index++; //用於給圓點編號
+                        }
+                        setShowCircle(send_circle);
+                        console.log("send_circle=",send_circle);
+                        console.log("ShowCircle=", ShowCircle);
+                    })
+                    .catch((error) => console.log("error", error));
+            });
+        } 
+
+   }, [])
+
 
     //播放或暫停按鍵
     function playToggle() {
@@ -291,17 +356,32 @@ export default function Pop_up_Quiz_Editing_my_video() {
         }
     }
 
-    function Click_Circle(event)   //Modify Question -> 顯示題目
+    function Click_Circle()   //Modify Question -> 顯示題目
     {
         var information;
-        var Circle_Time;
 
         console.log("GET!");
         console.log("event=", event);
+        console.log("event.key=", event.target.id); //取得該物件ID再送進Qtime然後取得時間       
+        console.log("ShowCircle=", ShowCircle);
+        console.log("CC_send_circle=", circleID_array);
+
+        Circle_ID = String(event.target.id);   //把ID轉成字串
+        Circle_ID = Circle_ID.substring(Circle_ID.lastIndexOf("e")+1);  //取得ID數字的部分
+        circleID_index = circleID_array.indexOf(parseInt(Circle_ID));
+
+        console.log("circleID=", Circle_ID); //String
+        console.log("circleID_array==", circleID_array);        
+        console.log("circleID_index", circleID_index);
+
+        Circle_Time = Question_time[circleID_index];
         
+        console.log("C_Circle_Time=", Circle_Time);
         document.getElementById("Multiple_choice_question_modify").style = "display: flex";
-                                                                                        
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
+            
+        //取得該點的題目
+        console.log("取得該點的題目-",videoPath);
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + Cookies.get('video_path') + "/" + Circle_Time, {            
             method: 'GET',
         })
             .then((response) => {
@@ -351,11 +431,12 @@ export default function Pop_up_Quiz_Editing_my_video() {
         
         var modify_question_send_json = JSON.stringify(modify_question_send);  //轉json格式
         console.log("send data=",modify_question_send_json);
-                                                                                        
-        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
+                      
+        console.log('fetch=',videoPath,"/",Circle_Time);
+        //儲存修改之後的題目
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Circle_Time, {            
             method: 'PUT',
             headers:{
-                'video-path': process.env.NEXT_PUBLIC_video_path,
                 'Content-Type': 'application/json',
             },
             body: modify_question_send_json,
@@ -375,7 +456,49 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
     }
 
-    function Multiple_choice_close(){
+    function Delete_Question()  //Modify Question -> 刪除該時間點的題目
+    {
+        //點擊圓點後就會得到該點的時間 Circle_Time
+        console.log("D_circleID=", Circle_ID);
+        console.log("D_circleID_index=", circleID_index);
+        document.getElementById("Multiple_choice_question_modify").style = "display: none";
+    
+        const send_circle = [...ShowCircle];    //用於建立副本，渲染畫面
+        console.log("copy_send_circle=",send_circle);
+
+        var Delete = circleID_index;  //取得要刪除的點的ID並轉成字串
+        send_circle.splice(Delete, 1);   //將數字ID轉換成數字格式
+        circleID_array.splice(Delete, 1);   //將數字ID轉換成數字格式
+        
+        console.log("Delete_index=", Delete);
+
+        setShowCircle(send_circle);
+        console.log("D_send_circle=",send_circle);
+        console.log("D_ShowCircle=", ShowCircle);
+        console.log("D_circleID_array=",circleID_array);
+    
+        //通知後端刪除此題目
+        fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Circle_Time, {            
+            method: 'Delete',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                information = response.json();
+                console.log('info^^',information);
+                return information;
+            })
+            .then((data) => {
+                console.log('data=', data);
+            })
+            .catch((error) => console.log("error", error));
+
+    }
+
+    //新增題目
+    function Multiple_choice_close()
+    {
         var information;
 
         var selectVideo = document.querySelector('video');
@@ -383,25 +506,25 @@ export default function Pop_up_Quiz_Editing_my_video() {
         
         const circleElement = (
             <div
-                key={"Circle" + String(CircleNumber)}
-                id={"Circle" + String(CircleNumber)}
+                key={"Circle" + String(Circle_index)}
+                id={"Circle" + String(Circle_index)}
                 className={styles.circle}                 //circle需位移距離
                 style={{marginLeft: String(currentPosition*(98/100))+"%"}}
                 onClick={Click_Circle}
-            >
-                
+            >   
             </div>
         );
                 
         const send_circle = [...ShowCircle];    //用於建立副本，渲染畫面
         send_circle.push(circleElement);
+        circleID_array.push(Circle_index);   //將新增的圓點ID放入陣列
+        Question_time.push(String(Math.floor(selectVideo.currentTime)));   //將此點時間點加入 儲存出現題目的時間陣列
 
         setShowCircle(send_circle);
         console.log("send_circle=",send_circle);
-        console.log("CircleNumber=",CircleNumber);
         console.log('ShowCircle:', ShowCircle);
 
-        CircleNumber++;
+        Circle_index++;  //Circle編號 + 1
 
         document.getElementById("Multiple_choice_question").style = "display: none";
 
@@ -428,9 +551,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
             'video-path': '/home/roy/test/video/test/uploads/',
         }
         
-        var question_send_json = JSON.stringify(question_send);  //轉json格式
-        
-        //在資料庫新增題目
+        var question_send_json = JSON.stringify(question_send);  //轉json格式           
         fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_quiz + videoPath + "/" + Time, {            
             method: 'POST',
             headers:{
@@ -466,7 +587,9 @@ export default function Pop_up_Quiz_Editing_my_video() {
         Choice = [];
     }
 
-    function Multiple_choice_ClearClose(){
+    //點擊取消後 刪除所有內容
+    function Multiple_choice_ClearClose()
+    {
         document.getElementById("Multiple_choice_question").style = "display: none";
 
         Multiple_choice_Question_Ref.current.value = "";   //使用者輸入的題目內容
@@ -488,11 +611,12 @@ export default function Pop_up_Quiz_Editing_my_video() {
         if((token == "null") || (token == null) || (token == "undefined"))
         {
           console.log("useEffect triggered");
-//          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in); //無法返回上一頁
         }
 
       }, [])
 
+    console.log('E_ShowCircle:', ShowCircle);
     return (
         <>
             <main className={styles.main}>
@@ -604,7 +728,7 @@ export default function Pop_up_Quiz_Editing_my_video() {
 
                 <div className={styles.no_padding_center}>
                     <div className={styles.PopupQuiz_video_preview}>
-                        <div style={{ height: "100%",width: "100%", marginLeft: "auto", marginRight:"auto"}}>
+                        <div style={{ height: "100%",width: "100%", justifyContent: "center"}}>
                             <video 
                                 id='video'
                                 poster=""
@@ -612,8 +736,6 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                 controls={false} 
                                 className={styles.video}
                             >
-                                <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
-                                Your browser does not support the video tag.
                             </video>
                         
                             <div id="video_control" className={styles.video_control}>
@@ -650,31 +772,37 @@ export default function Pop_up_Quiz_Editing_my_video() {
                                 </div>
                                 {ShowCircle}
                             </div>
-                        </div>
-                        <div className={styles.Popup_add_block} >
-                            <button className={styles.Popup_add_button} onClick={Click_add}>
-                                <Image
-                                    src="/Pop-upQuiz_add.svg"
-                                    alt="Add new question"
-                                    width={70}
-                                    height={70}
-                                    priority
-                                />
-                            </button>
-                            <div id="question_button" className={styles.question_button}>
-                                <button className={styles.Multiple_choice_button} onClick={Multiple_choice_question}>
+                            <div className={styles.Popup_add_block} >
+                                <button className={styles.Popup_add_button} onClick={Click_add}>
                                     <Image
-                                        src="/Pop-up_Multiple_choice.svg"
-                                        alt="Add Multiple choice question"
-                                        width={30}
-                                        height={20}
+                                        src="/Pop-upQuiz_add.svg"
+                                        alt="Add new question"
+                                        width={70}
+                                        height={70}
                                         priority
                                     />
                                 </button>
-                            </div>
+                                <div id="question_button" className={styles.question_button}>
+                                    <button className={styles.Multiple_choice_button} onClick={Multiple_choice_question}>
+                                        <Image
+                                            src="/Pop-up_Multiple_choice.svg"
+                                            alt="Add Multiple choice question"
+                                            width={30}
+                                            height={20}
+                                            priority
+                                        />
+                                    </button>
+                                </div>
+                            </div> 
                         </div> 
                     </div>
                 </div>   
+                <div style={{width: "95vw"}}>
+                    <button className={styles.view_video_button} onClick={View_video}>
+                    Finish<br/>
+                    View the video
+                    </button>
+                </div>
             </main>
         </>
     )
