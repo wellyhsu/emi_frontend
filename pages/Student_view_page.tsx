@@ -57,15 +57,17 @@ export default function Account_Archive() {
     document.getElementById("preview_video").style= "display : flex;" ;
     video_ID = String(clickID.target.id);
     video_ID = video_ID?.substring(video_ID?.indexOf(`o`)+1);  //" "中間字串
-  
-    video_path = video_path_array[video_ID];
+       //先透過儲存video_ID的video_ID_array找到
+    video_path = video_path_array[video_ID_array?.indexOf(parseInt(video_ID))];
+    console.log('preview_video video_path=', video_path);
     set_View_video_URL(video_path);
+
+    console.log("video_ID_array=", video_ID_array);
     console.log("__video_path=",video_path);
   
     console.log("p_video_ID=", video_ID);
     console.log("video_path_array=",video_path_array);
     console.log("tagName", event.target.tagName);
-
   }
 
   function View(){
@@ -190,6 +192,7 @@ export default function Account_Archive() {
       })
       .catch((error) => console.log("error", error));
 */
+
     //取得使用者影片路徑、檔名
       fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_all_videos, {  
         method: 'GET',
@@ -201,44 +204,52 @@ export default function Account_Archive() {
             return information;
         })
         .then((data) => {
-          console.log("data=", data);  
-          setVideo_Number(data['videos'].length);
-          console.log("Video_Number=", video_number);
-          for(i=0; i<video_number; i++)    
+          console.log("data=", data);
+          console.log("ALL_video_number=", video_number);
+          if(video_number != data['videos'].length)
           {
-            console.log("key=", index);
-            video_path = data['videos'][index]['video_path'];  //把每個影片URL存下來
-            video_path_array.push(video_path);
-            console.log("A_video_path=",video_path); 
+            setVideo_Number(data['videos'].length);
+            console.log("Video_Number=", video_number);
             
-            data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
-            Video_Name_array.push(data_video_name);
-            
-            const VideoElement = (
-              <Archive_View_video
-                key={"video" + index}
-                button_id={"video" + index}
-                videoName={Video_Name_array[i]}
-                view_video={preview_video}              />
-            );
+            for(i=0; i<data['videos'].length; i++)    
+            {
+              console.log("key=", index);
 
-            Video_array.push(VideoElement);
-            video_ID_array.push(index);
-            index++;
+              console.log("data['videos'][i]=", data['videos'][i]['video_path']);
+              video_path = data['videos'][i]['video_path'];  //把每個影片URL存下來
+              video_path_array.push(video_path);
+              console.log("A_video_path=",video_path); 
+              
+  //            data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
+              data_video_name = data['videos'][i]['video_name'];
+              Video_Name_array.push(data_video_name);
+              
+              const VideoElement = (
+                <Archive_View_video
+                  key={"video" + index}
+                  button_id={"video" + index}
+                  videoName={Video_Name_array[i]}
+                  view_video={preview_video}              />
+              );
+
+              Video_array.push(VideoElement);
+              video_ID_array.push(index);
+              index++;
+            }
+            
+            setVideoNameArray([]);
+  //          const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
+  //          send_Video_Name.push(Video_Name_array);
+  //          setVideoNameArray(send_Video_Name);
+
+            setVideoArray([]);
+  //          const send_Video = [...video_array];    //用於建立副本，渲染畫面
+  //          send_Video.push(Video_array);
+  //          setVideoArray(send_Video);
+
+            console.log("F_Video_Name=", video_name_array);
+            console.log("F_video_array=", video_array);
           }
-          
-          setVideoNameArray([]);
-          const send_Video_Name = [...video_name_array];    //用於建立副本，渲染畫面
-          send_Video_Name.push(Video_Name_array);
-          setVideoNameArray(send_Video_Name);
-
-          setVideoArray([]);
-          const send_Video = [...video_array];    //用於建立副本，渲染畫面
-          send_Video.push(Video_array);
-          setVideoArray(send_Video);
-
-          console.log("F_Video_Name=", video_name_array);
-          console.log("F_video_array=", video_array);
         })
         .catch((error) => console.log("error", error));
   }
@@ -296,17 +307,17 @@ export default function Account_Archive() {
         })
         .then((data) => {
           console.log("data=",data);  
-          setVideo_Number(20);//data['videos'].length);
+          setVideo_Number(data['videos'].length);
           console.log("Video_Number=", video_number);
           for(i=0; i<video_number; i++)    
           {
             console.log("key=", index);
-            video_path = data['videos'][index]['video_path'];  //把每個影片URL存下來
+            video_path = data['videos'][i]['video_path'];  //把每個影片URL存下來
             video_path_array.push(video_path);
             console.log("A_video_path=",video_path); 
             
 //            data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
-            data_video_name = data['videos'][index]['video_name'];
+            data_video_name = data['videos'][i]['video_name'];
             Video_Name_array.push(data_video_name);
             
             const VideoElement = (

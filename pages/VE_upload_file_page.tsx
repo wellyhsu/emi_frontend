@@ -40,11 +40,11 @@ function cancel_upload()
     document.getElementById("uploading").style = "display: none";
     cancel = 1;
 
-    const Cancel = new FormData();   //宣告fd為FormData();
-    Cancel.append('username', UserName);     //把每一個chunk插入fd中
-    Cancel.append('video_name', fileName);     //把每一個chunk插入fd中
+    const Cancel = new FormData();   //宣告Cancel為FormData();
+    Cancel.append('username', UserName);     //把username插入fd中
+    Cancel.append('video_name', fileName);     //把video_name插入fd中
 
-    //檢查FormData內的內容 - 方法一       
+    //檢查FormData內的內容 - 方法一
     Cancel.forEach((key, value) => {
         console.log("value(標題)=",value,"key(內容)=",key);
     });
@@ -464,8 +464,12 @@ export default function VE_upload_file_page() {
         checkProcessingStatus();
     TEST
 */
+        if(videoTypeRef.current.value == "")
+        {
+            alert("Please input the Video title.");
+            return false;
+        }
         Cookies.set('Get_video_path', "false");
-        document.getElementById('uploading').style = "display: flex";
     
         file_type = fileName?.substring(fileName?.lastIndexOf(`.`));  //取得副檔名
         console.log("file_type=",file_type); 
@@ -494,6 +498,8 @@ export default function VE_upload_file_page() {
             alert("The file type uncorrect!");
             return false
         }
+
+        document.getElementById('uploading').style = "display: flex";
     }
 
     return (
@@ -571,14 +577,14 @@ export default function VE_upload_file_page() {
                         Please upload your teaching material. (It might take a few minutes.)
                     </div>
                     <div className={styles.file_Name} style={{marginLeft: "6em"}}>
-                        Video Name:
+                        Video Title:
                         <input type="text" id="video_name" ref={videoTypeRef} className={styles.file_input}>
 
                         </input>
                     </div>
                     <div className={styles.file_Name}>
                         File Name:
-                        <input type="text"  readonly="readonly" id="file_name" className={styles.file_input}>
+                        <input type="text"  readonly="readonly" id="file_name" className={styles.file_input} style={{cursor: "not-allowed"}}>
 
                         </input>
                     </div>

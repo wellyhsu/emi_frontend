@@ -45,7 +45,7 @@ export default function Account_Archive() {
   function View(){
     //等等要處理取得該影片的路徑
     Cookies.set('video_path', view_video_URL);
-    window.location.href(process.env.NEXT_PUBLIC_View_video);
+    window.location.assign(process.env.NEXT_PUBLIC_View_video);
     document.getElementById("preview_video").style= "display : none;" ;
   }
 
@@ -287,7 +287,7 @@ export default function Account_Archive() {
                 }}
               className={styles.Account_Drafts}
             >
-            Add quiz
+            Optimize pronounce videos
             </Link>
             <div className={styles.Account_dash}>
               |
@@ -296,7 +296,7 @@ export default function Account_Archive() {
               className={styles.Account_Title_Black}
                 onClick={go_to_Archive_videos}
             >
-              View Archive videos
+              Add quiz videos
             </button> 
             <div className={styles.Account_dash}>
               |

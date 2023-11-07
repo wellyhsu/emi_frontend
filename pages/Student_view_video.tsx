@@ -20,7 +20,7 @@ var sec=0;   //0~data長度，用來決定該出現第幾個問題
 
 function Back_to_videos()
 {
-    window.location.assign(process.env.NEXT_PUBLIC_Account_Drafts);
+    window.location.assign(process.env.NEXT_PUBLIC_Student_videos);
 }
 
 console.log("videoPath=", videoPath);
@@ -349,14 +349,13 @@ export default function Student_view_video() {
             )}
 
                 <div className={styles.no_padding_center}>
-                    <div className={styles.PopupQuiz_video_preview}>
+                    <div style={{marginTop: "2em"}}>
                         <video 
                             ref={videoRef}
                             poster=""
                             autoPlay={false}
                             controls={true} 
-                            width="auto"
-                            height="450em"
+                            className={styles.video}
                         >
                             {VideoPath&&
                                 <>

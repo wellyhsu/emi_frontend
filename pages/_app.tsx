@@ -56,6 +56,11 @@ export default function App({ Component, pageProps }: AppProps) {
       console.log("identity=", Cookies.get('identity')); 
       setHeader(<Header_student/>)
     }
+    else
+    {
+      console.log("identity=", Cookies.get('identity')); 
+      setHeader(<Header/>)
+    }
 
   }, []);
 

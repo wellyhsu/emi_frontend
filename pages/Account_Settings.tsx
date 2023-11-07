@@ -80,7 +80,7 @@ export default function Account_Settings() {
                   }}
                 className={styles.Account_Drafts}
               >
-                Add quiz
+                Optimize pronounce videos
               </Link>
               <div className={styles.Account_dash}>
                 |
@@ -92,7 +92,7 @@ export default function Account_Settings() {
                   }}
                 className={styles.Account_Title_Gray}
               >
-                View Archive videos
+                Add quiz videos
               </Link> 
               <div className={styles.Account_dash}>
                 |

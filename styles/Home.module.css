@@ -1873,7 +1873,7 @@ ul.Layerout ul li:hover {
   color: rgba(0, 0, 0, 1);
 
   margin-top: 1em;
-  margin-left: 7em;
+  margin-left: 6em;
 }
 
 .file_input{
@@ -3829,7 +3829,7 @@ select.option{
 
 .Account_Drafts{
   display: inline-block;
-  width: 5em;
+  width: 14em;
   height: 28px;
   cursor: pointer;
 

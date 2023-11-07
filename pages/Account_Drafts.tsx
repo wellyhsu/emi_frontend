@@ -269,7 +269,7 @@ export default function Home() {
               className={styles.Account_Drafts}
               onClick={go_to_Add_quiz}
             >
-              Add quiz
+              Optimize pronounce videos
             </button>
             <div className={styles.Account_dash}>
               |
@@ -281,7 +281,7 @@ export default function Home() {
                 }}
               className={styles.Account_Title_Gray}
             >
-              View Archive videos
+              Add quiz videos
             </Link> 
             <div className={styles.Account_dash}>
               |
