@@ -1985,7 +1985,7 @@ ul.Layerout ul li:hover {
   border-color: rgba(87, 196, 157, 1);
 
   margin-left: 6em;
-  margin-right: 8em;
+  margin-right: 3VW;
 }
 .UploadFile_Back_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/

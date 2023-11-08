@@ -193,7 +193,7 @@ function choose_upload_script(){
 export default function VE_upload_file_page() {
     const [transform_degree, Set_transform_degree] = useState(0);
     const [Progress_Number, SetProgress_Number] = useState(0);
-    const videoTypeRef = useRef(undefined);
+    const videoTitleRef = useRef(undefined);
 
     //每兩秒打一次後端 看後端任務結束了嗎？
     async function performSomeAsyncOperation() {
@@ -214,8 +214,7 @@ export default function VE_upload_file_page() {
 
         do
         {
-            if(cancel == 1)
-                break;
+            console.log("CCancel =",cancel);
             const Response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL);  //打API取得影片後端傳來的路徑
             const data = await Response.json();   //取得影片後端傳來的路徑資料
             
@@ -228,7 +227,7 @@ export default function VE_upload_file_page() {
                         );
             performSomeAsyncOperation();
 
-        }while(status != "completed");
+        }while(status != "completed" && cancel == 0);
 
         if( cancel == 0 )  //若點擊了取消按鈕 不繼續打API
         {
@@ -261,7 +260,7 @@ export default function VE_upload_file_page() {
             const Video_Information_send =
             {
                 "username": UserName,
-                "video_type": videoTypeRef.current.value,
+                "video_title": videoTitleRef.current.value,
                 "video_name": fileName,
                 "video_description": "none",
                 "video_length": videolength,
@@ -300,7 +299,7 @@ export default function VE_upload_file_page() {
                 if(cancel == 0)
                 {
                     console.log("POST !!");
-                    const response = await fetch(process.env.NEXT_PUBLIC_API_upload_video, {   //call後端的API
+                    const response = await fetch("http://34.80.125.169:30036/api/video/upload"/*process.env.NEXT_PUBLIC_API_upload_video*/, {   //call後端的API
                         method: 'POST',
                         headers:{
                             "Metadata-Token": Metadata_token,
@@ -464,7 +463,7 @@ export default function VE_upload_file_page() {
         checkProcessingStatus();
     TEST
 */
-        if(videoTypeRef.current.value == "")
+        if(videoTitleRef.current.value == "")
         {
             alert("Please input the Video title.");
             return false;
@@ -578,7 +577,7 @@ export default function VE_upload_file_page() {
                     </div>
                     <div className={styles.file_Name} style={{marginLeft: "6em"}}>
                         Video Title:
-                        <input type="text" id="video_name" ref={videoTypeRef} className={styles.file_input}>
+                        <input type="text" id="video_name" ref={videoTitleRef} className={styles.file_input}>
 
                         </input>
                     </div>

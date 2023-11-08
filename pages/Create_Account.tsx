@@ -70,11 +70,6 @@ export default function Create_Account() {
       window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
     }
 */
-    if(passwordRef.current.value != confirm_passwordRef.current.value)
-    {
-      alert("password error!");
-    }
-
     fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_signup, {
       method: 'POST',
       headers:{
@@ -98,6 +93,10 @@ export default function Create_Account() {
       if(data["username"] ==  "A user with that username already exists.")
       {
         alert(data["username"]);
+      }
+      else if(passwordRef.current.value != confirm_passwordRef.current.value)
+      {
+        alert("password error!");
       }
       else
       {
