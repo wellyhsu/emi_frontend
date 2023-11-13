@@ -1878,8 +1878,9 @@ ul.Layerout ul li:hover {
 
 .file_input{
   display: inline-block;
-  width: 28em;
+  width: 37vw;
   height: 2em;
+  min-width: 10em;
 
   font-size: 0.8em;
   font-family: 'Poppins', Arial;
@@ -1913,9 +1914,10 @@ ul.Layerout ul li:hover {
 
 .upload_block{
   display: inline-block;
-  width: 22em;
+  width: 36vw;
   height: 10em;
   cursor: pointer;
+  min-width: 12em;
 
   font-size: 1.2em;
   font-family: 'Poppins', Arial;
@@ -2159,18 +2161,6 @@ ul.Layerout ul li:hover {
 }
 */
 
-.uploading_Cancel_button{
-  display: inline-block;
-  width: 5em;
-  height: 2.6em;
-  cursor: pointer;
-  position: relative;
-  z-index: 9;
-
-  border-radius: 0.8em;
-  border-width: 0.1em;
-  box-shadow: rgba(0, 0, 0, 0.2);
-}
 
 .upload_finish{
   height: 2em;
@@ -2186,6 +2176,55 @@ ul.Layerout ul li:hover {
   margin-top: 5em;
 }
 
+.uploading_Cancel_button{
+  display: inline-block;
+  width: 5em;
+  height: 2.6em;
+  cursor: pointer;
+  position: relative;
+  z-index: 9;
+
+  font-size: 1.2em;
+  font-family: 'Poppins',Arial;
+  text-align: center;
+  color: rgba(53, 178, 53, 1);
+
+  border: solid;
+  border-radius: 0.8em;
+  border-width: 0.1em;
+  box-shadow: rgba(0, 0, 0, 0.2);
+  
+  background-color: rgba(255, 255, 255, 1);
+}
+.uploading_Cancel_button:hover{
+  transform: scale(1.03);
+}
+
+.uploading_Finish_button{
+  display: inline-block;
+  width: 5em;
+  height: 2.6em;
+  cursor: pointer;
+  position: relative;
+  z-index: 9;
+
+  font-size: 1.2em;
+  font-family: 'Poppins',Arial;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+
+  border: none;
+  border-radius: 0.8em;
+  border-width: 0.1em;
+  box-shadow: rgba(0, 0, 0, 0.2);
+
+  background-color: rgba(53, 178, 53, 1);
+
+}
+.uploading_Finish_button:hover{
+  transform: scale(1.03);
+}
+
 .video_processing{
 
   font-size: 1.8em;
@@ -2193,6 +2232,20 @@ ul.Layerout ul li:hover {
   text-align: center;
 
   color: rgba(0, 0, 0, 1);
+}
+
+.process_finish{
+  height: 2em;
+
+  font-size: 2em;
+  font-family: 'Poppins',Arial;
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 3.5em; 
 }
 
 /*    VE Edit Page     */

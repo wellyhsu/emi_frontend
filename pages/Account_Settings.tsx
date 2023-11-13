@@ -48,6 +48,7 @@ export default function Account_Settings() {
         if(success == "Logout successful") //成功登出 Successfully logged out.
         {
           Cookies.set('token', "null");
+          Cookies.set('identity', 'Teacher');
           window.location.assign("/");
         }
       })

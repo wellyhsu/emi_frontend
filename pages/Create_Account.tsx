@@ -5,19 +5,19 @@ import styles from '@/styles/Home.module.css'
 import React, {useRef} from "react";
 import {useEffect, useState} from 'react';
 
-var type;
+var type="nothing";
 
 function choose_type_Teacher(){
   document.getElementById("Teacher_button").style = "  background-color: rgba(255,0 ,0 , 1);";
   document.getElementById("Student_button").style = "  background-color: rgba(243, 241, 241, 1);";
-  type = true;  //"Teacher";
+  type = "true";  //"Teacher";
 
 }
 
 function choose_type_Student(){
   document.getElementById("Teacher_button").style = "  background-color: rgba(243, 241, 241, 1);";
   document.getElementById("Student_button").style = "  background-color: rgba(255,0 ,0 , 1);";
-  type = false;  //"Student";
+  type = "false";  //"Student";
 }
 
 export default function Create_Account() {
@@ -47,64 +47,69 @@ export default function Create_Account() {
       "username": nameRef.current.value,
       "email": EmailRef.current.value,
       "password": passwordRef.current.value,  //轉json格式
-      "is_stuff": type,
+      "is_staff": type,
     }
   
     var Create_account_send_json = JSON.stringify(Create_account_send);  //轉json格式
     console.log("account_send_json is " + Create_account_send_json);
     console.log('account_send_json is ',typeof(Create_account_send_json));
-  /*
-    var User_Name = "";
-    User_Name = "Invalid request data.";
-    if(User_Name == "user_table with this username already exists.")
+  
+    if(nameRef.current.value == "")
     {
-      alert("This username is already exists.");
+      alert("Please fill in the 'username'.");
     }
-    else if(User_Name == "Invalid request data.")
+    else if(EmailRef.current.value == "")
     {
-      alert("Invalid request data.");
+      alert("Please fill in the 'E-mail'.");
+    }
+    else if(passwordRef.current.value == "")
+    {
+      alert("Please fill in the 'password'.");
+    }
+    else if(type == "nothing")
+    {
+      alert("Please choose the 'identity'.");
+    }
+    else if(passwordRef.current.value != confirm_passwordRef.current.value)
+    {
+      alert("'Password' and 'confirm password' not same!");
     }
     else
     {
-      alert("Create account sucessfully.");
-      window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
-    }
-*/
-    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_signup, {
-      method: 'POST',
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body: Create_account_send_json,
-    })
-    .then((response) => {
-      information = response.json();
-      console.log('info^^',information);
-      return information;
-    })
-    .then((data) => {
-      username = data["username"];
-      email = data["email"];
-      password = data["password"];
+      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_signup, {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: Create_account_send_json,
+      })
+      .then((response) => {
+        information = response.json();
+        console.log('info^^',information);
+        return information;
+      })
+      .then((data) => {
+        username = data["username"];
+        email = data["email"];
+        password = data["password"];
 
-      console.log('username=',data["username"]);
-      console.log('email=',data["email"]);
-      console.log('password=',data["password"]);
-      if(data["username"] ==  "A user with that username already exists.")
-      {
-        alert(data["username"]);
-      }
-      else if(passwordRef.current.value != confirm_passwordRef.current.value)
-      {
-        alert("password error!");
-      }
-      else
-      {
-        alert("Create account sucessfully.");
-        window.location.assign("/" + process.env.NEXT_PUBLIC_Log_in);
-      }
-    })
-    .catch((error) => console.log("error", error));
+        console.log('username=',data["username"]);
+        console.log('email=',data["email"]);
+        console.log('password=',data["password"]);
+
+        //改成如果E-mail重複 跳提醒視窗
+        if(data["username"] ==  "A user with that username already exists.")
+        {
+          alert(data["username"]);
+        }
+        else  //註冊成功
+        {
+          alert("Create account sucessfully.");
+          window.location.assign("/" + process.env.NEXT_PUBLIC_Log_in);
+        }
+      })
+      .catch((error) => console.log("error", error));
+    }
   }
 
   return (

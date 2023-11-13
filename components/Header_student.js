@@ -8,12 +8,6 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 
 var Logout=0;
-
-function link_click(){
-  F_button=0;
-  document.getElementById("Features").style = "color: white;";
-  document.getElementById("Features_container").style = "display: none;";
-}
   
 function go_to_acount(){
     //console.log("useRouter= ", router.route);
@@ -40,6 +34,7 @@ function Log_out()
     
     console.log('press Log_out');
     console.log('token',send_Token);
+    Cookies.set('identity', 'Teacher');
 
     fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_logout, {
       method: 'POST',
@@ -63,13 +58,18 @@ function Log_out()
         alert(success);
         if(success == "Logout successful") //成功登出 Successfully logged out.
         {
-          Cookies.set('token', "null");
-          window.location.assign("/");
+            alert("Logout successful");
+            Cookies.set('token', "null");
+            window.location.assign("/");
+        }
+        else
+        {
+            alert("Log out fail.");
         }
       })
       .catch((error) => console.log("error", error));
     
-    window.location.assign("/" + process.env.NEXT_PUBLIC_Log_in);
+//    window.location.assign("/" + process.env.NEXT_PUBLIC_Log_in);
 }
 
 function go_to_LogIn(){
@@ -100,7 +100,6 @@ export const Header_student = () => {
                 <li className={styles.Home_Logo}>
                     <Link
                         href="/"
-                        onClick={link_click}
                     >
                         <Image
                             src="/Logo.svg"
@@ -132,7 +131,6 @@ export const Header_student = () => {
                 <li className={styles.Home_Logo}>
                     <Link 
                         href="/"
-                        onClick={link_click}
                     >
                         <Image
                         src="/Logo.svg"

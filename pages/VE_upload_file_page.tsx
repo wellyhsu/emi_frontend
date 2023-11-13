@@ -31,6 +31,8 @@ var cancel = 0;
 var status;
 var video_path;
 var video_id;
+var video_RID;
+var API_video_RID;
 
 //上傳影片到資料庫後端的取消功能
 function cancel_upload()
@@ -198,12 +200,20 @@ export default function VE_upload_file_page() {
     //每兩秒打一次後端 看後端任務結束了嗎？
     async function performSomeAsyncOperation() {
         // 執行需要等待的異步操作
+        console.log("CCancel =",cancel);
+        const Response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL);  //打API取得影片後端傳來的路徑
+        const data = await Response.json();   //取得影片後端傳來的路徑資料
+        
+        status = data["status"];
+        video_path = data["processed_video_path"];
+        video_id = data["video_id"];
+        API_video_RID = data["RID"];
 
-        return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve('資料處理中');
-        }, 2000); // 這裡模擬等待 2 秒      
-        });
+        console.log("Wvideo_path=",video_path,
+                    "Wvideo_id", video_id,
+                    "Wstatus", status,
+                    "WAPI_video_RID", API_video_RID
+                    );
     }
 
     async function checkProcessingStatus() {
@@ -212,26 +222,15 @@ export default function VE_upload_file_page() {
 
         //GET 打後端Next.js API
 
-        do
-        {
-            console.log("CCancel =",cancel);
-            const Response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL);  //打API取得影片後端傳來的路徑
-            const data = await Response.json();   //取得影片後端傳來的路徑資料
-            
-            status = data["status"];
-            video_path = data["processed_video_path"];
-            video_id = data["video_id"];
-            console.log("Wvideo_path=",video_path,
-                        "Wvideo_id", video_id,
-                        "Wstatus", status
-                        );
+        setInterval(() => {
             performSomeAsyncOperation();
+        }, 2000); // 這裡模擬等待 2 秒      
 
-        }while(status != "completed" && cancel == 0);
-
-        if( cancel == 0 )  //若點擊了取消按鈕 不繼續打API
+        if( cancel == 0 && status == "completed" && video_RID == API_video_RID)  //若點擊了取消按鈕 不繼續打API
         {
-            document.getElementById('Finish').style = "display: inline-block";
+            clearInterval(call_API);  //清除計數器
+            document.getElementById('video_processing').style = "display: none";
+            document.getElementById('finish').style = "display: flex";
 
             console.log('video_path Status data= ', video_path);  //顯示取得的data
 
@@ -315,8 +314,11 @@ export default function VE_upload_file_page() {
         
                         results.push(data);    //將後端後端傳回的資料放到results
                         if(Chunk_Number == chunks.length)
-                        {                                  //取得video_path
+                        {   
+                            console.log("video upload finish");                               
                             console.log("data=", data);
+                            video_RID = data["RID"];
+                            console.log("Video RID= ", video_RID);
                             
                             document.getElementById('video_processing').style = "display: inline-block";
 
@@ -461,8 +463,13 @@ export default function VE_upload_file_page() {
         var upload=0;
 /*  TEST
         checkProcessingStatus();
-    TEST
+        const call_API = setInterval(() => {
+            performSomeAsyncOperation();
+        }, 2000); // 這裡模擬等待 2 秒  
+
+    TEST    
 */
+
         if(videoTitleRef.current.value == "")
         {
             alert("Please input the Video title.");
@@ -546,9 +553,6 @@ export default function VE_upload_file_page() {
                         
                         <div style={{display: "flex", marginTop: "4em"}}>
                             <div style={{marginLeft: "auto", marginRight: "auto"}}>
-                                <button id="Finish" style={{display: "none"}} className={styles.uploading_Cancel_button} onClick={Finish}>
-                                    Finish
-                                </button>
                                 <button style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_video_processing}>
                                     Cancel
                                 </button>
@@ -558,8 +562,28 @@ export default function VE_upload_file_page() {
                 </div>
             </div>
 
+            <div id="finish" style={{height: "100%",display: "none"}}>
+                <div className={styles.question_background}>
+                    <div className={styles.pop_up_loading_window}>
+                        <div className={styles.process_finish} >
+                            Video process finish !!
+                        </div>
+                        
+                        <div style={{display: "flex", marginTop: "4em"}}>
+                            <div style={{marginLeft: "auto", marginRight: "auto"}}>
+                                <button id="Finish" className={styles.uploading_Finish_button} onClick={Finish}>
+                                    Finish
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div className={styles.no_padding_center}>
-                <div style={{marginLeft: "-6em"}}>
+                <div style={{marginLeft: "-4em"}}>
                     <div className={styles.Start_making}>
                         Start making
                     </div>

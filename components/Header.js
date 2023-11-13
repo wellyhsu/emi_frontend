@@ -33,12 +33,12 @@ function link_click(){
 
 function go_to_acount(){
 //    console.log("useRouter= ", router.route);
-    window.location.replace("/" + process.env.NEXT_PUBLIC_Account_Drafts);
+    window.location.assign("/" + process.env.NEXT_PUBLIC_Account_Drafts);
 }
 
 function go_to_LogIn(){
 //    console.log("useRouter= ", router.route);
-    window.location.replace("/" + process.env.NEXT_PUBLIC_Log_in);
+    window.location.assign("/" + process.env.NEXT_PUBLIC_Log_in);
 }
 
 export const Header = () => {

@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 var status;
 var video_id;
 var processed_video_path;
-var control;
+var RID;  //紀錄影片(唯一性)
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,20 +20,33 @@ export default async function handler(
     status = req.body.status;  //影片處理狀態
     video_id = req.body.video_id;  //影片ID
     processed_video_path = req.body.processed_video_path;
-     console.log(
+    RID = req.body.RID;
+
+    console.log(
                 "PPvideo_id:", video_id, 
                 "status:", status, 
-                "processed_video_path:", processed_video_path
+                "processed_video_path:", processed_video_path,
+                "RID= ", RID
               );
 
     if(status == "completed")
     { 
       console.log("CC_processed_video_path: ",processed_video_path);
       
-      res.status(200).json({ video_id: video_id, status: status, processed_video_path: processed_video_path });
+      res.status(200).json({ 
+        video_id: video_id, 
+        status: status, 
+        processed_video_path: processed_video_path, 
+        RID: RID 
+      });
     }
     else
-      res.status(200).json({ video_id: video_id, status: status, processed_video_path: "Still not get." });
+      res.status(200).json({ 
+        video_id: video_id, 
+        status: status, 
+        processed_video_path: "Still not get.", 
+        RID: RID 
+      });
   }
   else  //GET
   {
@@ -43,24 +56,28 @@ export default async function handler(
 
       console.log("video_id:", video_id, 
                   "status:", status, 
-                  "processed_video_path:", processed_video_path
-                );
+                  "processed_video_path:", processed_video_path,
+                  "RID", RID
+                  );
 
       if(status == 'completed')
-        res.status(200).json({ video_id: video_id, status: status, processed_video_path: processed_video_path });
+        res.status(200).json({ 
+            video_id: video_id, 
+            status: status, 
+            processed_video_path: processed_video_path,
+            RID: RID
+        });
       else
-        res.status(200).json({ video_id: video_id ,status: status, processed_video_path: "Still not get." });
+        res.status(200).json({ 
+            video_id: video_id, 
+            status: status, 
+            processed_video_path: "Still not get." 
+            RID: RID  
+        });
     } 
     catch (error) 
     {
       res.status(500).json({ error: '發生錯誤' });
     }
   }
-
-  console.log(
-              "data==", 
-              "video_id:", video_id, 
-              "status:", status, 
-              "processed_video_path:", processed_video_path
-            );
 }

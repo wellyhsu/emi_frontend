@@ -5,10 +5,10 @@ import Cookies from 'js-cookie';
 import styles from '@/styles/Home.module.css'
 
 export default function Home() {
-  const nameRef = useRef(undefined);
+  const EmailRef = useRef(undefined);
   const passwordRef = useRef(undefined);
   // 為了方便操作，建立一個array來管理這些ref
-  const refArr = useRef([nameRef,passwordRef]);
+  const refArr = useRef([EmailRef,passwordRef]);
 
 
   function Log_in() {    //登入按鈕
@@ -21,12 +21,23 @@ export default function Home() {
     var userName;
 
 	  console.log('press Log_in')
-    console.log(nameRef.current.name +" is "+ nameRef.current.value);
+    if(EmailRef.current.value == "")
+    {
+      alert("Please fill in the 'E-mail'.");
+      return false
+    }
+    else if(passwordRef.current.value == "")
+    {
+      alert("Please fill in the 'password'.");
+      return false
+    }
+    console.log(EmailRef.current.name +" is "+ EmailRef.current.value);
     console.log(passwordRef.current.name +" is "+ passwordRef.current.value);
 
     const account_send =
     {
-      "username": nameRef.current.value,
+      //改成E-mail登入
+      "email": EmailRef.current.value,
       "password": passwordRef.current.value,  
     }
 
@@ -60,10 +71,10 @@ fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
         token_DATA = data["token"];
         status_code = data["code"];
         msg = data["message"];
-        identity = data["is_stuff"];
+        identity = data["is_staff"];
+        userName = data["username"];
 
         token_DATA = JSON.stringify(token_DATA);
-        userName = JSON.stringify(nameRef.current.value);
         
         Cookies.set('token', token_DATA);
         Cookies.set('userName', userName);
@@ -108,9 +119,9 @@ fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
           <div>
             <input 
               type="text" 
-              name='Name'
-              placeholder="Name" 
-              ref={nameRef}
+              name='E-mail'
+              placeholder="E-mail" 
+              ref={EmailRef}
               className={styles.Name}
             />
             <input 
