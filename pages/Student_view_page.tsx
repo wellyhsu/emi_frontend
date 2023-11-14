@@ -133,11 +133,11 @@ export default function Account_Archive() {
         for(i=0; i<data.length; i++)    
         {
           console.log("key=", index);
-          video_path = data[i].video_path;  //把每個影片URL存下來
+          video_path = data['result'][i].video_path;  //把每個影片URL存下來
           video_path_array.push(video_path);
           console.log("A_video_path=",video_path); 
           
-          data_video_name = String(data[i].video_name);
+          data_video_name = String(data['result'][i].video_name);
           Video_Name_array.push(data_video_name);
           console.log("A_video_name", data_video_name);
           
@@ -206,22 +206,22 @@ export default function Account_Archive() {
         .then((data) => {
           console.log("data=", data);
           console.log("ALL_video_number=", video_number);
-          if(video_number != data['videos'].length)
+          if(video_number != data['response_data']['videos'].length)
           {
-            setVideo_Number(data['videos'].length);
+            setVideo_Number(data['response_data']['videos'].length);
             console.log("Video_Number=", video_number);
             
-            for(i=0; i<data['videos'].length; i++)    
+            for(i=0; i<data['response_data']['videos'].length; i++)    
             {
               console.log("key=", index);
 
-              console.log("data['videos'][i]=", data['videos'][i]['video_path']);
-              video_path = data['videos'][i]['video_path'];  //把每個影片URL存下來
+              console.log("data['response_data']['videos'][i]=", data['videos'][i]['video_path']);
+              video_path = data['response_data']['videos'][i]['video_path'];  //把每個影片URL存下來
               video_path_array.push(video_path);
               console.log("A_video_path=",video_path); 
               
   //            data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
-              data_video_name = data['videos'][i]['video_name'];
+              data_video_name = data['response_data']['videos'][i]['video_name'];
               Video_Name_array.push(data_video_name);
               
               const VideoElement = (
@@ -282,8 +282,8 @@ export default function Account_Archive() {
             return information;
         })
         .then((data) => {
-          console.log("data=",typeof(data));  
-          setVideo_Number(parseInt(data['video_number']));
+          console.log("data=", data);  
+          setVideo_Number(parseInt(data['response_data']['video_number']));
           console.log("video_number=", video_number);  
           API=2;
         })
@@ -307,17 +307,17 @@ export default function Account_Archive() {
         })
         .then((data) => {
           console.log("data=",data);  
-          setVideo_Number(data['videos'].length);
+          setVideo_Number(data['response_data']['videos'].length);
           console.log("Video_Number=", video_number);
           for(i=0; i<video_number; i++)    
           {
             console.log("key=", index);
-            video_path = data['videos'][i]['video_path'];  //把每個影片URL存下來
+            video_path = data['response_data']['videos'][i]['video_path'];  //把每個影片URL存下來
             video_path_array.push(video_path);
             console.log("A_video_path=",video_path); 
             
 //            data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
-            data_video_name = data['videos'][i]['video_name'];
+            data_video_name = data['response_data']['videos'][i]['video_name'];
             Video_Name_array.push(data_video_name);
             
             const VideoElement = (

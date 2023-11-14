@@ -51,7 +51,7 @@ export const Header = () => {
     useEffect(() => {
         console.log("Header Trigger");
         setToken(Cookies.get('token'));                   //" "中間字串
-        setUser(Cookies.get('userName')?.substring(1, Cookies.get('userName').lastIndexOf(`"`))); 
+        setUser(Cookies.get('userName')); 
     },[])
 
     console.log("~~token~~", Cookies.get('token'));

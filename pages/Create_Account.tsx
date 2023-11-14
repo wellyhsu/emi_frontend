@@ -10,14 +10,14 @@ var type="nothing";
 function choose_type_Teacher(){
   document.getElementById("Teacher_button").style = "  background-color: rgba(255,0 ,0 , 1);";
   document.getElementById("Student_button").style = "  background-color: rgba(243, 241, 241, 1);";
-  type = "true";  //"Teacher";
+  type = "True";  //"Teacher";
 
 }
 
 function choose_type_Student(){
   document.getElementById("Teacher_button").style = "  background-color: rgba(243, 241, 241, 1);";
   document.getElementById("Student_button").style = "  background-color: rgba(255,0 ,0 , 1);";
-  type = "false";  //"Student";
+  type = "False";  //"Student";
 }
 
 export default function Create_Account() {
@@ -70,10 +70,6 @@ export default function Create_Account() {
     {
       alert("Please choose the 'identity'.");
     }
-    else if(passwordRef.current.value != confirm_passwordRef.current.value)
-    {
-      alert("'Password' and 'confirm password' not same!");
-    }
     else
     {
       fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_signup, {
@@ -93,19 +89,32 @@ export default function Create_Account() {
         email = data["email"];
         password = data["password"];
 
+        console.log("data=", data);
         console.log('username=',data["username"]);
         console.log('email=',data["email"]);
         console.log('password=',data["password"]);
 
-        //改成如果E-mail重複 跳提醒視窗
-        if(data["username"] ==  "A user with that username already exists.")
+        //註冊成功 老師帳號成功 學生帳號成功
+        if(passwordRef.current.value != confirm_passwordRef.current.value)
         {
-          alert(data["username"]);
+          alert("'Password' and 'confirm password' not same!");
+          return false
         }
-        else  //註冊成功
+        
+        if(data["message"] ==  "Student account created!")
         {
-          alert("Create account sucessfully.");
+          alert(data["message"]);
           window.location.assign("/" + process.env.NEXT_PUBLIC_Log_in);
+        }
+        else if(data["message"] ==  "Teacher account created!")
+        {
+          alert(data["message"]);
+          window.location.assign("/" + process.env.NEXT_PUBLIC_Log_in);
+        }
+        else  //註冊不成功 改成如果E-mail重複 跳提醒視窗
+        {
+          alert(data['message']);
+          return false
         }
       })
       .catch((error) => console.log("error", error));

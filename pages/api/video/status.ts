@@ -18,13 +18,11 @@ export default async function handler(
   {   
     console.log("POST API");
     status = req.body.status;  //影片處理狀態
-    video_id = req.body.video_id;  //影片ID
     processed_video_path = req.body.processed_video_path;
-    RID = req.body.RID;
+    RID = req.body.RID;   //影片RID
 
     console.log(
-                "PPvideo_id:", video_id, 
-                "status:", status, 
+                "PPstatus:", status, 
                 "processed_video_path:", processed_video_path,
                 "RID= ", RID
               );
@@ -34,7 +32,6 @@ export default async function handler(
       console.log("CC_processed_video_path: ",processed_video_path);
       
       res.status(200).json({ 
-        video_id: video_id, 
         status: status, 
         processed_video_path: processed_video_path, 
         RID: RID 
@@ -42,7 +39,6 @@ export default async function handler(
     }
     else
       res.status(200).json({ 
-        video_id: video_id, 
         status: status, 
         processed_video_path: "Still not get.", 
         RID: RID 
@@ -54,7 +50,7 @@ export default async function handler(
       // 等待異步操作完成
       console.log("GET status=", status);        
 
-      console.log("video_id:", video_id, 
+      console.log(
                   "status:", status, 
                   "processed_video_path:", processed_video_path,
                   "RID", RID
@@ -62,16 +58,14 @@ export default async function handler(
 
       if(status == 'completed')
         res.status(200).json({ 
-            video_id: video_id, 
             status: status, 
             processed_video_path: processed_video_path,
             RID: RID
         });
       else
         res.status(200).json({ 
-            video_id: video_id, 
             status: status, 
-            processed_video_path: "Still not get." 
+            processed_video_path: "Still not get.",
             RID: RID  
         });
     } 

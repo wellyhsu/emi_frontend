@@ -54,12 +54,12 @@ function Log_out()
         console.log('data=',data);
         console.log('success=',data["detail"]);
 
-
-        alert(success);
         if(success == "Logout successful") //成功登出 Successfully logged out.
         {
             alert("Logout successful");
             Cookies.set('token', "null");
+            Cookies.set('identity', 'Teacher');
+            Cookies.set('userName', 'Null');
             window.location.assign("/");
         }
         else
@@ -85,7 +85,7 @@ export const Header_student = () => {
     useEffect(() => {
         console.log("Header Trigger");
         setToken(Cookies.get('token'));                   //" "中間字串
-        setUser(Cookies.get('userName')?.substring(1, Cookies.get('userName').lastIndexOf(`"`))); 
+        setUser(Cookies.get('userName')); 
     },[])
 
     console.log("~~token~~", Cookies.get('token'));

@@ -41,15 +41,19 @@ export default function Account_Settings() {
        success = data["message"];
 
         console.log('data=',data);
-        console.log('success=',data["detail"]);
+        console.log('success=', success);
 
-
-        alert(success);
         if(success == "Logout successful") //成功登出 Successfully logged out.
         {
+          alert("Logout successful");
           Cookies.set('token', "null");
           Cookies.set('identity', 'Teacher');
+          Cookies.set('userName', 'Null');
           window.location.assign("/");
+        }
+        else
+        {
+          alert("Log out fail.");
         }
       })
       .catch((error) => console.log("error", error));

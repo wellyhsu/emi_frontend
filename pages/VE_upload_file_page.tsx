@@ -34,6 +34,8 @@ var video_id;
 var video_RID;
 var API_video_RID;
 
+var call_API;
+
 //上傳影片到資料庫後端的取消功能
 function cancel_upload()
 {
@@ -65,7 +67,6 @@ function cancel_upload()
         })
         .then((data) => {
             console.log('data=', data);
-            console.log('data[message"]=', data["message"]);
         })
         .catch((error) => console.log("error", error));
 }
@@ -78,6 +79,9 @@ function cancel_video_processing()
     document.getElementById("video_processing").style = "display: none";
     
     cancel = 1;   //代表不繼續上傳
+    clearInterval(call_API);  //清除計數器
+
+    console.log("call_API=", call_API);
     console.log("processing_cancel=", cancel);
 
     const Cancel = new FormData();   //宣告fd為FormData();
@@ -206,14 +210,20 @@ export default function VE_upload_file_page() {
         
         status = data["status"];
         video_path = data["processed_video_path"];
-        video_id = data["video_id"];
         API_video_RID = data["RID"];
 
         console.log("Wvideo_path=",video_path,
-                    "Wvideo_id", video_id,
                     "Wstatus", status,
                     "WAPI_video_RID", API_video_RID
                     );
+                    
+        console.log("UserName",UserName);
+        console.log("fileName",fileName);
+
+        if( cancel == 0 && status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "/" + fileName)  //若點擊了取消按鈕 不繼續打API
+        {
+            clearInterval(call_API);  //清除計數器
+        }
     }
 
     async function checkProcessingStatus() {
@@ -222,11 +232,16 @@ export default function VE_upload_file_page() {
 
         //GET 打後端Next.js API
 
-        setInterval(() => {
+        call_API = setInterval(() => {
             performSomeAsyncOperation();
-        }, 2000); // 這裡模擬等待 2 秒      
+        }, 2000); // 這裡模擬等待 2 秒 週期循環執行  
 
-        if( cancel == 0 && status == "completed" && video_RID == API_video_RID)  //若點擊了取消按鈕 不繼續打API
+        console.log("check_call_API=", call_API);
+        
+//        if( cancel == 0 && status == "completed" && video_RID == API_video_RID)  //若點擊了取消按鈕 不繼續打API
+        console.log("UserName",UserName);
+        console.log("fileName",fileName);
+        if( cancel == 0 && status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "/" + fileName)  //若點擊了取消按鈕 不繼續打API
         {
             clearInterval(call_API);  //清除計數器
             document.getElementById('video_processing').style = "display: none";

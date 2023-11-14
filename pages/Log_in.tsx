@@ -71,7 +71,7 @@ fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
         token_DATA = data["token"];
         status_code = data["code"];
         msg = data["message"];
-        identity = data["is_staff"];
+        identity = data["is_stuff"];   //is_staff
         userName = data["username"];
 
         token_DATA = JSON.stringify(token_DATA);
@@ -85,7 +85,7 @@ fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
         console.log('msg=',msg);
         alert(msg);
 //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
-        if(msg == "Login successful")
+        if(msg == "Welcome " + userName)
         {
           if(identity == true)
           {
