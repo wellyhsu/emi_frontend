@@ -69,10 +69,10 @@ export default function Student_view_video() {
             })
             .then((data) => {
                 console.log("data=",data);
-                console.log("data.length=",data.length);
-                for(i=0; i<data.length; i++)
+                console.log("data['quiz_times].length=",data['quiz_times'].length);
+                for(i=0; i<data['quiz_times'].length; i++)
                 {
-                    Question_time.push(data[i]);
+                    Question_time.push(data['quiz_times'][i]);
                     console.log('Question_time=',Question_time[i]);
                     console.log('Question_time type=',typeof(Question_time[i])); //parseInt() 字串轉數字
                 }

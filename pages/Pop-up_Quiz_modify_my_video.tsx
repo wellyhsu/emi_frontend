@@ -189,13 +189,13 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
                     })
                     .then((data) => {
                         console.log("data=",data);
-                        console.log("data.length=", data.length);
+                        console.log("data['quiz_times'].length=", data['quiz_times'].length);
                         
                         const send_circle = [...ShowCircle];    //用於建立副本，渲染畫面
 
-                        for(i=0; i<data.length; i++)
+                        for(i=0; i<data['quiz_times'].length; i++)
                         {
-                            Question_time.push(data[i]);
+                            Question_time.push(data['quiz_times'][i]);
                             console.log('Question_time=',Question_time[i]);
                         
                             const circleElement = (
@@ -391,18 +391,18 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
             })
             .then((data) => {
                 console.log("data=",data);
-                console.log("data[question]=",data["question"]);
-                console.log("data[options]=",data["options"]);
-                console.log("data[answer]=",data["answer"]);
-                console.log("data[explanation]",data["explanation"]);
-                console.log("data[video]",data["video"]);
+                console.log("data['quiz_data'][question]=",data['quiz_data']["question"]);
+                console.log("data['quiz_data'][options]=",data['quiz_data']["options"]);
+                console.log("data['quiz_data'][answer]=",data['quiz_data']["answer"]);
+                console.log("data['quiz_data'][explanation]",data['quiz_data']["explanation"]);
+                console.log("data['quiz_data'][video]",data['quiz_data']["video"]);
                 
-                document.getElementById("Modify_Question").value = data["question"];
-                document.getElementById("Modify_Choice_1").value = data["options"][0];
-                document.getElementById("Modify_Choice_2").value = data["options"][1];
-                document.getElementById("Modify_Choice_3").value = data["options"][2];
-                document.getElementById("Modify_Choice_4").value = data["options"][3];
-                document.getElementById("Modify_Answer").value = data["answer"];
+                document.getElementById("Modify_Question").value = data['quiz_data']["question"];
+                document.getElementById("Modify_Choice_1").value = data['quiz_data']["options"][0];
+                document.getElementById("Modify_Choice_2").value = data['quiz_data']["options"][1];
+                document.getElementById("Modify_Choice_3").value = data['quiz_data']["options"][2];
+                document.getElementById("Modify_Choice_4").value = data['quiz_data']["options"][3];
+                document.getElementById("Modify_Answer").value = data['quiz_data']["answer"];
 
             })
             .catch((error) => console.log("error", error));
@@ -567,10 +567,11 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
             .then((data) => {
        
                 console.log('data=', data);
-                console.log("data['error']=", data['error']);
-                if(data['error'] == "Quiz with same quiz_time already exists.")
+                console.log("data['message']=", data['message']);
+
+                if(data['message'] != "successful")
                 {
-                    alert(data['error']);
+                    alert(data['message']);
                 }
 
             })
@@ -716,7 +717,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
                             </div>
                             <div style={{float: "right", marginBottom: "5vh"}}>
                                 <button className={styles.Cancel_button} onClick={Multiple_choice_ClearClose}>
-                                    Cancel
+                                    Close
                                 </button>
                                 <button className={styles.Continuous_button} onClick={Multiple_choice_close}>
                                     Continuous

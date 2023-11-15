@@ -47,6 +47,7 @@ export default function Create_Account() {
       "username": nameRef.current.value,
       "email": EmailRef.current.value,
       "password": passwordRef.current.value,  //轉json格式
+      "comfirmed_password": confirm_passwordRef.current.value,
       "is_staff": type,
     }
   
@@ -94,15 +95,7 @@ export default function Create_Account() {
         console.log('email=',data["email"]);
         console.log('password=',data["password"]);
 
-        //註冊成功 老師帳號成功 學生帳號成功
-/*
-        if(passwordRef.current.value != confirm_passwordRef.current.value)
-        {
-          alert("'Password' and 'confirm password' not same!");
-          return false
-        }
-*/
-        
+        //註冊成功 老師帳號成功 學生帳號成功        
         if(data["message"] ==  "Student account created!")
         {
           alert(data["message"]);
