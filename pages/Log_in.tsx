@@ -19,6 +19,7 @@ export default function Home() {
     var msg;
     var identity;
     var userName;
+    var user_RID;
 
 	  console.log('press Log_in')
     if(EmailRef.current.value == "")
@@ -53,9 +54,9 @@ export default function Home() {
       window.location.replace("/");
     }
 */  // http://34.81.60.252:30031/user/login/
-console.log("URL=",process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login);
+    console.log("URL=",process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login);
  
-fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
+    fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
@@ -73,11 +74,13 @@ fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
         msg = data["message"];
         identity = data["is_stuff"];   //is_staff
         userName = data["username"];
+        user_RID = data["user_id"];
 
         token_DATA = JSON.stringify(token_DATA);
         
         Cookies.set('token', token_DATA);
         Cookies.set('userName', userName);
+        Cookies.set('user_RID', user_RID);
         
         console.log('token_DATA=', Cookies.get('token'));
         console.log('userName=', Cookies.get('userName'));

@@ -130,20 +130,21 @@ export default function Account_Archive() {
       UserName = Cookies.get('userName');
       UserName = UserName?.substring(1, UserName?.lastIndexOf(`"`));  //" "中間字串
       console.log("username!!", UserName);
+      console.log("user_RID= " ,Cookies.get('user_RID'));
 
       //取得使用者影片總數
-      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName + "/number", { 
+      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + Cookies.get('user_RID') + "/number", { 
         method: 'GET',
       })
         .then((response) => {
             console.log('response=',response);
-            var information = response.text();
+            var information = response.json();
             console.log('info^^',information);
             return information;
         })
         .then((data) => {
-          console.log("data=",typeof(data));  
-          setVideo_Number(parseInt(data));
+          console.log("data=", data);  
+          setVideo_Number(parseInt(data['video_number']));
           console.log("video_number=", video_number);  
           API=2;
         })
@@ -156,7 +157,7 @@ export default function Account_Archive() {
     {
       console.log("C_video_number=", video_number);
       //取得使用者影片路徑、檔名
-      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + UserName, {  
+      fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_get_video + Cookies.get('user_RID'), {  
         method: 'GET',
       })
         .then((response) => {
@@ -166,16 +167,16 @@ export default function Account_Archive() {
             return information;
         })
         .then((data) => {
-          console.log("data=",data[0]);  
+          console.log("data=",data);  
           console.log("Video_Number=", video_number);
           for(i=0; i<video_number; i++)    
           {
             console.log("key=", index);
-            video_path = data[index];  //把每個影片URL存下來
+            video_path = data['video_paths'][i];  //把每個影片URL存下來
             video_path_array.push(video_path);
             console.log("A_video_path=",video_path); 
             
-            data_video_name = String(data[i])?.substring(String(data[i])?.lastIndexOf(`/`)+1);
+            data_video_name = String(data['video_paths'][i])?.substring(String(data['video_paths'][i])?.lastIndexOf(`/`)+1);
             Video_Name_array.push(data_video_name);
             
             const VideoElement = (
@@ -266,7 +267,7 @@ export default function Account_Archive() {
               </div>
               <div style={{display: "flex", justifyContent: "center"}}>
                 <button className={styles.preview_video_button} onClick={Cancel}>
-                    Cancel 
+                    Close
                 </button>
                 <button className={styles.preview_video_button} onClick={Delete}>
                     Delete 

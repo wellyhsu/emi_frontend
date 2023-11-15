@@ -95,11 +95,13 @@ export default function Create_Account() {
         console.log('password=',data["password"]);
 
         //註冊成功 老師帳號成功 學生帳號成功
+/*
         if(passwordRef.current.value != confirm_passwordRef.current.value)
         {
           alert("'Password' and 'confirm password' not same!");
           return false
         }
+*/
         
         if(data["message"] ==  "Student account created!")
         {

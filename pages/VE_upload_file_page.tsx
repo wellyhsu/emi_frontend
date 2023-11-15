@@ -81,7 +81,7 @@ function cancel_video_processing()
     cancel = 1;   //代表不繼續上傳
     clearInterval(call_API);  //清除計數器
 
-    console.log("call_API=", call_API);
+    console.log("Cancel_call_API=", call_API);
     console.log("processing_cancel=", cancel);
 
     const Cancel = new FormData();   //宣告fd為FormData();
@@ -94,7 +94,7 @@ function cancel_video_processing()
     });
 
     //打取消上傳影片的API
-    fetch(process.env.NEXT_Cancel_upload, {            
+    fetch("http://34.80.125.169:30036/api/video/cancel", {            
         method: 'POST',
         headers:{
             "Metadata-Token": Metadata_token,

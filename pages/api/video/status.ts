@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 var status;
 var video_id;
 var processed_video_path;
-var RID;  //紀錄影片(唯一性)
+var video_RID;  //紀錄影片(唯一性)
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,12 +19,12 @@ export default async function handler(
     console.log("POST API");
     status = req.body.status;  //影片處理狀態
     processed_video_path = req.body.processed_video_path;
-    RID = req.body.RID;   //影片RID
+    video_RID = req.body.video_RID;   //影片RID
 
     console.log(
                 "PPstatus:", status, 
                 "processed_video_path:", processed_video_path,
-                "RID= ", RID
+                "video_RID= ", video_RID
               );
 
     if(status == "completed")
@@ -34,14 +34,14 @@ export default async function handler(
       res.status(200).json({ 
         status: status, 
         processed_video_path: processed_video_path, 
-        RID: RID 
+        video_RID: video_RID 
       });
     }
     else
       res.status(200).json({ 
         status: status, 
         processed_video_path: "Still not get.", 
-        RID: RID 
+        video_RID: video_RID 
       });
   }
   else  //GET
@@ -53,20 +53,20 @@ export default async function handler(
       console.log(
                   "status:", status, 
                   "processed_video_path:", processed_video_path,
-                  "RID", RID
+                  "video_RID", video_RID
                   );
 
       if(status == 'completed')
         res.status(200).json({ 
             status: status, 
             processed_video_path: processed_video_path,
-            RID: RID
+            video_RID: video_RID
         });
       else
         res.status(200).json({ 
             status: status, 
             processed_video_path: "Still not get.",
-            RID: RID  
+            video_RID: video_RID  
         });
     } 
     catch (error) 

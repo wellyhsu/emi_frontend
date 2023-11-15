@@ -57,9 +57,10 @@ function Log_out()
         if(success == "Logout successful") //成功登出 Successfully logged out.
         {
             alert("Logout successful");
-            Cookies.set('token', "null");
+            Cookies.set('token', "NULL");
             Cookies.set('identity', 'Teacher');
-            Cookies.set('userName', 'Null');
+            Cookies.set('userName', 'NULL');
+            Cookies.set('user_RID', 'NULL');
             window.location.assign("/");
         }
         else
