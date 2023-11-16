@@ -40,9 +40,18 @@ export default function Forgot_password() {
         token_DATA = data["token"];
         user = data["user"];
    
+        console.log("data=",data);
         console.log('token_DATA=',data["token"]);
         console.log('user=',data["user"]);
-        prompt("your token is" , data["token"]);  
+        if(data['message'] != "")
+        {
+          alert(data['message']);
+        }
+        else
+        {
+          prompt("your token is" , data["token"]);  
+
+        }
               
         window.location.assign("/" + process.env.NEXT_PUBLIC_Reset_password);
       })

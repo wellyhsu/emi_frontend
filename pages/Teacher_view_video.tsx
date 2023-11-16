@@ -144,23 +144,23 @@ export default function Student_view_video() {
                                     })
                                     .then((data) => {
                                         console.log("data=",data);
-                                        console.log("data[question]=",data["question"]);
-                                        console.log("data[options]=",data["options"][0]);
-                                        console.log("data[answer]=",data["answer"]);
-                                        console.log("data[explanation]",data["explanation"]);
-                                        console.log("data[video]",data["video"]);
+                                        console.log("data['quiz_data'][question]=",data['quiz_data']["question"]);
+                                        console.log("data['quiz_data'][options]=",data['quiz_data']["options"][0]);
+                                        console.log("data['quiz_data'][answer]=",data['quiz_data']["answer"]);
+                                        console.log("data['quiz_data'][explanation]",data['quiz_data']["explanation"]);
+                                        console.log("data['quiz_data'][video]",data['quiz_data']["video"]);
                                         
-                                        setQuestion(data["question"]);
-                                        setOptions1(data["options"][0]);
-                                        setOptions2(data["options"][1]);
-                                        setOptions3(data["options"][2]);
-                                        setOptions4(data["options"][3]);
+                                        setQuestion(data['quiz_data']["question"]);
+                                        setOptions1(data['quiz_data']["options"][0]);
+                                        setOptions2(data['quiz_data']["options"][1]);
+                                        setOptions3(data['quiz_data']["options"][2]);
+                                        setOptions4(data['quiz_data']["options"][3]);
 
                                         console.log("options1=",Options1);
                                         console.log("options2=",Options2);
                                         console.log("options3=",Options3);
                                         console.log("options4=",Options4);
-                                        setRightAnswer(data["answer"]);
+                                        setRightAnswer(data['quiz_data']["answer"]);
 
                                         console.log("Question=", Question);
                                         console.log("Options(4)=", Options1);

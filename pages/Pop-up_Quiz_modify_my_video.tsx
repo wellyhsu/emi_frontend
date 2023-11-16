@@ -569,7 +569,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
                 console.log('data=', data);
                 console.log("data['message']=", data['message']);
 
-                if(data['message'] != "successful")
+                if(data['message'] != "Quiz added successfully.")
                 {
                     alert(data['message']);
                 }
