@@ -10,12 +10,12 @@ import { CLIENT_STATIC_FILES_PATH } from 'next/dist/shared/lib/constants';
 var T=0;
 var Next_Link = process.env.NEXT_PUBLIC_VE_Create_no_script;
 var fileData;
-var fileName;
+var fileName="";
 var fileType;
 var fileSize;//檔案的大小
 var fileTime;
-var videolength;
-var Metadata_token; 
+var videolength=0;
+var Metadata_token=""; 
 const SPLIT_BYTES = 100*1024; //檔案以每100KB做切割
 const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 //var start = 0; //位元組數的開頭
@@ -23,18 +23,16 @@ const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 //var count = fileSize % SPLIT_BYTES == 0 ? fileSize / SPLIT_BYTES : Math.floor(fileSize / SPLIT_BYTES) + 1;
 //上述為計算一共會切出幾份檔案 
 
-var UserName;
+var UserName="";
 UserName = Cookies.get('userName');
 UserName = UserName?.substring(1, UserName?.lastIndexOf(`"`));  //" "中間字串
 var cancel = 0;
 
-var status;
-var video_path;
+var status="";
+var video_path="";
 var video_id;
 var video_RID;
 var API_video_RID;
-
-var call_API;
 
 //上傳影片到資料庫後端的取消功能
 function cancel_upload()
@@ -53,7 +51,7 @@ function cancel_upload()
         console.log("value(標題)=",value,"key(內容)=",key);
     });
 
-    fetch(process.env.NEXT_Cancel_upload, {            
+    fetch("http://34.80.125.169:30036/api/video/cancel", {            
         method: 'POST',
         headers:{
             "Metadata-Token": Metadata_token,
@@ -79,9 +77,6 @@ function cancel_video_processing()
     document.getElementById("video_processing").style = "display: none";
     
     cancel = 1;   //代表不繼續上傳
-    clearInterval(call_API);  //清除計數器
-
-    console.log("Cancel_call_API=", call_API);
     console.log("processing_cancel=", cancel);
 
     const Cancel = new FormData();   //宣告fd為FormData();
@@ -108,7 +103,6 @@ function cancel_video_processing()
         })
         .then((data) => {
             console.log('data=', data);
-            console.log('data[message"]=', data["message"]);
         })
         .catch((error) => console.log("error", error));
 }
@@ -219,11 +213,6 @@ export default function VE_upload_file_page() {
                     
         console.log("UserName",UserName);
         console.log("fileName",fileName);
-
-        if( cancel == 0 && status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "/" + fileName)  //若點擊了取消按鈕 不繼續打API
-        {
-            clearInterval(call_API);  //清除計數器
-        }
     }
 
     async function checkProcessingStatus() {
@@ -232,18 +221,24 @@ export default function VE_upload_file_page() {
 
         //GET 打後端Next.js API
 
-        call_API = setInterval(() => {
+        const call_API = setInterval(() => {
             performSomeAsyncOperation();
+            console.log("check_call_API=", call_API);
+            
+            if( cancel == 1 || (status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "/" + fileName) )
+            {
+                console.log("CANCEL_call_API=", call_API);
+                clearInterval(call_API);  //清除計數器
+            }
         }, 2000); // 這裡模擬等待 2 秒 週期循環執行  
 
-        console.log("check_call_API=", call_API);
         
 //        if( cancel == 0 && status == "completed" && video_RID == API_video_RID)  //若點擊了取消按鈕 不繼續打API
         console.log("UserName",UserName);
         console.log("fileName",fileName);
+
         if( cancel == 0 && status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "/" + fileName)  //若點擊了取消按鈕 不繼續打API
         {
-            clearInterval(call_API);  //清除計數器
             document.getElementById('video_processing').style = "display: none";
             document.getElementById('finish').style = "display: flex";
 
@@ -281,7 +276,8 @@ export default function VE_upload_file_page() {
                 "video_size": fileSize,
                 "video_format": "video/mp4",
                 "chunk_number": String(Chunk_Number),
-                "chunk_final": String(Chunk_Final),  
+                "chunk_final": String(Chunk_Final), 
+                "user_RID": Cookies.get('user_RID'), 
             }
     
             var Video_Information_send_json = JSON.stringify(Video_Information_send);  //轉json格式
@@ -382,6 +378,7 @@ export default function VE_upload_file_page() {
         const Video_metadata_send =
         {
             "username": UserName,
+            "user_RID": Cookies.get('user_RID'),
             "video_type": fileType,
             "video_size": fileSize,
             "video_length": videolength,
@@ -394,7 +391,7 @@ export default function VE_upload_file_page() {
         try 
         {
             //傳送metadata到後端
-            const metadata_response = await fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_Metadata_video, {            
+            const metadata_response = await fetch("http://34.80.125.169:30031/api/metadata/generate_token", {            
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json',
