@@ -59,7 +59,7 @@ function cancel_upload()
         body: Cancel,
     })
         .then((response) => {
-            information = response.text();
+            information = response.json();
             console.log('info^^',information);
             return information;
         })
@@ -97,7 +97,7 @@ function cancel_video_processing()
         body: Cancel,
     })
         .then((response) => {
-            information = response.text();
+            information = response.text(); 
             console.log('info^^',information);
             return information;
         })
@@ -224,29 +224,28 @@ export default function VE_upload_file_page() {
         const call_API = setInterval(() => {
             performSomeAsyncOperation();
             console.log("check_call_API=", call_API);
-            
+
             if( cancel == 1 || (status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "/" + fileName) )
             {
                 console.log("CANCEL_call_API=", call_API);
                 clearInterval(call_API);  //清除計數器
             }
+    //        if( cancel == 0 && status == "completed" && video_RID == API_video_RID)  //若點擊了取消按鈕 不繼續打API
+
+            if( cancel == 0 && status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "/" + fileName)  //若點擊了取消按鈕 不繼續打API
+            {
+                document.getElementById('video_processing').style = "display: none";
+                document.getElementById('finish').style = "display: flex";
+
+                console.log('video_path Status data= ', video_path);  //顯示取得的data
+
+                Cookies.set('video_path', video_path);
+                console.log('back_Cookies=', Cookies.get('video_path'));
+            }            
         }, 2000); // 這裡模擬等待 2 秒 週期循環執行  
 
         
-//        if( cancel == 0 && status == "completed" && video_RID == API_video_RID)  //若點擊了取消按鈕 不繼續打API
-        console.log("UserName",UserName);
-        console.log("fileName",fileName);
 
-        if( cancel == 0 && status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "/" + fileName)  //若點擊了取消按鈕 不繼續打API
-        {
-            document.getElementById('video_processing').style = "display: none";
-            document.getElementById('finish').style = "display: flex";
-
-            console.log('video_path Status data= ', video_path);  //顯示取得的data
-
-            Cookies.set('video_path', video_path);
-            console.log('back_Cookies=', Cookies.get('video_path'));
-        }
     }
 
     //上傳分割好的小段影片(依據切割長度發送請求次數)
@@ -265,6 +264,10 @@ export default function VE_upload_file_page() {
         for (let chunk of chunks) {   //
             const fd = new FormData();   //宣告fd為FormData();
     
+            if(Chunk_Number == chunks.length)
+            {
+                Chunk_Final = true;
+            }
             //發送影片相關資訊到後端(Golang)
             const Video_Information_send =
             {
@@ -296,16 +299,7 @@ export default function VE_upload_file_page() {
               }
     */
             try 
-            {
-                if(Chunk_Number < chunks.length)
-                {
-                    Chunk_Number = Chunk_Number + 1;
-                    if(Chunk_Number == chunks.length)
-                    {
-                        Chunk_Final = true;
-                    }
-                }
-    
+            {    
                 if(cancel == 0)
                 {
                     console.log("POST !!");
@@ -320,22 +314,30 @@ export default function VE_upload_file_page() {
                     if (response.ok) {
                         SetProgress_Number(((100/chunks.length) * Chunk_Number).toFixed(0));
                         console.log("response is ok!");
-                        //const data = await response.json();   //取得後端回傳的資料
-                        const data = await response.text();   //取得後端回傳的資料
         
-                        results.push(data);    //將後端後端傳回的資料放到results
+                        var data;
                         if(Chunk_Number == chunks.length)
                         {   
+                            data = await response.text();   //取得後端回傳的資料
                             console.log("video upload finish");                               
                             console.log("data=", data);
-                            video_RID = data["RID"];
-                            console.log("Video RID= ", video_RID);
+                        //    video_RID = data['user_RID'];
+                        //    console.log("Video RID= ", video_RID);
                             
                             document.getElementById('video_processing').style = "display: inline-block";
 
                             // 開始檢查後端影片處理狀態
                             checkProcessingStatus();
-                        }   
+                        }  
+                        else
+                        {
+                            data = await response.json();   //取得後端回傳的資料
+                            video_RID = data['user_RID'];
+                            console.log("Video RID= ", video_RID);
+
+                            Chunk_Number = Chunk_Number + 1;
+                        } 
+                        results.push(data);    //將後端後端傳回的資料放到results
     
                         Set_transform_degree(transform_degree + 360/chunks.length);
                         if(Chunk_Number <= chunks.length/2)
@@ -353,11 +355,14 @@ export default function VE_upload_file_page() {
                     else {
                         console.log("response not ok.");
                         results.push(null);
+                        Chunk_Number = Chunk_Number + 1;
                     }
+
                 }
                 else
                 {
                     console.log("cancel", Chunk_Number-1, "chumk uplaod!");
+                    video_RID="";
                     break;
                 }
       
@@ -401,12 +406,10 @@ export default function VE_upload_file_page() {
                 
             if(metadata_response.ok)
             {
-                const data = await metadata_response.text();
+                const data = await metadata_response.json();
                 console.log('data=', data);
-                console.log("data['message']",JSON.parse(data).message);
-                console.log("data['message']",JSON.parse(data).message);
-                console.log("data['Metadata_Token']",JSON.parse(data).Metadata_Token);
-                Cookies.set('Metadata_Token',JSON.parse(data).Metadata_Token);
+                console.log("data['Metadata_Token']",data['Metadata_Token']);
+                Cookies.set('Metadata_Token',data['Metadata_Token']);
                 Metadata_token = Cookies.get('Metadata_Token');
                 console.log("SET Cookies-> ", Metadata_token);
     
