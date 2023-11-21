@@ -257,7 +257,7 @@ export default function Account_Archive() {
               <div className={styles.preview_video}>
                 <div>
                   <video 
-                    src={`/api/video?videoPath=${encodeURIComponent(view_video_URL)}`}
+                    src={`/api/videoPath?videoPath=${encodeURIComponent(view_video_URL)}`}
                     poster=""
                     autoPlay={false}
                     controls={true} 

@@ -358,7 +358,7 @@ export default function Student_view_video() {
                         >
                             {VideoPath&&
                                 <>
-                                    <source src={`/api/video?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
+                                    <source src={`/api/videoPath?videoPath=${encodeURIComponent(videoPath)}`} type="video/mp4" />
                                     Your browser does not support the video tag.
                                 </>
                             }

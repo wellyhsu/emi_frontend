@@ -375,7 +375,7 @@ export default function Account_Archive() {
               <div className={styles.preview_video}>
                   <video 
                     id='video'
-                    src={`/api/video?videoPath=${encodeURIComponent(view_video_URL)}`}
+                    src={`/api/videoPath?videoPath=${encodeURIComponent(view_video_URL)}`}
                     poster=""
                     autoPlay={false}
                     controls={true} 
@@ -384,7 +384,7 @@ export default function Account_Archive() {
               </div>
               <div style={{display: "flex", justifyContent: "center"}}>
                 <button className={styles.preview_video_button} onClick={Cancel}>
-                    Cancel 
+                    Close 
                 </button>
                 <button className={styles.preview_video_button} onClick={Delete}>
                     Delete 

@@ -121,7 +121,7 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
             console.log("Cookies.get('video_path')=", Cookies.get('video_path'));
 
             const sourceElement = document.createElement('source');
-            sourceElement.src = `/api/video?videoPath=${encodeURIComponent(Cookies.get('video_path'))}`;
+            sourceElement.src = `/api/videoPath?videoPath=${encodeURIComponent(Cookies.get('video_path'))}`;
             sourceElement.type = 'video/mp4';
 
             console.log("成功！");

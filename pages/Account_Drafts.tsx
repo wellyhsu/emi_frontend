@@ -234,7 +234,7 @@ export default function Home() {
               <div>
               {video_path && 
                 <video 
-                    src={`/api/video?videoPath=${encodeURIComponent(video_path)}`}
+                    src={`/api/videoPath?videoPath=${encodeURIComponent(video_path)}`}
                     poster=""
                     autoPlay={false}
                     controls={true} 
