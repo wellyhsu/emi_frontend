@@ -25,7 +25,6 @@ const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 
 var UserName="";
 UserName = Cookies.get('userName');
-UserName = UserName?.substring(1, UserName?.lastIndexOf(`"`));  //" "中間字串
 var cancel = 0;
 
 var status="";

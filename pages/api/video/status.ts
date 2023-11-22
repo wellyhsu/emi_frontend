@@ -38,7 +38,7 @@ export default async function handler(
       });
     }
     else
-      res.status(200).json({ 
+      res.status(400).json({ 
         status: status, 
         processed_video_path: "Still not get.", 
         video_RID: video_RID 
