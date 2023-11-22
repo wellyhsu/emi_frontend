@@ -60,7 +60,7 @@ function cancel_upload()
         body: Cancel,
     })
         .then((response) => {
-            information = response.text();
+            information = response.json();
             console.log('info^^',information);
             return information;
         })
@@ -99,7 +99,7 @@ function cancel_video_processing()
         body: Cancel,
     })
         .then((response) => {
-            information = response.text(); 
+            information = response.json(); 
             console.log('info^^',information);
             return information;
         })
@@ -201,7 +201,7 @@ export default function VE_upload_file_page() {
     async function performSomeAsyncOperation() {
         // 執行需要等待的異步操作
         console.log("CCancel =",cancel);
-        const Response = await fetch(process.env.NEXT_PUBLIC_URL + process.env.NEXT_PUBLIC_GET_video_URL);  //打API取得影片後端傳來的路徑
+        const Response = await fetch("http://34.80.125.169:30000/api/video/status");  //打API取得影片後端傳來的路徑
         const data = await Response.json();   //取得影片後端傳來的路徑資料
         
         console.log("API data=", data)
