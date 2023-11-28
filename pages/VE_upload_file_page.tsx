@@ -51,7 +51,7 @@ function cancel_upload()
         console.log("value(標題)=",value,"key(內容)=",key);
     });
 
-    fetch("http://34.80.125.169:30036/api/video/cancel", {            
+    fetch("http://35.201.148.192:30036/api/video/cancel", {            
         method: 'POST',
         headers:{
             "Metadata-Token": Metadata_token,
@@ -90,7 +90,7 @@ function cancel_video_processing()
     });
 
     //打取消上傳影片的API
-    fetch("http://34.80.125.169:30036/api/video/cancel", {            
+    fetch("http://35.201.148.192:30036/api/video/cancel", {            
         method: 'POST',
         headers:{
             "Metadata-Token": Metadata_token,
@@ -200,7 +200,7 @@ export default function VE_upload_file_page() {
     async function performSomeAsyncOperation() {
         // 執行需要等待的異步操作
         console.log("CCancel =",cancel);
-        const Response = await fetch("http://34.80.125.169:30000/api/video/status");  //打API取得影片後端傳來的路徑
+        const Response = await fetch("http://35.201.148.192:30000/api/video/status");  //打API取得影片後端傳來的路徑
         const data = await Response.json();   //取得影片後端傳來的路徑資料
         
         console.log("API data=", data)
@@ -305,7 +305,7 @@ export default function VE_upload_file_page() {
                 if(cancel == 0)
                 {
                     console.log("POST !!");
-                    const response = await fetch("http://34.80.125.169:30036/api/video/upload"/*process.env.NEXT_PUBLIC_API_upload_video*/, {   //call後端的API
+                    const response = await fetch("http://35.201.148.192:30036/api/video/upload"/*process.env.NEXT_PUBLIC_API_upload_video*/, {   //call後端的API
                         method: 'POST',
                         headers:{
                             "Metadata-Token": Metadata_token,
@@ -394,7 +394,7 @@ export default function VE_upload_file_page() {
         try 
         {
             //傳送metadata到後端
-            const metadata_response = await fetch("http://34.80.125.169:30031/api/metadata/generate_token", {            
+            const metadata_response = await fetch("http://35.201.148.192:30031/api/metadata/generate_token", {            
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json',

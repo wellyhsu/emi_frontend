@@ -128,17 +128,6 @@ export const Header = () => {
                                 <Link
                                     href={{
                                         pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Slide_Template }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Slide Template
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
                                         query: { page: process.env.NEXT_PUBLIC_Customized_Video }
                                         }}
                                     onClick={link_click}

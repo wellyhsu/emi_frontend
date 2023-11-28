@@ -928,6 +928,7 @@ ul.Layerout ul li:hover {
 
 .Contact_us_information{
   width: 28vw;
+  max-width: 21em;
   height: 26em;
   background-color: rgba(243, 241, 241, 1);
   
@@ -949,7 +950,7 @@ ul.Layerout ul li:hover {
 }
 
 .Contact_us_introduction_content{
-  font-size: 1.8vw;
+  font-size: 1.2em;
   font-style: normal;
   font-weight: 500;
   font-family: 'Poppins', Arial, '微軟正黑體';
@@ -961,7 +962,23 @@ ul.Layerout ul li:hover {
   padding-right: 2.2em;
   white-space: pre-wrap;
 }
-
+/* 當視窗寬度小於1200px */
+@media screen and (max-width: 1010px) 
+{
+  .Contact_us_introduction_content{
+    font-size: 1.8vw;
+    font-style: normal;
+    font-weight: 500;
+    font-family: 'Poppins', Arial, '微軟正黑體';
+    line-height: 24px;
+    color: rgba(0, 0, 0, 1);
+  
+    margin-top: 0.8em;
+    padding-left: 2.4em;
+    padding-right: 2.2em;
+    white-space: pre-wrap;
+  }
+}
 
 /* Email us   */    
 .Email_us_image{
@@ -1228,7 +1245,9 @@ ul.Layerout ul li:hover {
   border-radius: 2em;
   border: none;
   background-color: rgba(243, 241, 241, 1);
+
   margin-bottom: 1em;
+  margin-right: 1vw;
 }
 
 .password{
@@ -1318,12 +1337,13 @@ ul.Layerout ul li:hover {
 }
 
 .LoginLink{
+  line-height: 2.5em;
   font-size: 15px;
   font-family: 'Poppins',Arial;
   text-decoration: underline;
   color: rgba(0, 0, 0, 0.5);
+
   margin-left: 25vw;
-  margin-bottom: 0.5em;
 }
 
 .Reset_password{
