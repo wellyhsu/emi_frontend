@@ -51,7 +51,7 @@ function cancel_upload()
         console.log("value(標題)=",value,"key(內容)=",key);
     });
 
-    fetch("http://35.201.148.192:30036/api/video/cancel", {            
+    fetch("http://34.173.16.63:30036/api/video/cancel", {            
         method: 'POST',
         headers:{
             "Metadata-Token": Metadata_token,
@@ -60,11 +60,11 @@ function cancel_upload()
     })
         .then((response) => {
             information = response.json();
-            console.log('info^^',information);
+            console.log('API cancel information=',information);
             return information;
         })
         .then((data) => {
-            console.log('data=', data);
+            console.log('API cancel data=', data);
         })
         .catch((error) => console.log("error", error));
 }
@@ -90,7 +90,7 @@ function cancel_video_processing()
     });
 
     //打取消上傳影片的API
-    fetch("http://35.201.148.192:30036/api/video/cancel", {            
+    fetch("http://34.173.16.63:30036/api/video/cancel", {            
         method: 'POST',
         headers:{
             "Metadata-Token": Metadata_token,
@@ -99,11 +99,11 @@ function cancel_video_processing()
     })
         .then((response) => {
             information = response.json(); 
-            console.log('info^^',information);
+            console.log('API cancel information=',information);
             return information;
         })
         .then((data) => {
-            console.log('data=', data);
+            console.log('API cancel data=', data);
         })
         .catch((error) => console.log("error", error));
 }
@@ -199,8 +199,8 @@ export default function VE_upload_file_page() {
     //每兩秒打一次後端 看後端任務結束了嗎？
     async function performSomeAsyncOperation() {
         // 執行需要等待的異步操作
-        console.log("CCancel =",cancel);
-        const Response = await fetch("http://35.201.148.192:30000/api/video/status");  //打API取得影片後端傳來的路徑
+        console.log("Cancel =",cancel);
+        const Response = await fetch("http://34.173.16.63:30000/api/video/status");  //打API取得影片後端傳來的路徑
         const data = await Response.json();   //取得影片後端傳來的路徑資料
         
         console.log("API data=", data)
@@ -208,9 +208,9 @@ export default function VE_upload_file_page() {
         video_path = data["processed_video_path"];
         API_video_RID = data["RID"];
 
-        console.log("Wvideo_path=",video_path,
-                    "Wstatus", status,
-                    "WAPI_video_RID", API_video_RID
+        console.log("Frontend video_path=",video_path,
+                    "Frontend status", status,
+                    "Frontend API_video_RID", API_video_RID
                     );
                     
         console.log("UserName",UserName);
@@ -218,18 +218,18 @@ export default function VE_upload_file_page() {
     }
 
     async function checkProcessingStatus() {
-        console.log("打API!!");
+        console.log("打後端Next.js API!!");
         document.getElementById('uploading').style = "display: none";
 
         //GET 打後端Next.js API
 
         const call_API = setInterval(() => {
             performSomeAsyncOperation();
-            console.log("check_call_API=", call_API);
+            console.log("check_call_API_timeinterval_number=", call_API);
 
             if( cancel == 1 || (status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "_" + Cookies.get('user_RID') + "/" + fileName) )
             {
-                console.log("CANCEL_call_API=", call_API);
+                console.log("CANCEL_call_API_number=", call_API);
                 clearInterval(call_API);  //清除計數器
             }
     //        if( cancel == 0 && status == "completed" && video_RID == API_video_RID)  //若點擊了取消按鈕 不繼續打API
@@ -239,10 +239,10 @@ export default function VE_upload_file_page() {
                 document.getElementById('video_processing').style = "display: none";
                 document.getElementById('finish').style = "display: flex";
 
-                console.log('video_path Status data= ', video_path);  //顯示取得的data
+                console.log('API get video_path data= ', video_path);  //顯示取得的data
 
                 Cookies.set('video_path', video_path);
-                console.log('back_Cookies=', Cookies.get('video_path'));
+                console.log('Cookies video_path=', Cookies.get('video_path'));
             }            
         }, 2000); // 這裡模擬等待 2 秒 週期循環執行  
 
@@ -287,7 +287,6 @@ export default function VE_upload_file_page() {
     
             var Video_Information_send_json = JSON.stringify(Video_Information_send);  //轉json格式
             console.log("account_send_json is " + Video_Information_send_json);
-            console.log('account_send_json is ',typeof(Video_Information_send_json));
     
             fd.append('information', Video_Information_send_json);
             fd.append('chunk', chunk);     //把每一個chunk插入fd中
@@ -304,8 +303,8 @@ export default function VE_upload_file_page() {
             {    
                 if(cancel == 0)
                 {
-                    console.log("POST !!");
-                    const response = await fetch("http://35.201.148.192:30036/api/video/upload"/*process.env.NEXT_PUBLIC_API_upload_video*/, {   //call後端的API
+                    console.log("POST (http://34.173.16.63:30036/api/video/upload)");
+                    const response = await fetch("http://34.173.16.63:30036/api/video/upload"/*process.env.NEXT_PUBLIC_API_upload_video*/, {   //call後端的API
                         method: 'POST',
                         headers:{
                             "Metadata-Token": Metadata_token,
@@ -319,7 +318,6 @@ export default function VE_upload_file_page() {
         
                         var data;
                         data = await response.json();   //取得後端回傳的資料
-                        console.log(data['message']);                               
                         console.log("data=", data);
                         if(Chunk_Number == chunks.length)
                         {   
@@ -394,7 +392,7 @@ export default function VE_upload_file_page() {
         try 
         {
             //傳送metadata到後端
-            const metadata_response = await fetch("http://35.201.148.192:30031/api/metadata/generate_token", {            
+            const metadata_response = await fetch("http://34.173.16.63:30031/api/metadata/generate_token", {            
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json',
@@ -409,14 +407,15 @@ export default function VE_upload_file_page() {
                 console.log("data['Metadata_Token']",data['Metadata_Token']);
                 Cookies.set('Metadata_Token',data['Metadata_Token']);
                 Metadata_token = Cookies.get('Metadata_Token');
-                console.log("SET Cookies-> ", Metadata_token);
+                console.log("SET Cookies Metadata_token-> ", Metadata_token);
     
                 if(fileSize*1024 > SPLIT_BYTES)
                 {
+                    console.log('Slice video.');
                     slice(fileData, SPLIT_BYTES)
                     .then(chunks => {
                         // 在這裡對分塊進行後續處理
-                        console.log(chunks); // 輸出分塊陣列
+                        console.log('chunks=', chunks); // 輸出分塊陣列
                         console.log('length=',chunks.length);
                         console.log('type=',typeof(chunks));
     
@@ -437,6 +436,7 @@ export default function VE_upload_file_page() {
                 }
                 else
                 {
+                    console.log('Not Slice video.');
                     const noSlice_fd = new FormData();   //宣告fd為FormData();
                     noSlice_fd.append('Data', fileData);     //把每一個chunk插入fd中
             
@@ -447,7 +447,7 @@ export default function VE_upload_file_page() {
                     })
                         .then((response) => {
                             information = response.json();
-                            console.log('info^^',information);
+                            console.log('no slice upload information=',information);
                             return information;
                         })
                         .then((data) => {
@@ -498,15 +498,16 @@ export default function VE_upload_file_page() {
         {
             sendMetadata();    //發送MetaData到後端
         }
-        else if(file_type == ".ppt" || file_type == ".pptx")
+/*        else if(file_type == ".ppt" || file_type == ".pptx")
         {
             Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3;  //VE_Edit_PPT
             
-    /*
+    
             fetch("http://127.0.0.1:8000/ppts/", {
     
-        */
+        
         }
+*/        
         else if(file_type == "")
         {
             alert("Please choose a file.");
