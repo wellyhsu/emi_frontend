@@ -201,23 +201,29 @@ export default function VE_upload_file_page() {
                 UserName: UserName,
                 user_RID: Cookies.get('user_RID'),
                 SPLIT_BYTES: SPLIT_BYTES,
+                videoTitle: videoTitleRef.current.value,
             };
             worker.postMessage(data);
             // 继续执行其他代码，不会阻塞
             
             //接收worker執行完成後的結果
             worker.onmessage = function (event) {
-                const result = event.data.result;
-              
-                // 在主线程中使用 Cookie API 存储结果
-                console.log("relust=", result);
+            //    const result = event.data.result;
+                const video_upload_progress = event.data.video_upload_progress;
+                SetProgress_Number(video_upload_progress);
+                // 在主线程中
+            //    console.log("relust=", result);
+                console.log("video_upload_progress=", video_upload_progress);
 
+                //影片成功上傳至資料庫
+/*
                 //影片完整處理完畢
                 if(result['video_process'] == "finish")
                 {
                     document.getElementById('video_processing').style = "display: none";
                     document.getElementById('finish').style = "display: flex";    
                 }
+*/
             };
         }
         else if(file_type == "")
@@ -333,7 +339,7 @@ export default function VE_upload_file_page() {
                     </div>
                     <div className={styles.file_Name}>
                         File Name:
-                        <input type="text"  readonly="readonly" id="file_name" className={styles.file_input} style={{cursor: "not-allowed"}}>
+                        <input type="text"  readOnly="readonly" id="file_name" className={styles.file_input} style={{cursor: "not-allowed"}}>
 
                         </input>
                     </div>

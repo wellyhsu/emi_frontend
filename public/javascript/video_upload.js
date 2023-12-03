@@ -63,7 +63,7 @@ async function checkProcessingStatus(UserName, fileName) {
 
 
 //將影片分割
-export const slice = (file, piece = CHUNK_SIZE) => {   //切割
+const slice = (file, piece = CHUNK_SIZE) => {   //切割
     return new Promise((resolve, reject) => {
         let totalSize = file.size;  //取得檔案大小
         const chunks = [];   //宣告一個陣列存放切割下來的chunk                   //Safari 中是 blob.webkitSlice()
@@ -86,7 +86,7 @@ export const slice = (file, piece = CHUNK_SIZE) => {   //切割
 
 
 //上傳分割好的小段影片(依據切割長度發送請求次數)
-export async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTitle, fileName, videolength, fileSize, user_RID) {   
+async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTitle, fileName, videolength, fileSize, user_RID, progressCallback) {   
     const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
     var Chunk_Number = 1;
     var Chunk_Final = false;
@@ -146,7 +146,7 @@ export async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTi
 
             if (response.ok) {
                 
-                SetProgress_Number(((100/chunks.length) * Chunk_Number).toFixed(0));
+//                SetProgress_Number(((100/chunks.length) * Chunk_Number).toFixed(0));
                 console.log("response is ok!");
 
                 var data;
@@ -182,10 +182,11 @@ export async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTi
                     document.getElementById('Circle_up_L').style = "transform: `${transform_degree-180}deg`; ";
                 }
 */
-                var video_upload_process = {
-                    process: ((100/chunks.length) * Chunk_Number).toFixed(0)
-                }
-                return (video_upload_process);
+                var video_upload_process = ((100/chunks.length) * Chunk_Number).toFixed(0);
+                
+                // 在每次迭代中，调用回调函数并传递更新的进度值
+                progressCallback({ video_upload_process: video_upload_process });
+
             } 
             else {
                 console.log("response not ok.");
@@ -203,7 +204,7 @@ export async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTi
     return results;
 }
 
-export async function sendMetadata(fileData, SPLIT_BYTES, fileName, fileType, fileSize, videolength, UserName, user_RID, videoTitle)
+async function sendMetadata(fileName, fileType, fileSize, videolength, UserName, user_RID)
 {
     //發送metadata到後端
     const Video_metadata_send =
