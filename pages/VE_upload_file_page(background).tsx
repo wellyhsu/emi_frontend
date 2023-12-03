@@ -4,7 +4,6 @@ import styles from '@/styles/Home.module.css'
 import Script from 'next/script'
 import Cookies from 'js-cookie';
 import { useState, useRef } from 'react';
-import { CLIENT_STATIC_FILES_PATH } from 'next/dist/shared/lib/constants';
 //import upload from '../components/choose_file'
 
 var T=0;
@@ -26,12 +25,6 @@ const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 var UserName="";
 UserName = Cookies.get('userName');
 var cancel = 0;
-
-var status="";
-var video_path="";
-var video_id;
-var video_RID;
-var API_video_RID;
 
 //上傳影片到資料庫後端的取消功能
 function cancel_upload()
@@ -150,27 +143,6 @@ function select_file(e) {
     })   
 }  
 
-//將影片分割
-export const slice = (file, piece = CHUNK_SIZE) => {   //切割
-    return new Promise((resolve, reject) => {
-        let totalSize = file.size;  //取得檔案大小
-        const chunks = [];   //宣告一個陣列存放切割下來的chunk                   //Safari 中是 blob.webkitSlice()
-        const blobSlice = File.prototype.slice || File.prototype.webkitSlice; //根據瀏覽器的不同，它指向適當的切片方法。
-        let start = 0;   //宣告開始切割的位址
-        var end;
-        end = start + piece >= totalSize ? totalSize : start + piece; //取得最後的位置
-
-        while (start < totalSize) {
-            const chunk = blobSlice.call(file, start, end);   //把fileData切割成一個一個的chunk
-            chunks.push(chunk); //霸切割除來的chunk放進chunks陣列
-
-            start = end;   //從這一次結束的位址開始下一次切割
-            end = start + piece >= totalSize ? totalSize : start + piece;
-        }
-      
-      resolve(chunks);
-    });
-};
 
 /*
 //選擇是否上傳文字腳本檔
@@ -195,278 +167,6 @@ export default function VE_upload_file_page() {
     const [transform_degree, Set_transform_degree] = useState(0);
     const [Progress_Number, SetProgress_Number] = useState(0);
     const videoTitleRef = useRef(undefined);
-
-    //每兩秒打一次後端 看後端任務結束了嗎？
-    async function performSomeAsyncOperation() {
-        // 執行需要等待的異步操作
-        console.log("Cancel =",cancel);
-        const Response = await fetch("http://34.96.232.169:30000/api/video/status");  //打API取得影片後端傳來的路徑
-        const data = await Response.json();   //取得影片後端傳來的路徑資料
-        
-        console.log("API data=", data)
-        status = data["status"];
-        video_path = data["processed_video_path"];
-        API_video_RID = data["RID"];
-
-        console.log("Frontend video_path=",video_path,
-                    "Frontend status", status,
-                    "Frontend API_video_RID", API_video_RID
-                    );
-                    
-        console.log("UserName",UserName);
-        console.log("fileName",fileName);
-    }
-
-    async function checkProcessingStatus() {
-        console.log("打後端Next.js API!!");
-        document.getElementById('uploading').style = "display: none";
-
-        //GET 打後端Next.js API
-
-        const call_API = setInterval(() => {
-            performSomeAsyncOperation();
-            console.log("check_call_API_timeinterval_number=", call_API);
-
-            if( cancel == 1 || (status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "_" + Cookies.get('user_RID') + "/" + fileName) )
-            {
-                console.log("CANCEL_call_API_number=", call_API);
-                clearInterval(call_API);  //清除計數器
-            }
-    //        if( cancel == 0 && status == "completed" && video_RID == API_video_RID)  //若點擊了取消按鈕 不繼續打API
-
-            if( cancel == 0 && status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "_" + Cookies.get('user_RID') + "/" + fileName)  //若點擊了取消按鈕 不繼續打API
-            {
-                document.getElementById('video_processing').style = "display: none";
-                document.getElementById('finish').style = "display: flex";
-
-                console.log('API get video_path data= ', video_path);  //顯示取得的data
-
-                Cookies.set('video_path', video_path);
-                console.log('Cookies video_path=', Cookies.get('video_path'));
-            }            
-        }, 2000); // 這裡模擬等待 2 秒 週期循環執行  
-
-        
-
-    }
-
-    //上傳分割好的小段影片(依據切割長度發送請求次數)
-    async function _chunkUploadTask(chunks) {   
-        const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
-        var Chunk_Number = 1;
-        var Chunk_Final = false;
-        var information;
-    //    var transform_degree;
-    
-        console.log('Length=',chunks.length);
-        console.log("fileName==",fileName);
-        console.log("GET MetaDataToken", JSON.stringify(Metadata_token));
-        SetProgress_Number(0);
-    
-        for (let chunk of chunks) {   //
-            const fd = new FormData();   //宣告fd為FormData();
-    
-            if(Chunk_Number == chunks.length)
-            {
-                Chunk_Final = true;
-            }
-            //發送影片相關資訊到後端(Golang)
-            const Video_Information_send =
-            {
-                "username": UserName,
-                "video_title": videoTitleRef.current.value,
-                "video_name": fileName,
-                "video_description": "none",
-                "video_length": videolength,
-                "video_size": fileSize,
-                "video_format": "video/mp4",
-                "chunk_number": String(Chunk_Number),
-                "chunk_final": String(Chunk_Final), 
-                "user_RID": Cookies.get('user_RID'), 
-            }
-    
-            var Video_Information_send_json = JSON.stringify(Video_Information_send);  //轉json格式
-            console.log("account_send_json is " + Video_Information_send_json);
-    
-            fd.append('information', Video_Information_send_json);
-            fd.append('chunk', chunk);     //把每一個chunk插入fd中
-    /*檢查FormData內的內容 - 方法一       
-            fd.forEach((key, value) => {
-                console.log("value(標題)=",value,"key(內容)=",key);
-            });
-    //檢查FormData內的內容 - 方法二
-            for (const entry of fd.entries()) {
-                console.log("test=", entry[0],"內容=", entry[1]);
-              }
-    */
-            try 
-            {    
-                if(cancel == 0)
-                {
-                    console.log("POST (http://34.96.232.169:30036/api/video/upload)");
-                    const response = await fetch("http://34.96.232.169:30036/api/video/upload"/*process.env.NEXT_PUBLIC_API_upload_video*/, {   //call後端的API
-                        method: 'POST',
-                        headers:{
-                            "Metadata-Token": Metadata_token,
-                        },
-                        body: fd,    //傳送到後端的內容
-                    });
-    
-                    if (response.ok) {
-                        SetProgress_Number(((100/chunks.length) * Chunk_Number).toFixed(0));
-                        console.log("response is ok!");
-        
-                        var data;
-                        data = await response.json();   //取得後端回傳的資料
-                        console.log("data=", data);
-                        if(Chunk_Number == chunks.length)
-                        {   
-                            video_RID = data['video_RID'];
-                        //    console.log("Video RID= ", video_RID);
-                            
-                            document.getElementById('video_processing').style = "display: inline-block";
-
-                            // 開始檢查後端影片處理狀態
-                            checkProcessingStatus();
-                        }  
-                        else
-                        {
-                            Chunk_Number = Chunk_Number + 1;
-                        } 
-                        results.push(data);    //將後端後端傳回的資料放到results
-    
-                        Set_transform_degree(transform_degree + 360/chunks.length);
-                        if(Chunk_Number <= chunks.length/2)
-                        {
-                            document.getElementById('Circle_up_R').style = "transform: `${transform_degree}deg`; ";
-                
-                        }
-                        else if(Chunk_Number > chunks.length/2)
-                        {
-                            document.getElementById('Circle_up_R').style = "transform: 90deg; ";
-                            document.getElementById('Circle_up_L').style = "transform: `${transform_degree-180}deg`; ";
-                        }
-    
-                    } 
-                    else {
-                        console.log("response not ok.");
-                        results.push(null);
-                        Chunk_Number = Chunk_Number + 1;
-                    }
-
-                }
-                else    //cancel =1 代表取消
-                {
-                    console.log("cancel", Chunk_Number-1, "chumk uplaod!");
-                    video_RID="";
-                    break;
-                }
-      
-            } 
-            catch (err) {    //如果發生錯誤
-                results.push(null);    //不放入資料 留空白
-                console.log("error=", err);
-            }
-            console.log('chunknumber=',Chunk_Number);
-            console.log('chunkfinal=',Chunk_Final);
-        }
-        return results;
-    }
-    
-    async function sendMetadata()
-    {
-        //發送metadata到後端
-        const Video_metadata_send =
-        {
-            "video_name": fileName,
-            "video_type": fileType,
-            "video_length": videolength,
-            "video_size": fileSize,
-            "user_RID": Cookies.get('user_RID'),
-            "username": UserName,
-        }
-    
-        var Video_metadata_send_json = JSON.stringify(Video_metadata_send);  //轉json格式
-        console.log("Video_metadata_send_json is " + Video_metadata_send_json);
-    
-        try 
-        {
-            //傳送metadata到後端
-            const metadata_response = await fetch("http://34.96.232.169:30031/api/metadata/generate_token", {            
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json',
-                },
-                body: Video_metadata_send_json,
-            });
-                
-            if(metadata_response.ok)
-            {
-                const data = await metadata_response.json();
-                console.log('data=', data);
-                console.log("data['Metadata_Token']",data['Metadata_Token']);
-                Cookies.set('Metadata_Token',data['Metadata_Token']);
-                Metadata_token = Cookies.get('Metadata_Token');
-                console.log("SET Cookies Metadata_token-> ", Metadata_token);
-    
-                if(fileSize*1024 > SPLIT_BYTES)
-                {
-                    console.log('Slice video.');
-                    slice(fileData, SPLIT_BYTES)
-                    .then(chunks => {
-                        // 在這裡對分塊進行後續處理
-                        console.log('chunks=', chunks); // 輸出分塊陣列
-                        console.log('length=',chunks.length);
-                        console.log('type=',typeof(chunks));
-    
-                        _chunkUploadTask(chunks)
-                        .then(results => {
-                            // 处理上传结果
-                            console.log("_chunkUploadTask result: ",results);
-                        })
-                        .catch(error => {
-                            // 处理错误
-                            console.error("_chunkUploadTask error", error);
-                        });
-                    })
-                    .catch(error => {
-                        // 處理錯誤
-                        console.error("slice error", error);
-                    });
-                }
-                else
-                {
-                    console.log('Not Slice video.');
-                    const noSlice_fd = new FormData();   //宣告fd為FormData();
-                    noSlice_fd.append('Data', fileData);     //把每一個chunk插入fd中
-            
-                    //fetch(process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_API_login, {
-                    fetch(NEXT_PUBLIC_API_upload_video, {
-                        method: 'POST',
-                        body: noSlice_fd,
-                    })
-                        .then((response) => {
-                            information = response.json();
-                            console.log('no slice upload information=',information);
-                            return information;
-                        })
-                        .then((data) => {
-                            console.log('data=',data);
-                        })
-                        .catch((error) => console.log("error", error));
-                }
-            }
-            else 
-            {
-                console.log("response not ok.");
-            }
-    
-            console.log("Metadata_Token=", Metadata_token);
-        }  
-        catch (err) {    //如果發生錯誤
-            console.log("try error=", err);
-        }
-    }
     
     function upload_file(e){
         var information;
@@ -474,14 +174,6 @@ export default function VE_upload_file_page() {
         var title;
         var file_type;
         var upload=0;
-/*  TEST
-        checkProcessingStatus();
-        const call_API = setInterval(() => {
-            performSomeAsyncOperation();
-        }, 2000); // 這裡模擬等待 2 秒  
-
-    TEST    
-*/
 
         if(videoTitleRef.current.value == "")
         {
@@ -496,18 +188,38 @@ export default function VE_upload_file_page() {
     
         if(file_type == ".mp4" || file_type == ".MP4" || file_type == "video/mp4" || file_type == ".MOV") //如果檔案 
         {
-            sendMetadata();    //發送MetaData到後端
-        }
-/*        else if(file_type == ".ppt" || file_type == ".pptx")
-        {
-            Next_Link = process.env.NEXT_PUBLIC_VE_Create_step3;  //VE_Edit_PPT
+            const worker = new Worker('/javascript/worker.js');
+
+            console.log("執行worker 背景執行上傳任務");
+            SetProgress_Number(0);
+            var data={
+                fileData: fileData,
+                fileName: fileName,
+                fileType: fileType,
+                fileSize: fileSize,
+                videolength: videolength,
+                UserName: UserName,
+                user_RID: Cookies.get('user_RID'),
+                SPLIT_BYTES: SPLIT_BYTES,
+            };
+            worker.postMessage(data);
+            // 继续执行其他代码，不会阻塞
             
-    
-            fetch("http://127.0.0.1:8000/ppts/", {
-    
-        
+            //接收worker執行完成後的結果
+            worker.onmessage = function (event) {
+                const result = event.data.result;
+              
+                // 在主线程中使用 Cookie API 存储结果
+                console.log("relust=", result);
+
+                //影片完整處理完畢
+                if(result['video_process'] == "finish")
+                {
+                    document.getElementById('video_processing').style = "display: none";
+                    document.getElementById('finish').style = "display: flex";    
+                }
+            };
         }
-*/        
         else if(file_type == "")
         {
             alert("Please choose a file.");
