@@ -8,14 +8,29 @@ import Cookies from 'js-cookie';
 import styles from '@/styles/Home.module.css'
 import {Header} from '../components/Header'
 import {Header_student} from '../components/Header_student'
+import { isBuffer } from 'util'
 //import '../styles/style.css';
 //import '../styles/tailwind.min.css';
+
+function Show_uploading_videos()
+{
+  console.log("打開上傳中影片清單");
+  document.getElementById("upload_videos_window").style = "display: flex";
+  document.getElementById("upload_small_window").style = "display: none";
+}
+
+function small_video_list()
+{
+  document.getElementById("upload_videos_window").style = "display: none";
+  document.getElementById("upload_small_window").style = "display: flex";
+}
 
 export default function App({ Component, pageProps }: AppProps) {
   var information;
   var acapela_token;
 
   const [Change_header, setHeader] = useState(<Header/>);
+  const [upload_window, set_upload_window] = useState("none");
 
   const Acapela_login_send =
   {
@@ -63,6 +78,13 @@ export default function App({ Component, pageProps }: AppProps) {
     }
 
   }, []);
+  
+  console.log("window 小視窗是否該出現=",Cookies.get('Uploading_video'));
+  if(Cookies.get('Uploading_video') == "true")
+  {
+    console.log("上傳影片小視窗出現");
+    document.getElementById("upload_small_window").style = "display: flex";
+  }
 
   return (
     <>
@@ -76,6 +98,20 @@ export default function App({ Component, pageProps }: AppProps) {
       {Change_header}
 
       <Component {...pageProps} />
+      <div>
+        <div id="upload_videos_window" className={styles.upload_videos_window}>
+          <button className={styles.small_uploading_window} onClick={small_video_list}>
+            _
+          </button>
+          <div className={styles.upload_videos}>
+            video 1 
+          </div>
+        </div>
+        <button id="upload_small_window" className={styles.upload_small_window} onClick={Show_uploading_videos}>
+          Uploading videos...
+        </button>
+      </div>
+
       <footer className={styles.editor}>
           Work | 2022 All Rights Reserved
       </footer>

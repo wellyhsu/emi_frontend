@@ -5,8 +5,12 @@ importScripts('./video_upload.js');
 function updateProgress(value) {
   //取得目前影片上傳進度
   console.log("Current Progress:", value.video_upload_process);
-  self.postMessage({ video_upload_progress: value.video_upload_process });
-
+  console.log("video_upload_status:", value.video_upload);
+  self.postMessage({ type: "video_upload" , video_upload_progress: value.video_upload_process });
+  if(value.video_upload == "finish")
+  {
+    self.postMessage({ type: "video_upload" , video_upload: "finish" });
+  }
 }
 
 self.onmessage = function (event) {
@@ -16,9 +20,10 @@ self.onmessage = function (event) {
 
     // 在这里执行上传任务，例如使用fetch
     // ...
-    if (event.data === 'terminate') //使用者取消上傳影片
+    if (event.data.Status === 'terminate') //使用者取消上傳影片
     {
       // 收到终止请求，执行终止操作
+      console.log("terminate worker");
 
       self.postMessage({ result: '终止完成' });
       self.close(); // 关闭 Worker
@@ -52,11 +57,10 @@ self.onmessage = function (event) {
                   console.log('type=',typeof(chunks));
 
                   _chunkUploadTask(chunks, Metadata_token, videoFile['UserName'], videoFile['videoTitle'], videoFile['fileName'], videoFile['videolength'], videoFile['fileSize'], videoFile['user_RID'], updateProgress)
-                  .then((results, video_upload_process) => {
+                  .then((results) => {
                       // 处理上传结果
                       console.log("_chunkUploadTask result: ",results);
-                      console.log("video_upload_process=",video_upload_process);
-                      return (video_upload_process);
+                      
                   })
                   .catch(error => {
                       // 处理错误

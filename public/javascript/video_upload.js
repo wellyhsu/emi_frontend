@@ -23,21 +23,37 @@ async function performSomeAsyncOperation() {
         video_path: video_path,
         API_video_RID: API_video_RID,  
     }
-    return(video_process_data);
+    return (video_process_data);
 }
 
 //每間隔2秒打一次後端Next.js API 確認影片處理狀態
-async function checkProcessingStatus(UserName, fileName) {
+async function checkProcessingStatus(UserName, fileName, user_RID) {
     console.log("打後端Next.js API!!");
 
     //GET 打後端Next.js API
     const call_API = setInterval(() => {
         var video_process_result = performSomeAsyncOperation();
         
-        console.log('video_process_result=', video_process_result);
-        console.log("check_call_API_timeinterval_number=", call_API);
-        console.log("UserName",UserName);
-        console.log("fileName",fileName);
+        video_process_result.then(result => {
+
+            console.log('video_process_result=', result);
+            console.log("check_call_API_timeinterval_number=", call_API);
+            console.log("UserName",UserName);
+            console.log("fileName",fileName);
+            //if(status == "completed" && video_RID == API_video_RID)  //若點擊了取消按鈕 不繼續打API
+
+            if(result['status'] == "completed" && result['video_path'] == "/home/shared/processed_category_videos/" + UserName + "_" + user_RID + "/" + fileName)  //若點擊了取消按鈕 不繼續打API
+            { 
+                console.log('API get video_path data= ', result['video_path']);  //顯示取得的data
+
+                var data={
+                    video_process: "finish",
+                    video_path: result['video_path'],
+                }
+                return (data);
+            }  
+            });
+        
     
         //如果使用者取消上傳
 /*        if(status == "completed" && video_path == "/home/shared/processed_category_videos/" + UserName + "_" + user_RID + "/" + fileName)
@@ -46,18 +62,7 @@ async function checkProcessingStatus(UserName, fileName) {
             clearInterval(call_API);  //清除計數器
         }
 */
-        //if( cancel == 0 && status == "completed" && video_RID == API_video_RID)  //若點擊了取消按鈕 不繼續打API
-
-        if(video_process_result['status'] == "completed" && video_process_result['video_path'] == "/home/shared/processed_category_videos/" + UserName + "_" + user_RID + "/" + fileName)  //若點擊了取消按鈕 不繼續打API
-        { 
-            console.log('API get video_path data= ', video_process_result['video_path']);  //顯示取得的data
-
-            var data={
-                video_process: "finish",
-                video_path: video_process_result['video_path'],
-            }
-            return(data);
-        }            
+          
     }, 2000); // 這裡模擬等待 2 秒 週期循環執行  
 }
 
@@ -145,8 +150,6 @@ async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTitle, fi
             });
 
             if (response.ok) {
-                
-//                SetProgress_Number(((100/chunks.length) * Chunk_Number).toFixed(0));
                 console.log("response is ok!");
 
                 var data;
@@ -154,14 +157,16 @@ async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTitle, fi
                 console.log("data=", data);
                 if(Chunk_Number == chunks.length)
                 {   
+                    console.log("video upload finish, video processing...");
+
                     var video_RID = data['video_RID'];
                 //    console.log("Video RID= ", video_RID);
                     
-                    document.getElementById('video_processing').style = "display: inline-block";
 
                     // 開始檢查後端影片處理狀態
-                    checkProcessingStatus(UserName, fileName);
-                    return
+                    progressCallback({ video_upload: "finish" });
+
+                    progressCallback({ video_process : checkProcessingStatus(UserName, fileName, user_RID)});
                 }  
                 else
                 {
@@ -185,6 +190,7 @@ async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTitle, fi
                 var video_upload_process = ((100/chunks.length) * Chunk_Number).toFixed(0);
                 
                 // 在每次迭代中，调用回调函数并传递更新的进度值
+                progressCallback({ video_upload: "Unfinish" });
                 progressCallback({ video_upload_process: video_upload_process });
 
             } 

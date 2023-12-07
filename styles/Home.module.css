@@ -12,6 +12,105 @@
   padding-top: 2vh;
 }
 */
+
+/* uploading 小視窗 */
+.upload_small_window {
+  display: none;
+  position: fixed;
+  bottom: 2em;
+  right: 1em;
+  z-index: 20;
+
+  width: 12em;
+  height: 12vh;
+  cursor: pointer;
+
+  font-size: 1.2em;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  text-align: center;
+  line-height: 3em;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+
+  border: solid;
+  border-radius: 1em;
+  background-color: rgba(255, 193, 7, 1);
+
+  margin-top: -5em;
+  margin-right: 1em;
+}
+.upload_small_window:hover{
+  transform: scale(1.05);
+}
+
+.upload_videos_window{
+  display: none;
+  position: fixed;
+  bottom: 2.5em;
+  right: 2em;
+  z-index: 20;
+
+  width: 12em;
+  height: 15em;
+
+  font-size: 1.2em;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  text-align: center;
+  line-height: 3em;
+  justify-content: center;
+
+  color: rgba(0, 0, 0, 1);
+  border-radius: 0.6em;
+  border: none;
+  box-shadow:  5px 5px 5px 5px rgba(90, 90, 90, 0.8);
+  background-color: rgb(232, 225, 225);
+}
+
+.upload_videos{
+  display: inline-block;
+  position: relative;
+  top: 2em;
+  z-index: 21;
+
+  width: 14em;
+  height: 3em;
+
+  font-size: 0.8em;
+  font-family: 'Poppins', Arial, '微軟正黑體';
+  text-align: center;
+  line-height: 3em;
+  justify-content: center;
+
+  color: rgba(0, 0, 0, 1);
+  border-radius: 0.6em;
+  border: none;
+  background-color: rgb(255, 255, 255);
+}
+.upload_videos:hover{
+  transform: scale(1.01);
+}
+
+.small_uploading_window{
+  display: flex;
+  position: absolute;
+  top: -0.2em;
+  right: 0.8em;
+  z-index: 99;
+  cursor: pointer;
+
+  font-size: 1.2em;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 3vh;
+
+  text-align: center;
+
+  color: rgba(128, 128, 128, 0.8);
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+}
+
 .main {
   flex: 1; /* 佔滿剩餘空間，讓.main填滿#__next的所有空間 */
 
@@ -2068,6 +2167,28 @@ ul.Layerout ul li:hover {
   padding-top: 1em;
 }
 
+.small_window{
+  display: flex;
+  position: absolute;
+  z-index: 99;
+  cursor: pointer;
+
+  font-size: 1.3em;
+  font-family: 'Poppins', Arial;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1vh;
+
+  text-align: center;
+
+  color: rgba(128, 128, 128, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  
+  margin-top: 0.1em;
+  margin-left: 17.7em;
+}
+
 /* 等待上傳的圈圈 */
 .Circle_bottom{
   position: relative;
@@ -3265,6 +3386,8 @@ select.option{
 
 
 /* Pop-up editing video*/
+
+
 
 .question_background{
   display: flex;

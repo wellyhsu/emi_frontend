@@ -143,6 +143,13 @@ function select_file(e) {
     })   
 }  
 
+function small_window()
+{
+    console.log("縮小視窗！");
+    document.getElementById('uploading').style = "display: none";
+    document.getElementById('video_processing').style = "display: none";
+    Cookies.set('Uploading_video', "true");
+}
 
 /*
 //選擇是否上傳文字腳本檔
@@ -167,7 +174,7 @@ export default function VE_upload_file_page() {
     const [transform_degree, Set_transform_degree] = useState(0);
     const [Progress_Number, SetProgress_Number] = useState(0);
     const videoTitleRef = useRef(undefined);
-    
+
     function upload_file(e){
         var information;
         var id;
@@ -205,25 +212,54 @@ export default function VE_upload_file_page() {
             };
             worker.postMessage(data);
             // 继续执行其他代码，不会阻塞
+
+            //Check 使用者是否點擊cancel按鈕
+            let btn_upload_cancel = document.getElementById('upload_Cancel');
+            let btn_process_cancel = document.getElementById('process_Cancel');            
+            
+            //將on-event綁定在事件上
+            btn_upload_cancel.onclick = function(){
+                console.log('add listening on upload cancel button.');
+                cancel_upload();
+                worker.postMessage({ Status: 'terminate' });
+            };
+
+            btn_process_cancel.onclick = function(){
+                console.log('add listening on process cancel button.');
+                cancel_video_processing();
+                worker.postMessage({ Status: 'terminate' });
+            };
             
             //接收worker執行完成後的結果
             worker.onmessage = function (event) {
-            //    const result = event.data.result;
-                const video_upload_progress = event.data.video_upload_progress;
-                SetProgress_Number(video_upload_progress);
-                // 在主线程中
-            //    console.log("relust=", result);
-                console.log("video_upload_progress=", video_upload_progress);
+                const type = event.data.type;
 
-                //影片成功上傳至資料庫
-/*
-                //影片完整處理完畢
-                if(result['video_process'] == "finish")
+                if(type == "video_upload")
                 {
-                    document.getElementById('video_processing').style = "display: none";
-                    document.getElementById('finish').style = "display: flex";    
+                    const video_upload_progress = event.data.video_upload_progress;
+                    const video_upload_status = event.data.video_upload;
+                    SetProgress_Number(video_upload_progress);
+                    console.log("video_upload_progress=", video_upload_progress);
+                    
+                //影片成功上傳至資料庫                   
+                    if(video_upload_status == "finish")
+                    {
+                        document.getElementById('uploading').style = "display: none";
+                        document.getElementById('video_processing').style = "display: inline-block";
+
+                    }
                 }
-*/
+                else if(type == "video_process")
+                {
+                    const result = event.data.video_process;    
+                    console.log("relust=", result);
+                //影片完整處理完畢
+                    if(result['video_process'] == "finish")
+                    {
+                        document.getElementById('video_processing').style = "display: none";
+                        document.getElementById('finish').style = "display: flex";    
+                    }
+                }
             };
         }
         else if(file_type == "")
@@ -242,9 +278,12 @@ export default function VE_upload_file_page() {
 
     return (
         <main className={styles.main}>
-            <div id="uploading" style={{height: "100%",display: "none"}}>
+            <div id="uploading" style={{height: "100%",display: "inline-block"}}>
                 <div className={styles.question_background}>
                     <div className={styles.pop_up_loading_window}>
+                    <button className={styles.small_window} onClick={small_window}>
+                        _
+                    </button>
                         <div className={styles.uploading_text} >
                             uploading...
                         </div>
@@ -264,7 +303,7 @@ export default function VE_upload_file_page() {
                         </div>
                         <div style={{display: "flex", marginTop: "1em"}}>
                             <div style={{marginLeft: "auto", marginRight: "auto"}}>
-                                <button style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_upload}>
+                                <button id="upload_Cancel" style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_upload}>
                                     Cancel
                                 </button>
                             </div>
@@ -285,7 +324,7 @@ export default function VE_upload_file_page() {
                         
                         <div style={{display: "flex", marginTop: "4em"}}>
                             <div style={{marginLeft: "auto", marginRight: "auto"}}>
-                                <button style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_video_processing}>
+                                <button id="process_Cancel" style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_video_processing}>
                                     Cancel
                                 </button>
                             </div>
