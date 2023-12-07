@@ -4,6 +4,7 @@ import styles from '@/styles/Home.module.css'
 import Script from 'next/script'
 import Cookies from 'js-cookie';
 import { useState, useRef } from 'react';
+import { processing_worker } from '../public/javascript/processing_worker';
 //import upload from '../components/choose_file'
 
 var T=0;
@@ -195,6 +196,7 @@ export default function VE_upload_file_page() {
     
         if(file_type == ".mp4" || file_type == ".MP4" || file_type == "video/mp4" || file_type == ".MOV") //如果檔案 
         {
+            processing_worker();
             const worker = new Worker('/javascript/worker.js');
 
             console.log("執行worker 背景執行上傳任務");
@@ -278,7 +280,7 @@ export default function VE_upload_file_page() {
 
     return (
         <main className={styles.main}>
-            <div id="uploading" style={{height: "100%",display: "inline-block"}}>
+            <div id="uploading" style={{height: "100%",display: "none"}}>
                 <div className={styles.question_background}>
                     <div className={styles.pop_up_loading_window}>
                     <button className={styles.small_window} onClick={small_window}>

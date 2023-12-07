@@ -90,6 +90,7 @@ export default function Home() {
 //        document.getElementById('number').textContent = '預測結果為 : ' + S_DATA;	
         if(msg == "Welcome " + userName)
         {
+          Cookies.set('Uploading_video', "false");
           if(identity == true)
           {
             Cookies.set('identity', 'Teacher');
