@@ -258,12 +258,14 @@ export default function VE_upload_file_page() {
         var information;
     //    var transform_degree;
     
+        console.log('chunks=', chunks);
         console.log('Length=',chunks.length);
         console.log("fileName==",fileName);
         console.log("GET MetaDataToken", JSON.stringify(Metadata_token));
         SetProgress_Number(0);
     
-        for (let chunk of chunks) {   //
+        for (let chunk of chunks) {
+        
             const fd = new FormData();   //宣告fd為FormData();
     
             if(Chunk_Number == chunks.length)
@@ -290,7 +292,8 @@ export default function VE_upload_file_page() {
     
             fd.append('information', Video_Information_send_json);
             fd.append('chunk', chunk);     //把每一個chunk插入fd中
-    /*檢查FormData內的內容 - 方法一       
+/*
+    //檢查FormData內的內容 - 方法一       
             fd.forEach((key, value) => {
                 console.log("value(標題)=",value,"key(內容)=",key);
             });
@@ -298,13 +301,13 @@ export default function VE_upload_file_page() {
             for (const entry of fd.entries()) {
                 console.log("test=", entry[0],"內容=", entry[1]);
               }
-    */
+*/
             try 
             {    
                 if(cancel == 0)
                 {
                     console.log("POST (http://34.96.232.169:30036/api/video/upload)");
-                    const response = await fetch("http://34.96.232.169:30036/api/video/upload"/*process.env.NEXT_PUBLIC_API_upload_video*/, {   //call後端的API
+                    const response = await fetch("http://34.96.232.169:30036/api/video/upload", {   //call後端的API
                         method: 'POST',
                         headers:{
                             "Metadata-Token": Metadata_token,

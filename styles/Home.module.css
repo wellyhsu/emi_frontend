@@ -197,7 +197,7 @@
     grid-template-columns: repeat(5, 9vw);
     gap: 1em;
     margin-top: 1.3em;
-    margin-right: 5em;
+    margin-right: 9vw;
   }
 
   .Features_button{ 
@@ -290,7 +290,7 @@ ul.Layerout ul li:hover {
   border-radius: 2em;
   background-color: rgba(255, 193, 7, 1);
 
-  margin-left: 0.3em;
+  margin-left: 2vw;
   padding-top: -0.3em;
   margin-top: -0.5em;
 }
@@ -313,6 +313,7 @@ ul.Layerout ul li:hover {
 
   padding-top: 0.2vh;
   margin-top: -1.5vh;
+  margin-left: 2vw;
 }
 .user_button:hover{
   transform: scale(1.05); /*將元素放大1.05倍*/

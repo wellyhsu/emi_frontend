@@ -85,57 +85,56 @@ export const Header = () => {
                 <ul className={styles.Layerout} > 
                     <div className={styles.Feature_Button_block} style={{ float: "right"}}>
                         <li className={styles.Li_Feature}>
-                    
-                        <button id='Features' className={styles.Features_button} onClick={Feature_button}> {/**/}
-                            Features
-                        </button>
+                            <button id='Features' className={styles.Features_button} onClick={Feature_button}> {/**/}
+                                Features
+                            </button>
 
-                        <ul id='Features_container'>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Video_Editor }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Video Editor
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_TextToSpeech_Audio }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Text-to-Speech Audio
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Pop-up Quiz Setting
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={{
-                                        pathname: '/[page]',
-                                        query: { page: process.env.NEXT_PUBLIC_Customized_Video }
-                                        }}
-                                    onClick={link_click}
-                                >
-                                    Customized Video
-                                </Link>
-                            </li>
-                        </ul>
+                            <ul id='Features_container'>
+                                <li>
+                                    <Link
+                                        href={{
+                                            pathname: '/[page]',
+                                            query: { page: process.env.NEXT_PUBLIC_Video_Editor }
+                                            }}
+                                        onClick={link_click}
+                                    >
+                                        Video Editor
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href={{
+                                            pathname: '/[page]',
+                                            query: { page: process.env.NEXT_PUBLIC_TextToSpeech_Audio }
+                                            }}
+                                        onClick={link_click}
+                                    >
+                                        Text-to-Speech Audio
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href={{
+                                            pathname: '/[page]',
+                                            query: { page: process.env.NEXT_PUBLIC_Pop_up_Quiz_Setting }
+                                            }}
+                                        onClick={link_click}
+                                    >
+                                        Pop-up Quiz Setting
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href={{
+                                            pathname: '/[page]',
+                                            query: { page: process.env.NEXT_PUBLIC_Customized_Video }
+                                            }}
+                                        onClick={link_click}
+                                    >
+                                        Customized Video
+                                    </Link>
+                                </li>
+                            </ul>
                         </li>
 
                         <li>

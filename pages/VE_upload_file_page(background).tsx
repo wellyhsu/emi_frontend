@@ -25,82 +25,6 @@ const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 
 var UserName="";
 UserName = Cookies.get('userName');
-var cancel = 0;
-
-//上傳影片到資料庫後端的取消功能
-function cancel_upload()
-{
-    var information;
-
-    document.getElementById("uploading").style = "display: none";
-    cancel = 1;
-
-    const Cancel = new FormData();   //宣告Cancel為FormData();
-    Cancel.append('username', UserName);     //把username插入fd中
-    Cancel.append('video_name', fileName);     //把video_name插入fd中
-    Cancel.append('user_RID', Cookies.get('user_RID'));     //把video_name插入fd中
-
-    //檢查FormData內的內容 - 方法一
-    Cancel.forEach((key, value) => {
-        console.log("value(標題)=",value,"key(內容)=",key);
-    });
-
-    fetch("http://34.96.232.169:30036/api/video/cancel", {            
-        method: 'POST',
-        headers:{
-            "Metadata-Token": Metadata_token,
-        },
-        body: Cancel,
-    })
-        .then((response) => {
-            information = response.json();
-            console.log('API cancel information=',information);
-            return information;
-        })
-        .then((data) => {
-            console.log('API cancel data=', data);
-        })
-        .catch((error) => console.log("error", error));
-}
-
-//影片進行優化處理時的取消
-function cancel_video_processing()
-{
-    var information;
-
-    document.getElementById("video_processing").style = "display: none";
-    
-    cancel = 1;   //代表不繼續上傳
-    console.log("processing_cancel=", cancel);
-
-    const Cancel = new FormData();   //宣告fd為FormData();
-    Cancel.append('username', UserName);     //把每一個chunk插入fd中
-    Cancel.append('video_name', fileName);     //把每一個chunk插入fd中
-    Cancel.append('user_RID', Cookies.get('user_RID'));     //把video_name插入fd中
-
-    //檢查FormData內的內容 - 方法一       
-    Cancel.forEach((key, value) => {
-        console.log("value(標題)=",value,"key(內容)=",key);
-    });
-
-    //打取消上傳影片的API
-    fetch("http://34.96.232.169:30036/api/video/cancel", {            
-        method: 'POST',
-        headers:{
-            "Metadata-Token": Metadata_token,
-        },
-        body: Cancel,
-    })
-        .then((response) => {
-            information = response.json(); 
-            console.log('API cancel information=',information);
-            return information;
-        })
-        .then((data) => {
-            console.log('API cancel data=', data);
-        })
-        .catch((error) => console.log("error", error));
-}
 
 //影片上傳完 優化處理也結束
 function Finish()
@@ -111,7 +35,6 @@ function Finish()
 
 //選擇要上傳的檔案
 function select_file(e) {
-    cancel = 0;
     console.log("press button");
 
     console.log("UserName=", UserName);
@@ -144,14 +67,6 @@ function select_file(e) {
     })   
 }  
 
-function small_window()
-{
-    console.log("縮小視窗！");
-    document.getElementById('uploading').style = "display: none";
-    document.getElementById('video_processing').style = "display: none";
-    Cookies.set('Uploading_video', "true");
-}
-
 /*
 //選擇是否上傳文字腳本檔
 function choose_upload_script(){
@@ -176,6 +91,12 @@ export default function VE_upload_file_page() {
     const [Progress_Number, SetProgress_Number] = useState(0);
     const videoTitleRef = useRef(undefined);
 
+    function updateProgress(value) {
+        //取得目前影片上傳進度
+        console.log("Current Progress:", value.video_upload_progress);
+        SetProgress_Number(value.video_upload_progress);
+    }
+
     function upload_file(e){
         var information;
         var id;
@@ -188,83 +109,16 @@ export default function VE_upload_file_page() {
             alert("Please input the Video title.");
             return false;
         }
+
         Cookies.set('Get_video_path', "false");
-    
-        file_type = fileName?.substring(fileName?.lastIndexOf(`.`));  //取得副檔名
-        console.log("file_type=",file_type); 
-    
-    
-        if(file_type == ".mp4" || file_type == ".MP4" || file_type == "video/mp4" || file_type == ".MOV") //如果檔案 
+        console.log("file_type=",fileType); 
+        
+        if(fileType == ".mp4" || fileType == ".MP4" || fileType == "video/mp4" || fileType == ".MOV") //如果檔案 
         {
-            processing_worker();
-            const worker = new Worker('/javascript/worker.js');
-
-            console.log("執行worker 背景執行上傳任務");
             SetProgress_Number(0);
-            var data={
-                fileData: fileData,
-                fileName: fileName,
-                fileType: fileType,
-                fileSize: fileSize,
-                videolength: videolength,
-                UserName: UserName,
-                user_RID: Cookies.get('user_RID'),
-                SPLIT_BYTES: SPLIT_BYTES,
-                videoTitle: videoTitleRef.current.value,
-            };
-            worker.postMessage(data);
-            // 继续执行其他代码，不会阻塞
-
-            //Check 使用者是否點擊cancel按鈕
-            let btn_upload_cancel = document.getElementById('upload_Cancel');
-            let btn_process_cancel = document.getElementById('process_Cancel');            
-            
-            //將on-event綁定在事件上
-            btn_upload_cancel.onclick = function(){
-                console.log('add listening on upload cancel button.');
-                cancel_upload();
-                worker.postMessage({ Status: 'terminate' });
-            };
-
-            btn_process_cancel.onclick = function(){
-                console.log('add listening on process cancel button.');
-                cancel_video_processing();
-                worker.postMessage({ Status: 'terminate' });
-            };
-            
-            //接收worker執行完成後的結果
-            worker.onmessage = function (event) {
-                const type = event.data.type;
-
-                if(type == "video_upload")
-                {
-                    const video_upload_progress = event.data.video_upload_progress;
-                    const video_upload_status = event.data.video_upload;
-                    SetProgress_Number(video_upload_progress);
-                    console.log("video_upload_progress=", video_upload_progress);
-                    
-                //影片成功上傳至資料庫                   
-                    if(video_upload_status == "finish")
-                    {
-                        document.getElementById('uploading').style = "display: none";
-                        document.getElementById('video_processing').style = "display: inline-block";
-
-                    }
-                }
-                else if(type == "video_process")
-                {
-                    const result = event.data.video_process;    
-                    console.log("relust=", result);
-                //影片完整處理完畢
-                    if(result['video_process'] == "finish")
-                    {
-                        document.getElementById('video_processing').style = "display: none";
-                        document.getElementById('finish').style = "display: flex";    
-                    }
-                }
-            };
+            processing_worker(fileData, fileName, fileType, fileSize, videolength, Cookies.get('userName'), Cookies.get('user_RID'), SPLIT_BYTES, videoTitleRef.current.value, Metadata_token, updateProgress);
         }
-        else if(file_type == "")
+        else if(fileType == "")
         {
             alert("Please choose a file.");
             return false
@@ -274,7 +128,6 @@ export default function VE_upload_file_page() {
             alert("The file type uncorrect!");
             return false
         }
-
         document.getElementById('uploading').style = "display: flex";
     }
 
@@ -283,9 +136,9 @@ export default function VE_upload_file_page() {
             <div id="uploading" style={{height: "100%",display: "none"}}>
                 <div className={styles.question_background}>
                     <div className={styles.pop_up_loading_window}>
-                    <button className={styles.small_window} onClick={small_window}>
-                        _
-                    </button>
+                        <button id="small_upload_window" className={styles.small_window}>
+                            _
+                        </button>
                         <div className={styles.uploading_text} >
                             uploading...
                         </div>
@@ -305,7 +158,7 @@ export default function VE_upload_file_page() {
                         </div>
                         <div style={{display: "flex", marginTop: "1em"}}>
                             <div style={{marginLeft: "auto", marginRight: "auto"}}>
-                                <button id="upload_Cancel" style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_upload}>
+                                <button id="upload_Cancel" style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button}>
                                     Cancel
                                 </button>
                             </div>
@@ -317,6 +170,9 @@ export default function VE_upload_file_page() {
             <div id="video_processing" style={{height: "100%",display: "none"}}>
                 <div className={styles.question_background}>
                     <div className={styles.pop_up_loading_window}>
+                        <button id="small_process_window" className={styles.small_window}>
+                            _
+                        </button>
                         <div className={styles.upload_finish} >
                             video upload finish
                         </div>
@@ -326,7 +182,7 @@ export default function VE_upload_file_page() {
                         
                         <div style={{display: "flex", marginTop: "4em"}}>
                             <div style={{marginLeft: "auto", marginRight: "auto"}}>
-                                <button id="process_Cancel" style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button} onClick={cancel_video_processing}>
+                                <button id="process_Cancel" style={{marginLeft: "3em"}} className={styles.uploading_Cancel_button}>
                                     Cancel
                                 </button>
                             </div>
@@ -380,7 +236,7 @@ export default function VE_upload_file_page() {
                     </div>
                     <div className={styles.file_Name}>
                         File Name:
-                        <input type="text"  readOnly="readonly" id="file_name" className={styles.file_input} style={{cursor: "not-allowed"}}>
+                        <input type="text"  readOnly="readOnly" id="file_name" className={styles.file_input} style={{cursor: "not-allowed"}}>
 
                         </input>
                     </div>

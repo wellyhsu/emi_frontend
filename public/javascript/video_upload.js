@@ -102,7 +102,8 @@ async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTitle, fi
     console.log("fileName==",fileName);
     console.log("GET MetaDataToken", Metadata_token);
 
-    for (let chunk of chunks) {   //
+    while(Chunk_Number <= chunks.length)
+    {
         const fd = new FormData();   //宣告fd為FormData();
 
         if(Chunk_Number == chunks.length)
@@ -128,7 +129,7 @@ async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTitle, fi
         console.log("account_send_json is " + Video_Information_send_json);
 
         fd.append('information', Video_Information_send_json);
-        fd.append('chunk', chunk);     //把每一個chunk插入fd中
+        fd.append('chunk', chunks[Chunk_Number-1]);     //把每一個chunk插入fd中
 /*檢查FormData內的內容 - 方法一       
         fd.forEach((key, value) => {
             console.log("value(標題)=",value,"key(內容)=",key);
@@ -153,7 +154,7 @@ async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTitle, fi
                 console.log("response is ok!");
 
                 var data;
-                data = await response.json();   //取得後端回傳的資料
+                data = await response.text();   //json取得後端回傳的資料
                 console.log("data=", data);
                 if(Chunk_Number == chunks.length)
                 {   
@@ -168,10 +169,7 @@ async function _chunkUploadTask(chunks, Metadata_token, UserName, videoTitle, fi
 
                     progressCallback({ video_process : checkProcessingStatus(UserName, fileName, user_RID)});
                 }  
-                else
-                {
-                    Chunk_Number = Chunk_Number + 1;
-                } 
+                Chunk_Number = Chunk_Number + 1;
                 results.push(data);    //將後端後端傳回的資料放到results
 
 /*                
