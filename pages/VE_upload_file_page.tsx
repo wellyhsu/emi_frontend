@@ -258,7 +258,6 @@ export default function VE_upload_file_page() {
         var information;
     //    var transform_degree;
     
-        console.log('chunks=', chunks);
         console.log('Length=',chunks.length);
         console.log("fileName==",fileName);
         console.log("GET MetaDataToken", JSON.stringify(Metadata_token));
@@ -474,6 +473,7 @@ export default function VE_upload_file_page() {
         var title;
         var file_type;
         var upload=0;
+
 /*  TEST
         checkProcessingStatus();
         const call_API = setInterval(() => {
@@ -496,6 +496,7 @@ export default function VE_upload_file_page() {
     
         if(file_type == ".mp4" || file_type == ".MP4" || file_type == "video/mp4" || file_type == ".MOV") //如果檔案 
         {
+            cancel = 0;
             sendMetadata();    //發送MetaData到後端
         }
 /*        else if(file_type == ".ppt" || file_type == ".pptx")
