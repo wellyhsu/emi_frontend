@@ -264,8 +264,8 @@ export default function VE_upload_file_page() {
         console.log("GET MetaDataToken", JSON.stringify(Metadata_token));
         SetProgress_Number(0);
     
-        for (let chunk of chunks) {
-        
+        while(Chunk_Number <= chunks.length)
+        {
             const fd = new FormData();   //宣告fd為FormData();
     
             if(Chunk_Number == chunks.length)
@@ -291,7 +291,7 @@ export default function VE_upload_file_page() {
             console.log("account_send_json is " + Video_Information_send_json);
     
             fd.append('information', Video_Information_send_json);
-            fd.append('chunk', chunk);     //把每一個chunk插入fd中
+            fd.append('chunk', chunks[Chunk_Number-1]);     //把每一個chunk插入fd中
 /*
     //檢查FormData內的內容 - 方法一       
             fd.forEach((key, value) => {
@@ -332,10 +332,7 @@ export default function VE_upload_file_page() {
                             // 開始檢查後端影片處理狀態
                             checkProcessingStatus();
                         }  
-                        else
-                        {
-                            Chunk_Number = Chunk_Number + 1;
-                        } 
+                        Chunk_Number = Chunk_Number + 1;
                         results.push(data);    //將後端後端傳回的資料放到results
     
                         Set_transform_degree(transform_degree + 360/chunks.length);
