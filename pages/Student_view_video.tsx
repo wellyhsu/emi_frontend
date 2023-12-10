@@ -42,6 +42,14 @@ export default function Student_view_video() {
     const [VideoPath, SetvideoPath] = useState("");
 
     useLayoutEffect(() => {
+        if((token == "null") || (token == null) || (token == "undefined"))
+        {
+          console.log("useEffect triggered");
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
+    }, [])
+
+    useLayoutEffect(() => {
         const storedVideoPath = Cookies.get('video_path');
 
         if (storedVideoPath) 
@@ -82,17 +90,6 @@ export default function Student_view_video() {
             .catch((error) => console.log("error", error));
     }
     
-
-    useLayoutEffect(() => {
-
-        if((token == "null") || (token == null) || (token == "undefined"))
-        {
-          console.log("useEffect triggered");
-//          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
-        }
-        
-    }, [])
-
     useEffect(() => {
         if (videoRef.current) 
         {

@@ -56,7 +56,7 @@ function View_video(){
 }
 
 /*
-function gap_fill_question(){  
+function gap_fill_question(){
     document.getElementById("gap_fill_question").style = "display: flex";
 }
 */
@@ -116,51 +116,56 @@ export default function Pop_up_Quiz_Editing_my_video({ cookieData }) {
 
 
     useLayoutEffect(() => {
+        if((token == "null") || (token == null) || (token == "undefined"))
+        {
+          console.log("useEffect triggered");
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
 
-            // 如果从 Cookie 中成功获取到影片路径，将其设置到状态变量中
-            console.log("Cookies.get('video_path')=", Cookies.get('video_path'));
+        // 如果从 Cookie 中成功获取到影片路径，将其设置到状态变量中
+        console.log("Cookies.get('video_path')=", Cookies.get('video_path'));
 
-            const sourceElement = document.createElement('source');
-            sourceElement.src = `/api/videoPath?videoPath=${encodeURIComponent(Cookies.get('video_path'))}`;
-            sourceElement.type = 'video/mp4';
+        const sourceElement = document.createElement('source');
+        sourceElement.src = `/api/videoPath?videoPath=${encodeURIComponent(Cookies.get('video_path'))}`;
+        sourceElement.type = 'video/mp4';
 
-            console.log("成功！");
+        console.log("成功！");
 
-            selectVideo = document.getElementById('video');
-            selectVideo?.appendChild(sourceElement);
+        selectVideo = document.getElementById('video');
+        selectVideo?.appendChild(sourceElement);
 
-            playButton = document.getElementById('playbutton');
-            inputItem = document.querySelectorAll('input');
-    //        skipButton = document.querySelectorAll('.player__button[data-skip]');
-            progressBarOut = document.getElementById('progress');
-            progressBarIn = document.getElementById('progress_fill');    
-            document.getElementById('video_control').style = "width: selectVideo.videoWidth";
+        playButton = document.getElementById('playbutton');
+        inputItem = document.querySelectorAll('input');
+//        skipButton = document.querySelectorAll('.player__button[data-skip]');
+        progressBarOut = document.getElementById('progress');
+        progressBarIn = document.getElementById('progress_fill');    
+        document.getElementById('video_control').style = "width: selectVideo.videoWidth";
 
-            console.log("selectVideo=", selectVideo);
+        console.log("selectVideo=", selectVideo);
 
-            console.log("videoWidth=", selectVideo.videoWidth);
-            console.log("playButton=", playButton);
-            console.log("inputItem=", inputItem);
-    //        console.log("skipButton=", skipButton);
-            console.log("progressBarOut=", progressBarOut);
-            console.log("progressBarIn=", progressBarIn);
+        console.log("videoWidth=", selectVideo.videoWidth);
+        console.log("playButton=", playButton);
+        console.log("inputItem=", inputItem);
+//        console.log("skipButton=", skipButton);
+        console.log("progressBarOut=", progressBarOut);
+        console.log("progressBarIn=", progressBarIn);
 
-            //播放及暫停按鈕
-            playButton.addEventListener('click', playToggle);
-            selectVideo.addEventListener('click', playToggle);
-        
-            //調整音量  利用forEach()方法將選到的每個input元素加上監聽事件
-            inputItem.forEach(function(item){
-                item.addEventListener('input', changeCondition);
-            });
+        //播放及暫停按鈕
+        playButton.addEventListener('click', playToggle);
+        selectVideo.addEventListener('click', playToggle);
+    
+        //調整音量  利用forEach()方法將選到的每個input元素加上監聽事件
+        inputItem.forEach(function(item){
+            item.addEventListener('input', changeCondition);
+        });
 
-            //將影片加上監聽事件以及觸發函示
-            selectVideo.addEventListener('timeupdate', progressing);
+        //將影片加上監聽事件以及觸發函示
+        selectVideo.addEventListener('timeupdate', progressing);
 
-            //監聽 當滑鼠被按下時，執行addDragProgress函式
-            progressBarOut.addEventListener('mousedown', addDragProgress);
-            //監聽 當滑鼠被放開時，執行removeDragProgress函式
-            progressBarOut.addEventListener('mouseup', removeDragProgress);
+        //監聽 當滑鼠被按下時，執行addDragProgress函式
+        progressBarOut.addEventListener('mousedown', addDragProgress);
+        //監聽 當滑鼠被放開時，執行removeDragProgress函式
+        progressBarOut.addEventListener('mouseup', removeDragProgress);
     }, [])
 
     useLayoutEffect(() => {

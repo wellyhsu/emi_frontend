@@ -3,7 +3,8 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import Script from 'next/script'
 import Cookies from 'js-cookie';
-import { useState, useRef } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
+import { useRouter } from 'next/router';
 import { CLIENT_STATIC_FILES_PATH } from 'next/dist/shared/lib/constants';
 //import upload from '../components/choose_file'
 
@@ -25,6 +26,8 @@ const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 
 var UserName="";
 UserName = Cookies.get('userName');
+const token =  Cookies.get('token');
+
 var cancel = 0;
 
 var status="";
@@ -195,6 +198,15 @@ export default function VE_upload_file_page() {
     const [transform_degree, Set_transform_degree] = useState(0);
     const [Progress_Number, SetProgress_Number] = useState(0);
     const videoTitleRef = useRef(undefined);
+    const router = useRouter();
+
+    useLayoutEffect(() => {
+        if((token == "null") || (token == null) || (token == "undefined"))
+        {
+          console.log("useEffect triggered");
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }
+    }, [])
 
     //每兩秒打一次後端 看後端任務結束了嗎？
     async function performSomeAsyncOperation() {

@@ -3,7 +3,8 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import Script from 'next/script'
 import Cookies from 'js-cookie';
-import { useState, useRef } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
+import { useRouter } from 'next/router';
 import { processing_worker } from '../public/javascript/processing_worker';
 //import upload from '../components/choose_file'
 
@@ -25,6 +26,7 @@ const CHUNK_SIZE = 100*1024; //檔案以每100KB做切割
 
 var UserName="";
 UserName = Cookies.get('userName');
+const token = Cookies.get('token');
 
 //影片上傳完 優化處理也結束
 function Finish()
@@ -90,6 +92,15 @@ export default function VE_upload_file_page() {
     const [transform_degree, Set_transform_degree] = useState(0);
     const [Progress_Number, SetProgress_Number] = useState(0);
     const videoTitleRef = useRef(undefined);
+    const router = useRouter();
+
+    useLayoutEffect(() => {
+        if((token == "null") || (token == null) || (token == "undefined"))
+        {
+          console.log("useEffect triggered");
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+        }        
+    }, [])
 
     function updateProgress(value) {
         //取得目前影片上傳進度

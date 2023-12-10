@@ -79,37 +79,37 @@ export default function Home() {
     video_ID_array.splice(video_ID_array.indexOf(parseInt(video_ID)), 1);
     console.log("video_ID_array=", video_ID_array)
 
-      setVideoNameArray([]);
-      setVideoArray([]);
+    setVideoNameArray([]);
+    setVideoArray([]);
 
-      console.log("F_Video_Name=", video_name_array);
-      console.log("F_video_array=", video_array);
+    console.log("F_Video_Name=", video_name_array);
+    console.log("F_video_array=", video_array);
 
-      console.log("D_Video_Name_array=", Video_Name_array);
-      console.log("D_Video_array=", Video_array);  
-     
-      console.log("D_video_Name=", video_name_array);
-      console.log("D_video_array=", video_array);
-      
-      setVideo_Number(video_number-1);
+    console.log("D_Video_Name_array=", Video_Name_array);
+    console.log("D_Video_array=", Video_array);  
+    
+    console.log("D_video_Name=", video_name_array);
+    console.log("D_video_array=", video_array);
+    
+    setVideo_Number(video_number-1);
 
-      fetch(process.env.NEXT_Cancel_upload, {            
-          method: 'POST',
-          headers:{
-              "Metadata-Token": Metadata_token,
-          },
-          body: Cancel,
-      })
-          .then((response) => {
-            information = response.text();
-            console.log('info^^',information);
-            return information;
-          })
-          .then((data) => {
-              console.log('data=', data);
-          })
-          .catch((error) => console.log("error", error));
-    }
+    fetch(process.env.NEXT_Cancel_upload, {            
+        method: 'POST',
+        headers:{
+            "Metadata-Token": Metadata_token,
+        },
+        body: Cancel,
+    })
+        .then((response) => {
+          information = response.text();
+          console.log('info^^',information);
+          return information;
+        })
+        .then((data) => {
+            console.log('data=', data);
+        })
+        .catch((error) => console.log("error", error));
+  }
 
   useLayoutEffect(() => {
 

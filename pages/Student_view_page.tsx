@@ -47,11 +47,6 @@ export default function Account_Archive() {
   const searchRef = useRef(undefined);
   // 為了方便操作，建立一個array來管理這些ref
 
-
-  function alert_message(){
-    router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
-  }
-
   function preview_video(clickID)
   {
     document.getElementById("preview_video").style= "display : flex;" ;
@@ -259,7 +254,7 @@ export default function Account_Archive() {
     if((token == "null") || (token == null) || (token == "undefined"))
     {
       console.log("useEffect triggered");
-   //   router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+      router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
     }
 
     console.log("API=",API);

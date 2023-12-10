@@ -143,6 +143,16 @@ export default function Popup_Quiz_upload_video_page() {
     const router = useRouter();
     const [Progress_Number, SetProgress_Number] = useState(0);
 
+    useLayoutEffect(() => {
+
+        if((token == "null") || (token == null) || (token == "undefined"))
+        {
+          console.log("useEffect triggered");
+          router.push("/"+ process.env.NEXT_PUBLIC_Log_in);
+    
+        }
+    }, [])
+
     async function _chunkUploadTask(chunks) {   //上傳分割好的小段影片(依據切割長度發送請求次數)
         const results = [];   //儲存每一段影片上傳後的結果(成功/失敗)
         var Chunk_Number = 1;
